@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -std=c++14
 LFLAGS = -lSDL2 -lSDL2_image -framework OpenGL -ldl -llua
 HEADERS := $(call rwildcard,src/,*.hh)
-OBJS = hello.o
+OBJS = hello.o Script.o
 OUT = main
 
 
