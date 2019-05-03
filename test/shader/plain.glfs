@@ -1,0 +1,9 @@
+void main() {
+    float x = gl_FragCoord.x + sin(gl_FragCoord.y / 5.0) * 3.0;
+    if (x > 256.0 && x < 768.0) {
+        gl_FragColor = vec4(1.0 - x / 1600.0, 0.0, 1.0, 1.0);
+    } else {
+        gl_FragColor = vec4(x / 1024.0, gl_FragCoord.y / 768.0, 0.0, 1.0);
+    }
+
+}

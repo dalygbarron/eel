@@ -3,16 +3,37 @@
 
 #define GL_SILENCE_DEPRECATION
 #include <OpenGL/gl.h>
+#include "Vector.hh"
 
 /**
  * A picture texture which is applied to a face.
+ * All the fields of this type are publically accessible, so if you want to stop them from being modified you must pass
+ * the object as a const.
  */
 class Texture {
-    unsigned int textureId;
-    int width;
-    int height;
+    /**
+     * Gets the nearest power of two.
+     * @param num is the number we are trying to be close to.
+     */
+    int powerOfTwo(int num);
+
+    /**
+     * Initialises the texture's vertex buffer object.
+     */
+    void initVbo();
+
+    /**
+     * Frees the texture's vertex buffer object.
+     */
+    void freeVbo();
 
 public:
+    unsigned int textureId = 0;
+    unsigned int vboId = 0;
+    unsigned int iboId = 0;
+    Vector2 textureSize;
+    Vector2 imageSize;
+
     /**
      * Creates an empty texture object with no image data inside.
      */
@@ -26,41 +47,28 @@ public:
     /**
      * Loads a texture out of some pixel data.
      * @param pixels is the array of pixels each stored as 32 bit colour.
-     * @param width  is the width of the image in the pixel array.
-     * @param height is the height of the image in the pixel array.
+     * @param size   is the size of the array of data.
      * @return true if successful and false otherwise.
      */
-    int loadFromPixels(GLuint *pixels, int width, int height);
+    int loadFromPixels(GLuint *pixels, Vector2 size);
 
     /**
      * Deletes the data in the texture.
      */
-    void free();
+    void freeTexture();
 
     /**
      * Renders the texture into the screen.
-     * @param x is the horizontal position to place the texture.
-     * @param y is the vertical position to place it.
+     * @param pos  is the place to render it.
+     * @param clip is the rectangle to fit it into.
      */
-    void render(GLfloat x, GLfloat y);
+    void render(Vector2 pos, Rect2 clip);
 
     /**
-     * Gives the texture's current ID on the GPU.
-     * @return the id.
+     * gives you the texture's dimensions.
+     * @return the size.
      */
-    GLuint getTextureId();
-
-    /**
-     * gives you the texture's width.
-     * @return the width.
-     */
-    unsigned int getWidth();
-
-    /**
-     * Gives you the texture's height.
-     * @return the height.
-     */
-    unsigned int getHeight();
+    Vector2 getSize();
 };
 
 #endif

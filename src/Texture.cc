@@ -3,24 +3,25 @@
 #define GL_SILENCE_DEPRECATION
 #include <iostream>
 #include <OpenGL/gl.h>
+#include "Vector.hh"
+
 
 Texture::Texture() {
-    this->textureId = 0;
-    this->width = 0;
-    this->height = 0;
+    // does nothing.
 }
 
 Texture::~Texture() {
-    this->free();
+    this->freeTexture();
+    this->freeVbo();
 }
 
-int Texture::loadFromPixels(GLuint *pixels, int width, int height) {
-    this->free();
-    this->width = width;
-    this->height = height;
+int Texture::loadFromPixels(GLuint *pixels, Vector2 size) {
+    this->freeTexture();
+    this->textureSize = size;
+    this->imageSize = size;
     glGenTextures(1, &this->textureId);
     glBindTexture(GL_TEXTURE_2D, this->textureId);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.iX(), size.iY(), 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -30,45 +31,93 @@ int Texture::loadFromPixels(GLuint *pixels, int width, int height) {
         std::cerr << "error loading texture: " << error << std::endl;
         return false;
     }
+    // generate vbo
+    this->initVbo();
     return true;
 }
 
-void Texture::free() {
+void Texture::freeTexture() {
     if (this->textureId != 0) {
         glDeleteTextures(1, &this->textureId);
         this->textureId = 0;
     }
-    this->width = 0;
-    this->height = 0;
+    this->textureSize = Vector2();
+    this->imageSize = Vector2();
 }
 
-void Texture::render(GLfloat x, GLfloat y) {
+void Texture::render(Vector2 pos, Rect2 clip) {
     if (this->textureId == 0) return;
-    glLoadIdentity();
-    glTranslatef(x, y, 0);
+    // setting up the right stuff.
+    Rect2 textureRect(Vector2(), this->imageSize / this->textureSize);
+    Vector2 quad = this->imageSize;
+    if (clip.size.exists()) {
+        textureRect.pos = clip.pos / this->textureSize;
+        textureRect.size = clip.end() / this->textureSize;
+        quad = clip.size;
+    }
+    // set up data to send
+    glTranslatef(pos.x, pos.y, 0);
+    Rect2 vertex[4];
+    vertex[0].pos = textureRect.pos;
+    vertex[1].pos = textureRect.pos + Vector2(textureRect.size.x, 0);
+    vertex[2].pos = textureRect.end();
+    vertex[3].pos = textureRect.pos + Vector2(0, textureRect.size.y);
+    vertex[0].size = Vector2();
+    vertex[1].size = Vector2(quad.x, 0);
+    vertex[2].size = quad;
+    vertex[3].size = Vector2(0, quad.y);
+    // binding and rendering.
     glBindTexture(GL_TEXTURE_2D, this->textureId);
-    // TODO: this is slow and shitty. We can send this data to the gpu apparantly.
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0);
-    glVertex2f(0, 0);
-    glTexCoord2f(1, 0);
-    glVertex2f(this->width, 0);
-    glTexCoord2f(1, 1);
-    glVertex2f(this->width, this->height);
-    glTexCoord2f(0, 1);
-    glVertex2f(0, this->height);
-    glEnd();
-
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glBindBuffer(GL_ARRAY_BUFFER, this->vboId);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, 4 * sizeof(Rect2), vertex);
+    glTexCoordPointer(2, GL_FLOAT, sizeof(Rect2), (GLvoid*)offsetof(Rect2, pos));
+    glVertexPointer(2, GL_FLOAT, sizeof(Rect2), (GLvoid*)offsetof(Rect2, size));
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->iboId);
+    glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, 0);
+    // finish off.
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-GLuint Texture::getTextureId() {
-    return this->textureId;
+int Texture::powerOfTwo(int num) {
+    if (num != 0) {
+        num--;
+        num |= (num >> 1);
+        num |= (num >> 2);
+        num |= (num >> 4);
+        num |= (num >> 8);
+        num |= (num >> 16);
+        num++;
+    }
+    return num;
 }
 
-unsigned int Texture::getWidth() {
-    return this->width;
+void Texture::initVbo() {
+    if (!this->textureId || this->vboId || this->iboId) return;
+    Rect2 vertex[4];
+    GLuint index[4];
+    // fill index data.
+    index[0] = 0;
+    index[1] = 1;
+    index[2] = 2;
+    index[3] = 3;
+    // create vbo.
+    glGenBuffers(1, &this->vboId);
+    glBindBuffer(GL_ARRAY_BUFFER, this->vboId);
+    glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Rect2), vertex, GL_DYNAMIC_DRAW);
+    //create ibo.
+    glGenBuffers(1, &this->iboId);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->iboId);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), index, GL_DYNAMIC_DRAW);
+    // unbind buffers.
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-unsigned int Texture::getHeight() {
-    return this->height;
+void Texture::freeVbo() {
+    if (!this->vboId) return;
+    glDeleteBuffers(1, &this->vboId);
+    glDeleteBuffers(1, &this->iboId);
 }

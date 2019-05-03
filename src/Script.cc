@@ -5,7 +5,7 @@
 
 void Script::showError(lua_State *state) {
     char const *message = lua_tostring(state, -1);
-    std::cout << message << std::endl;
+    std::cerr << message << std::endl;
     lua_pop(state, 1);
 }
 

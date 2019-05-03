@@ -2,7 +2,7 @@
 #define VECTOR_2_H
 
 /**
- * A point in 2d space.
+ * A point in continuous 2d space.
  */
 class Vector2 {
 public:
@@ -21,7 +21,107 @@ public:
      */
     Vector2(float x, float y);
 
-    // TODO: operator overloading.
+    /**
+     * Tells you if either dimension is non zero.
+     * @return true if so and false if not.
+     */
+    int exists() const;
+
+    /**
+     * Gives the area of a rectangle with the origin and (x, y) at opposing corners.
+     * @return the area which is x * y but non negative.
+     */
+    float area() const;
+
+    /**
+     * Gives the length of the line from the origin to the point (x, y).
+     * @return the length.
+     */
+    float length() const;
+
+    /**
+     * Gives the x component as an integer.
+     * @return the x component of the vector as an integer.
+     */
+    int iX() const;
+
+    /**
+     * Gives the y component as an integer.
+     * @return the y component of the vector as an integer.
+     */
+    int iY() const;
+
+    /**
+     * Addition operator.
+     * @param other is the other position to add on to this one.
+     * @return the new position.
+     */
+    Vector2 operator+(Vector2 other) const;
+
+    /**
+     * Subtraction operator.
+     * @param other is the other position to remove from this one.
+     * @return the new position.
+     */
+    Vector2 operator-(Vector2 other) const;
+
+    /**
+     * Multiplication operator.
+     * @param other is the other position to multiply this one by.
+     * @return the new position.
+     */
+    Vector2 operator*(Vector2 other) const;
+
+    /**
+     * Division operator.
+     * @param other is the other position to divide this one by.
+     * @return the new position.
+     */
+    Vector2 operator/(Vector2 other) const;
+
+    /**
+     * Addition assignment operator.
+     * @param other is the other position to add to this one.
+     * @return this I guess.
+     */
+    Vector2 operator+=(Vector2 other);
+
+    /**
+     * Multiplication operator with float.
+     * @param other is the other position to multiply this one by.
+     * @return the new position.
+     */
+    Vector2 operator*(float other) const;
+
+    /**
+     * Division operator with float.
+     * @param other is the other position to divide this one by.
+     * @return the new position.
+     */
+    Vector2 operator/(float other) const;
+};
+
+/**
+ * A three dimensional value.
+ */
+class Vector3 {
+public:
+    float x;
+    float y;
+    float z;
+
+    /**
+     * Makes a vector with all zeroes.
+     */
+    Vector3();
+
+    /**
+     * Creates a vector 3.
+     * @param x is the first component.
+     * @param y is the second component.
+     * @param z is the third component.
+     */
+    Vector3(float x, float y, float z);
 };
 
 /**
@@ -53,7 +153,13 @@ public:
      */
     Rect2(float x, float y, float w, float h);
 
+    /**
+     * Gives the position of the bottom right corner of the rectangle so pos + size basically.
+     * @return the position of the bottom right corner.
+     */
+    Vector2 end() const;
+
     // TODO: operator overloading.
-}
+};
 
 #endif
