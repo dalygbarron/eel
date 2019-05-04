@@ -47,6 +47,8 @@ int main(int argc, char** argv) {
         shader->update(newTime / 1000.0);
         a->render(Vector2(640, 480), Rect2());
         shader->unbind();
+
+
         bullets->render();
         Graphics::flip();
     }

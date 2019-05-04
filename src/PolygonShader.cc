@@ -16,7 +16,7 @@ int PolygonShader::load() {
     }
     glAttachShader(this->programId, vertexShader);
     // create the fragment shader.
-    int fragmentShader = loadFromFile("test/shader/plain.glfs", GL_FRAGMENT_SHADER);
+    int fragmentShader = loadFromFile("test/shader/eyeball.glfs", GL_FRAGMENT_SHADER);
     if (!fragmentShader) {
         glDeleteShader(vertexShader);
         glDeleteProgram(this->programId);
@@ -25,7 +25,6 @@ int PolygonShader::load() {
     }
     glAttachShader(this->programId, fragmentShader);
     glLinkProgram(this->programId);
-    this->time = glGetUniformLocation(this->programId, "time");
     // find errors.
     int compiled;
     glGetProgramiv(this->programId, GL_LINK_STATUS, &compiled);
@@ -38,6 +37,8 @@ int PolygonShader::load() {
         this->programId = 0;
         return false;
     }
+    // get uniforms
+    this->time = glGetUniformLocation(this->programId, "time");
     if (this->time == -1) {
         std::cerr << "Time uniform needed but not found." << std::endl;
     }

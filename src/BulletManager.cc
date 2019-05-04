@@ -16,7 +16,7 @@ BulletManager::BulletManager(Texture const *texture) {
         this->bullets[i].colour.y = (rand() % 20) / (float)20;
         this->bullets[i].colour.z = (rand() % 20) / (float)20;
 
-        this->bullets[i].pos.x = rand() % Graphics::WIDTH / 2 + Graphics::WIDTH / 4;
+        this->bullets[i].pos.x = rand() % Graphics::WIDTH;
         this->bullets[i].pos.y = rand() % Graphics::HEIGHT;
         int angle = rand();
         this->bullets[i].velocity.y = 0.5;
@@ -31,9 +31,9 @@ void BulletManager::process() {
         this->bullets[i].pos += this->bullets[i].velocity;
         this->bullets[i].velocity += this->bullets[i].gravity;
         if (this->bullets[i].pos.y > Graphics::HEIGHT) this->bullets[i].pos.y -= Graphics::HEIGHT;
-        if (this->bullets[i].pos.x > Graphics::WIDTH / 4 * 3) this->bullets[i].pos.x -= Graphics::WIDTH / 2;
+        // if (this->bullets[i].pos.x > Graphics::WIDTH / 4 * 3) this->bullets[i].pos.x -= Graphics::WIDTH / 2;
         if (this->bullets[i].pos.y < 0) this->bullets[i].pos.y += Graphics::HEIGHT;
-        if (this->bullets[i].pos.x < Graphics::WIDTH / 4) this->bullets[i].pos.x += Graphics::WIDTH / 2;
+        // if (this->bullets[i].pos.x < Graphics::WIDTH / 4) this->bullets[i].pos.x += Graphics::WIDTH / 2;
     }
 }
 

@@ -25,7 +25,7 @@ int Shader::loadFromFile(char const *path, GLenum shaderType) {
         int compiled = 0;
         glGetShaderiv(shaderId, GL_COMPILE_STATUS, &compiled);
         if (compiled != GL_TRUE) {
-            std::cerr << "unable to compile shader: " << shaderId << ", source: " << source << std::endl;
+            std::cerr << "unable to compile shader " << shaderId << ", source: " << std::endl << source << std::endl;
             this->printShaderLog(shaderId);
             glDeleteShader(shaderId);
             shaderId = 0;
@@ -76,8 +76,8 @@ void Shader::printProgramLog(int program) {
 
 void Shader::printShaderLog(int shader) {
     if (glIsShader(shader)) {
-        int infoLogLength = 0;
-        int maxLength = 0;
+        int infoLogLength;
+        int maxLength;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
         char *infoLog = new char[maxLength];
         glGetProgramInfoLog(shader, maxLength, &infoLogLength, infoLog);
