@@ -13,6 +13,7 @@ public:
     Vector2 velocity;
     Vector2 gravity;
     Vector3 colour;
+    float angle;
     unsigned char type = 0;
 };
 
@@ -21,7 +22,7 @@ public:
  */
 class BulletManager {
 public:
-    static const int MAX_BULLETS = 1536;
+    static const int MAX_BULLETS = 1280;
 
 private:
     Bullet bullets[BulletManager::MAX_BULLETS];

@@ -7,8 +7,8 @@
  * Contains a window and rendering stuff needed to do the graphics.
  */
 namespace Graphics {
-    static const int WIDTH = 1024;
-    static const int HEIGHT = 768;
+    static const int WIDTH = 1280;
+    static const int HEIGHT = 960;
 
     /**
      * Starts up the game window and rendering stuff.

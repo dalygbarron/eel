@@ -9,5 +9,10 @@ in one list. This will mean there is a lot of empty arrays for bullets but who c
 in all the different bullet types and their properties at the start of the game from a list and we can then use these
 
 See if I can bind a shader without raping the performance and use that to allow the same texture to be used for bullets
-of different colours. Maybe also make them look cool and shiny or something if it's still not too slow. Technically
-we could also make them purely shader generated but we will see how that goes.
+of different colours. Maybe also make them look cool and shiny or something if it's still not too slow.
+
+Ok I can say confidently that using a shader for the bullets is doable and does not even seem to affect performance at
+all.
+
+also make it that when you configure bullet types you configure whether a given type can rotate and if they can't then
+skip the rotating code as it has a slight performance loss.

@@ -49,11 +49,12 @@ void Texture::render(Vector2 pos, Rect2 clip) {
     if (this->textureId == 0) return;
     // setting up the right stuff.
     Rect2 textureRect(Vector2(), this->imageSize / this->textureSize);
-    Vector2 quad = this->imageSize;
+    Rect2 quad(this->imageSize * -0.5, this->imageSize);
     if (clip.size.exists()) {
+        // TODO: this is probably screwed.
         textureRect.pos = clip.pos / this->textureSize;
         textureRect.size = clip.end() / this->textureSize;
-        quad = clip.size;
+        quad = Rect2(Vector2(), clip.size);
     }
     // set up data to send
     glTranslatef(pos.x, pos.y, 0);
@@ -62,10 +63,10 @@ void Texture::render(Vector2 pos, Rect2 clip) {
     vertex[1].pos = textureRect.pos + Vector2(textureRect.size.x, 0);
     vertex[2].pos = textureRect.end();
     vertex[3].pos = textureRect.pos + Vector2(0, textureRect.size.y);
-    vertex[0].size = Vector2();
-    vertex[1].size = Vector2(quad.x, 0);
-    vertex[2].size = quad;
-    vertex[3].size = Vector2(0, quad.y);
+    vertex[0].size = quad.pos;
+    vertex[1].size = quad.pos + Vector2(quad.size.x, 0);
+    vertex[2].size = quad.end();
+    vertex[3].size = quad.pos + Vector2(0, quad.size.y);
     // binding and rendering.
     glBindTexture(GL_TEXTURE_2D, this->textureId);
     glEnableClientState(GL_VERTEX_ARRAY);

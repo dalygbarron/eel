@@ -2,6 +2,7 @@
 #include <ctime>
 #include "Script.hh"
 #include "Graphics.hh"
+#include "Audio.hh"
 #include "Input.hh"
 #include "Texture.hh"
 #include "Vector.hh"
@@ -10,12 +11,12 @@
 #include "PolygonShader.hh"
 #include <SDL2/SDL.h>
 
-#define N_BULLETS 1024
-
 int main(int argc, char** argv) {
     Graphics::init("game", argc > 1);
+    Audio::init();
+    //Audio::play("test/song/rorsh.ogg");
     srand(time(0));
-    Shader *shader = new PolygonShader();
+    PolygonShader *shader = new PolygonShader();
     shader->load();
     Texture *a = Graphics::loadTextureFile("test/image/cirno.png");
     Texture *b = Graphics::loadTextureFile("test/image/flan.png");
@@ -43,7 +44,8 @@ int main(int argc, char** argv) {
         Graphics::clear();
         glLoadIdentity();
         shader->bind();
-        a->render(Vector2(0, 0), Rect2());
+        shader->update(newTime / 1000.0);
+        a->render(Vector2(640, 480), Rect2());
         shader->unbind();
         bullets->render();
         Graphics::flip();
@@ -51,5 +53,6 @@ int main(int argc, char** argv) {
     delete a;
     delete b;
     Graphics::close();
+    Audio::close();
     return 0;
 }

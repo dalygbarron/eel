@@ -25,6 +25,7 @@ int PolygonShader::load() {
     }
     glAttachShader(this->programId, fragmentShader);
     glLinkProgram(this->programId);
+    this->time = glGetUniformLocation(this->programId, "time");
     // find errors.
     int compiled;
     glGetProgramiv(this->programId, GL_LINK_STATUS, &compiled);
@@ -37,8 +38,15 @@ int PolygonShader::load() {
         this->programId = 0;
         return false;
     }
+    if (this->time == -1) {
+        std::cerr << "Time uniform needed but not found." << std::endl;
+    }
     // clean up. these are not needed once linked apparantly.
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
     return true;
+}
+
+void PolygonShader::update(float time) {
+    glUniform1f(this->time, time);
 }
