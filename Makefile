@@ -1,20 +1,23 @@
-rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 CC = g++
 CFLAGS = -std=c++14
-LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -framework GLUT -framework OpenGL -ldl -llua
-HEADERS := $(call rwildcard,src/,*.hh)
-OBJS = hello.o Script.o Graphics.o Input.o Texture.o Vector.o Shader.o PolygonShader.o BulletManager.o Audio.o
+LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua
+OBJS = main.o Script.o
 OUT = main
 
+%.o: src/%.cc
+	@g++ -MD -c -o $@ $<
+	@cp $*.d $*.P; \
+	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+	-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
+	rm -f $*.d
 
-%.o: src/%.cc $(HEADERS)
-	$(CC) -c -o $@ $< $(CFLAGS) $(ADD) -g
+-include *.P
 
 all: $(OBJS)
-	$(CC) $(OBJS) $(LFLAGS) -o $(OUT) $(CFLAGS) -g
+	$(CC) $(OBJS) $(LFLAGS) -o $(OUT) $(CFLAGS)
 
 run: all
 	./$(OUT)
 
 clean:
-	rm -f *.o $(OUT)
+	rm -f *.o *.P $(OUT)

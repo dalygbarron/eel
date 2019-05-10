@@ -1,3 +1,4 @@
 *.o
+*.P
 main
 .DS_Store
