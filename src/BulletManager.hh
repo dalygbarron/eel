@@ -1,16 +1,19 @@
 #ifndef BULLET_MANAGER_H
 #define BULLET_MANAGER_H
 
-#include <SFML/Graphics.hpp>
+#include <map>
+#include "Bullet.hh"
 #include "Config.hh"
+#include <SFML/Graphics.hpp>
 
 /**
  * Manages all the bullets that are going. draws them and does their collisions and shit.
  */
 class BulletManager: public sf::Drawable, public sf::Transformable {
     Bullet bullets[Config::BULLET_LIMIT];
+    map<Bullet> prototypes;
     sf::VertexArray vertices;
-    sf::Texture sprite;
+    sf::Texture *texture;
 
     /**
      * @Override

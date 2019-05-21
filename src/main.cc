@@ -1,6 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <SFML/Graphics.hpp>
+#include "BulletManager.hh"
+
+#define WIDTH 512
+#define HEIGHT 256
 
 
 /**
@@ -18,7 +22,8 @@ int main(int argc, char **argv) {
     texture.setRepeated(true);
     texture.setSmooth(true);
 
-    sf::RenderWindow window(sf::VideoMode(1920, 1440), "World of Piss");
+    BulletManager b("test/data/bullets.ini");
+    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "World of Piss");
     window.setFramerateLimit(60);
     sf::RectangleShape shape(sf::Vector2f(640, 480));
     //shape.setOutlineThickness(5);
@@ -30,15 +35,15 @@ int main(int argc, char **argv) {
     text.setString("League of Piss");
     text.setCharacterSize(40);
     text.setFillColor(sf::Color::White);
-    text.setPosition(640, 490);
+    text.setPosition(0, 0);
     sf::RectangleShape background(sf::Vector2f(960, 1440));
-    background.setPosition(480, 0);
+    background.setPosition(0, 0);
     background.setTextureRect(sf::IntRect(0, 0, 1, 1));
     sf::Shader shader;
     if (!shader.loadFromFile("test/shader/plain.vert", "test/shader/plain.frag")) {
         return -1;
     }
-    shader.setUniform("resolution", sf::Vector2f(1920, 1440));
+    shader.setUniform("resolution", sf::Vector2f(WIDTH, HEIGHT));
 
 
     int i = 0;

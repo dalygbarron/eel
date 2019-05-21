@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -std=c++14
 LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua
-OBJS = main.o Script.o
+OBJS = main.o Script.o BulletManager.o Bullet.o
 OUT = main
 
 %.o: src/%.cc

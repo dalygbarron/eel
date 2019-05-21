@@ -1,6 +1,9 @@
 #ifndef BULLET_H
 #define BULLET_H
 
+#include <SFML/System.hpp>
+
+
 /**
  * A bullet that flies around and shoots people.
  */
@@ -9,8 +12,11 @@ public:
     sf::Vector2f pos;
     sf::Vector2f velocity;
     sf::Vector2f gravity;
-    float angle = 0;
-    int alive = false;
+    float angle;
+    int alive;
+    float radius;
+    float speed;
+    int shape;
 
     /**
      * Gives bullet a new trajectory.
