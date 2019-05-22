@@ -1,7 +1,7 @@
 #ifndef BULLET_MANAGER_H
 #define BULLET_MANAGER_H
 
-#include <map>
+#include <unordered_map>
 #include "Bullet.hh"
 #include "Config.hh"
 #include <SFML/Graphics.hpp>
@@ -11,9 +11,9 @@
  */
 class BulletManager: public sf::Drawable, public sf::Transformable {
     Bullet bullets[Config::BULLET_LIMIT];
-    map<Bullet> prototypes;
+    std::unordered_map<char *, Bullet> prototypes;
     sf::VertexArray vertices;
-    sf::Texture *texture;
+    sf::Texture texture;
 
     /**
      * @Override
@@ -33,6 +33,16 @@ public:
      * @see Config::FRAME_RATE.
      */
     void update();
+
+    /**
+     * Callback function used to populate the bullet manager's data from an ini file.
+     * @param reference is a reference to the bullet manager that is being built.
+     * @param section   is the section that the current piece of data was in.
+     * @param name      is the name of the current piece of data to add.
+     * @param value     is the value of the current piece of data to add.
+     * @return 1 if all is going well, and another value if not.
+     */
+    friend int handleIni(void *reference, char const *section, char const *name, char const *value);
 };
 
 #endif

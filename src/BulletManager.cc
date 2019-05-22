@@ -1,10 +1,21 @@
 #include "BulletManager.hh"
 #include "inih.hh"
 
-int handleIni(void *manager, char const *section, char const *name, char const *value) {
-    if ()
+int handleIni(void *reference, char const *section, char const *name, char const *value) {
+    BulletManager *manager = (BulletManager *)reference;
+    if (!section[0]) {
+        // Configuration settings.
+        if (strcmp(name, "spritesheet") == 0) {
+            if (!manager->texture.loadFromFile(value)) {
+                fprintf(stderr, "Could not open bullet spritesheet '%s'.\n", value);
+            }
+        } else {
+            fprintf(stderr, "Unknown bullets.ini config setting '%s': '%s'\n", name, value);
+        }
+    } else {
+        // Bullet specifications.
 
-    printf("%s->%s: '%s'\n", section, name, value);
+    }
     return 1;
 }
 
@@ -24,6 +35,6 @@ void BulletManager::update() {
 
 void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
-    states.texture = this->texture;
+    states.texture = &(this->texture);
     target.draw(this->vertices, states);
 }
