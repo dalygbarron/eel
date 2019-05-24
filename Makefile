@@ -1,11 +1,11 @@
 CC = g++
 CFLAGS = -std=c++14
 LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua
-OBJS = main.o Script.o BulletManager.o Bullet.o
+OBJS = main.o Script.o BulletManager.o Bullet.o SpriteBatch.o Read.o 
 OUT = main
 
 %.o: src/%.cc
-	@g++ -MD -c -o $@ $<
+	@g++ -MD -c -o $@ $< $(CFLAGS)
 	@cp $*.d $*.P; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 	-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \

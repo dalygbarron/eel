@@ -6,15 +6,12 @@ int handleIni(void *reference, char const *section, char const *name, char const
     if (!section[0]) {
         // Configuration settings.
         if (strcmp(name, "spritesheet") == 0) {
-            if (!manager->texture.loadFromFile(value)) {
-                fprintf(stderr, "Could not open bullet spritesheet '%s'.\n", value);
-            }
+            manager->sprites = new SpriteBatch(value);
         } else {
             fprintf(stderr, "Unknown bullets.ini config setting '%s': '%s'\n", name, value);
         }
     } else {
         // Bullet specifications.
-
     }
     return 1;
 }
@@ -34,7 +31,5 @@ void BulletManager::update() {
 }
 
 void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    states.transform *= getTransform();
-    states.texture = &(this->texture);
-    target.draw(this->vertices, states);
+    target.draw(*(this->sprites));
 }

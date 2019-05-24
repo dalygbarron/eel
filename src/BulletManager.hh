@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "Bullet.hh"
 #include "Config.hh"
+#include "SpriteBatch.hh"
 #include <SFML/Graphics.hpp>
 
 /**
@@ -12,13 +13,9 @@
 class BulletManager: public sf::Drawable, public sf::Transformable {
     Bullet bullets[Config::BULLET_LIMIT];
     std::unordered_map<char *, Bullet> prototypes;
-    sf::VertexArray vertices;
-    sf::Texture texture;
+    SpriteBatch *sprites;
 
-    /**
-     * @Override
-     */
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 public:
     /**

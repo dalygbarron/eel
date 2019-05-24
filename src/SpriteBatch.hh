@@ -1,10 +1,27 @@
 #ifndef SPRITE_BATCH_H
 #define SPRITE_BATCH_H
 
-/**
- * A class which can be overridden which
-class SpriteBatch {
+#include <string>
+#include <unordered_map>
+#include <SFML/Graphics.hpp>
 
+/**
+ * Class for rendering many copies of a sprite from a spritesheet at the same time. Technically it can also do one I
+ * think.
+ */
+class SpriteBatch: public sf::Drawable, public sf::Transformable {
+    std::unordered_map<std::string, sf::FloatRect> sprites;
+    sf::Texture texture;
+    sf::VertexArray vertices;
+
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+public:
+    /**
+     * Loads up the file and all that.
+     * @param file is the file that is has to load the sprite batch from.
+     */
+    SpriteBatch(char const *file);
 };
 
 #endif

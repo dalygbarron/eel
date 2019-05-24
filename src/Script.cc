@@ -1,5 +1,4 @@
 #include "Script.hh"
-
 #include <iostream>
 #include <lua5.3/lua.hpp>
 
