@@ -2,23 +2,24 @@
 
 SubStream::SubStream(sf::InputStream *mother, int size) {
     this->mother = mother;
-    this->start = mother->tell();
-    this->cursor = this->start;
     this->size = size;
+    this->start = mother->tell();
+    this->cursor = 0;
 }
 
-virtual Int64 SubStream::read(void *data, Int64 size) {
-
+sf::Int64 SubStream::read(void *data, sf::Int64 size) {
+    return this->mother->read(data, size);
 }
 
-virtual Int64 SubStream::seek(Int64 position) {
-
+sf::Int64 SubStream::seek(sf::Int64 position) {
+    this->mother->seek(this->start + position);
+    this->cursor = position;
 }
 
-virtual Int64 SubStream::tell() {
-
+sf::Int64 SubStream::tell() {
+    return this->start + this->cursor;
 }
 
-virtual Int64 SubStream::getSize() {
+sf::Int64 SubStream::getSize() {
     return this->size;
 }

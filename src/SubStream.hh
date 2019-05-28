@@ -9,8 +9,8 @@
 class SubStream: public sf::InputStream {
     InputStream *mother;
     int size;
-    int cursor;
     int start;
+    int cursor;
 
 public:
     /**
@@ -20,13 +20,13 @@ public:
      */
     SubStream(sf::InputStream *mother, int size);
 
-    virtual Int64 read(void *data, Int64 size) override;
+    virtual sf::Int64 read(void *data, sf::Int64 size) override;
 
-    virtual Int64 seek(Int64 position) override;
+    virtual sf::Int64 seek(sf::Int64 position) override;
 
-    virtual Int64 tell() override;
+    virtual sf::Int64 tell() override;
 
-    virtual Int64 getSize() override;
+    virtual sf::Int64 getSize() override;
 };
 
 #endif

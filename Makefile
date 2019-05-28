@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -std=c++14
-LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua
-OBJS = main.o Script.o BulletManager.o Bullet.o SpriteBatch.o Read.o 
+LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua5.3
+OBJS = main.o Script.o BulletManager.o Bullet.o SpriteBatch.o Read.o SubStream.o
 OUT = main
 
 %.o: src/%.cc

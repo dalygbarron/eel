@@ -10,7 +10,7 @@
  * think.
  */
 class SpriteBatch: public sf::Drawable, public sf::Transformable {
-    std::unordered_map<std::string, sf::FloatRect> sprites;
+    std::unordered_map<std::string, sf::IntRect> sprites;
     sf::Texture texture;
     sf::VertexArray vertices;
 
