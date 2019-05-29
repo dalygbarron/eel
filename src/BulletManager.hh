@@ -32,6 +32,13 @@ public:
     void update();
 
     /**
+     * Create a new live bullet of a certain type.
+     * @param type is the type of bullet to create.
+     * @return a pointer to the new bullet.
+     */
+    Bullet *addBullet(char const *type);
+
+    /**
      * Callback function used to populate the bullet manager's data from an ini file.
      * @param reference is a reference to the bullet manager that is being built.
      * @param section   is the section that the current piece of data was in.

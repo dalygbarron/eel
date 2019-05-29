@@ -16,6 +16,10 @@ int handleIni(void *reference, char const *section, char const *name, char const
     return 1;
 }
 
+void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(*(this->sprites));
+}
+
 BulletManager::BulletManager(char const *file) {
     if (ini_parse(file, handleIni, this) < 0) {
         fprintf(stderr, "Could not open file %s\n", file);
@@ -30,6 +34,7 @@ void BulletManager::update() {
     }
 }
 
-void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    target.draw(*(this->sprites));
+Bullet *BulletManager::addBullet(char const *type) {
+    
+
 }
