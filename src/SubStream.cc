@@ -12,8 +12,10 @@ sf::Int64 SubStream::read(void *data, sf::Int64 size) {
 }
 
 sf::Int64 SubStream::seek(sf::Int64 position) {
-    this->mother->seek(this->start + position);
+    sf::Int64 actual = this->mother->seek(this->start + position);
     this->cursor = position;
+    if (actual != -1) return actual - this->start;
+    else return actual;
 }
 
 sf::Int64 SubStream::tell() {

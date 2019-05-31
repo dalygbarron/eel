@@ -35,6 +35,5 @@ void BulletManager::update() {
 }
 
 Bullet *BulletManager::addBullet(char const *type) {
-    
 
 }

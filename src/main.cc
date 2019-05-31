@@ -1,6 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <SFML/Graphics.hpp>
+
+// TODO: find a better spot for this.
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+
+#include "spdlog/spdlog.h"
+#include "spdlog/daily_file_sink.h"
 #include "BulletManager.hh"
 
 #define WIDTH 512
@@ -14,6 +20,13 @@
  * @return 0 when program exits expectedly, and otherwise returns something else probably meaningless.
  */
 int main(int argc, char **argv) {
+    // set up logging
+    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/log.log", 2, 30));
+    spdlog::flush_every(std::chrono::seconds(5));
+    spdlog::info("Game Commencing Normally");
+
+
+
     sf::Font font;
     sf::Texture texture;
     if (!font.loadFromFile("test/font/bocklin.ttf") || !texture.loadFromFile("test/image/bg.png")) {
@@ -52,6 +65,9 @@ int main(int argc, char **argv) {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) window.close();
         }
+        if (!(i % 60)) {
+            spdlog::info("FPS: 6412890");
+        }
         shader.setUniform("time", i / 60.f);
         shape.setTextureRect(sf::IntRect(i, i / -2, 200, 200));
         window.clear();
@@ -62,5 +78,6 @@ int main(int argc, char **argv) {
         i++;
     }
 
+    spdlog::info("Game Ending Normally");
     return 0;
 }

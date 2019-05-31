@@ -28,4 +28,5 @@ void Read::readString(sf::InputStream *stream, char *buffer, int n) {
 
 char *Read::readString(sf::InputStream *stream) {
     // TODO: implement this when needed if ever.
+    return 0;
 }
