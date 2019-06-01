@@ -16,10 +16,11 @@ void SpriteBatch::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 }
 
 SpriteBatch::SpriteBatch(char const *file) {
-    spdlog::info("Loading Rat pack from file '{}'.", file);
+    spdlog::info("Loading Rat Pack '{}'", file);
     sf::FileInputStream stream;
     stream.open(file);
     int32_t size = Read::readInt(&stream);
+    spdlog::debug("Rat Pack Image Size: {} bytes", size);
     SubStream textureStream(&stream, size);
     if (!this->texture.loadFromStream(textureStream)) {
         spdlog::error("Loading texture in Rat pack '{}' failed.", file);

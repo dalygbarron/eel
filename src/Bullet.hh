@@ -9,14 +9,27 @@
  */
 class Bullet {
 public:
+    int alive;
     sf::Vector2f pos;
     sf::Vector2f velocity;
     sf::Vector2f gravity;
-    float angle;
-    int alive;
-    float radius;
-    float speed;
-    int shape;
+    union {
+        // It's parameters when alive.
+        struct {
+            float angle;
+            float radius;
+            float speed;
+            int shape;
+        } live;
+        // It's list pointer when dead.
+        Bullet *next;
+    } state;
+
+    /**
+     * Makes this bullet a rip off of another bullet.
+     * @param bullet is the bullet to copy.
+     */
+    void copy(Bullet const *bullet);
 
     /**
      * Gives bullet a new trajectory.

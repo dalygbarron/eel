@@ -1,6 +1,7 @@
 #ifndef BULLET_MANAGER_H
 #define BULLET_MANAGER_H
 
+#include <string>
 #include <unordered_map>
 #include "Bullet.hh"
 #include "Config.hh"
@@ -12,7 +13,8 @@
  */
 class BulletManager: public sf::Drawable, public sf::Transformable {
     Bullet bullets[Config::BULLET_LIMIT];
-    std::unordered_map<char *, Bullet> prototypes;
+    Bullet *empty;
+    std::unordered_map<std::string, Bullet *> prototypes;
     SpriteBatch *sprites;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -32,11 +34,18 @@ public:
     void update();
 
     /**
+     * Gives you access to the bullet prototype of the given name.
+     * @param type is the name of the prototype you want.
+     * @return the prototype and it's constant so you can't fuck it up.
+     */
+    Bullet const *getPrototype(char const *type);
+
+    /**
      * Create a new live bullet of a certain type.
-     * @param type is the type of bullet to create.
+     * @param prototype is a pointer to the prototypal bullet you want to create.
      * @return a pointer to the new bullet.
      */
-    Bullet *addBullet(char const *type);
+    Bullet *addBullet(Bullet const *prototype);
 
     /**
      * Callback function used to populate the bullet manager's data from an ini file.

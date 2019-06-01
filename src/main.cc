@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
             if (event.type == sf::Event::Closed) window.close();
         }
         if (!(i % 60)) {
-            spdlog::info("FPS: 6412890");
+            spdlog::info("tick");
         }
         shader.setUniform("time", i / 60.f);
         shape.setTextureRect(sf::IntRect(i, i / -2, 200, 200));
