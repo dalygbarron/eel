@@ -21,4 +21,7 @@ run: all
 	./$(OUT)
 
 clean:
-	rm -rf *.d *.P *.o $(OUT)
+	find . -name '*.o' -delete
+	find . -name '*.P' -delete
+	find . -name '*.d' -delete
+	rm -f $(OUT)
