@@ -9,18 +9,21 @@
 class TestScene: public Scene {
     sf::Font font;
     sf::Texture texture;
-    sf::RectangleShape shape(sf::Vector2f(640, 480));
+    sf::RectangleShape shape;
     sf::Text text;
-    sf::RectangleShape background(sf::Vector2f(960, 1440));
+    sf::RectangleShape background;
     sf::Shader shader;
+    int i = 0;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 public:
+    /**
+     * Sets up the scene's junk.
+     */
     TestScene();
 
     void update(Transition *transition) override;
-
 };
 
 #endif

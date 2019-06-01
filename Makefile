@@ -1,7 +1,7 @@
 CC = g++
-CFLAGS = -std=c++14
+CFLAGS = -std=c++14 -g
 LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua5.3
-SOURCES = main Script BulletManager Bullet SpriteBatch Read SubStream Scene scenes/TestScene
+SOURCES = main Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository scenes/TestScene
 OBJS = $(addprefix src/,$(addsuffix .o,$(SOURCES)))
 OUT = main
 

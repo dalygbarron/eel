@@ -3,5 +3,5 @@
 #include "spdlog/spdlog.h"
 
 Scene::Scene() {
-    spdlog::info("Creating scene '{}'", __PRETTY_FUNCTION__);
+    // does nothing rn.
 }

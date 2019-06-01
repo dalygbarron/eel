@@ -24,7 +24,7 @@ SpriteBatch::SpriteBatch(char const *file) {
     SubStream textureStream(&stream, size);
     if (!this->texture.loadFromStream(textureStream)) {
         spdlog::error("Loading texture in Rat pack '{}' failed.", file);
-        throw -1;
+        return;
     }
     stream.seek(size + 4);
     int32_t n = Read::readInt(&stream);

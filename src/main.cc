@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
         }
         // Timekeeping.
         i++;
-        if (!(i % 60)) spdlog::info("tick");
+        if (!(i % 300)) spdlog::info("tickx300");
     }
     // Main loop is all over.
     spdlog::info("Game Ending Normally");

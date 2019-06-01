@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 
-
 class Scene;
 
 /**
@@ -25,7 +24,7 @@ public:
  * menu or some other thing like that.
  */
 class Scene: public sf::Drawable {
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
 
 public:
     /**

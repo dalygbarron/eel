@@ -22,7 +22,7 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     target.draw(*(this->sprites));
 }
 
-BulletManager::BulletManager(char const *file) {
+BulletManager::BulletManager(char const *file) {qw2
     // Load in the bullet info.
     spdlog::info("Loading bullets from '{}'", file);
     if (ini_parse(file, handleIni, this) < 0) {
