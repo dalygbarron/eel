@@ -1,14 +1,13 @@
 CC = g++
 CFLAGS = -std=c++14
 LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua5.3
-BUILD = build
 SOURCES = main Script BulletManager Bullet SpriteBatch Read SubStream Scene scenes/TestScene
-OBJS = $(addprefix $(BUILD)/,$(addsuffix .o,$(SOURCES)))
+OBJS = $(addprefix src/,$(addsuffix .o,$(SOURCES)))
 OUT = main
 
-$(BUILD)/%.o: src/%.cc
-	@g++ -MD -c -o $(BUILD)/$@ $< $(CFLAGS)
-	@cp $(BUILD)/$*.d $(BUILD)/$*.P; \
+%.o: %.cc
+	@g++ -MD -c -o $@ $< $(CFLAGS)
+	@cp $*.d $*.P; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 	-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
 	rm -f $*.d
@@ -22,4 +21,4 @@ run: all
 	./$(OUT)
 
 clean:
-	rm -f *.o *.P $(OUT)
+	rm -rf *.d *.P *.o $(OUT)

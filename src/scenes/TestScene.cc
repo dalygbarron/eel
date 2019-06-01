@@ -1,42 +1,38 @@
 #include "TestScene.hh"
 
-#include "spdlog/spdlog.h"
+#include "../spdlog/spdlog.h"
 
-void draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(background, &shader);
-    target.draw(shape);
-    target.draw(text);
+void TestScene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(this->background, &this->shader);
+    target.draw(this->shape);
+    target.draw(this->text);
 }
 
 
 TestScene::TestScene() {
-    if (!font.loadFromFile("test/font/bocklin.ttf") || !texture.loadFromFile("test/image/bg.png")) {
+    if (!this->font.loadFromFile("test/font/bocklin.ttf") || !this->texture.loadFromFile("test/image/bg.png")) {
         spdlog::error("Couldn't load font or stuff for test scene");
         throw -1;
     }
-    texture.setRepeated(true);
-    texture.setSmooth(true);
-    sf::RectangleShape shape(sf::Vector2f(640, 480));
-    shape.setTexture(&texture);
-    shape.setPosition(500, 500);
-    sf::Text text;
-    text.setFont(font);
-    text.setString("League of Piss");
-    text.setCharacterSize(40);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(0, 0);
-    sf::RectangleShape background(sf::Vector2f(960, 1440));
-    background.setPosition(0, 0);
-    background.setTextureRect(sf::IntRect(0, 0, 1, 1));
-    sf::Shader shader;
-    if (!shader.loadFromFile("test/shader/plain.vert", "test/shader/plain.frag")) {
+    this->texture.setRepeated(true);
+    this->texture.setSmooth(true);
+    this->shape.setTexture(&texture);
+    this->shape.setPosition(500, 500);
+    this->text.setFont(font);
+    this->text.setString("League of Piss");
+    this->text.setCharacterSize(40);
+    this->text.setFillColor(sf::Color::White);
+    this->text.setPosition(0, 0);
+    this->background.setPosition(0, 0);
+    this->background.setTextureRect(sf::IntRect(0, 0, 1, 1));
+    if (!this->shader.loadFromFile("test/shader/plain.vert", "test/shader/plain.frag")) {
         spdlog::error("Couldn't load nice shaders for test scene");
         throw -1;
     }
-    shader.setUniform("resolution", sf::Vector2f(WIDTH, HEIGHT));
+    this->shader.setUniform("resolution", sf::Vector2f(WIDTH, HEIGHT));
 }
 
 void TestScene::update(Transition *transition) {
-    shader.setUniform("time", i / 60.f);
-    shape.setTextureRect(sf::IntRect(i, i / -2, 200, 200));
+    this->shader.setUniform("time", i / 60.f);
+    this->shape.setTextureRect(sf::IntRect(i, i / -2, 200, 200));
 }

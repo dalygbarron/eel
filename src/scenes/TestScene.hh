@@ -9,6 +9,10 @@
 class TestScene: public Scene {
     sf::Font font;
     sf::Texture texture;
+    sf::RectangleShape shape(sf::Vector2f(640, 480));
+    sf::Text text;
+    sf::RectangleShape background(sf::Vector2f(960, 1440));
+    sf::Shader shader;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
