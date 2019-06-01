@@ -11,7 +11,7 @@
 /**
  * Manages all the bullets that are going. draws them and does their collisions and shit.
  */
-class BulletManager: public sf::Drawable, public sf::Transformable {
+class BulletManager: public sf::Drawable {
     Bullet bullets[Config::BULLET_LIMIT];
     Bullet *empty;
     std::unordered_map<std::string, Bullet *> prototypes;
@@ -43,9 +43,10 @@ public:
     /**
      * Create a new live bullet of a certain type.
      * @param prototype is a pointer to the prototypal bullet you want to create.
+     * @param position  is the starting position to put it at.
      * @return a pointer to the new bullet.
      */
-    Bullet *addBullet(Bullet const *prototype);
+    Bullet *addBullet(Bullet const *prototype, sf::Vector2f position);
 
     /**
      * Callback function used to populate the bullet manager's data from an ini file.

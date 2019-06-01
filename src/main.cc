@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <forward_list>
 #include <SFML/Graphics.hpp>
 
 // TODO: find a better spot for this.
@@ -8,10 +9,19 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/daily_file_sink.h"
 #include "BulletManager.hh"
+#include "scenes/TestScene.hh"
 
 #define WIDTH 512
 #define HEIGHT 256
 
+/**
+ * Starts up the game's logging.
+ */
+void startLogging() {
+    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/log.log", 2, 30));
+    spdlog::flush_every(std::chrono::seconds(5));
+    spdlog::info("Game Commencing Normally");
+}
 
 /**
  * Start of the program.
@@ -20,64 +30,42 @@
  * @return 0 when program exits expectedly, and otherwise returns something else probably meaningless.
  */
 int main(int argc, char **argv) {
-    // set up logging
-    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/log.log", 2, 30));
-    spdlog::flush_every(std::chrono::seconds(5));
-    spdlog::info("Game Commencing Normally");
-
-
-
-    sf::Font font;
-    sf::Texture texture;
-    if (!font.loadFromFile("test/font/bocklin.ttf") || !texture.loadFromFile("test/image/bg.png")) {
-        return -1;
-    }
-    texture.setRepeated(true);
-    texture.setSmooth(true);
-
-    BulletManager b("test/data/bullets.ini");
+    // Initial setting up.
+    startLogging();
+    std::forward_list<Scene *> scenes;
+    scenes.push_front(new TestScene());
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "World of Piss");
     window.setFramerateLimit(60);
-    sf::RectangleShape shape(sf::Vector2f(640, 480));
-    //shape.setOutlineThickness(5);
-    //shape.setOutlineColor(sf::Color::White);
-    shape.setTexture(&texture);
-    shape.setPosition(500, 500);
-    sf::Text text;
-    text.setFont(font);
-    text.setString("League of Piss");
-    text.setCharacterSize(40);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(0, 0);
-    sf::RectangleShape background(sf::Vector2f(960, 1440));
-    background.setPosition(0, 0);
-    background.setTextureRect(sf::IntRect(0, 0, 1, 1));
-    sf::Shader shader;
-    if (!shader.loadFromFile("test/shader/plain.vert", "test/shader/plain.frag")) {
-        return -1;
-    }
-    shader.setUniform("resolution", sf::Vector2f(WIDTH, HEIGHT));
-
-
+    BulletManager b("test/data/bullets.ini");
+    // Main loop of game.
     int i = 0;
+    Transition transition;
     while (window.isOpen()) {
+        // Event handling.
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) window.close();
         }
-        if (!(i % 60)) {
-            spdlog::info("tick");
-        }
-        shader.setUniform("time", i / 60.f);
-        shape.setTextureRect(sf::IntRect(i, i / -2, 200, 200));
+        // Updating current scene.
+        scenes.front()->update(&transition);
+        // Rendering.
         window.clear();
-        window.draw(background, &shader);
-        window.draw(shape);
-        window.draw(text);
+        window.draw(*(scenes.front()));
         window.display();
+        // Scene transition.
+        if (transition.action == Transition::POP) {
+            scenes.pop_front();
+        } else if (transition.action == Transition::PUSH) {
+            scenes.push_front(transition.scene);
+        } else if (transition.action == Transition::REPLACE) {
+            scenes.pop_front();
+            scenes.push_front(transition.scene);
+        }
+        // Timekeeping.
         i++;
+        if (!(i % 60)) spdlog::info("tick");
     }
-
+    // Main loop is all over.
     spdlog::info("Game Ending Normally");
     return 0;
 }

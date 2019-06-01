@@ -56,7 +56,7 @@ Bullet const *BulletManager::getPrototype(char const *type) {
     }
 }
 
-Bullet *BulletManager::addBullet(Bullet const *prototype) {
+Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position) {
     if (!this->empty) {
         spdlog::debug("Trying to add bullet to full pool");
         return 0;
@@ -65,5 +65,6 @@ Bullet *BulletManager::addBullet(Bullet const *prototype) {
         this->empty = this->empty->state.next;
         newBullet->alive = true;
         newBullet->copy(prototype);
+        newBullet->pos = position;
     }
 }
