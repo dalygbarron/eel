@@ -33,6 +33,7 @@ TestScene::TestScene() {
         throw -1;
     }
     this->shader.setUniform("resolution", sf::Vector2f(1440, 960));
+    this->bullets = Repository::getBulletManager("test/bullets")
 }
 
 void TestScene::update(Transition *transition) {

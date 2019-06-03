@@ -36,7 +36,6 @@ int main(int argc, char **argv) {
     scenes.push_front(new TestScene());
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "World of Piss");
     window.setFramerateLimit(60);
-    BulletManager b("test/data/bullets.ini");
     // Main loop of game.
     int i = 0;
     Transition transition;

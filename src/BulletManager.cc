@@ -1,6 +1,7 @@
 #include "BulletManager.hh"
 #include "spdlog/spdlog.h"
 #include "inih.hh"
+#include "Repository.hh"
 
 
 int handleIni(void *reference, char const *section, char const *name, char const *value) {
@@ -8,7 +9,7 @@ int handleIni(void *reference, char const *section, char const *name, char const
     if (!section[0]) {
         // Configuration settings.
         if (strcmp(name, "spritesheet") == 0) {
-            manager->sprites = new SpriteBatch(value);
+            manager->sprites = Repository::getSpriteBatch(value);
         } else {
             spdlog::warn("'{}': '{}' is not a known configuration setting in bullets ini.", name, value);
         }
@@ -22,7 +23,7 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     target.draw(*(this->sprites));
 }
 
-BulletManager::BulletManager(char const *file) {qw2
+BulletManager::BulletManager(char const *file) {
     // Load in the bullet info.
     spdlog::info("Loading bullets from '{}'", file);
     if (ini_parse(file, handleIni, this) < 0) {

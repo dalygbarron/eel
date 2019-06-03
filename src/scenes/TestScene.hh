@@ -13,6 +13,7 @@ class TestScene: public Scene {
     sf::Text text;
     sf::RectangleShape background;
     sf::Shader shader;
+    BulletManager *bullets;
     int i = 0;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
