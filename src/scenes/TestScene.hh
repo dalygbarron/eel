@@ -2,6 +2,7 @@
 #define TEST_SCENE_H
 
 #include "../Scene.hh"
+#include "../BulletManager.hh"
 
 /**
  * A scene for putting all my test junk in so it's not cluttering up the main function.

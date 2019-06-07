@@ -22,10 +22,10 @@ class BulletManager: public sf::Drawable {
 public:
     /**
      * Creates the bullet manager and puts shit on the GPU.
-     * @param file is the file to load the info about bullets from. This info tells us what image to use and what each
-     *             bullet is like.
+     * @param game is the game object which contains overall game configuration and is used to find the bullet config
+     *             file.
      */
-    BulletManager(char const *file);
+    BulletManager(Game const *game);
 
     /**
      * Moves all the bullets in appropriate ways.

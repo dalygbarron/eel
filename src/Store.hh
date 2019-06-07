@@ -1,0 +1,37 @@
+#ifndef STORE_H
+#define STORE_H
+
+/**
+ * Generic storing thingy which stores stuff for example a store of config strings, or a store of booleans.
+ */
+template <type T> class Store {
+    char const *name;
+
+protected:
+    unordered_map<std::string, T> values;
+
+public:
+    /**
+     * Creates the store and gives it a name.
+     * @param name is the name to give to it for error reporting purposes.
+     */
+    Store(char const *name);
+
+    /**
+     * Gets a value from the configuration and if it's not found it throws an exception and logs an error.
+     * @param key is the key to the value to get.
+     * @return the string value found.
+     * @throws an exception and logs if it's not found. Meant to anyway.
+     */
+    T *get(char const *key) const;
+
+    /**
+     * Gets a value from the configuration and if it's not found it returns a default.
+     * @param key is the key to the value to find.
+     * @param default is the default value to return if the key doesn't exist.
+     * @return the found value or the default if no found value.
+     */
+    T *getSafely(char const *key, T default) const;
+};
+
+#endif

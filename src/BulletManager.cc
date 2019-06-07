@@ -3,22 +3,6 @@
 #include "inih.hh"
 #include "Repository.hh"
 
-
-int handleIni(void *reference, char const *section, char const *name, char const *value) {
-    BulletManager *manager = (BulletManager *)reference;
-    if (!section[0]) {
-        // Configuration settings.
-        if (strcmp(name, "spritesheet") == 0) {
-            manager->sprites = Repository::getSpriteBatch(value);
-        } else {
-            spdlog::warn("'{}': '{}' is not a known configuration setting in bullets ini.", name, value);
-        }
-    } else {
-        // Bullet specifications.
-    }
-    return 1;
-}
-
 void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(*(this->sprites));
 }
@@ -68,4 +52,19 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
         newBullet->copy(prototype);
         newBullet->pos = position;
     }
+}
+
+int handleIni(void *reference, char const *section, char const *name, char const *value) {
+    BulletManager *manager = (BulletManager *)reference;
+    if (!section[0]) {
+        // Configuration settings.
+        if (strcmp(name, "spritesheet") == 0) {
+            manager->sprites = Repository::getSpriteBatch(value);
+        } else {
+            spdlog::warn("'{}': '{}' is not a known configuration setting in bullets ini.", name, value);
+        }
+    } else {
+        // Bullet specifications.
+    }
+    return 1;
 }

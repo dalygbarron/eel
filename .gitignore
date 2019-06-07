@@ -2,5 +2,6 @@
 *.o
 *.P
 main
+tester
 .DS_Store
 logs/*

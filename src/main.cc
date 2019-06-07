@@ -15,23 +15,13 @@
 #define HEIGHT 256
 
 /**
- * Starts up the game's logging.
+ * The main loop of the game.
  */
-void startLogging() {
-    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/log.log", 2, 30));
-    spdlog::flush_every(std::chrono::seconds(5));
-    spdlog::info("Game Commencing Normally");
-}
+void run(char const *gameFile) {
+    Repository repository;
+    Game game(&repository, gameFile);
 
-/**
- * Start of the program.
- * @param argc is the number of commandline arguments given.
- * @param argv is an array of commandline arguments as pointers to strings.
- * @return 0 when program exits expectedly, and otherwise returns something else probably meaningless.
- */
-int main(int argc, char **argv) {
-    // Initial setting up.
-    startLogging();
+
     std::forward_list<Scene *> scenes;
     scenes.push_front(new TestScene());
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "World of Piss");
@@ -64,7 +54,27 @@ int main(int argc, char **argv) {
         i++;
         if (!(i % 300)) spdlog::info("tickx300");
     }
-    // Main loop is all over.
+}
+
+/**
+ * Start of the program.
+ * @param argc is the number of commandline arguments given.
+ * @param argv is an array of commandline arguments as pointers to strings.
+ * @return 0 when program exits expectedly, and otherwise returns something else probably meaningless.
+ */
+int main(int argc, char **argv) {
+    // Start logging right away.
+    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/log.log", 2, 30));
+    spdlog::flush_every(std::chrono::seconds(5));
+    spdlog::info("Game Commencing Normally");
+    // run main loop in try/catch.
+    try {
+        run();
+    } catch (int i) {
+        spdlog::critical("Uncaught error '{}', goodbye", i);
+        return 1;
+    }
+    // all over.
     spdlog::info("Game Ending Normally");
     return 0;
 }

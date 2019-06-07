@@ -13,10 +13,10 @@ public:
     sf::Vector2f pos;
     sf::Vector2f velocity;
     sf::Vector2f gravity;
+    float angle;
     union {
         // It's parameters when alive.
         struct {
-            float angle;
             float radius;
             float speed;
             int shape;
@@ -26,7 +26,8 @@ public:
     } state;
 
     /**
-     * Makes this bullet a rip off of another bullet.
+     * Makes this bullet a rip off of another bullet's nature, so not it's position and such, but it's radius and speed
+     * and shape.
      * @param bullet is the bullet to copy.
      */
     void copy(Bullet const *bullet);
