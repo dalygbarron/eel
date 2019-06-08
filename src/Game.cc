@@ -2,15 +2,21 @@
 #include "spdlog/spdlog.h"
 #include "inih.hh"
 
-
-
-Game::Game(Repository const *repository, char const *file): Store("Game") {
+Game::Game(Repository const *repository, char const *file): Store(file) {
     spdlog::info("Loading game data from '{}'", file);
     this->repository = repository;
     if (ini_parse(file, Game::handleIni, this) < 0) {
         spdlog::error("Could not open file '{}'", file);
         throw -1;
     }
+}
+
+char const *Game::getRoot() {
+
+}
+
+char const *Game::inRoot() {
+
 }
 
 int Game::handleIni(void *reference, char const *section, char const *name, char const *value) {

@@ -20,6 +20,18 @@ public:
     Game(Repository const *repo, char const *file);
 
     /**
+     * Gives you the root directory of the game.
+     * @return the root directory as a constant string.
+     */
+    char const *getRoot();
+
+    /**
+     * Gives you a file as within the root directory.
+     * @param file is the file to put in the root directory.
+     */
+    char const *inRoot(char const *file);
+
+    /**
      * Callback function used to populate the game's data from an ini file.
      * @param reference is a reference to the game object.
      * @param section   is the section that the current piece of data was in.
