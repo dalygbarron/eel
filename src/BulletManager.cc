@@ -7,10 +7,13 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     target.draw(*(this->sprites));
 }
 
-BulletManager::BulletManager(char const *file) {
+BulletManager::BulletManager(Game const *game, Repository *repository) {
+    this->game = game;
+    this->repository = repository;
+    char const *file = game->get("bullets");
     // Load in the bullet info.
     spdlog::info("Loading bullets from '{}'", file);
-    if (ini_parse(file, handleIni, this) < 0) {
+    if (ini_parse(file, BulletManager::handleIni, this) < 0) {
         spdlog::error("Could not open file '{}'", file);
         throw -1;
     }
@@ -54,15 +57,12 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
     }
 }
 
-int handleIni(void *reference, char const *section, char const *name, char const *value) {
+int BulletManager::handleIni(void *reference, char const *section, char const *name, char const *value) {
     BulletManager *manager = (BulletManager *)reference;
     if (!section[0]) {
         // Configuration settings.
-        if (strcmp(name, "spritesheet") == 0) {
-            manager->sprites = Repository::getSpriteBatch(value);
-        } else {
-            spdlog::warn("'{}': '{}' is not a known configuration setting in bullets ini.", name, value);
-        }
+        if (strcmp(name, "spritesheet") == 0) manager->sprites = manager->repository->getSpriteBatch(value);
+        else spdlog::warn("'{}': '{}' is not a known configuration setting in bullets ini.", name, value);
     } else {
         // Bullet specifications.
     }

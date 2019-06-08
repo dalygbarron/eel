@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "Bullet.hh"
 #include "Config.hh"
+#include "Game.hh"
 #include "SpriteBatch.hh"
 #include <SFML/Graphics.hpp>
 
@@ -12,6 +13,8 @@
  * Manages all the bullets that are going. draws them and does their collisions and shit.
  */
 class BulletManager: public sf::Drawable {
+    Game const *game;
+    Repository *repository;
     Bullet bullets[Config::BULLET_LIMIT];
     Bullet *empty;
     std::unordered_map<std::string, Bullet *> prototypes;
@@ -22,10 +25,11 @@ class BulletManager: public sf::Drawable {
 public:
     /**
      * Creates the bullet manager and puts shit on the GPU.
-     * @param game is the game object which contains overall game configuration and is used to find the bullet config
-     *             file.
+     * @param game       is the game object which contains overall game configuration and is used to find the bullet
+     *                   config file.
+     * @param repository is used to load the bullet assets.
      */
-    BulletManager(Game const *game);
+    BulletManager(Game const *game, Repository *repository);
 
     /**
      * Moves all the bullets in appropriate ways.
@@ -56,7 +60,7 @@ public:
      * @param value     is the value of the current piece of data to add.
      * @return 1 if all is going well, and another value if not.
      */
-    friend int handleIni(void *reference, char const *section, char const *name, char const *value);
+    static int handleIni(void *reference, char const *section, char const *name, char const *value);
 };
 
 #endif

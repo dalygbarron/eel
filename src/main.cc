@@ -20,10 +20,10 @@
 void run(char const *gameFile) {
     Repository repository;
     Game game(&repository, gameFile);
-
+    BulletManager bulletManager(&game, &repository);
 
     std::forward_list<Scene *> scenes;
-    scenes.push_front(new TestScene());
+    scenes.push_front(new TestScene(&bulletManager));
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "World of Piss");
     window.setFramerateLimit(60);
     // Main loop of game.
@@ -69,7 +69,8 @@ int main(int argc, char **argv) {
     spdlog::info("Game Commencing Normally");
     // run main loop in try/catch.
     try {
-        run();
+        // TODO: allow you to set the file via commandline args.
+        run("example/game.ini");
     } catch (int i) {
         spdlog::critical("Uncaught error '{}', goodbye", i);
         return 1;

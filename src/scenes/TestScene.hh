@@ -8,13 +8,13 @@
  * A scene for putting all my test junk in so it's not cluttering up the main function.
  */
 class TestScene: public Scene {
+    BulletManager *bulletManager;
     sf::Font font;
     sf::Texture texture;
     sf::RectangleShape shape;
     sf::Text text;
     sf::RectangleShape background;
     sf::Shader shader;
-    BulletManager *bullets;
     int i = 0;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -22,8 +22,9 @@ class TestScene: public Scene {
 public:
     /**
      * Sets up the scene's junk.
+     * @param bulletManager is the bullet manager which we shall use a little.
      */
-    TestScene();
+    TestScene(BulletManager *bulletManager);
 
     void update(Transition *transition) override;
 };

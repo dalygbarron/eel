@@ -12,8 +12,9 @@ void TestScene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(this->text);
 }
 
-TestScene::TestScene() {
+TestScene::TestScene(BulletManager *bulletManager) {
     spdlog::info("Creating test scene");
+    this->bulletManager = bulletManager;
     if (!this->font.loadFromFile("test/font/bocklin.ttf") || !this->texture.loadFromFile("test/image/bg.png")) {
         spdlog::error("Couldn't load font or stuff for test scene");
         throw -1;
@@ -36,7 +37,6 @@ TestScene::TestScene() {
         throw -1;
     }
     this->shader.setUniform("resolution", sf::Vector2f(1440, 960));
-    this->bullets = Repository::getBulletManager("test/bullets");
 }
 
 void TestScene::update(Transition *transition) {

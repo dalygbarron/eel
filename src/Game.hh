@@ -1,7 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <unordered_map>
+#include "Store.hh"
+#include <string>
+#include "Repository.hh"
 
 /**
  * Contains the game's base configuration values.
@@ -25,7 +27,7 @@ public:
      * @param value     is the value of the current piece of data to add.
      * @return 1 if all is going well, and another value if not.
      */
-    friend int handleIni(void *reference, char const *section, char const *name, char const *value);
+    static int handleIni(void *reference, char const *section, char const *name, char const *value);
 };
 
 #endif
