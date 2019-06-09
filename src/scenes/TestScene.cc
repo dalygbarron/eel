@@ -15,7 +15,7 @@ void TestScene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 TestScene::TestScene(BulletManager *bulletManager) {
     spdlog::info("Creating test scene");
     this->bulletManager = bulletManager;
-    if (!this->font.loadFromFile("test/font/bocklin.ttf") || !this->texture.loadFromFile("test/image/bg.png")) {
+    if (!this->font.loadFromFile("example/font/bocklin.ttf") || !this->texture.loadFromFile("example/image/bg.png")) {
         spdlog::error("Couldn't load font or stuff for test scene");
         throw -1;
     }
@@ -32,7 +32,7 @@ TestScene::TestScene(BulletManager *bulletManager) {
     this->background.setSize(sf::Vector2f(960, 1440));
     this->background.setPosition(0, 0);
     this->background.setTextureRect(sf::IntRect(0, 0, 1, 1));
-    if (!this->shader.loadFromFile("test/shader/plain.vert", "test/shader/plain.frag")) {
+    if (!this->shader.loadFromFile("example/shader/plain.vert", "example/shader/plain.frag")) {
         spdlog::error("Couldn't load nice shaders for test scene");
         throw -1;
     }

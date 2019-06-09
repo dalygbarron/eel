@@ -15,7 +15,7 @@ char const *Game::getRoot() {
 
 }
 
-char const *Game::inRoot() {
+char const *Game::inRoot(char const *file) {
 
 }
 
