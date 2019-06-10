@@ -9,7 +9,7 @@
 void TestScene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(this->background, &this->shader);
     target.draw(this->shape);
-    target.draw(this->text);
+    target.draw(*(this->bulletManager));
 }
 
 TestScene::TestScene(BulletManager *bulletManager) {

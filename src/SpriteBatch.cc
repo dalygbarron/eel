@@ -15,8 +15,9 @@ void SpriteBatch::draw(sf::RenderTarget& target, sf::RenderStates states) const 
     target.draw(this->vertices, states);
 }
 
-SpriteBatch::SpriteBatch(char const *file) {
+SpriteBatch::SpriteBatch(char const *file): vertices(sf::Triangles, Config::BULLET_LIMIT) {
     spdlog::info("Loading Rat Pack '{}'", file);
+    // Load in sprite data.
     sf::FileInputStream stream;
     stream.open(file);
     int32_t size = Read::readInt(&stream);
@@ -37,5 +38,14 @@ SpriteBatch::SpriteBatch(char const *file) {
         int h = Read::readInt(&stream);
         spdlog::debug("Rat Pack frame '{}' ({}, {}, {}, {})", name, x, y, w, h);
         sprites[std::string(name)] = sf::IntRect(x, y, w, h);
+    }
+    // make vertices.
+    for (int i = 0; i < Config::BULLET_LIMIT; i++) {
+        this->vertices[i * 3 + 0].position = sf::Vector2f(i, i * - 3);
+        this->vertices[i * 3 + 1].position = sf::Vector2f(i + 5, i * 2 + 3);
+        this->vertices[i * 3 + 2].position = sf::Vector2f(i + 10, i * 2 + 9);
+        this->vertices[i * 3 + 0].color = sf::Color::Red;
+        this->vertices[i * 3 + 1].color = sf::Color::Green;
+        this->vertices[i * 3 + 2].color = sf::Color::Blue;
     }
 }

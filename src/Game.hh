@@ -10,6 +10,7 @@
  */
 class Game: public Store<char const *> {
     Repository const *repository;
+    char *root;
 
 public:
     /**
@@ -20,16 +21,23 @@ public:
     Game(Repository const *repo, char const *file);
 
     /**
+     * Clears out all the junk hell yeah.
+     */
+    ~Game();
+
+    /**
      * Gives you the root directory of the game.
      * @return the root directory as a constant string.
      */
-    char const *getRoot();
+    char const *getRoot() const;
 
     /**
-     * Gives you a file as within the root directory.
-     * @param file is the file to put in the root directory.
+     * Writes a filename into the root directory.
+     * @param buffer is where to write the string to. it is not length checked so deal with that yourself.
+     * @param file   is the file to put in the root directory.
+     * @return the number of characters written not including null terminator, or negative number on error.
      */
-    char const *inRoot(char const *file);
+    int inRoot(char *buffer, char const *file) const;
 
     /**
      * Callback function used to populate the game's data from an ini file.

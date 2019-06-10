@@ -2,6 +2,7 @@
 #include "spdlog/spdlog.h"
 #include "inih.hh"
 #include "Repository.hh"
+#include "Config.hh"
 
 void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(*(this->sprites));
@@ -10,7 +11,8 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 BulletManager::BulletManager(Game const *game, Repository *repository) {
     this->game = game;
     this->repository = repository;
-    char const *file = game->get("bullets");
+    char file[Config::FILENAME_BUFFER_SIZE];
+    game->inRoot(file, game->get(Config::BULLET_FILE));
     // Load in the bullet info.
     spdlog::info("Loading bullets from '{}'", file);
     if (ini_parse(file, BulletManager::handleIni, this) < 0) {

@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
+#include "Config.hh"
 
 /**
  * Class for rendering many copies of a sprite from a spritesheet at the same time. Technically it can also do one I
@@ -15,7 +16,6 @@ class SpriteBatch: public sf::Drawable, public sf::Transformable {
     sf::Texture texture;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-
 public:
     /**
      * Loads up the file and all that.
