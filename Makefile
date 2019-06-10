@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -std=c++14 -g
-LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua5.3
+LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 MAIN = src/main.o
 SOURCES = Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Game Config
 SCENES = scenes/TestScene
