@@ -30,6 +30,9 @@ all: app tests
 run: app
 	./$(OUT)
 
+debug: app
+	gdb $(OUT)
+
 runTests: all
 	./$(TEST_OUT)
 

@@ -6,6 +6,7 @@
 #include "Bullet.hh"
 #include "Config.hh"
 #include "Game.hh"
+#include "Repository.hh"
 #include "SpriteBatch.hh"
 #include <SFML/Graphics.hpp>
 

@@ -3,9 +3,8 @@
 #include "spdlog/spdlog.h"
 #include "inih.hh"
 
-Game::Game(Repository const *repository, char const *file): Store(file) {
+Game::Game(char const *file): Store(file) {
     spdlog::info("Loading game data from '{}'", file);
-    this->repository = repository;
     // Load in flags.
     if (ini_parse(file, Game::handleIni, this) < 0) {
         spdlog::error("Could not open file '{}'", file);

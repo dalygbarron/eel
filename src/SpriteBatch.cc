@@ -7,15 +7,16 @@
 #include "Read.hh"
 
 #define NAME_BUFFER_SIZE 256
+#define N_QUADS 50
 
 
 void SpriteBatch::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    states.transform *= getTransform();
+    states.transform *= this->getTransform();
     states.texture = &(this->texture);
     target.draw(this->vertices, states);
 }
 
-SpriteBatch::SpriteBatch(char const *file): vertices(sf::Triangles, Config::BULLET_LIMIT) {
+SpriteBatch::SpriteBatch(char const *file) {
     spdlog::info("Loading Rat Pack '{}'", file);
     // Load in sprite data.
     sf::FileInputStream stream;
@@ -40,12 +41,16 @@ SpriteBatch::SpriteBatch(char const *file): vertices(sf::Triangles, Config::BULL
         sprites[std::string(name)] = sf::IntRect(x, y, w, h);
     }
     // make vertices.
-    for (int i = 0; i < Config::BULLET_LIMIT; i++) {
-        this->vertices[i * 3 + 0].position = sf::Vector2f(i, i * - 3);
-        this->vertices[i * 3 + 1].position = sf::Vector2f(i + 5, i * 2 + 3);
-        this->vertices[i * 3 + 2].position = sf::Vector2f(i + 10, i * 2 + 9);
-        this->vertices[i * 3 + 0].color = sf::Color::Red;
-        this->vertices[i * 3 + 1].color = sf::Color::Green;
-        this->vertices[i * 3 + 2].color = sf::Color::Blue;
+    this->vertices.setPrimitiveType(sf::Quads);
+    this->vertices.resize(N_QUADS * 4);
+    for (int i = 0; i < N_QUADS; i++) {
+        this->vertices[i * 4 + 0].position = sf::Vector2f(i * 2, i * 16);
+        this->vertices[i * 4 + 1].position = sf::Vector2f(i * 2 + 10, i * 16);
+        this->vertices[i * 4 + 2].position = sf::Vector2f(i * 2 + 10, i * 16 + 10);
+        this->vertices[i * 4 + 3].position = sf::Vector2f(i * 2, i * 16 + 10);
+        this->vertices[i * 4 + 0].texCoords = sf::Vector2f(i * 2, i * 16);
+        this->vertices[i * 4 + 1].texCoords = sf::Vector2f(i * 2 + 10, i * 16);
+        this->vertices[i * 4 + 2].texCoords = sf::Vector2f(i * 2 + 10, i * 16 + 10);
+        this->vertices[i * 4 + 3].texCoords = sf::Vector2f(i * 2, i * 16 + 10);
     }
 }

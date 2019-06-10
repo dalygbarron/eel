@@ -38,12 +38,9 @@ void BulletManager::update() {
 
 Bullet const *BulletManager::getPrototype(char const *type) {
     Bullet *prototype = this->prototypes[type];
-    if (prototype) {
-        return prototype;
-    } else {
-        spdlog::error("No bullet prototype called '{}'", type);
-        return 0;
-    }
+    if (prototype) return prototype;
+    spdlog::error("No bullet prototype called '{}'", type);
+    return 0;
 }
 
 Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position) {
@@ -63,8 +60,11 @@ int BulletManager::handleIni(void *reference, char const *section, char const *n
     BulletManager *manager = (BulletManager *)reference;
     if (!section[0]) {
         // Configuration settings.
-        if (strcmp(name, "spritesheet") == 0) manager->sprites = manager->repository->getSpriteBatch(value);
-        else spdlog::warn("'{}': '{}' is not a known configuration setting in bullets ini.", name, value);
+        if (strcmp(name, "spritesheet") == 0) {
+            manager->sprites = manager->repository->getSpriteBatch(value);
+        } else {
+            spdlog::warn("'{}': '{}' is not a known configuration setting in bullets ini.", name, value);
+        }
     } else {
         // Bullet specifications.
     }

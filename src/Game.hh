@@ -3,22 +3,19 @@
 
 #include "Store.hh"
 #include <string>
-#include "Repository.hh"
 
 /**
  * Contains the game's base configuration values.
  */
 class Game: public Store<char const *> {
-    Repository const *repository;
     char *root;
 
 public:
     /**
      * Creates game object.
-     * @param repo is the asset repository which is used by the game to load assets.
      * @param file is the file in which the game configuration is stored.
      */
-    Game(Repository const *repo, char const *file);
+    Game(char const *file);
 
     /**
      * Clears out all the junk hell yeah.

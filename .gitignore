@@ -4,4 +4,4 @@
 main
 tester
 .DS_Store
-logs/*
+*.log

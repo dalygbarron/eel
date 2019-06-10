@@ -18,8 +18,8 @@
  * The main loop of the game.
  */
 void run(char const *gameFile) {
-    Repository repository;
-    Game game(&repository, gameFile);
+    Game game(gameFile);
+    Repository repository(&game);
     BulletManager bulletManager(&game, &repository);
 
     std::forward_list<Scene *> scenes;
@@ -64,8 +64,9 @@ void run(char const *gameFile) {
  */
 int main(int argc, char **argv) {
     // Start logging right away.
-    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/log.log", 2, 30));
-    spdlog::flush_every(std::chrono::seconds(5));
+    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/piss2.log", 2, 30));
+    spdlog::flush_on(spdlog::level::err);
+    spdlog::flush_every(std::chrono::seconds(10));
     spdlog::info("Game Commencing Normally");
     // run main loop in try/catch.
     try {
