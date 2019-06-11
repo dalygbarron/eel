@@ -5,10 +5,12 @@
 #include "Config.hh"
 
 void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    target.draw(*(this->sprites));
+    states.transform *= this->getTransform();
+    states.texture = this->sprites->getTexture();
+    target.draw(this->vertices, states);
 }
 
-BulletManager::BulletManager(Game const *game, Repository *repository) {
+BulletManager::BulletManager(Game const *game, Repository *repository): Store("Bullet Manager") {
     this->game = game;
     this->repository = repository;
     char file[Config::FILENAME_BUFFER_SIZE];
@@ -27,12 +29,17 @@ BulletManager::BulletManager(Game const *game, Repository *repository) {
     this->bullets[Config::BULLET_LIMIT - 1].alive = false;
     this->bullets[Config::BULLET_LIMIT - 1].state.next = 0;
     this->empty = this->bullets;
+    // Now add in some test bullshit.
+    this->addBullet(this->get("roe"), sf::Vector2f(10, 10));
 }
 
 void BulletManager::update() {
     for (int i = 0; i < Config::BULLET_LIMIT && this->bullets[i].alive; i++) {
         this->bullets[i].pos += this->bullets[i].velocity;
         this->bullets[i].velocity += this->bullets[i].gravity;
+        for (int v = 0; v < 4; v++) {
+            this->vertices[i * 4 + v].position += this->bullets[i].velocity;
+        }
     }
 }
 
@@ -66,7 +73,23 @@ int BulletManager::handleIni(void *reference, char const *section, char const *n
             spdlog::warn("'{}': '{}' is not a known configuration setting in bullets ini.", name, value);
         }
     } else {
-        // Bullet specifications.
+        // Bullet params.
+        Bullet *prototype = manager->getSafely(section, 0);
+        if (!prototype) {
+            prototype = new Bullet();
+            manager->values[section] = prototype;
+        }
+        if (strcmp(name, "sprite") == 0) {
+            prototype->state.live.sprite = value;
+        } else if (strcmp(name, "shape") == 0) {
+            prototype->state.live.shape = strtol(value, 0, 0);
+        } else if (strcmp(name, "radius") == 0) {
+            prototype->state.live.radius = strtol(value, 0, 0);
+        } else if (strcmp(name, "speed") == 0) {
+            prototype->state.live.speed = strtol(value, 0, 0);
+        } else {
+            spdlog::warn("[{}] '{}': '{}' is not a known parameter of bullets in bullets ini.", section, name, value);
+        }
     }
     return 1;
 }

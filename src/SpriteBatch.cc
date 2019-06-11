@@ -8,13 +8,6 @@
 
 #define NAME_BUFFER_SIZE 256
 
-
-void SpriteBatch::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    states.transform *= this->getTransform();
-    states.texture = &(this->texture);
-    target.draw(this->vertices, states);
-}
-
 SpriteBatch::SpriteBatch(char const *file) {
     spdlog::info("Loading Rat Pack '{}'", file);
     // Load in sprite data.
@@ -39,27 +32,17 @@ SpriteBatch::SpriteBatch(char const *file) {
         spdlog::debug("Rat Pack frame '{}' ({}, {}, {}, {})", name, x, y, w, h);
         sprites[std::string(name)] = sf::IntRect(x, y, w, h);
     }
-    // make vertices.
-    this->vertices.setPrimitiveType(sf::Quads);
-    this->vertices.resize(n * 2 * 4);
-    int i = 0;
-    for (auto const &pair: this->sprites) {
-        this->vertices[i * 8 + 0].position = sf::Vector2f(i, i * 16);
-        this->vertices[i * 8 + 1].position = sf::Vector2f(i + pair.second.width, i * 16);
-        this->vertices[i * 8 + 2].position = sf::Vector2f(i + pair.second.width, i * 16 + pair.second.height);
-        this->vertices[i * 8 + 3].position = sf::Vector2f(i, i * 16 + pair.second.height);
-        this->vertices[i * 8 + 0].texCoords = sf::Vector2f(pair.second.left, pair.second.top);
-        this->vertices[i * 8 + 1].texCoords = sf::Vector2f(pair.second.left + pair.second.width, pair.second.top);
-        this->vertices[i * 8 + 2].texCoords = sf::Vector2f(pair.second.left + pair.second.width, pair.second.top + pair.second.height);
-        this->vertices[i * 8 + 3].texCoords = sf::Vector2f(pair.second.left, pair.second.top + pair.second.height);
-        this->vertices[i * 8 + 4].position = sf::Vector2f(i + 50, i * 16);
-        this->vertices[i * 8 + 5].position = sf::Vector2f(i + 50 + pair.second.width, i * 16);
-        this->vertices[i * 8 + 6].position = sf::Vector2f(i + 50 + pair.second.width, i * 16 + pair.second.height);
-        this->vertices[i * 8 + 7].position = sf::Vector2f(i + 50, i * 16 + pair.second.height);
-        this->vertices[i * 8 + 4].texCoords = sf::Vector2f(pair.second.left, pair.second.top);
-        this->vertices[i * 8 + 5].texCoords = sf::Vector2f(pair.second.left + pair.second.width, pair.second.top);
-        this->vertices[i * 8 + 6].texCoords = sf::Vector2f(pair.second.left + pair.second.width, pair.second.top + pair.second.height);
-        this->vertices[i * 8 + 7].texCoords = sf::Vector2f(pair.second.left, pair.second.top + pair.second.height);
-        i++;
-    }
+}
+
+void SpriteBatch::fitQuad(sf::Vertex *vertices, char const *spriteName) {
+    // TODO: make this safe.
+    sf::IntRect sprite = this->sprites[spriteName];
+    vertices[0].texCoords = sf::Vector2f(sprite.left, sprite.top);
+    vertices[1].texCoords = sf::Vector2f(sprite.left + sprite.width, sprite.top);
+    vertices[2].texCoords = sf::Vector2f(sprite.left + sprite.width, sprite.top + sprite.height);
+    vertices[3].texCoords = sf::Vector2f(sprite.left, sprite.top + sprite.height);
+}
+
+sf::Texture *SpriteBatch::getTexture() {
+    return &this->texture;
 }

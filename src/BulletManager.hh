@@ -13,13 +13,14 @@
 /**
  * Manages all the bullets that are going. draws them and does their collisions and shit.
  */
-class BulletManager: public sf::Drawable {
+class BulletManager: private Store<Bullet *>, public sf::Drawable, public sf::Transformable {
     Game const *game;
     Repository *repository;
     Bullet bullets[Config::BULLET_LIMIT];
     Bullet *empty;
     std::unordered_map<std::string, Bullet *> prototypes;
     SpriteBatch *sprites;
+    sf::VertexArray vertices;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
