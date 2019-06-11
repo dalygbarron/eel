@@ -24,7 +24,7 @@ void run(char const *gameFile) {
 
     std::forward_list<Scene *> scenes;
     scenes.push_front(new TestScene(&bulletManager));
-    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "World of Piss");
+    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), game.get("title"));
     window.setFramerateLimit(60);
     // Main loop of game.
     int i = 0;
