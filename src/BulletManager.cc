@@ -6,7 +6,7 @@
 
 void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= this->getTransform();
-    states.texture = this->sprites->getTexture();
+    states.texture = this->sprites;
     target.draw(this->vertices, states);
 }
 
@@ -44,10 +44,7 @@ void BulletManager::update() {
 }
 
 Bullet const *BulletManager::getPrototype(char const *type) {
-    Bullet *prototype = this->prototypes[type];
-    if (prototype) return prototype;
-    spdlog::error("No bullet prototype called '{}'", type);
-    return 0;
+    return this->get(type);
 }
 
 Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position) {
@@ -60,6 +57,12 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
         newBullet->alive = true;
         newBullet->copy(prototype);
         newBullet->pos = position;
+        this->sprites->buildQuad(
+            &(this->vertices[this->empty - this->bullets]),
+            prototype->state.live.sprite,
+            position,
+            0
+        );
     }
 }
 
@@ -77,7 +80,7 @@ int BulletManager::handleIni(void *reference, char const *section, char const *n
         Bullet *prototype = manager->getSafely(section, 0);
         if (!prototype) {
             prototype = new Bullet();
-            manager->values[section] = prototype;
+            manager->store(section, prototype);
         }
         if (strcmp(name, "sprite") == 0) {
             prototype->state.live.sprite = value;

@@ -38,6 +38,6 @@ int Game::handleIni(void *reference, char const *section, char const *name, char
     char *newValue = new char[strlen(value)];
     strcpy(newValue, value);
     Game *game = (Game *)reference;
-    game->values[name] = newValue;
+    game->store(name, newValue);
     return 1;
 }

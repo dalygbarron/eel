@@ -8,7 +8,7 @@
 
 #define NAME_BUFFER_SIZE 256
 
-SpriteBatch::SpriteBatch(char const *file) {
+SpriteBatch::SpriteBatch(char const *file): Store(file) {
     spdlog::info("Loading Rat Pack '{}'", file);
     // Load in sprite data.
     sf::FileInputStream stream;
@@ -16,7 +16,7 @@ SpriteBatch::SpriteBatch(char const *file) {
     int32_t size = Read::readInt(&stream);
     spdlog::debug("Rat Pack Image Size: {} bytes", size);
     SubStream textureStream(&stream, size);
-    if (!this->texture.loadFromStream(textureStream)) {
+    if (!this->loadFromStream(textureStream)) {
         spdlog::error("Loading texture in Rat pack '{}' failed.", file);
         return;
     }
@@ -30,19 +30,24 @@ SpriteBatch::SpriteBatch(char const *file) {
         int w = Read::readInt(&stream);
         int h = Read::readInt(&stream);
         spdlog::debug("Rat Pack frame '{}' ({}, {}, {}, {})", name, x, y, w, h);
-        sprites[std::string(name)] = sf::IntRect(x, y, w, h);
+        this->store(name, sf::IntRect(x, y, w, h));
     }
+}
+
+void SpriteBatch::buildQuad(sf::Vertex *vertices, char const *spriteName, sf::Vector2f position, float angle) {
+    sf::IntRect sprite = this->get(spriteName);
+    vertices[0].position = position;
+    vertices[0].position = position + sf::Vector2f();
+    vertices[0].position = position;
+    vertices[0].position = position;
+
 }
 
 void SpriteBatch::fitQuad(sf::Vertex *vertices, char const *spriteName) {
     // TODO: make this safe.
-    sf::IntRect sprite = this->sprites[spriteName];
+    sf::IntRect sprite = this->get(spriteName);
     vertices[0].texCoords = sf::Vector2f(sprite.left, sprite.top);
     vertices[1].texCoords = sf::Vector2f(sprite.left + sprite.width, sprite.top);
     vertices[2].texCoords = sf::Vector2f(sprite.left + sprite.width, sprite.top + sprite.height);
     vertices[3].texCoords = sf::Vector2f(sprite.left, sprite.top + sprite.height);
-}
-
-sf::Texture *SpriteBatch::getTexture() {
-    return &this->texture;
 }

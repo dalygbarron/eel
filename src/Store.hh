@@ -10,9 +10,17 @@
  */
 template <class T> class Store {
     char const *name;
+    std::unordered_map<std::string, T> values;
 
 protected:
-    std::unordered_map<std::string, T> values;
+    /**
+     * Add something into the store.
+     * @param key   is the key under which the thing will be stored.
+     * @param value is the value taht is being stored.
+     */
+    void store(char const *key, T value) {
+        this->values[key] = value;
+    }
 
 public:
     /**

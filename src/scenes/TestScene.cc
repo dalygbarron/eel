@@ -37,6 +37,7 @@ TestScene::TestScene(BulletManager *bulletManager) {
         throw -1;
     }
     this->shader.setUniform("resolution", sf::Vector2f(1440, 960));
+    this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(100, 200));
 }
 
 void TestScene::update(Transition *transition) {

@@ -5,15 +5,13 @@
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "Config.hh"
+#include "Store.hh"
 
 /**
  * Class for rendering many copies of a sprite from a spritesheet at the same time. Technically it can also do one I
  * think.
  */
-class SpriteBatch {
-    std::unordered_map<std::string, sf::IntRect> sprites;
-    sf::Texture texture;
-
+class SpriteBatch: public Store<sf::IntRect>, public sf::Texture {
 public:
     /**
      * Loads up the file and all that.
@@ -23,17 +21,20 @@ public:
     SpriteBatch(char const *file);
 
     /**
+     * makes a quad which is fit to the size of the given sprite and angle and shit.
+     * @param vertices   is a pointer to the 4 verticies making up the quad.
+     * @param spriteName is the name of the sprite to build.
+     * @param position   is where on the screen the centre of the quad will be.
+     * @param angle      is the angle at which the quad should be turned.
+     */
+    void buildQuad(sf::Vertex *vertices, char const *spriteName, sf::Vector2f position, float angle);
+
+    /**
      * Fits a named sprite onto the given quad.
      * @param vertices   is a pointer to the start of the quad.
      * @param spriteName is the name of the sprite to fit onto the quad.
      */
     void fitQuad(sf::Vertex *vertices, char const *spriteName);
-
-    /**
-     * Gives you the sprite batch's texture for rendering.
-     * @return the texture in it.
-     */
-    sf::Texture *getTexture();
 };
 
 #endif
