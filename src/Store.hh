@@ -2,6 +2,7 @@
 #define STORE_H
 
 #include <unordered_map>
+#include <string.h>
 #include <string>
 #include "spdlog/spdlog.h"
 
@@ -9,7 +10,7 @@
  * Generic storing thingy which stores stuff for example a store of config strings, or a store of booleans.
  */
 template <class T> class Store {
-    char const *name;
+    char *name;
     std::unordered_map<std::string, T> values;
 
 protected:
@@ -28,7 +29,9 @@ public:
      * @param name is the name to give to it for error reporting purposes.
      */
     Store(char const *name) {
-        this->name = name;
+        int nameLength = strlen(name);
+        this->name = new char[nameLength];
+        strcpy(this->name, name);
     }
 
     /**
@@ -58,6 +61,14 @@ public:
         } catch (...) {
             return net;
         }
+    }
+
+    /**
+     * Logs all the keys in the store.
+     */
+    void logKeys() {
+        spdlog::info("Logging keys for '{}'", this->name);
+        for (std::pair<std::string, T> pair: this->values) spdlog::debug("Key '{}'", pair.first);
     }
 };
 

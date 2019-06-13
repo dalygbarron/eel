@@ -20,7 +20,7 @@ public:
             float radius;
             float speed;
             int shape;
-            char const *sprite;
+            char *sprite;
         } live;
         // It's list pointer when dead.
         Bullet *next;

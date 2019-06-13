@@ -65,7 +65,7 @@ void run(char const *gameFile) {
 int main(int argc, char **argv) {
     // Start logging right away.
     spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/piss2.log", 2, 30));
-    spdlog::flush_on(spdlog::level::err);
+    spdlog::flush_on(spdlog::level::debug); // TODO: obviously change this for production to error.
     spdlog::flush_every(std::chrono::seconds(10));
     spdlog::info("Game Commencing Normally");
     // run main loop in try/catch.

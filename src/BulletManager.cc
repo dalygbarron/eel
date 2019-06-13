@@ -29,8 +29,9 @@ BulletManager::BulletManager(Game const *game, Repository *repository): Store("B
     this->bullets[Config::BULLET_LIMIT - 1].alive = false;
     this->bullets[Config::BULLET_LIMIT - 1].state.next = 0;
     this->empty = this->bullets;
-    // Now add in some test bullshit.
-    this->addBullet(this->get("roe"), sf::Vector2f(10, 10));
+    // Create the vertices.
+    this->vertices.setPrimitiveType(sf::Quads);
+    this->vertices.resize(Config::BULLET_LIMIT * 4);
 }
 
 void BulletManager::update() {
@@ -48,6 +49,11 @@ Bullet const *BulletManager::getPrototype(char const *type) {
 }
 
 Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position) {
+    // TODO: potentially you could create a bullet and then it could be destroyed and then another created bullet could
+    //       take it's spot in the pool all while you have the same pointer to that bullet thinking it is the old
+    //       bullet. Therefore, whenever a bullet is created it would be a good idea to store the current time in it or
+    //       something which can be recorded so that you know that the pointer you have is pointing to the bullet you
+    //       think it is pointing to.
     if (!this->empty) {
         spdlog::debug("Trying to add bullet to full pool");
         return 0;
@@ -57,12 +63,15 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
         newBullet->alive = true;
         newBullet->copy(prototype);
         newBullet->pos = position;
+        newBullet->velocity.x = 0.5;
+        newBullet->velocity.y = 0.92;
         this->sprites->buildQuad(
-            &(this->vertices[this->empty - this->bullets]),
+            &(this->vertices[(newBullet - this->bullets) * 4]),
             prototype->state.live.sprite,
             position,
             0
         );
+        return newBullet;
     }
 }
 
@@ -83,7 +92,9 @@ int BulletManager::handleIni(void *reference, char const *section, char const *n
             manager->store(section, prototype);
         }
         if (strcmp(name, "sprite") == 0) {
-            prototype->state.live.sprite = value;
+            int nameLength = strlen(value);
+            prototype->state.live.sprite = new char[nameLength];
+            strcpy(prototype->state.live.sprite, value);
         } else if (strcmp(name, "shape") == 0) {
             prototype->state.live.shape = strtol(value, 0, 0);
         } else if (strcmp(name, "radius") == 0) {
