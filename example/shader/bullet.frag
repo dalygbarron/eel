@@ -5,6 +5,9 @@
  * It should not be super bad though as it is just a rotation in 3d space where each colour is a dimension.
  */
 
+
+uniform float time;
+
 void main() {
-    gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
+    gl_FragColor = vec4(1.0, sin(time), cos(time * 2.0), 1.0);
 }

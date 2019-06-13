@@ -32,14 +32,17 @@ TestScene::TestScene(BulletManager *bulletManager) {
     this->background.setSize(sf::Vector2f(960, 1440));
     this->background.setPosition(0, 0);
     this->background.setTextureRect(sf::IntRect(0, 0, 1, 1));
-    if (!this->shader.loadFromFile("example/shader/plain.vert", "example/shader/eyeball.frag")) {
+    if (!this->shader.loadFromFile("example/shader/plain.vert", "example/shader/bullet.frag")) {
         spdlog::error("Couldn't load nice shaders for test scene");
         throw -1;
     }
     this->shader.setUniform("resolution", sf::Vector2f(1440, 960));
     // TODO: clear the bullet manager before use.
-    this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(50, 50));
-    this->bulletManager->addBullet(this->bulletManager->getPrototype("dispenser"), sf::Vector2f(201, 73));
+    for (int i = 0; i < Config::BULLET_LIMIT; i += 2) {
+        this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(rand() % 500, rand() % 500));
+        this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(rand() % 500, rand() % 500));
+    }
+
 }
 
 void TestScene::update(Transition *transition) {

@@ -11,8 +11,8 @@
 #include "BulletManager.hh"
 #include "scenes/TestScene.hh"
 
-#define WIDTH 512
-#define HEIGHT 256
+#define WIDTH 1024
+#define HEIGHT 512
 
 /**
  * The main loop of the game.
@@ -25,7 +25,7 @@ void run(char const *gameFile) {
     std::forward_list<Scene *> scenes;
     scenes.push_front(new TestScene(&bulletManager));
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), game.get("title"));
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(Config::FPS);
     // Main loop of game.
     int i = 0;
     Transition transition;
