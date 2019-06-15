@@ -1,3 +1,7 @@
+#include "Game.hh"
+#include "Config.hh"
+#include "Repository.hh"
+#include "BulletManager.hh"
 #include <iostream>
 #include <fstream>
 #include <forward_list>
@@ -8,6 +12,8 @@
 
 #include "spdlog/spdlog.h"
 #include "spdlog/daily_file_sink.h"
+
+#define DEFAULT_CONFIG_FILE "example/game.ini"
 
 /**
  * Start of the program.
@@ -24,12 +30,12 @@ int main(int argc, char **argv) {
     // Get the game file
     char const *gameFile;
     if (argc == 2) gameFile = argv[1];
-    else gameFile = Config::DEFAULT_GAME_FILE;
+    else gameFile = DEFAULT_CONFIG_FILE;
     // Start up the game systems.
     Config config(gameFile);
     Repository repository(&config);
     BulletManager bulletManager(&config, &repository);
-    Game game(&config, &repository);
+    Game game(&config, &repository, &bulletManager);
     // run the game.
     int status = game.run();
     // all over.

@@ -47,6 +47,14 @@ namespace Utils {
      * @return the new letterboxed version of the view.
      */
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight);
+
+    /**
+     * Reads a string containing a number and turns it into an int.
+     * @param text is the text to read from.
+     * @return the converted int.
+     * @throws an exception and logs if the string is not an int.
+     */
+    int parseInt(char const *text);
 };
 
 #endif

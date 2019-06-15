@@ -1,4 +1,4 @@
-#include "tests.hh"
+#include "catch.hh"
 #include "../Bullet.hh"
 
 TEST_CASE("Copy constructor works", "[bullet]") {

@@ -11,6 +11,7 @@
 class Game {
     Config const *config;
     Repository *repository;
+    BulletManager *bulletManager;
     std::forward_list<Scene *> scenes;
     sf::RenderWindow window;
     sf::View view;
@@ -39,10 +40,11 @@ class Game {
 public:
     /**
      * Builds the thing and gets it's dependencies injected.
-     * @param config     is the game's configuration.
-     * @param repository is where the game will get it's assets.
+     * @param config        is the game's configuration.
+     * @param repository    is where the game will get it's assets.
+     * @param bulletManager is used by some scenes for their enjoyment.
      */
-    Game(Config const *config, Repository *repository);
+    Game(Config const *config, Repository *repository, BulletManager *bulletManager);
 
     /**
      * Runs the game.

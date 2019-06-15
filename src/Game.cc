@@ -35,19 +35,20 @@ void Game::transition(Transition *t) {
     }
 }
 
-Game::Game(Config const *config, Repository *repository) {
+Game::Game(Config const *config, Repository *repository, BulletManager *bulletManager) {
     this->config = config;
     this->repository = repository;
+    this->bulletManager = bulletManager;
     // set up rendering window.
-    int windowWidth = config->get("width");
-    int windowHeight = config->get("height");
+    int windowWidth = Utils::parseInt(config->get("width"));
+    int windowHeight = Utils::parseInt(config->get("height"));
     this->window.create(sf::VideoMode(windowWidth, windowHeight), config->get("title"));
     this->window.setFramerateLimit(Config::FPS);
     this->view.setSize(windowWidth, windowHeight);
     this->view.setCenter(this->view.getSize().x / 2, this->view.getSize().y / 2);
     this->view = Utils::getLetterboxView(this->view, windowWidth, windowHeight);
     // set up a test scene.
-    this->scenes.push_front(new TestScene(&bulletManager));
+    this->scenes.push_front(new TestScene(bulletManager));
 }
 
 int Game::run() {

@@ -4,8 +4,6 @@
 #include "Store.hh"
 #include <string>
 
-
-
 /**
  * Contains the game's base configuration values and also runs it.
  */
@@ -17,7 +15,6 @@ public:
     constexpr static float const FPS_WARN = 55;
     constexpr static int const BULLET_LIMIT = 2048;
     constexpr static int const FILENAME_BUFFER_SIZE = 64;
-    constexpr static char const *DEFAULT_GAME_FILE = "game.ini";
     constexpr static char const *BULLET_FILE = "bullets";
     constexpr static char const *FISHES_FILE = "fishes";
 

@@ -1,5 +1,6 @@
 #include "Utils.hh"
 #include "Config.hh"
+#include <cstdlib>
 #include <SFML/Graphics.hpp>
 
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
@@ -22,7 +23,7 @@ float Utils::perSecondPerSecond(float value) {
     return value / (Config::FPS * Config::FPS);
 }
 
-sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
+sf::View Utils::getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
     float windowRatio = windowWidth / (float)windowHeight;
     float viewRatio = view.getSize().x / (float)view.getSize().y;
     float sizeX = 1;
@@ -40,4 +41,8 @@ sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
     }
     view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
     return view;
+}
+
+int Utils::parseInt(char const *text) {
+    return strtol(text, 0, 0);
 }
