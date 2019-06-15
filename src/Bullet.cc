@@ -1,4 +1,5 @@
 #include "Bullet.hh"
+#include "Utils.hh"
 #include <cmath>
 
 void Bullet::copy(Bullet const *bullet) {
@@ -8,12 +9,12 @@ void Bullet::copy(Bullet const *bullet) {
     this->state.live.sprite = bullet->state.live.sprite;
 }
 
-void Bullet::launch(float angle, float speed) {
-    this->velocity.x = sin(angle) * speed;
-    this->velocity.y = cos(angle) * speed;
+void Bullet::launch(float angle) {
+    this->velocity.x = sin(angle) * Utils::perSecond(this->state.live.speed);
+    this->velocity.y = cos(angle) * Utils::perSecond(this->state.live.speed);
 }
 
-void Bullet::gravityLaunch(float angle, float speed) {
-    this->gravity.x = sin(angle) * speed;
-    this->gravity.y = cos(angle) * speed;
+void Bullet::gravityLaunch(float angle, float rate) {
+    this->gravity.x = sin(angle) * rate;
+    this->gravity.y = cos(angle) * rate;
 }

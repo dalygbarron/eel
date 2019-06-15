@@ -34,18 +34,17 @@ public:
     void copy(Bullet const *bullet);
 
     /**
-     * Gives bullet a new trajectory.
+     * Gives bullet a new trajectory. The speed will be the bullet's stored speed.
      * @param angle is the angle for it to move in.
-     * @param speed is the speed for it to move at.
      */
-    void launch(float angle, float speed);
+    void launch(float angle);
 
     /**
      * Gives bullet's gravity a new trajectory.
      * @param angle is the angle that the gravity is in.
-     * @param speed is the rate of acceleration the gravity will cause as a 1 dimensional speed along the angle.
+     * @param rate  is the rate of acceleration the gravity will cause as a 1 dimensional speed along the angle.
      */
-    void gravityLaunch(float angle, float speed);
+    void gravityLaunch(float angle, float rate);
 };
 
 #endif
