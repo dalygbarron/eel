@@ -1,9 +1,9 @@
 #include "BulletManager.hh"
-#include "spdlog/spdlog.h"
-#include "inih.hh"
 #include "Repository.hh"
 #include "Config.hh"
 #include "Utils.hh"
+#include "spdlog/spdlog.h"
+#include "inih.hh"
 
 void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= this->getTransform();

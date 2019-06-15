@@ -1,5 +1,6 @@
 #include "Game.hh"
 #include "Utils.hh"
+#include "spdlog/spdlog.h"
 
 void Game::handleEvents() {
     sf::Event event;
@@ -63,7 +64,7 @@ int Game::run() {
         i++;
         if (!(i % 300)) {
             float fps = 300.0 / clock.getElapsedTime().asSeconds();
-            if (fps < FPS_WARN) spdlog::warn("FPS: {}", fps);
+            if (fps < Config::FPS_WARN) spdlog::warn("FPS: {}", fps);
             else spdlog::debug("FPS: {}", fps);
             clock.restart();
         }

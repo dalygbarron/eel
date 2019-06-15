@@ -1,11 +1,11 @@
 #ifndef REPOSITORY_H
 #define REPOSITORY_H
 
+#include "Config.hh"
+#include "SpriteBatch.hh"
 #include <unordered_map>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "Config.hh"
-#include "SpriteBatch.hh"
 
 /**
  * Loads assets out of files and then keeps them stored for later.

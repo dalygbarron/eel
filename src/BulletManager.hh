@@ -1,12 +1,12 @@
 #ifndef BULLET_MANAGER_H
 #define BULLET_MANAGER_H
 
+#include "Bullet.hh"
+#include "Repository.hh"
+#include "Config.hh"
+#include "SpriteBatch.hh"
 #include <string>
 #include <unordered_map>
-#include "Bullet.hh"
-#include "Config.hh"
-#include "Repository.hh"
-#include "SpriteBatch.hh"
 #include <SFML/Graphics.hpp>
 
 /**

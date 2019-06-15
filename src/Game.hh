@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <forward_list>
 #include "BulletManager.hh"
 #include "scenes/TestScene.hh"
+#include <forward_list>
 
 /**
  * Contains the main loop of the game, handles events, and creates and manages the game's scenes.

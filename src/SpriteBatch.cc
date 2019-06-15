@@ -1,12 +1,11 @@
 #include "SpriteBatch.hh"
+#include "SubStream.hh"
+#include "Read.hh"
+#include "Config.hh"
 #include <stdint.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "spdlog/spdlog.h"
-#include "SubStream.hh"
-#include "Read.hh"
-
-#define NAME_BUFFER_SIZE 256
 
 SpriteBatch::SpriteBatch(char const *file): Store(file) {
     spdlog::info("Loading Rat Pack '{}'", file);
@@ -23,8 +22,8 @@ SpriteBatch::SpriteBatch(char const *file): Store(file) {
     stream.seek(size + 4);
     int32_t n = Read::readInt(&stream);
     for (int i = 0; i < n; i++) {
-        char name[NAME_BUFFER_SIZE];
-        Read::readString(&stream, name, NAME_BUFFER_SIZE);
+        char name[Config::FILENAME_BUFFER_SIZE];
+        Read::readString(&stream, name, Config::FILENAME_BUFFER_SIZE);
         int x = Read::readInt(&stream);
         int y = Read::readInt(&stream);
         int w = Read::readInt(&stream);

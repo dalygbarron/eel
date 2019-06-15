@@ -1,11 +1,11 @@
 #ifndef SPRITE_BATCH_H
 #define SPRITE_BATCH_H
 
+#include "Store.hh"
+#include "Config.hh"
 #include <string>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
-#include "Config.hh"
-#include "Store.hh"
 
 /**
  * Class for rendering many copies of a sprite from a spritesheet at the same time. Technically it can also do one I

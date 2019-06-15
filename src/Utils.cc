@@ -1,6 +1,6 @@
 #include "Utils.hh"
-#include <SFML/Graphics.hpp>
 #include "Config.hh"
+#include <SFML/Graphics.hpp>
 
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
     while (pos.x < bounds.left) pos.x += bounds.width;
