@@ -11,11 +11,11 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
     target.draw(this->vertices, states);
 }
 
-BulletManager::BulletManager(Game const *game, Repository *repository): Store("Bullet Manager") {
-    this->game = game;
+BulletManager::BulletManager(Config const *config, Repository *repository): Store("Bullet Manager") {
+    this->config = config;
     this->repository = repository;
-    char file[FILENAME_BUFFER_SIZE];
-    game->inRoot(file, game->get(BULLET_FILE));
+    char file[Config::FILENAME_BUFFER_SIZE];
+    config->inRoot(file, config->get(Config::BULLET_FILE));
     // Load in the bullet info.
     spdlog::info("Loading bullets from '{}'", file);
     if (ini_parse(file, BulletManager::handleIni, this) < 0) {
@@ -23,20 +23,20 @@ BulletManager::BulletManager(Game const *game, Repository *repository): Store("B
         throw -1;
     }
     // Init the bullets to nothing.
-    for (int i = 0; i < BULLET_LIMIT - 1; i++) {
+    for (int i = 0; i < Config::BULLET_LIMIT - 1; i++) {
         this->bullets[i].alive = false;
         this->bullets[i].state.next = this->bullets + i + 1;
     }
-    this->bullets[BULLET_LIMIT - 1].alive = false;
-    this->bullets[BULLET_LIMIT - 1].state.next = 0;
+    this->bullets[Config::BULLET_LIMIT - 1].alive = false;
+    this->bullets[Config::BULLET_LIMIT - 1].state.next = 0;
     this->empty = this->bullets;
     // Create the vertices.
     this->vertices.setPrimitiveType(sf::Quads);
-    this->vertices.resize(BULLET_LIMIT * 4);
+    this->vertices.resize(Config::BULLET_LIMIT * 4);
 }
 
 void BulletManager::update() {
-    for (int i = 0; i < BULLET_LIMIT && this->bullets[i].alive; i++) {
+    for (int i = 0; i < Config::BULLET_LIMIT && this->bullets[i].alive; i++) {
         this->bullets[i].pos = Utils::wrapped(this->bullets[i].pos + this->bullets[i].velocity, sf::FloatRect(0, 0, 1280, 960));
         this->bullets[i].velocity += this->bullets[i].gravity;
         this->sprites->moveQuad(&(this->vertices[i * 4]), this->bullets[i].pos);
@@ -64,8 +64,8 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
         newBullet->alive = true;
         newBullet->copy(prototype);
         newBullet->pos = position;
-        newBullet->launch(Utils::random() * PI * 2, PPS(333));
-        newBullet->gravityLaunch(0, PPS(PPS(64)));
+        newBullet->launch(Utils::random() * Utils::PI * 2, Utils::perSecond(333));
+        newBullet->gravityLaunch(0, Utils::perSecondPerSecond(60));
         this->sprites->buildQuad(
             &(this->vertices[(newBullet - this->bullets) * 4]),
             prototype->state.live.sprite,

@@ -38,7 +38,7 @@ TestScene::TestScene(BulletManager *bulletManager) {
     }
     this->shader.setUniform("resolution", sf::Vector2f(1280, 960));
     // TODO: clear the bullet manager before use.
-    for (int i = 0; i < BULLET_LIMIT; i += 2) {
+    for (int i = 0; i < Config::BULLET_LIMIT; i += 2) {
         this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(rand() % 1280, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("bubble"), sf::Vector2f(rand() % 1280, rand() % 900));
     }
