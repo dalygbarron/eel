@@ -81,8 +81,8 @@ void run(char const *gameFile) {
         i++;
         if (!(i % 300)) {
             float fps = 300.0 / clock.getElapsedTime().asSeconds();
-            if (fps < FPS_WARN) spdlog::error("FPS: {}", 300.0 / clock.getElapsedTime().asSeconds());
-            else spdlog::debug("FPS: {}", 300.0 / clock.getElapsedTime().asSeconds());
+            if (fps < FPS_WARN) spdlog::warn("FPS: {}", fps);
+            else spdlog::debug("FPS: {}", fps);
             clock.restart();
         }
     }
