@@ -4,15 +4,35 @@
 #include <SFML/Graphics.hpp>
 
 // TODO: find a better spot for this.
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+//#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 
 #include "spdlog/spdlog.h"
 #include "spdlog/daily_file_sink.h"
 #include "BulletManager.hh"
 #include "scenes/TestScene.hh"
 
-#define WIDTH 1024
-#define HEIGHT 512
+#define WIDTH 1280
+#define HEIGHT 960
+
+sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
+    float windowRatio = windowWidth / (float) windowHeight;
+    float viewRatio = view.getSize().x / (float) view.getSize().y;
+    float sizeX = 1;
+    float sizeY = 1;
+    float posX = 0;
+    float posY = 0;
+    bool horizontalSpacing = true;
+    if (windowRatio < viewRatio) horizontalSpacing = false;
+    if (horizontalSpacing) {
+        sizeX = viewRatio / windowRatio;
+        posX = (1 - sizeX) / 2.f;
+    } else {
+        sizeY = windowRatio / viewRatio;
+        posY = (1 - sizeY) / 2.f;
+    }
+    view.setViewport( sf::FloatRect(posX, posY, sizeX, sizeY) );
+    return view;
+}
 
 /**
  * The main loop of the game.
@@ -25,8 +45,13 @@ void run(char const *gameFile) {
     std::forward_list<Scene *> scenes;
     scenes.push_front(new TestScene(&bulletManager));
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), game.get("title"));
-    window.setFramerateLimit(Config::FPS);
+    sf::View view;
+    view.setSize(WIDTH, HEIGHT);
+    view.setCenter(view.getSize().x / 2, view.getSize().y / 2);
+    view = getLetterboxView(view, WIDTH, HEIGHT);
+    window.setFramerateLimit(FPS);
     // Main loop of game.
+    sf::Clock clock;
     int i = 0;
     Transition transition;
     while (window.isOpen()) {
@@ -34,10 +59,12 @@ void run(char const *gameFile) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) window.close();
+            else if (event.type == sf::Event::Resized) view = getLetterboxView(view, event.size.width, event.size.height);
         }
         // Updating current scene.
         scenes.front()->update(&transition);
         // Rendering.
+        window.setView(view);
         window.clear();
         window.draw(*(scenes.front()));
         window.display();
@@ -52,7 +79,12 @@ void run(char const *gameFile) {
         }
         // Timekeeping.
         i++;
-        if (!(i % 300)) spdlog::info("tickx300");
+        if (!(i % 300)) {
+            float fps = 300.0 / clock.getElapsedTime().asSeconds();
+            if (fps < FPS_WARN) spdlog::error("FPS: {}", 300.0 / clock.getElapsedTime().asSeconds());
+            else spdlog::debug("FPS: {}", 300.0 / clock.getElapsedTime().asSeconds());
+            clock.restart();
+        }
     }
 }
 

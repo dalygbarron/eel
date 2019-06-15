@@ -12,7 +12,7 @@ SpriteBatch *Repository::getSpriteBatch(char const *name) {
     try {
         return this->spriteBatches.at(name);
     } catch (...) {
-        char filename[Config::FILENAME_BUFFER_SIZE];
+        char filename[FILENAME_BUFFER_SIZE];
         this->game->inRoot(filename, name);
         SpriteBatch *spriteBatch = new SpriteBatch(filename);
         this->spriteBatches[name] = spriteBatch;

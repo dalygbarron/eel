@@ -26,8 +26,16 @@ public:
      * @param spriteName is the name of the sprite to build.
      * @param position   is where on the screen the centre of the quad will be.
      * @param angle      is the angle at which the quad should be turned.
+     * @param scale      is the size to make the quad relative to the size of the sprite.
      */
-    void buildQuad(sf::Vertex *vertices, char const *spriteName, sf::Vector2f position, float angle);
+    void buildQuad(sf::Vertex *vertices, char const *spriteName, sf::Vector2f position, float angle, float scale);
+
+    /**
+     * Moves a pre textured quad to a new location.
+     * @param vertices is a pointer to the four vertices of the quad.
+     * @param position is the position to centre the quad on.
+     */
+    void moveQuad(sf::Vertex *vertices, sf::Vector2f position);
 
     /**
      * Fits a named sprite onto the given quad.

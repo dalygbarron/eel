@@ -3,6 +3,7 @@
 #include "inih.hh"
 #include "Repository.hh"
 #include "Config.hh"
+#include "Utils.hh"
 
 void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= this->getTransform();
@@ -13,8 +14,8 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 BulletManager::BulletManager(Game const *game, Repository *repository): Store("Bullet Manager") {
     this->game = game;
     this->repository = repository;
-    char file[Config::FILENAME_BUFFER_SIZE];
-    game->inRoot(file, game->get(Config::BULLET_FILE));
+    char file[FILENAME_BUFFER_SIZE];
+    game->inRoot(file, game->get(BULLET_FILE));
     // Load in the bullet info.
     spdlog::info("Loading bullets from '{}'", file);
     if (ini_parse(file, BulletManager::handleIni, this) < 0) {
@@ -22,25 +23,23 @@ BulletManager::BulletManager(Game const *game, Repository *repository): Store("B
         throw -1;
     }
     // Init the bullets to nothing.
-    for (int i = 0; i < Config::BULLET_LIMIT - 1; i++) {
+    for (int i = 0; i < BULLET_LIMIT - 1; i++) {
         this->bullets[i].alive = false;
         this->bullets[i].state.next = this->bullets + i + 1;
     }
-    this->bullets[Config::BULLET_LIMIT - 1].alive = false;
-    this->bullets[Config::BULLET_LIMIT - 1].state.next = 0;
+    this->bullets[BULLET_LIMIT - 1].alive = false;
+    this->bullets[BULLET_LIMIT - 1].state.next = 0;
     this->empty = this->bullets;
     // Create the vertices.
     this->vertices.setPrimitiveType(sf::Quads);
-    this->vertices.resize(Config::BULLET_LIMIT * 4);
+    this->vertices.resize(BULLET_LIMIT * 4);
 }
 
 void BulletManager::update() {
-    for (int i = 0; i < Config::BULLET_LIMIT && this->bullets[i].alive; i++) {
-        this->bullets[i].pos += this->bullets[i].velocity;
+    for (int i = 0; i < BULLET_LIMIT && this->bullets[i].alive; i++) {
+        this->bullets[i].pos = Utils::wrapped(this->bullets[i].pos + this->bullets[i].velocity, sf::FloatRect(0, 0, 1280, 960));
         this->bullets[i].velocity += this->bullets[i].gravity;
-        for (int v = 0; v < 4; v++) {
-            this->vertices[i * 4 + v].position += this->bullets[i].velocity;
-        }
+        this->sprites->moveQuad(&(this->vertices[i * 4]), this->bullets[i].pos);
     }
 }
 
@@ -53,9 +52,11 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
     //       take it's spot in the pool all while you have the same pointer to that bullet thinking it is the old
     //       bullet. Therefore, whenever a bullet is created it would be a good idea to store the current time in it or
     //       something which can be recorded so that you know that the pointer you have is pointing to the bullet you
-    //       think it is pointing to.
+    //       think it is pointing to. Also we can take care of handling that in the lua code since that is where
+    //       pointers to bullets are going to be used so it doesn't matter if it's clunky as I will abstract it away in
+    //       lua.
     if (!this->empty) {
-        spdlog::debug("Trying to add bullet to full pool");
+        spdlog::error("Trying to add bullet to full pool");
         return 0;
     } else {
         Bullet *newBullet = this->empty;
@@ -63,13 +64,14 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
         newBullet->alive = true;
         newBullet->copy(prototype);
         newBullet->pos = position;
-        newBullet->velocity.x = 0.5;
-        newBullet->velocity.y = 0.92;
+        newBullet->launch(Utils::random() * PI * 2, PPS(333));
+        newBullet->gravityLaunch(0, PPS(PPS(64)));
         this->sprites->buildQuad(
             &(this->vertices[(newBullet - this->bullets) * 4]),
             prototype->state.live.sprite,
             position,
-            0
+            0,
+            1
         );
         return newBullet;
     }

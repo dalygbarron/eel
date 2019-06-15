@@ -16,7 +16,7 @@
 class BulletManager: private Store<Bullet *>, public sf::Drawable, public sf::Transformable {
     Game const *game;
     Repository *repository;
-    Bullet bullets[Config::BULLET_LIMIT];
+    Bullet bullets[BULLET_LIMIT];
     Bullet *empty;
     std::unordered_map<std::string, Bullet *> prototypes;
     SpriteBatch *sprites;
@@ -35,7 +35,7 @@ public:
 
     /**
      * Moves all the bullets in appropriate ways.
-     * @see Config::FRAME_RATE.
+     * @see FRAME_RATE.
      */
     void update();
 

@@ -29,18 +29,18 @@ TestScene::TestScene(BulletManager *bulletManager) {
     this->text.setCharacterSize(40);
     this->text.setFillColor(sf::Color::White);
     this->text.setPosition(0, 0);
-    this->background.setSize(sf::Vector2f(960, 1440));
+    this->background.setSize(sf::Vector2f(1280, 960));
     this->background.setPosition(0, 0);
     this->background.setTextureRect(sf::IntRect(0, 0, 1, 1));
     if (!this->shader.loadFromFile("example/shader/plain.vert", "example/shader/bullet.frag")) {
         spdlog::error("Couldn't load nice shaders for test scene");
         throw -1;
     }
-    this->shader.setUniform("resolution", sf::Vector2f(1440, 960));
+    this->shader.setUniform("resolution", sf::Vector2f(1280, 960));
     // TODO: clear the bullet manager before use.
-    for (int i = 0; i < Config::BULLET_LIMIT; i += 2) {
-        this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(rand() % 500, rand() % 500));
-        this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(rand() % 500, rand() % 500));
+    for (int i = 0; i < BULLET_LIMIT; i += 2) {
+        this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(rand() % 1280, rand() % 900));
+        this->bulletManager->addBullet(this->bulletManager->getPrototype("bubble"), sf::Vector2f(rand() % 1280, rand() % 900));
     }
 
 }

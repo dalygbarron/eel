@@ -34,16 +34,31 @@ SpriteBatch::SpriteBatch(char const *file): Store(file) {
     }
 }
 
-void SpriteBatch::buildQuad(sf::Vertex *vertices, char const *spriteName, sf::Vector2f position, float angle) {
+void SpriteBatch::buildQuad(
+    sf::Vertex *vertices,
+    char const *spriteName,
+    sf::Vector2f position,
+    float angle,
+    float scale
+) {
     sf::IntRect sprite = this->get(spriteName);
-    vertices[0].position = position;
-    vertices[1].position = position + sf::Vector2f(sprite.width, 0);
-    vertices[2].position = position + sf::Vector2f(sprite.width, sprite.height);
-    vertices[3].position = position + sf::Vector2f(0, sprite.height);
+    vertices[0].position = position + sf::Vector2f(-sprite.width / 2, -sprite.height / 2) * scale;
+    vertices[1].position = position + sf::Vector2f(sprite.width / 2, -sprite.height / 2) * scale;
+    vertices[2].position = position + sf::Vector2f(sprite.width / 2, sprite.height / 2) * scale;
+    vertices[3].position = position + sf::Vector2f(-sprite.width / 2, sprite.height / 2) * scale;
     vertices[0].texCoords = sf::Vector2f(sprite.left, sprite.top);
     vertices[1].texCoords = sf::Vector2f(sprite.left + sprite.width, sprite.top);
     vertices[2].texCoords = sf::Vector2f(sprite.left + sprite.width, sprite.top + sprite.height);
     vertices[3].texCoords = sf::Vector2f(sprite.left, sprite.top + sprite.height);
+}
+
+void SpriteBatch::moveQuad(sf::Vertex *vertices, sf::Vector2f position) {
+    float width = vertices[1].position.x - vertices[0].position.x;
+    float height = vertices[2].position.y - vertices[1].position.y;
+    vertices[0].position = position + sf::Vector2f(-width / 2, -height / 2);
+    vertices[1].position = position + sf::Vector2f(width / 2, -height / 2);
+    vertices[2].position = position + sf::Vector2f(width / 2, height / 2);
+    vertices[3].position = position + sf::Vector2f(-width / 2, height / 2);
 }
 
 void SpriteBatch::fitQuad(sf::Vertex *vertices, char const *spriteName) {
