@@ -28,7 +28,7 @@ tests: $(OBJS) $(TEST_OBJS)
 all: app tests
 
 run: app
-	./$(OUT)
+	./$(OUT) example/game.ini
 
 debug: app
 	gdb $(OUT)

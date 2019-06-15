@@ -13,7 +13,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/daily_file_sink.h"
 
-#define DEFAULT_CONFIG_FILE "example/game.ini"
+#define DEFAULT_CONFIG_FILE "game.ini"
 
 /**
  * Start of the program.

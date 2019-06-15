@@ -70,4 +70,5 @@ int Game::run() {
             clock.restart();
         }
     }
+    return 0;
 }
