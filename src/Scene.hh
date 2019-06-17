@@ -1,6 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <list>
 #include <SFML/Graphics.hpp>
 
 class Scene;
@@ -24,7 +25,21 @@ public:
  * menu or some other thing like that.
  */
 class Scene: public sf::Drawable {
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
+    Widget *gui = 0;
+
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+    /**
+     * Draws the actual content in the scene.
+     * @param target is the render target that we are rendering onto.
+     * @param states is the rendering state thingy that must be given textures and shit.
+     */
+    virtual void drawContent(sf::RenderTarget &target, sf::RenderStates states) const = 0;
+
+    /**
+     * This scene's actual logic implementation.
+     */
+    virtual void logic() = 0;
 
 public:
     /**
@@ -41,7 +56,13 @@ public:
      *                   set to Transition::REPLACE then it is expected that the current scene will be popped from the
      *                   stack and then the given scene will be pushed onto the scene stack.
      */
-    virtual void update(Transition *transition) = 0;
+    void update(Transition *transition);
+
+    /**
+     * Adds a gui widget to this scene.
+     * @param widget is the widget added. NOTE: after use it will be deleted by the scene.
+     */
+    void addWidget(Widget *widget);
 };
 
 #endif
