@@ -1,10 +1,11 @@
 #include "Script.hh"
 #include <iostream>
 #include <lua5.3/lua.hpp>
+#include "spdlog/spdlog.h"
 
 void Script::showError(lua_State *state) {
     char const *message = lua_tostring(state, -1);
-    std::cerr << message << std::endl;
+    spdlog::error(message);
     lua_pop(state, 1);
 }
 
