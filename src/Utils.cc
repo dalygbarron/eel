@@ -46,3 +46,10 @@ sf::View Utils::getLetterboxView(sf::View view, int windowWidth, int windowHeigh
 int Utils::parseInt(char const *text) {
     return strtol(text, 0, 0);
 }
+
+void Utils::rectQuad(sf::Vertex *vertices, sf::FloatRect rect) {
+    vertices[0].position = sf::Vertex2f(rect.x, rect.y);
+    vertices[1].position = sf::Vertex2f(rect.x + rect.w, rect.y);
+    vertices[2].position = sf::Vertex2f(rect.x + rect.w, rect.y + rect.h);
+    vertices[3].position = sf::Vertex2f(rect.x, rect.y + rect.h);
+}

@@ -4,14 +4,25 @@
 /**
  * General superclass for gui widgets.
  */
-class Widget: public sf::Drawable, public sf::Transformable  {
-    sf::Vector2f dimensions;
+class Widget: public sf::Drawable {
+    sf::FloatRect dimensions;
+
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
 
 public:
     /**
-     * Updates the widget so that it can interact with the user or whatever it wants to do.
+     * Creates the widget and tells it what it's bounds and it's offset are.
+     * @param dimensions are the dimensions of the widget. I reserve the right to dynamically alter the width and height
+     *                   after it's been set.
      */
-    virtual int update();
+    Widget(sf::FloatRect dimensions);
+
+    /**
+     * Allows the widget to respond to an event.
+     * @param e is the event to respond to. It should only really be user input events.
+     * @return a non negative value to signify something is happening.
+     */
+    virtual int onEvent(sf::Event *e) = 0;
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 TEST_CASE("test wrapped works", "[utils]") {
     // TODO: this.
+    REQUIRE(false);
 }
 
 TEST_CASE("test random works", "[utils]") {
@@ -45,4 +46,14 @@ TEST_CASE("parsing ints works", "[utils]") {
     REQUIRE(Utils::parseInt("09") == 0);
     REQUIRE(Utils::parseInt("Bongo") == 0);
     REQUIRE(Utils::parseInt("") == 0);
+}
+
+TEST_CASE("Get letterbox view works", "[utils][graphics]") {
+    // TODO: this.
+    REQUIRE(false);
+}
+
+TEST_CASE("Rect Quad builder works", "[utils][graphics]") {
+    // TODO: this.
+    REQUIRE(false);
 }

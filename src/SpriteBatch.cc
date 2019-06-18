@@ -52,12 +52,12 @@ void SpriteBatch::buildQuad(
 }
 
 void SpriteBatch::moveQuad(sf::Vertex *vertices, sf::Vector2f position) {
-    float width = vertices[1].position.x - vertices[0].position.x;
-    float height = vertices[2].position.y - vertices[1].position.y;
-    vertices[0].position = position + sf::Vector2f(-width / 2, -height / 2);
-    vertices[1].position = position + sf::Vector2f(width / 2, -height / 2);
-    vertices[2].position = position + sf::Vector2f(width / 2, height / 2);
-    vertices[3].position = position + sf::Vector2f(-width / 2, height / 2);
+    float width = (vertices[1].position.x - vertices[0].position.x) / 2;
+    float height = (vertices[2].position.y - vertices[1].position.y) / 2;
+    vertices[0].position = position + sf::Vector2f(-width, -height);
+    vertices[1].position = position + sf::Vector2f(width, -height);
+    vertices[2].position = position + sf::Vector2f(width, height);
+    vertices[3].position = position + sf::Vector2f(-width, height);
 }
 
 void SpriteBatch::fitQuad(sf::Vertex *vertices, char const *spriteName) {

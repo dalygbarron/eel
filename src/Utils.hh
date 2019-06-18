@@ -8,6 +8,7 @@
  * This namespace should be completely free of any state, and just have some helpful bits of code in it.
  */
 namespace Utils {
+    // TODO: this should probably have more digits but lets wait until it wrecks something haha.
     constexpr float const PI = 3.14159;
 
     /**
@@ -55,6 +56,13 @@ namespace Utils {
      * @throws an exception and logs if the string is not an int.
      */
     int parseInt(char const *text);
+
+    /**
+     * Takes a set of vertices and a rectangle and sets the vertices positions to that of the rectangle.
+     * @param vertices is a pointer to the four vertices to arrange.
+     * @param rect     is the rectangle to make the vertices reflect.
+     */
+    void rectQuad(sf::Vertex *vertices, sf::FloatRect rect);
 };
 
 #endif
