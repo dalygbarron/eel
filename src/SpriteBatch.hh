@@ -31,7 +31,7 @@ public:
     void buildQuad(sf::Vertex *vertices, char const *spriteName, sf::Vector2f position, float angle, float scale);
 
     /**
-     * Moves a pre textured quad to a new location.
+     * Moves a preconstructed quad to a new location.
      * @param vertices is a pointer to the four vertices of the quad.
      * @param position is the position to centre the quad on.
      */

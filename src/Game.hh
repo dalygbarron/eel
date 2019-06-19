@@ -24,7 +24,7 @@ class Game {
     /**
      * Updates the game's state.
      */
-    void update(Transition *t);
+    void update();
 
     /**
      * Renders the game.
@@ -35,7 +35,7 @@ class Game {
      * Does the frame by frame transition of scenes (or does nothing most of the time).
      * @param transition is the object defining how the current scene stack should be updated.
      */
-    void transition(Transition *t);
+    void transition();
 
 public:
     /**

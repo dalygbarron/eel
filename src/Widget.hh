@@ -1,6 +1,8 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <SFML/Graphics.hpp>
+
 /**
  * General superclass for gui widgets.
  */

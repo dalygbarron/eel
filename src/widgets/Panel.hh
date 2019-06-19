@@ -2,6 +2,9 @@
 #define PANEL_H
 
 #include "../Widget.hh"
+#include "../Config.hh"
+#include <forward_list>
+#include <SFML/Graphics.hpp>
 
 /**
  * A widget which is a visibly rendered box which contains other widgets.

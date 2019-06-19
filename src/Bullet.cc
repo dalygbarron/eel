@@ -1,8 +1,14 @@
 #include "Bullet.hh"
 #include "Utils.hh"
 #include <cmath>
+#include "spdlog/spdlog.h"
 
 void Bullet::copy(Bullet const *bullet) {
+    if (!this->alive) {
+        // Must not copy to dead bullet as it could corrupt the lazy list.
+        spdlog::error("Trying to copy to dead bullet.");
+        throw -1;
+    }
     this->state.live.radius = bullet->state.live.radius;
     this->state.live.speed = bullet->state.live.speed;
     this->state.live.shape = bullet->state.live.shape;

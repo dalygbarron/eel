@@ -17,7 +17,9 @@ class TestScene: public Scene {
     sf::Shader shader;
     int i = 0;
 
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+    virtual void render(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+    virtual void logic() override;
 
 public:
     /**
@@ -25,8 +27,6 @@ public:
      * @param bulletManager is the bullet manager which we shall use a little.
      */
     TestScene(BulletManager *bulletManager);
-
-    void update(Transition *transition) override;
 };
 
 #endif

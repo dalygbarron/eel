@@ -47,9 +47,16 @@ int Utils::parseInt(char const *text) {
     return strtol(text, 0, 0);
 }
 
-void Utils::rectQuad(sf::Vertex *vertices, sf::FloatRect rect) {
-    vertices[0].position = sf::Vertex2f(rect.x, rect.y);
-    vertices[1].position = sf::Vertex2f(rect.x + rect.w, rect.y);
-    vertices[2].position = sf::Vertex2f(rect.x + rect.w, rect.y + rect.h);
-    vertices[3].position = sf::Vertex2f(rect.x, rect.y + rect.h);
+void Utils::fitQuad(sf::Vertex *vertices, sf::FloatRect rect) {
+    vertices[0].position = sf::Vector2f(rect.left, rect.top);
+    vertices[1].position = sf::Vector2f(rect.left + rect.width, rect.top);
+    vertices[2].position = sf::Vector2f(rect.left + rect.width, rect.top + rect.height);
+    vertices[3].position = sf::Vector2f(rect.left, rect.top + rect.height);
+}
+
+void Utils::colourQuad(sf::Vertex *vertices, sf::Color colour) {
+    vertices[0].color = colour;
+    vertices[1].color = colour;
+    vertices[2].color = colour;
+    vertices[3].color = colour;
 }

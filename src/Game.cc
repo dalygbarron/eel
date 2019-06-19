@@ -13,8 +13,8 @@ void Game::handleEvents() {
     }
 }
 
-void Game::update(Transition *t) {
-    scenes.front()->update(t);
+void Game::update() {
+    scenes.front()->update();
 }
 
 void Game::render() {
@@ -22,17 +22,6 @@ void Game::render() {
     this->window.clear();
     this->window.draw(*(scenes.front()));
     this->window.display();
-}
-
-void Game::transition(Transition *t) {
-    if (t->action == Transition::POP) {
-        scenes.pop_front();
-    } else if (t->action == Transition::PUSH) {
-        scenes.push_front(t->scene);
-    } else if (t->action == Transition::REPLACE) {
-        scenes.pop_front();
-        scenes.push_front(t->scene);
-    }
 }
 
 Game::Game(Config const *config, Repository *repository, BulletManager *bulletManager) {
@@ -55,12 +44,10 @@ int Game::run() {
     // Main loop of game.
     sf::Clock clock;
     int i = 0;
-    Transition t;
     while (this->window.isOpen()) {
         this->handleEvents();
-        this->update(&t);
+        this->update();
         this->render();
-        this->transition(&t);
         // Timekeeping.
         i++;
         if (!(i % 300)) {

@@ -51,3 +51,12 @@ reenters it and passes in the reponse from the nested scene as the argument.
 I think that this should be fine to even place in the middle of functions that are normally supposed to be run every
 frame, but all this stuff that interacts with the engine should be abstracted into a little library and not touched in
 normal use.
+
+
+## stop using drawable interface
+It forces you to use references and stuff which is making my code dumb for no reason and it's probably slower. I think
+I will be best off just making my own render function. I don't think I have any need for an interface but I can make
+one if I am desperate for something inane to do.
+
+Man I really hate the things C++ has done to C. Adding classes is quite handy, but references are garbo that pollute
+the language and subvert it. All those extra keywords like constexpr are the same. Override is one which I like though.

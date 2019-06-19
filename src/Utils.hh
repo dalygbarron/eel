@@ -62,7 +62,14 @@ namespace Utils {
      * @param vertices is a pointer to the four vertices to arrange.
      * @param rect     is the rectangle to make the vertices reflect.
      */
-    void rectQuad(sf::Vertex *vertices, sf::FloatRect rect);
+    void fitQuad(sf::Vertex *vertices, sf::FloatRect rect);
+
+    /**
+     * Takes a set of vertices and sets their colour to all the same colour.
+     * @param vertices is a pointer to the four vertices to colour.
+     * @param colour   is the colour to colour the quad.
+     */
+    void colourQuad(sf::Vertex *vertices, sf::Color colour);
 };
 
 #endif
