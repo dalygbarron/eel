@@ -1,4 +1,5 @@
 #include "Game.hh"
+#include "Constant.hh"
 #include "Utils.hh"
 #include "spdlog/spdlog.h"
 
@@ -32,7 +33,7 @@ Game::Game(Config const *config, Repository *repository, BulletManager *bulletMa
     int windowWidth = Utils::parseInt(config->get("width"));
     int windowHeight = Utils::parseInt(config->get("height"));
     this->window.create(sf::VideoMode(windowWidth, windowHeight), config->get("title"));
-    this->window.setFramerateLimit(Config::FPS);
+    this->window.setFramerateLimit(Constant::FPS);
     this->view.setSize(windowWidth, windowHeight);
     this->view.setCenter(this->view.getSize().x / 2, this->view.getSize().y / 2);
     this->view = Utils::getLetterboxView(this->view, windowWidth, windowHeight);
@@ -52,7 +53,7 @@ int Game::run() {
         i++;
         if (!(i % 300)) {
             float fps = 300.0 / clock.getElapsedTime().asSeconds();
-            if (fps < Config::FPS_WARN) spdlog::warn("FPS: {}", fps);
+            if (fps < Constant::FPS_WARN) spdlog::warn("FPS: {}", fps);
             else spdlog::debug("FPS: {}", fps);
             clock.restart();
         }

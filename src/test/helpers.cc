@@ -6,3 +6,11 @@ void compareVectors(sf::Vector2f a, sf::Vector2f b) {
     REQUIRE(a.x == Approx(b.x));
     REQUIRE(a.y == Approx(b.y));
 }
+
+void compareRects(sf::FloatRect a, sf::FloatRect b) {
+
+}
+
+void compareViewport(sf::View view, sf::FloatRect shape) {
+    
+}

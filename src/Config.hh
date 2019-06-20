@@ -11,14 +11,6 @@ class Config: public Store<char const *> {
     char *root;
 
 public:
-    constexpr static float const FPS = 60;
-    constexpr static float const FPS_WARN = 55;
-    constexpr static int const BULLET_LIMIT = 2048;
-    constexpr static int const FILENAME_BUFFER_SIZE = 64;
-    constexpr static int const SCENE_STACK_SIZE = 8;
-    constexpr static char const *BULLET_FILE = "bullets";
-    constexpr static char const *FISHES_FILE = "fishes";
-
     /**
      * Creates config object.
      * @param file is the file in which the game configuration is stored.

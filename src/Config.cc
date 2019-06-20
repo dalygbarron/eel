@@ -1,4 +1,5 @@
 #include "Config.hh"
+#include "Constant.hh"
 #include <string>
 #include "spdlog/spdlog.h"
 #include "inih.hh"

@@ -1,3 +1,4 @@
+#include "Constant.hh"
 #include "Game.hh"
 #include "Config.hh"
 #include "Repository.hh"
@@ -26,7 +27,12 @@ int main(int argc, char **argv) {
     spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/log.log", 2, 30));
     spdlog::flush_on(spdlog::level::debug); // TODO: obviously change this for production to error.
     spdlog::flush_every(std::chrono::seconds(10));
-    spdlog::info("Game Commencing Normally");
+    spdlog::info(
+        "Eel Version {}.{}.{}",
+        Constant::VERSION_MAJOR,
+        Constant::VERSION_MINOR,
+        Constant::VERSION_REVISION
+    );
     // Get the game file
     char const *gameFile;
     if (argc == 2) gameFile = argv[1];

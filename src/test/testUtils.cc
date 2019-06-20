@@ -26,8 +26,22 @@ TEST_CASE("test wrapped works", "[utils][maths]") {
         sf::Vector2f(8.5, 0.3)
     );
     // test it works with arbitrary rectangles
-    // TODO: this.
-    REQUIRE(false);
+    compareVectors(
+        Utils::wrapped(sf::Vector2f(5, 5), sf::FloatRect(5, 5, 2, 2)),
+        sf::Vector2f(5, 5)
+    );
+    compareVectors(
+        Utils::wrapped(sf::Vector2f(4.9, 4), sf::FloatRect(5, 5, 2, 2)),
+        sf::Vector2f(6.9, 6)
+    );
+    compareVectors(
+        Utils::wrapped(sf::Vector2f(7, 9), sf::FloatRect(5, 4, 2, 2)),
+        sf::Vector2f(5, 5)
+    );
+    compareVectors(
+        Utils::wrapped(sf::Vector2f(0, 0), sf::FloatRect(2.1, 1.2, 5.8, 0.2)),
+        sf::Vector2f(5.8, 1.2)
+    );
 }
 
 TEST_CASE("test random works", "[utils][maths]") {
@@ -73,8 +87,12 @@ TEST_CASE("parsing ints works", "[utils]") {
 }
 
 TEST_CASE("Get letterbox view works", "[utils][graphics][maths]") {
-    // TODO: this.
-    REQUIRE(false);
+    sf::View view;
+    view.setViewport(sf::FloatRect(0, 0, 1, 1));
+    compareVectors(
+        Utils::getLetterboxView(view, 1, 1).getSize(),
+        sf::Vector2f(1, 1)
+    );
 }
 
 TEST_CASE("fit quad works", "[utils][graphics]") {

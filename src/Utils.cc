@@ -1,5 +1,6 @@
 #include "Utils.hh"
 #include "Config.hh"
+#include "Constant.hh"
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 
@@ -16,11 +17,11 @@ float Utils::random() {
 }
 
 float Utils::perSecond(float value) {
-    return value / Config::FPS;
+    return value / Constant::FPS;
 }
 
 float Utils::perSecondPerSecond(float value) {
-    return value / (Config::FPS * Config::FPS);
+    return value / (Constant::FPS * Constant::FPS);
 }
 
 sf::View Utils::getLetterboxView(sf::View view, int windowWidth, int windowHeight) {

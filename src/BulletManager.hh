@@ -4,6 +4,7 @@
 #include "Bullet.hh"
 #include "Repository.hh"
 #include "Config.hh"
+#include "Constant.hh"
 #include "SpriteBatch.hh"
 #include <string>
 #include <unordered_map>
@@ -15,7 +16,7 @@
 class BulletManager: private Store<Bullet *>, public sf::Drawable, public sf::Transformable {
     Config const *config;
     Repository *repository;
-    Bullet bullets[Config::BULLET_LIMIT];
+    Bullet bullets[Constant::BULLET_LIMIT];
     Bullet *empty;
     std::unordered_map<std::string, Bullet *> prototypes;
     SpriteBatch *sprites;

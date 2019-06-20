@@ -14,8 +14,8 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 BulletManager::BulletManager(Config const *config, Repository *repository): Store("Bullet Manager") {
     this->config = config;
     this->repository = repository;
-    char file[Config::FILENAME_BUFFER_SIZE];
-    config->inRoot(file, config->get(Config::BULLET_FILE));
+    char file[Constant::FILENAME_BUFFER_SIZE];
+    config->inRoot(file, config->get(Constant::BULLET_FILE));
     // Load in the bullet info.
     spdlog::info("Loading bullets from '{}'", file);
     if (ini_parse(file, BulletManager::handleIni, this) < 0) {
@@ -23,20 +23,20 @@ BulletManager::BulletManager(Config const *config, Repository *repository): Stor
         throw -1;
     }
     // Init the bullets to nothing.
-    for (int i = 0; i < Config::BULLET_LIMIT - 1; i++) {
+    for (int i = 0; i < Constant::BULLET_LIMIT - 1; i++) {
         this->bullets[i].alive = false;
         this->bullets[i].state.next = this->bullets + i + 1;
     }
-    this->bullets[Config::BULLET_LIMIT - 1].alive = false;
-    this->bullets[Config::BULLET_LIMIT - 1].state.next = 0;
+    this->bullets[Constant::BULLET_LIMIT - 1].alive = false;
+    this->bullets[Constant::BULLET_LIMIT - 1].state.next = 0;
     this->empty = this->bullets;
     // Create the vertices.
     this->vertices.setPrimitiveType(sf::Quads);
-    this->vertices.resize(Config::BULLET_LIMIT * 4);
+    this->vertices.resize(Constant::BULLET_LIMIT * 4);
 }
 
 void BulletManager::update() {
-    for (int i = 0; i < Config::BULLET_LIMIT && this->bullets[i].alive; i++) {
+    for (int i = 0; i < Constant::BULLET_LIMIT && this->bullets[i].alive; i++) {
         this->bullets[i].pos = Utils::wrapped(this->bullets[i].pos + this->bullets[i].velocity, sf::FloatRect(0, 0, 1280, 960));
         this->bullets[i].velocity += this->bullets[i].gravity;
         this->sprites->moveQuad(&(this->vertices[i * 4]), this->bullets[i].pos);

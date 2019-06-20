@@ -1,6 +1,7 @@
 #include "SpriteBatch.hh"
 #include "SubStream.hh"
 #include "Read.hh"
+#include "Constant.hh"
 #include "Config.hh"
 #include <stdint.h>
 #include <SFML/Graphics.hpp>
@@ -22,8 +23,8 @@ SpriteBatch::SpriteBatch(char const *file): Store(file) {
     stream.seek(size + 4);
     int32_t n = Read::readInt(&stream);
     for (int i = 0; i < n; i++) {
-        char name[Config::FILENAME_BUFFER_SIZE];
-        Read::readString(&stream, name, Config::FILENAME_BUFFER_SIZE);
+        char name[Constant::FILENAME_BUFFER_SIZE];
+        Read::readString(&stream, name, Constant::FILENAME_BUFFER_SIZE);
         int x = Read::readInt(&stream);
         int y = Read::readInt(&stream);
         int w = Read::readInt(&stream);

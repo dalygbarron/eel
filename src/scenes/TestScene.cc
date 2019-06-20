@@ -6,10 +6,17 @@
 #include "../Repository.hh"
 
 
-void TestScene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void TestScene::render(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(this->background, &this->shader);
     target.draw(this->shape);
     target.draw(*(this->bulletManager));
+}
+
+void TestScene::logic() {
+    this->i++;
+    this->shader.setUniform("time", this->i / 60.f);
+    this->shape.setTextureRect(sf::IntRect(i, this->i / -2, 200, 200));
+    this->bulletManager->update();
 }
 
 TestScene::TestScene(BulletManager *bulletManager) {
@@ -38,17 +45,10 @@ TestScene::TestScene(BulletManager *bulletManager) {
     }
     this->shader.setUniform("resolution", sf::Vector2f(1280, 960));
     // TODO: clear the bullet manager before use.
-    for (int i = 0; i < Config::BULLET_LIMIT; i += 3) {
+    for (int i = 0; i < Constant::BULLET_LIMIT; i += 3) {
         this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(rand() % 1280, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("bubble"), sf::Vector2f(rand() % 1280, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("dispenser"), sf::Vector2f(rand() % 1280, rand() % 900));
     }
 
-}
-
-void TestScene::update(Transition *transition) {
-    this->i++;
-    this->shader.setUniform("time", this->i / 60.f);
-    this->shape.setTextureRect(sf::IntRect(i, this->i / -2, 200, 200));
-    this->bulletManager->update();
 }

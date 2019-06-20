@@ -2,7 +2,7 @@
 #include "spdlog/spdlog.h"
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    this->drawContent(target, states);
+    this->render(target, states);
     if (this->gui) target.draw(*(this->gui));
 }
 

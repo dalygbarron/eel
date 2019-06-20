@@ -26,3 +26,20 @@ Now, you may at first be saddened by the fact that I am not going to allow weird
 will make part of the vibe of the game that where normally there would be a weird shaped bullet, instead there will just
 be two little bullets one after the other, and also, these little bullets can be strung together in different types. I
 think they will look like little bits of interesting looking fishing tackle and stuff like that.
+
+### Versioning
+The engine stores a Major, Minor, and Revision version number ie Version 1.3.1 or something like that. As a whole these
+three numbers make up the specific version of the engine, but each one has a bit of a different meaning.
+
+The revision number means that it is an iteration from the previous revision version due to bugs, therefore it can
+break with functionality in the previous revision assuming that the functionality was a bug if you know what I mean.
+
+The minor version number means that it has new features compared to the previous version, and so a game can say that
+it only compatible with a given major.minor version and higher.
+
+The Major version groups a collection of versions that are all backwards compatible, so therefore any game which
+specifies a given major version will work with any version that has the same major version and the same or higher
+minor version. It will not work with lower minor versions, or different major versions.
+
+The game itself will only store the major and minor versions and not the revision number as you do not need to specify
+that your game is only compatible with the non buggy version, that would be stupid.
