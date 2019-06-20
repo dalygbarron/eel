@@ -88,11 +88,31 @@ TEST_CASE("parsing ints works", "[utils]") {
 
 TEST_CASE("Get letterbox view works", "[utils][graphics][maths]") {
     sf::View view;
+    // on a small unit square.
     view.setViewport(sf::FloatRect(0, 0, 1, 1));
-    compareVectors(
-        Utils::getLetterboxView(view, 1, 1).getSize(),
-        sf::Vector2f(1, 1)
+    compareRects(
+        Utils::getLetterboxView(view, 1, 1).getViewport(),
+        sf::FloatRect(0, 0, 1, 1)
     );
+    compareRects(
+        Utils::getLetterboxView(view, 2, 1).getViewport(),
+        sf::FloatRect(0.25, 0, 0.5, 1)
+    );
+    compareRects(
+        Utils::getLetterboxView(view, 1, 2).getViewport(),
+        sf::FloatRect(0, 0.25, 1, 0.5)
+    );
+    compareRects(
+        Utils::getLetterboxView(view, 2, 2).getViewport(),
+        sf::FloatRect(0, 0, 1, 1)
+    );
+    // on a wacky shape.
+    view.setViewport(sf::FloatRect(0, 0, 324, 543));
+    compareRects(
+        Utils::getLetterboxView(view, 333, 111).getViewport(),
+        sf::FloatRect(0.33333, 0, 0.33333, 1)
+    );
+
 }
 
 TEST_CASE("fit quad works", "[utils][graphics]") {

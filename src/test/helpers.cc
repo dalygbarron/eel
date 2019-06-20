@@ -8,9 +8,12 @@ void compareVectors(sf::Vector2f a, sf::Vector2f b) {
 }
 
 void compareRects(sf::FloatRect a, sf::FloatRect b) {
-
-}
-
-void compareViewport(sf::View view, sf::FloatRect shape) {
-    
+    INFO(
+        "(" << a.left << ", " << a.top << ", " << a.width << ", " << a.height << ") == (" << b.left << ", " << b.top <<
+        ", " << b.width << ", " << b.height << ")?"
+    );
+    REQUIRE(a.left == Approx(b.left));
+    REQUIRE(a.top == Approx(b.top));
+    REQUIRE(a.width == Approx(b.width));
+    REQUIRE(a.height == Approx(b.height));
 }
