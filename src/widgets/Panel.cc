@@ -4,11 +4,11 @@
 
 void Panel::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(this->vertices);
+    for (Widget *child: this->children) target.draw(*child);
 }
 
-Panel::Panel(sf::FloatRect dimensions, Config const *config): Widget(dimensions), vertices(sf::Quads, 20) {
-    // TODO: load colours from game file and save in config object.
-    Utils::makeBox(&this->vertices[0], dimensions, Panel::BORDER, sf::Color::Blue, sf::Color::White);
+Panel::Panel(Config const *config, int vertical): vertices(sf::Quads, 20) {
+    this->vertical = vertical;
 }
 
 int Panel::onEvent(sf::Event *e) {
@@ -21,4 +21,27 @@ int Panel::onEvent(sf::Event *e) {
 
 char const *Panel::getDescription() {
     return "Panel";
+}
+
+sf::FloatRect Panel::resize(sf::FloatRect bounds) {
+    // Panels intentionally take up all of the space given to them.
+    this->dimensions = bounds;
+    // TODO: load colours from game file and save in config object.
+    Utils::makeBox(&this->vertices[0], bounds, Panel::BORDER, sf::Color::Blue, sf::Color::White);
+    // do it to the children now.
+    bounds.left += Panel::BORDER;
+    bounds.top += Panel::BORDER;
+    bounds.width -= Panel::BORDER * 2;
+    bounds.height -= Panel::BORDER * 2;
+    for (Widget *child: this->children) {
+        sf::FloatRect childBounds = child->resize(bounds);
+        if (this->vertical) {
+            bounds.top = childBounds.top + childBounds.height;
+            bounds.height -= childBounds.height;
+        } else {
+            bounds.left = childBounds.left + childBounds.width;
+            bounds.width -= childBounds.width;
+        }
+    }
+    return this->dimensions;
 }

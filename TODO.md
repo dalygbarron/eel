@@ -53,7 +53,7 @@ frame, but all this stuff that interacts with the engine should be abstracted in
 normal use.
 
 
-## stop using drawable interface
+# stop using drawable interface
 It forces you to use references and stuff which is making my code dumb for no reason and it's probably slower. I think
 I will be best off just making my own render function. I don't think I have any need for an interface but I can make
 one if I am desperate for something inane to do.
@@ -62,4 +62,39 @@ Man I really hate the things C++ has done to C. Adding classes is quite handy, b
 the language and subvert it. All those extra keywords like constexpr are the same. Override is one which I like though.
 
 
-## Widget placement and sizing etc
+# Widget placement and sizing etc
+Ok so we need to think about what the process is that a widget goes through in the process of nesting a bunch of them
+up and chucking them on the screen.
+
+Ok so first of all some parent panel is created which will be given a fixed size and position.
+
+Next, we create a text box but it will not know what space it needs to fit into until it is shown to the box, and at
+that point it will need to sort itself out in order to fit inside.
+
+We then create a vertical selector, and when it is resized, it will actually use that as an opportunity to expand itself
+to fit into the space given to it.
+
+## Resize
+Ok so we are going to need a kind of resize function for widgets. Widgets will store their current dimensions, but
+when it is first created this will not yet be set. When a widget is added as the master panel, you will want to manually
+resize it to the size you want before adding stuff to it.
+
+When you add a widget into a panel or whatever, it will get it's resize function called which will render it and set it
+up to display within the bounds given to it in whichever way it sees fit. For certain objects like the vertical selector
+it will actually take it as an opportunity to take up all the horizontal space available to it.
+
+Ok so resize will be called sequentially on each element. So you call it on a text box giving it the maximum bounds it
+is allowed, and when that is done you check what it's new dimensions are in order to tell the next element how much
+space it is allowed which will be what is left and not what the last element took up.
+
+This function will also be where vertices and stuff like that are moved into position, and I think that if you wanted
+to move a window you would probably have to call this too. That would not be very efficient but if I ever needed to use
+it much I could add a move method.
+
+There will be certain widgets to which you must pass a size vector at creation time so that they actually know how much
+space they ought to be taking up. Maybe instead of passing them a hard value, you can pass them a proportion of the
+available space to fill. That way it is agnostic of screen resolution and shit like that.
+
+Hmmm it could also be necessary to give them a minimum size method which returns the minimum size they need so that you
+could know how big some thingies should be because for example a button would probably collapse to nothing if it had
+nothing inside it, it needs something like an image or a piece of text to tell it what it's size is.

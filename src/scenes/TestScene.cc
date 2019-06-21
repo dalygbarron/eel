@@ -50,5 +50,7 @@ TestScene::TestScene(BulletManager *bulletManager, Config const *config, Reposit
         this->bulletManager->addBullet(this->bulletManager->getPrototype("bubble"), sf::Vector2f(rand() % 1280, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("dispenser"), sf::Vector2f(rand() % 1280, rand() % 900));
     }
-    addWidget(new Panel(sf::FloatRect(11, 22, 300, 333), config));
+    Widget *panel = new Panel(config, true);
+    panel->resize(sf::FloatRect(100, 100, 111, 222));
+    addWidget(new Panel(config, true));
 }

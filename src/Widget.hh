@@ -7,18 +7,12 @@
  * General superclass for gui widgets.
  */
 class Widget: public sf::Drawable {
-    sf::FloatRect dimensions;
-
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
 
-public:
-    /**
-     * Creates the widget and tells it what it's bounds and it's offset are.
-     * @param dimensions are the dimensions of the widget. I reserve the right to dynamically alter the width and height
-     *                   after it's been set.
-     */
-    Widget(sf::FloatRect dimensions);
+protected:
+    sf::FloatRect dimensions;
 
+public:
     /**
      * Allows the widget to respond to an event.
      * @param e is the event to respond to. It should only really be user input events.
@@ -31,6 +25,16 @@ public:
      * @return the textual description which you do not need to free.
      */
     virtual char const *getDescription() = 0;
+
+    /**
+     * Resize and build the widget's visual representation. This has to be called once before the widget can be rendered
+     * properly. Should recursively run on any child widgets, passing in whatever space is left as bounds. Also this
+     * should set the dimensions field to whatever the new dimensions are.
+     * @param bounds is the area that the widget must fit inside. It does not have to use all of this space, and if it
+     *               does then there will be no space for others. Be considerate.
+     * @return the new bounds for convenience.
+     */
+    virtual sf::FloatRect resize(sf::FloatRect bounds) = 0;
 };
 
 #endif

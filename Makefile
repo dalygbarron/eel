@@ -11,14 +11,12 @@ TEST_OBJS = $(addprefix src/test/,$(addsuffix .o,$(TESTS)))
 OUT = main
 TEST_OUT = tester
 
-%.o: %.cc
-	@g++ -MD -c -o $@ $< $(CFLAGS)
-	@cp $*.d $*.P; \
-	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
-	-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
-	rm -f $*.d
 
--include *.P
+DEPS := $(OBJS:.o=.d)
+-include $(DEPS)
+
+%.o: %.cc
+	$(CC) -MMD -c -o $@ $< $(CFLAGS)
 
 app: $(OBJS) $(MAIN)
 	$(CC) $(MAIN) $(OBJS) $(LFLAGS) -o $(OUT) $(CFLAGS)

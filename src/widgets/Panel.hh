@@ -12,17 +12,20 @@
 class Panel: public Widget {
     sf::VertexArray vertices;
     std::forward_list<Widget *> children;
+    int vertical;
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 public:
     constexpr static int const BORDER = 10;
 
-    Panel(sf::FloatRect dimensions, Config const *config);
+    Panel(Config const *config, int vertical);
 
     virtual int onEvent(sf::Event *e) override;
 
     virtual char const *getDescription() override;
+
+    virtual sf::FloatRect resize(sf::FloatRect bounds) override;
 };
 
 #endif
