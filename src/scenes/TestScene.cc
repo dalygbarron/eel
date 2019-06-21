@@ -4,7 +4,7 @@
 #include "../spdlog/spdlog.h"
 #include "../BulletManager.hh"
 #include "../Repository.hh"
-
+#include "../widgets/Panel.hh"
 
 void TestScene::render(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(this->background, &this->shader);
@@ -19,7 +19,7 @@ void TestScene::logic() {
     this->bulletManager->update();
 }
 
-TestScene::TestScene(BulletManager *bulletManager, Repository *repository) {
+TestScene::TestScene(BulletManager *bulletManager, Config const *config, Repository *repository) {
     spdlog::info("Creating test scene");
     this->bulletManager = bulletManager;
     if (!this->texture.loadFromFile("example/image/bg.png")) {
@@ -50,5 +50,5 @@ TestScene::TestScene(BulletManager *bulletManager, Repository *repository) {
         this->bulletManager->addBullet(this->bulletManager->getPrototype("bubble"), sf::Vector2f(rand() % 1280, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("dispenser"), sf::Vector2f(rand() % 1280, rand() % 900));
     }
-
+    addWidget(new Panel(sf::FloatRect(11, 22, 300, 333), config));
 }

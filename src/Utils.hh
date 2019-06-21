@@ -72,7 +72,8 @@ namespace Utils {
     void colourQuad(sf::Vertex *vertices, sf::Color colour);
 
     /**
-     * Forms 20 vertices into a box on the screen with a nice border.
+     * Forms 20 vertices into a box on the screen with a nice border. The middle of the box will be the first 4
+     * vertices and the rest will be the border so if you want to recolour bits it should not be too hard.
      * @param vertices   is a pointer to the vertices.
      * @param dimensions is the dimensions of the box.
      * @param border     is the thickness of the box.

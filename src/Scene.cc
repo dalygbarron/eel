@@ -23,3 +23,7 @@ void Scene::update() {
 void Scene::addWidget(Widget *widget) {
     this->gui = widget;
 }
+
+void Scene::onEvent(sf::Event *event) {
+    if (this->gui) this->gui->onEvent(event);
+}

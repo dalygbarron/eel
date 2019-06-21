@@ -63,5 +63,39 @@ void Utils::colourQuad(sf::Vertex *vertices, sf::Color colour) {
 }
 
 void Utils::makeBox(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg) {
-    // TODO: This!!! LOL!!!
+    // set up the middle part
+    Utils::fitQuad(vertices, sf::FloatRect(
+        dimensions.left + border,
+        dimensions.top + border,
+        dimensions.width - border,
+        dimensions.height - border
+    ));
+    // set up the border quads in a swastika formation.
+    Utils::fitQuad(vertices + 4, sf::FloatRect(
+        dimensions.left,
+        dimensions.top,
+        border,
+        dimensions.height - border
+    ));
+    Utils::fitQuad(vertices + 8, sf::FloatRect(
+        dimensions.left + border,
+        dimensions.top,
+        dimensions.width - border,
+        border
+    ));
+    Utils::fitQuad(vertices + 12, sf::FloatRect(
+        dimensions.left + dimensions.width - border,
+        dimensions.top + border,
+        border,
+        dimensions.height - border
+    ));
+    Utils::fitQuad(vertices + 16, sf::FloatRect(
+        dimensions.left,
+        dimensions.top + dimensions.height - border,
+        dimensions.width - border,
+        border
+    ));
+    // Colouring
+    for (int i = 0; i < 4; i++) vertices[i].color = bg;
+    for (int i = 4; i < 4 + 4 * 4; i++) vertices[i].color = fg;
 }

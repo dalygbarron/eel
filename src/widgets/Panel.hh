@@ -16,13 +16,13 @@ class Panel: public Widget {
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 public:
-    constexpr static int const BORDER = 5;
+    constexpr static int const BORDER = 10;
 
-    Panel(sf::FloatRect dimensions, Config *config);
+    Panel(sf::FloatRect dimensions, Config const *config);
 
     virtual int onEvent(sf::Event *e) override;
 
-    virtual char *getDescription() override;
+    virtual char const *getDescription() override;
 };
 
 #endif

@@ -24,13 +24,13 @@ public:
      * @param e is the event to respond to. It should only really be user input events.
      * @return a non negative value to signify something is happening.
      */
-    virtual int onEvent(sf::Event *e) = 0;
+    virtual int onEvent(sf::Event *e);
 
     /**
      * Describes the given widget in text.
      * @return the textual description which you do not need to free.
      */
-    virtual char *getDescription() = 0;
+    virtual char const *getDescription() = 0;
 };
 
 #endif

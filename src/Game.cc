@@ -10,6 +10,8 @@ void Game::handleEvents() {
             this->window.close();
         } else if (event.type == sf::Event::Resized) {
             this->view = Utils::getLetterboxView(this->view, event.size.width, event.size.height);
+        } else {
+            scenes.front()->onEvent(&event);
         }
     }
 }
@@ -38,7 +40,7 @@ Game::Game(Config const *config, Repository *repository, BulletManager *bulletMa
     this->view.setCenter(this->view.getSize().x / 2, this->view.getSize().y / 2);
     this->view = Utils::getLetterboxView(this->view, windowWidth, windowHeight);
     // set up a test scene.
-    this->scenes.push_front(new TestScene(bulletManager, repository));
+    this->scenes.push_front(new TestScene(bulletManager, config, repository));
 }
 
 int Game::run() {

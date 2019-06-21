@@ -44,6 +44,12 @@ public:
      * @param widget is the widget added. NOTE: after use it will be deleted by the scene.
      */
     void addWidget(Widget *widget);
+
+    /**
+     * Sends an event to the scene's gui widgets if it has any.
+     * @param event is the event to send.
+     */
+    void onEvent(sf::Event *event);
 };
 
 #endif

@@ -9,6 +9,7 @@
  */
 class TestScene: public Scene {
     BulletManager *bulletManager;
+    Config const *config;
     sf::Font font;
     sf::Texture texture;
     sf::RectangleShape shape;
@@ -27,7 +28,7 @@ public:
      * @param bulletManager is the bullet manager which we shall use a little.
      * @param repository    allows the scene access to the game assets.
      */
-    TestScene(BulletManager *bulletManager, Repository *repository);
+    TestScene(BulletManager *bulletManager, Config const *config, Repository *repository);
 };
 
 #endif

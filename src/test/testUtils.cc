@@ -3,7 +3,7 @@
 #include "helpers.hh"
 #include <SFML/Graphics.hpp>
 
-TEST_CASE("test wrapped works", "[utils][maths]") {
+TEST_CASE("wrapped works", "[utils][maths]") {
     // test it with rectangles with top left corner at origin.
     compareVectors(
         Utils::wrapped(sf::Vector2f(1, 1), sf::FloatRect(0, 0, 1, 1)),
@@ -44,7 +44,7 @@ TEST_CASE("test wrapped works", "[utils][maths]") {
     );
 }
 
-TEST_CASE("test random works", "[utils][maths]") {
+TEST_CASE("random works", "[utils][maths]") {
     for (int i = 0; i < 10; i++) {
         float value = Utils::random();
         REQUIRE(value >= 0);
@@ -52,7 +52,7 @@ TEST_CASE("test random works", "[utils][maths]") {
     }
 }
 
-TEST_CASE("per pixel works", "[utils][maths]") {
+TEST_CASE("perSecond works", "[utils][maths]") {
     using namespace Catch::literals;
     REQUIRE(Utils::perSecond(90) == 1.5_a);
     REQUIRE(Utils::perSecond(60) == 1_a);
@@ -61,14 +61,14 @@ TEST_CASE("per pixel works", "[utils][maths]") {
     REQUIRE(Utils::perSecond(6) == 0.1_a);
 }
 
-TEST_CASE("per pixel per pixel works", "[utils][maths]") {
+TEST_CASE("perSecondPerSecond works", "[utils][maths]") {
     using namespace Catch::literals;
     REQUIRE(Utils::perSecondPerSecond(3600) == 1_a);
     REQUIRE(Utils::perSecondPerSecond(60) == 0.016666666_a);
     REQUIRE(Utils::perSecondPerSecond(45) == 0.0125_a);
 }
 
-TEST_CASE("parsing ints works", "[utils]") {
+TEST_CASE("parseInt works", "[utils]") {
     // Test normal numbers.
     REQUIRE(Utils::parseInt("12") == 12);
     REQUIRE(Utils::parseInt("1") == 1);
@@ -86,7 +86,7 @@ TEST_CASE("parsing ints works", "[utils]") {
     REQUIRE(Utils::parseInt("") == 0);
 }
 
-TEST_CASE("Get letterbox view works", "[utils][graphics][maths]") {
+TEST_CASE("getLetterboxView works", "[utils][graphics][maths]") {
     sf::View view;
     // on a small unit square.
     view.setViewport(sf::FloatRect(0, 0, 1, 1));
@@ -115,7 +115,7 @@ TEST_CASE("Get letterbox view works", "[utils][graphics][maths]") {
 
 }
 
-TEST_CASE("fit quad works", "[utils][graphics]") {
+TEST_CASE("fitQuad works", "[utils][graphics]") {
     sf::VertexArray vertices(sf::Quads, 10);
     Utils::fitQuad(&vertices[0], sf::FloatRect());
     // make sure the vertices are in the right places.
@@ -123,7 +123,7 @@ TEST_CASE("fit quad works", "[utils][graphics]") {
     REQUIRE(false);
 }
 
-TEST_CASE("colour quad works", "[utils][graphics]") {
+TEST_CASE("colourQuad works", "[utils][graphics]") {
     sf::VertexArray vertices(sf::Quads, 6);
     Utils::colourQuad(&vertices[0], sf::Color::Red);
     Utils::colourQuad(&vertices[2], sf::Color::Green);
@@ -134,4 +134,9 @@ TEST_CASE("colour quad works", "[utils][graphics]") {
     REQUIRE(vertices[3].color == sf::Color::Green);
     REQUIRE(vertices[4].color == sf::Color::Green);
     REQUIRE(vertices[5].color == sf::Color::Green);
+}
+
+TEST_CASE("makeBox works") {
+    // TODO: this.
+    REQUIRE(false);
 }

@@ -60,3 +60,6 @@ one if I am desperate for something inane to do.
 
 Man I really hate the things C++ has done to C. Adding classes is quite handy, but references are garbo that pollute
 the language and subvert it. All those extra keywords like constexpr are the same. Override is one which I like though.
+
+
+## Widget placement and sizing etc
