@@ -61,3 +61,7 @@ void Utils::colourQuad(sf::Vertex *vertices, sf::Color colour) {
     vertices[2].color = colour;
     vertices[3].color = colour;
 }
+
+void Utils::makeBox(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg) {
+    // TODO: This!!! LOL!!!
+}

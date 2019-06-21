@@ -25,8 +25,9 @@ public:
     /**
      * Sets up the scene's junk.
      * @param bulletManager is the bullet manager which we shall use a little.
+     * @param repository    allows the scene access to the game assets.
      */
-    TestScene(BulletManager *bulletManager);
+    TestScene(BulletManager *bulletManager, Repository *repository);
 };
 
 #endif

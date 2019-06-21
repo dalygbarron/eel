@@ -119,6 +119,8 @@ TEST_CASE("fit quad works", "[utils][graphics]") {
     sf::VertexArray vertices(sf::Quads, 10);
     Utils::fitQuad(&vertices[0], sf::FloatRect());
     // make sure the vertices are in the right places.
+    // TODO: this.
+    REQUIRE(false);
 }
 
 TEST_CASE("colour quad works", "[utils][graphics]") {

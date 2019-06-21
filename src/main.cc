@@ -24,7 +24,7 @@
  */
 int main(int argc, char **argv) {
     // Start logging right away.
-    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/log.log", 2, 30));
+    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/eel.log", 2, 30));
     spdlog::flush_on(spdlog::level::debug); // TODO: obviously change this for production to error.
     spdlog::flush_every(std::chrono::seconds(10));
     spdlog::info(
@@ -38,13 +38,18 @@ int main(int argc, char **argv) {
     if (argc == 2) gameFile = argv[1];
     else gameFile = DEFAULT_CONFIG_FILE;
     // Start up the game systems.
-    Config config(gameFile);
-    Repository repository(&config);
-    BulletManager bulletManager(&config, &repository);
-    Game game(&config, &repository, &bulletManager);
-    // run the game.
-    int status = game.run();
-    // all over.
-    spdlog::info("Game Ending Normally");
-    return status;
+    try {
+        Config config(gameFile);
+        Repository repository(&config);
+        BulletManager bulletManager(&config, &repository);
+        Game game(&config, &repository, &bulletManager);
+        // run the game.
+        spdlog::info("Starting '{}' version '{}'", config.get("title"), config.get("version"));
+        int status = game.run();
+        spdlog::info("Exiting Normally");
+        return status;
+    } catch(...) {
+        spdlog::info("Aborting");
+        return -1;
+    }
 }

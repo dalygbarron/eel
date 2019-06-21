@@ -13,6 +13,7 @@
  */
 class Repository {
     Config const *config;
+    sf::Font font;
     std::unordered_map<std::string, sf::Texture *> textures;
     std::unordered_map<std::string, SpriteBatch *> spriteBatches;
 
@@ -35,6 +36,12 @@ public:
      * @return the sprite batch.
      */
     SpriteBatch *getSpriteBatch(char const *name);
+
+    /**
+     * Gives you the game's font.
+     * @return the font which was decided in the game's main config file.
+     */
+    sf::Font const *getFont();
 };
 
 #endif

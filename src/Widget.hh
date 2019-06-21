@@ -25,6 +25,12 @@ public:
      * @return a non negative value to signify something is happening.
      */
     virtual int onEvent(sf::Event *e) = 0;
+
+    /**
+     * Describes the given widget in text.
+     * @return the textual description which you do not need to free.
+     */
+    virtual char *getDescription() = 0;
 };
 
 #endif

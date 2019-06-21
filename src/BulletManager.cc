@@ -56,7 +56,7 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
     //       pointers to bullets are going to be used so it doesn't matter if it's clunky as I will abstract it away in
     //       lua.
     if (!this->empty) {
-        spdlog::error("Trying to add bullet to full pool");
+        spdlog::warn("Trying to add bullet to full pool");
         return 0;
     } else {
         Bullet *newBullet = this->empty;

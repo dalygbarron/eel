@@ -22,6 +22,7 @@ public:
 
     virtual int onEvent(sf::Event *e) override;
 
+    virtual char *getDescription() override;
 };
 
 #endif

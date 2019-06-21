@@ -19,10 +19,10 @@ void TestScene::logic() {
     this->bulletManager->update();
 }
 
-TestScene::TestScene(BulletManager *bulletManager) {
+TestScene::TestScene(BulletManager *bulletManager, Repository *repository) {
     spdlog::info("Creating test scene");
     this->bulletManager = bulletManager;
-    if (!this->font.loadFromFile("example/font/bocklin.ttf") || !this->texture.loadFromFile("example/image/bg.png")) {
+    if (!this->texture.loadFromFile("example/image/bg.png")) {
         spdlog::error("Couldn't load font or stuff for test scene");
         throw -1;
     }
@@ -31,7 +31,7 @@ TestScene::TestScene(BulletManager *bulletManager) {
     this->shape.setTexture(&texture);
     this->shape.setSize(sf::Vector2f(640, 480));
     this->shape.setPosition(500, 500);
-    this->text.setFont(font);
+    this->text.setFont(*(repository->getFont()));
     this->text.setString("Eel game");
     this->text.setCharacterSize(40);
     this->text.setFillColor(sf::Color::White);

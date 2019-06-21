@@ -33,9 +33,12 @@ as game.ini. Once the config file has been loaded, the folder that it was in bec
 game.
 
 The required fields are:
+ - string **title**: title of the game as written on the window heading.
+ - string **version**: the version of the game that this is. Just used as a piece of text so write whatever you want.
+ - int **engine**: two bytes, the first being the major version of eel that this game requires, and the second being the
+   minimum minor version of eel the game requires.
  - int **width**: width of the game screen.
  - int **height**: height of the game screen.
- - string **title**: title of the game as written on the window heading.
  - string **guiSpritesheet**: filename of spritesheet for rendering gui elements.
  - string **guiBase**: name of 9patch inside gui spritesheet for rendering normal gui elements.
  - string **guiHighlighted**: name of 9patch inside gui spritesheet for rendering highlighted gui elements.

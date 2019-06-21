@@ -70,6 +70,16 @@ namespace Utils {
      * @param colour   is the colour to colour the quad.
      */
     void colourQuad(sf::Vertex *vertices, sf::Color colour);
+
+    /**
+     * Forms 20 vertices into a box on the screen with a nice border.
+     * @param vertices   is a pointer to the vertices.
+     * @param dimensions is the dimensions of the box.
+     * @param border     is the thickness of the box.
+     * @param fg         is the colour of the border.
+     * @param bg         is the colour of the rest of the box.
+     */
+    void makeBox(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg);
 };
 
 #endif
