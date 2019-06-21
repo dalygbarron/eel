@@ -52,5 +52,5 @@ TestScene::TestScene(BulletManager *bulletManager, Config const *config, Reposit
     }
     Widget *panel = new Panel(config, true);
     panel->resize(sf::FloatRect(100, 100, 111, 222));
-    addWidget(new Panel(config, true));
+    addWidget(panel);
 }
