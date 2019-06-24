@@ -8,6 +8,7 @@
 
 /**
  * A widget which is a visibly rendered box which contains other widgets.
+ * TODO: make border thickness configurable.
  */
 class Panel: public Widget {
     sf::VertexArray vertices;
@@ -17,13 +18,15 @@ class Panel: public Widget {
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 public:
-    constexpr static int const BORDER = 10;
+    constexpr static int const BORDER = 5;
 
     Panel(Config const *config, int vertical);
 
     virtual int onEvent(sf::Event *e) override;
 
     virtual char const *getDescription() override;
+
+    virtual sf::Vector2f getDesiredSize(sf::FloatRect bounds) override;
 
     virtual sf::FloatRect resize(sf::FloatRect bounds) override;
 };

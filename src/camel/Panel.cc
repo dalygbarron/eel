@@ -23,6 +23,10 @@ char const *Panel::getDescription() {
     return "Panel";
 }
 
+sf::Vector2f Panel::getDesiredSize() {
+
+}
+
 sf::FloatRect Panel::resize(sf::FloatRect bounds) {
     // Panels intentionally take up all of the space given to them.
     this->dimensions = bounds;

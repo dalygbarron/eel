@@ -7,12 +7,20 @@
  * General superclass for gui widgets.
  */
 class Widget: public sf::Drawable {
+    int greedy;
+
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
 
 protected:
     sf::FloatRect dimensions;
 
 public:
+    /**
+     * Configures some base details about the widget.
+     * @param greedy is whether the widget should be greedy about taking up the space it is offered.
+     */
+    Widget(int greedy);
+
     /**
      * Allows the widget to respond to an event.
      * @param e is the event to respond to. It should only really be user input events.
@@ -27,6 +35,13 @@ public:
     virtual char const *getDescription() = 0;
 
     /**
+     * Gives you the size that a gui element would like to have, so that it's parent element can size itself
+     * appropriately without being greedy.
+     * @return a rect of the dimensions that this element kinda needs to have ideally.
+     */
+    virtual sf::Vector2f getDesiredSize() = 0;
+
+    /**
      * Resize and build the widget's visual representation. This has to be called once before the widget can be rendered
      * properly. Should recursively run on any child widgets, passing in whatever space is left as bounds. Also this
      * should set the dimensions field to whatever the new dimensions are.
@@ -34,7 +49,7 @@ public:
      *               does then there will be no space for others. Be considerate.
      * @return the new bounds for convenience.
      */
-    virtual sf::FloatRect resize(sf::FloatRect bounds) = 0;
+    sf::FloatRect resize(sf::FloatRect bounds);
 };
 
 #endif

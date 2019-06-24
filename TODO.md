@@ -98,3 +98,16 @@ available space to fill. That way it is agnostic of screen resolution and shit l
 Hmmm it could also be necessary to give them a minimum size method which returns the minimum size they need so that you
 could know how big some thingies should be because for example a button would probably collapse to nothing if it had
 nothing inside it, it needs something like an image or a piece of text to tell it what it's size is.
+
+
+
+# Gui construction.
+Might make a class or something specifically for building gui elements because that way it could pass in configuration
+values like colours and sizes and keep track of them all after getting them out of config.
+
+Also, gui stuff should be restructured somewhat. All the interfaces needed by the GUI should be defined in the gui
+folder and they should not have to include anything at all from outside that folder (except external dependencies like
+sfml). That way if I ever code something else this code will still be useful.
+
+Only annoying thing is I will not be able to use Utils if I do that, unless I make an exception for it since I could
+include it in another project too since it's useful.
