@@ -1,12 +1,12 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#ifndef CONTROL_H
+#define CONTROL_H
 
 #include <SFML/Graphics.hpp>
 
 /**
  * General superclass for gui widgets.
  */
-class Widget: public sf::Drawable {
+class Control: public sf::Drawable {
     int greedy;
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;

@@ -43,11 +43,3 @@ minor version. It will not work with lower minor versions, or different major ve
 
 The game itself will only store the major and minor versions and not the revision number as you do not need to specify
 that your game is only compatible with the non buggy version, that would be stupid.
-
-### Gui does not depend on engine as a whole
-I am real sick of writing a new GUI for every game and engine, so I will write the GUI code so that everything to do
-with it is in it's own folder, and it does not include anything from outside that folder other than external
-dependencies like SFML.
-
-The game engine can obviously include the gui code and even use it's utils etc which it will use maybe for manipulating
-vertices.

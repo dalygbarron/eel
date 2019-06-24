@@ -16,8 +16,8 @@ void Bullet::copy(Bullet const *bullet) {
 }
 
 void Bullet::launch(float angle) {
-    this->velocity.x = sin(angle) * Utils::perSecond(this->state.live.speed);
-    this->velocity.y = cos(angle) * Utils::perSecond(this->state.live.speed);
+    this->velocity.x = sin(angle) * this->state.live.speed;
+    this->velocity.y = cos(angle) * this->state.live.speed;
 }
 
 void Bullet::gravityLaunch(float angle, float rate) {

@@ -9,7 +9,7 @@
  */
 namespace Utils {
     // TODO: this should probably have more digits but lets wait until it wrecks something haha.
-    constexpr float const PI = 3.14159;
+    constexpr static float const PI = 3.14159;
 
     /**
      * Wraps a vector around inside a rect.
