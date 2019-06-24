@@ -62,7 +62,7 @@ Man I really hate the things C++ has done to C. Adding classes is quite handy, b
 the language and subvert it. All those extra keywords like constexpr are the same. Override is one which I like though.
 
 
-# Widget placement and sizing etc
+# Control placement and sizing etc
 Ok so we need to think about what the process is that a widget goes through in the process of nesting a bunch of them
 up and chucking them on the screen.
 
@@ -75,7 +75,7 @@ We then create a vertical selector, and when it is resized, it will actually use
 to fit into the space given to it.
 
 ## Resize
-Ok so we are going to need a kind of resize function for widgets. Widgets will store their current dimensions, but
+Ok so we are going to need a kind of resize function for widgets. Controls will store their current dimensions, but
 when it is first created this will not yet be set. When a widget is added as the master panel, you will want to manually
 resize it to the size you want before adding stuff to it.
 

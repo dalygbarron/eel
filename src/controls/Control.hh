@@ -7,26 +7,23 @@
  * General superclass for gui widgets.
  */
 class Control: public sf::Drawable {
-    int greedy;
-
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
-
 protected:
     sf::FloatRect dimensions;
 
 public:
-    /**
-     * Configures some base details about the widget.
-     * @param greedy is whether the widget should be greedy about taking up the space it is offered.
-     */
-    Widget(int greedy);
-
     /**
      * Allows the widget to respond to an event.
      * @param e is the event to respond to. It should only really be user input events.
      * @return a non negative value to signify something is happening.
      */
     virtual int onEvent(sf::Event *e);
+
+    /**
+     * Render the control on it's position on the screen.
+     * @param target is the screen to draw on.
+     * @param states is the rendering configuration stuff.
+     */
+    virtual void render(sf::RenderTarget *target, sf::RenderStates states) const = 0;
 
     /**
      * Describes the given widget in text.
@@ -49,7 +46,7 @@ public:
      *               does then there will be no space for others. Be considerate.
      * @return the new bounds for convenience.
      */
-    sf::FloatRect resize(sf::FloatRect bounds);
+    virtual sf::FloatRect resize(sf::FloatRect bounds) = 0;
 };
 
 #endif

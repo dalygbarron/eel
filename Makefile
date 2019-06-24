@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -std=c++14
 LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 MAIN = src/main.o
-SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils Widget
+SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils Control
 SCENES = scenes/TestScene
 CAMEL = camel/Camel camel/Builder camel/Panel camel/Text
 TESTS = testGeneral testBullet testUtils helpers

@@ -1,7 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "Widget.hh"
+#include "Control.hh"
 #include <list>
 #include <SFML/Graphics.hpp>
 
@@ -12,7 +12,7 @@ class Scene;
  * menu or some other thing like that.
  */
 class Scene: public sf::Drawable {
-    Widget *gui = 0;
+    Control *gui = 0;
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
@@ -43,7 +43,7 @@ public:
      * Adds a gui widget to this scene.
      * @param widget is the widget added. NOTE: after use it will be deleted by the scene.
      */
-    void addWidget(Widget *widget);
+    void addControl(Control *widget);
 
     /**
      * Sends an event to the scene's gui widgets if it has any.

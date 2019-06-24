@@ -6,7 +6,7 @@
 /**
  * A textbox that just shows some text.
  */
-class TextBox: public Widget {
+class TextBox: public Control {
 
 public:
 

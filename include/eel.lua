@@ -13,8 +13,8 @@ end
 -- @param text is the text to write in the box.
 function say(name, text)
     box = _createPanel()
-    _appendWidget(box, _createText(name))
-    _appendWidget(box, _createText(text))
+    _appendControl(box, _createText(name))
+    _appendControl(box, _createText(text))
     _setGui(box)
     coroutine.yield()
 end

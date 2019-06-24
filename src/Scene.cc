@@ -20,7 +20,7 @@ void Scene::update() {
     }
 }
 
-void Scene::addWidget(Widget *widget) {
+void Scene::addControl(Control *widget) {
     this->gui = widget;
 }
 

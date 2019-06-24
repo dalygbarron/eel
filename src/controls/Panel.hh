@@ -10,19 +10,31 @@
  * A widget which is a visibly rendered box which contains other widgets.
  * TODO: make border thickness configurable.
  */
-class Panel: public Widget {
+class Panel: public Control {
     sf::VertexArray vertices;
-    std::forward_list<Widget *> children;
+    std::forward_list<Control *> children;
     int vertical;
-
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+    float border;
 
 public:
-    constexpr static int const BORDER = 5;
+    /**
+     * Create and configure a panel.
+     * @param vertical tells the panel whether to stack children vertically or horizontally.
+     * @param border   is how thinck the panel's border should be.
+     * @param fg       is the colour with which to render the panel's border.
+     * @param bg       is the colour with which to render the panel's back part.
+     */
+    Panel(int vertical, float border, sf::Color fg, sf::Color bg);
 
-    Panel(Config const *config, int vertical);
+    /**
+     * Adds a control onto this panel.
+     * @param child is the child to add.
+     */
+    void addChild(Control *child);
 
     virtual int onEvent(sf::Event *e) override;
+
+    virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
 
     virtual char const *getDescription() override;
 
