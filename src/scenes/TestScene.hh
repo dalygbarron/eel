@@ -18,7 +18,7 @@ class TestScene: public Scene {
     sf::Shader shader;
     int i = 0;
 
-    virtual void render(sf::RenderTarget &target, sf::RenderStates states) const override;
+    virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
 
     virtual void logic() override;
 

@@ -2,11 +2,11 @@ CC = g++
 CFLAGS = -std=c++14
 LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 MAIN = src/main.o
-SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils Control
+SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils
 SCENES = scenes/TestScene
-CAMEL = camel/Camel camel/Builder camel/Panel camel/Text
+CONTROLS = controls/Builder controls/Control controls/Panel controls/Text
 TESTS = testGeneral testBullet testUtils helpers
-OBJS = $(addprefix src/,$(addsuffix .o,$(SOURCES) $(SCENES) $(WIDGETS)))
+OBJS = $(addprefix src/,$(addsuffix .o,$(SOURCES) $(SCENES) $(CONTROLS)))
 TEST_OBJS = $(addprefix src/test/,$(addsuffix .o,$(TESTS)))
 OUT = main
 TEST_OUT = tester

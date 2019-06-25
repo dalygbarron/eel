@@ -12,6 +12,22 @@ namespace Utils {
     constexpr static float const PI = 3.14159;
 
     /**
+     * Gives the lesser of two values.
+     * @param a is the first value.
+     * @param b is the second value.
+     * @return the lower of a and b.
+     */
+    float min(float a, float b);
+
+    /**
+     * Gives the greater of two values.
+     * @param a is the first value.
+     * @param b is the second value.
+     * @return the greater of a and b.
+     */
+    float max(float a, float b);
+
+    /**
      * Wraps a vector around inside a rect.
      * @param pos    is a position to be fitted inside the rectangle.
      * @param bounds is the bounds within which the position is wrapped around.
@@ -76,11 +92,21 @@ namespace Utils {
      * vertices and the rest will be the border so if you want to recolour bits it should not be too hard.
      * @param vertices   is a pointer to the vertices.
      * @param dimensions is the dimensions of the box.
-     * @param border     is the thickness of the box.
+     * @param border     is the thickness of the border (inside the dimensions).
      * @param fg         is the colour of the border.
      * @param bg         is the colour of the rest of the box.
      */
     void makeBox(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg);
+
+    /**
+     * Forms 12 vertices into a box that has a border only on the top and bottom.
+     * @param vertices   is a pointer to the vertices.
+     * @param dimensions is the dimensions of the box.
+     * @param border     is the thickness of the border (inside the dimensions).
+     * @param fg         is the colour of the border.
+     * @param bg         is the colour of the rest of the box.
+     */
+    void makeStack(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg);
 };
 
 #endif

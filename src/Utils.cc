@@ -4,6 +4,16 @@
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 
+float Utils::min(float a, float b) {
+    if (a < b) return a;
+    else return b;
+}
+
+float Utils::max(float a, float b) {
+    if (a > b) return a;
+    else return b;
+}
+
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
     while (pos.x < bounds.left) pos.x += bounds.width;
     while (pos.x >= bounds.left + bounds.width) pos.x -= bounds.width;
@@ -63,7 +73,7 @@ void Utils::colourQuad(sf::Vertex *vertices, sf::Color colour) {
 }
 
 void Utils::makeBox(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg) {
-    // set up the middle part
+    // set up the middle part.
     Utils::fitQuad(vertices, sf::FloatRect(
         dimensions.left + border,
         dimensions.top + border,
@@ -95,7 +105,33 @@ void Utils::makeBox(sf::Vertex *vertices, sf::FloatRect dimensions, float border
         dimensions.width - border,
         border
     ));
-    // Colouring
+    // Colouring.
     for (int i = 0; i < 4; i++) vertices[i].color = bg;
     for (int i = 4; i < 4 + 4 * 4; i++) vertices[i].color = fg;
+}
+
+void Utils::makeStack(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg) {
+    // Middle part.
+    Utils::fitQuad(vertices, sf::FloatRect(
+        dimensions.left,
+        dimensions.top + border,
+        dimensions.width,
+        dimensions.height - border
+    ));
+    // Top and bottom.
+    Utils::fitQuad(vertices, sf::FloatRect(
+        dimensions.left,
+        dimensions.top,
+        dimensions.width,
+        border
+    ));
+    Utils::fitQuad(vertices, sf::FloatRect(
+        dimensions.left,
+        dimensions.top + dimensions.height - border,
+        dimensions.width,
+        border
+    ));
+    // Colouring.
+    for (int i = 0; i < 4; i++) vertices[i].color = bg;
+    for (int i = 4; i < 4 + 2 * 4; i++) vertices[i].color = fg;
 }

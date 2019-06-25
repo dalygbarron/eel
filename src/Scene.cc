@@ -2,28 +2,31 @@
 #include "spdlog/spdlog.h"
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    this->render(target, states);
-    if (this->gui) target.draw(*(this->gui));
+    // I hate references man so I am treating this method as an adaptor to my own style.
+    this->render(&target, states);
+    if (this->gui) this->gui->render(&target, states);
 }
-
 
 Scene::Scene() {
     // does nothing rn.
 }
 
 void Scene::update() {
-    if (this->gui) {
-        // TODO: don't think we need to do this I dunno.
-        //       gui elements don't update frame by frame, they respond to events.
-    } else {
-        this->logic();
-    }
+    if (!this->gui) this->logic();
 }
 
-void Scene::addControl(Control *widget) {
-    this->gui = widget;
+void Scene::addControl(Control *control) {
+    this->gui = control;
 }
 
 void Scene::onEvent(sf::Event *event) {
-    if (this->gui) this->gui->onEvent(event);
+    if (this->gui) {
+        int response = this->gui->onEvent(event);
+        if (response >= 0) {
+            // TODO: put event text in that log message.
+            spdlog::debug("Control '{}' responded to event 'TODO' with {}", this->gui->getDescription(), response);
+            delete this->gui;
+            this->gui = 0;
+        }
+    }
 }

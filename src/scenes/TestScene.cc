@@ -4,19 +4,19 @@
 #include "../spdlog/spdlog.h"
 #include "../BulletManager.hh"
 #include "../Repository.hh"
-#include "../widgets/Panel.hh"
-
-void TestScene::render(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(this->background, &this->shader);
-    target.draw(this->shape);
-    target.draw(*(this->bulletManager));
-}
+#include "../controls/Panel.hh"
 
 void TestScene::logic() {
     this->i++;
     this->shader.setUniform("time", this->i / 60.f);
     this->shape.setTextureRect(sf::IntRect(i, this->i / -2, 200, 200));
     this->bulletManager->update();
+}
+
+void TestScene::render(sf::RenderTarget *target, sf::RenderStates states) const {
+    target->draw(this->background, &this->shader);
+    target->draw(this->shape);
+    target->draw(*(this->bulletManager));
 }
 
 TestScene::TestScene(BulletManager *bulletManager, Config const *config, Repository *repository) {
@@ -50,7 +50,7 @@ TestScene::TestScene(BulletManager *bulletManager, Config const *config, Reposit
         this->bulletManager->addBullet(this->bulletManager->getPrototype("bubble"), sf::Vector2f(rand() % 1280, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("dispenser"), sf::Vector2f(rand() % 1280, rand() % 900));
     }
-    Control *panel = new Panel(config, true);
-    panel->resize(sf::FloatRect(100, 100, 111, 222));
+    Control *panel = new Panel(true, 4.3, sf::Color::White, sf::Color(0, 0, 0, 100));
+    panel->resize(sf::FloatRect(100, 100, 340, 222));
     addControl(panel);
 }

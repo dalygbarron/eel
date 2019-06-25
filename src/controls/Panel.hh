@@ -15,6 +15,8 @@ class Panel: public Control {
     std::forward_list<Control *> children;
     int vertical;
     float border;
+    sf::Color fg;
+    sf::Color bg;
 
 public:
     /**
@@ -26,21 +28,21 @@ public:
      */
     Panel(int vertical, float border, sf::Color fg, sf::Color bg);
 
-    /**
-     * Adds a control onto this panel.
-     * @param child is the child to add.
-     */
-    void addChild(Control *child);
-
     virtual int onEvent(sf::Event *e) override;
 
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
 
     virtual char const *getDescription() override;
 
-    virtual sf::Vector2f getDesiredSize(sf::FloatRect bounds) override;
+    virtual sf::Vector2f getDesiredSize(sf::Vector2f bounds) override;
 
     virtual sf::FloatRect resize(sf::FloatRect bounds) override;
+
+    /**
+     * Adds a control onto this panel.
+     * @param child is the child to add.
+     */
+    void addChild(Control *child);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /**
  * General superclass for gui widgets.
  */
-class Control: public sf::Drawable {
+class Control {
 protected:
     sf::FloatRect dimensions;
 
@@ -36,7 +36,7 @@ public:
      * appropriately without being greedy.
      * @return a rect of the dimensions that this element kinda needs to have ideally.
      */
-    virtual sf::Vector2f getDesiredSize() = 0;
+    virtual sf::Vector2f getDesiredSize(sf::Vector2f bounds) = 0;
 
     /**
      * Resize and build the widget's visual representation. This has to be called once before the widget can be rendered

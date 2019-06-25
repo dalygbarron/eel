@@ -3,6 +3,18 @@
 #include "helpers.hh"
 #include <SFML/Graphics.hpp>
 
+TEST_CASE("min works", "[utils][maths]") {
+    using namespace Catch::literals;
+    REQUIRE(min(1, 2) == 1);
+    REQUIRE(min(69.91, 5.3) == 5.3_a);
+}
+
+TEST_CASE("max works", "[utils][maths]") {
+    using namespace Catch::literals;
+    REQUIRE(min(1, 2) == 2);
+    REQUIRE(min(69.91, 5.3) == 69.91_a);
+}
+
 TEST_CASE("wrapped works", "[utils][maths]") {
     // test it with rectangles with top left corner at origin.
     compareVectors(

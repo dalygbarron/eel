@@ -1,7 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "Control.hh"
+#include "controls/Control.hh"
 #include <list>
 #include <SFML/Graphics.hpp>
 
@@ -17,16 +17,16 @@ class Scene: public sf::Drawable {
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     /**
-     * Draws the actual content in the scene.
-     * @param target is the render target that we are rendering onto.
-     * @param states is the rendering state thingy that must be given textures and shit.
-     */
-    virtual void render(sf::RenderTarget &target, sf::RenderStates states) const = 0;
-
-    /**
      * This scene's actual logic implementation.
      */
     virtual void logic() = 0;
+
+    /**
+     * Draws the actual content in the scene.
+     * @param target is the render target that we are rendering onto.
+     * @param states are the renderer states to set up as needed.
+     */
+    virtual void render(sf::RenderTarget *target, sf::RenderStates states) const = 0;
 
 public:
     /**

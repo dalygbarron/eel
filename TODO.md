@@ -111,3 +111,7 @@ sfml). That way if I ever code something else this code will still be useful.
 
 Only annoying thing is I will not be able to use Utils if I do that, unless I make an exception for it since I could
 include it in another project too since it's useful.
+
+# Consider swapping INI for JSON
+There are going to be times when I need more complicated data than INI can do. Some of those times I am going to need
+some custom binary format, but a lot of the time I think I will need JSON, so it might be best to just switch now.

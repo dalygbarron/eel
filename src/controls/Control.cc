@@ -1,5 +1,6 @@
 #include "Control.hh"
 
 int Control::onEvent(sf::Event *event) {
-    // TODO: this should actually do stuff.
+    // Default functionality is to just do nothing at all.
+    return -1;
 }
