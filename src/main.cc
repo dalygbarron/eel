@@ -1,3 +1,6 @@
+// TODO: find a better spot for this.
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+
 #include "Constant.hh"
 #include "Game.hh"
 #include "Config.hh"
@@ -7,10 +10,6 @@
 #include <fstream>
 #include <forward_list>
 #include <SFML/Graphics.hpp>
-
-// TODO: find a better spot for this.
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
-
 #include "spdlog/spdlog.h"
 #include "spdlog/daily_file_sink.h"
 

@@ -1,4 +1,6 @@
 #include "Panel.hh"
+#include "TextBox.hh"
+#include "Bopper.hh"
 #include "../Utils.hh"
 
 Panel::Panel(int vertical, float border, sf::Color fg, sf::Color bg): vertices(sf::Quads, 12) {
@@ -6,6 +8,9 @@ Panel::Panel(int vertical, float border, sf::Color fg, sf::Color bg): vertices(s
     this->border = border;
     this->fg = fg;
     this->bg = bg;
+    // TODO: delete this.
+    this->addChild(new TextBox("Mark of the Eel"));
+    this->addChild(new Bopper(fg));
 }
 
 int Panel::onEvent(sf::Event *e) {
@@ -25,7 +30,7 @@ char const *Panel::getDescription() {
     return "Panel";
 }
 
-sf::Vector2f Panel::getDesiredSize(sf::Vector2f bounds) {
+sf::Vector2f Panel::getDesiredSize(sf::Vector2f bounds) const {
     return bounds;
 }
 

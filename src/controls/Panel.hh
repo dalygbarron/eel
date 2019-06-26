@@ -34,7 +34,7 @@ public:
 
     virtual char const *getDescription() override;
 
-    virtual sf::Vector2f getDesiredSize(sf::Vector2f bounds) override;
+    virtual sf::Vector2f getDesiredSize(sf::Vector2f bounds) const override;
 
     virtual sf::FloatRect resize(sf::FloatRect bounds) override;
 

@@ -116,16 +116,16 @@ void Utils::makeStack(sf::Vertex *vertices, sf::FloatRect dimensions, float bord
         dimensions.left,
         dimensions.top + border,
         dimensions.width,
-        dimensions.height - border
+        dimensions.height - border * 2
     ));
     // Top and bottom.
-    Utils::fitQuad(vertices, sf::FloatRect(
+    Utils::fitQuad(vertices + 4, sf::FloatRect(
         dimensions.left,
         dimensions.top,
         dimensions.width,
         border
     ));
-    Utils::fitQuad(vertices, sf::FloatRect(
+    Utils::fitQuad(vertices + 8, sf::FloatRect(
         dimensions.left,
         dimensions.top + dimensions.height - border,
         dimensions.width,

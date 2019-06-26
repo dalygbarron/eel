@@ -115,3 +115,15 @@ include it in another project too since it's useful.
 # Consider swapping INI for JSON
 There are going to be times when I need more complicated data than INI can do. Some of those times I am going to need
 some custom binary format, but a lot of the time I think I will need JSON, so it might be best to just switch now.
+
+
+# Gui use vertex buffer instead of vertex array
+Probably not needed, but could improve performance somewhat by using a vertex buffer which stores the gui stuff in the
+GPU and doesn't change it. Won't work for bullets since they change every frame so no point.
+
+This will not matter unless a very large number of GUI things are being rendered.
+
+
+# Scene stack requires all the game stuff to be reentrant
+Therefore, we can't really have a master bullet manager that is used everywhere since we could potentially need multiple
+states of bullet managers.
