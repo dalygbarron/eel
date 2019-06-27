@@ -16,9 +16,7 @@ TextBox::TextBox(char const *content) {
 }
 
 void TextBox::render(sf::RenderTarget *target, sf::RenderStates states) const {
-    spdlog::debug("drawing rn");
     target->draw(this->text);
-    spdlog::debug("done drawing");
 }
 
 char const *TextBox::getDescription() {
@@ -32,5 +30,5 @@ sf::Vector2f TextBox::getDesiredSize(sf::Vector2f bounds) const {
 sf::FloatRect TextBox::resize(sf::FloatRect bounds) {
     // TODO: fit the text lines in the bounds
     this->text.setPosition(sf::Vector2f(bounds.left, bounds.top));
-    return bounds;
+    return this->text.getLocalBounds();
 }

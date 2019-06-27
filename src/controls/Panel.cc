@@ -10,6 +10,7 @@ Panel::Panel(int vertical, float border, sf::Color fg, sf::Color bg): vertices(s
     this->bg = bg;
     // TODO: delete this.
     this->addChild(new TextBox("Mark of the Eel"));
+    this->addChild(new TextBox("Mark of the Eel"));
     this->addChild(new Bopper(fg));
 }
 
@@ -47,10 +48,10 @@ sf::FloatRect Panel::resize(sf::FloatRect bounds) {
     for (Control *child: this->children) {
         sf::FloatRect childBounds = child->resize(bounds);
         if (this->vertical) {
-            bounds.top = childBounds.top + childBounds.height;
+            bounds.top += childBounds.height;
             bounds.height -= childBounds.height;
         } else {
-            bounds.left = childBounds.left + childBounds.width;
+            bounds.left += childBounds.width;
             bounds.width -= childBounds.width;
         }
     }
@@ -58,5 +59,5 @@ sf::FloatRect Panel::resize(sf::FloatRect bounds) {
 }
 
 void Panel::addChild(Control *child) {
-    this->children.push_front(child);
+    this->children.push_back(child);
 }

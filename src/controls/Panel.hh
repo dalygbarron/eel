@@ -3,8 +3,8 @@
 
 #include "Control.hh"
 #include "../Config.hh"
-#include <forward_list>
 #include <SFML/Graphics.hpp>
+#include <list>
 
 /**
  * A widget which is a visibly rendered box which contains other widgets.
@@ -12,7 +12,7 @@
  */
 class Panel: public Control {
     sf::VertexArray vertices;
-    std::forward_list<Control *> children;
+    std::list<Control *> children;
     int vertical;
     float border;
     sf::Color fg;

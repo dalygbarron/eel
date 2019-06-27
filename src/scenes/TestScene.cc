@@ -51,6 +51,6 @@ TestScene::TestScene(BulletManager *bulletManager, Config const *config, Reposit
         this->bulletManager->addBullet(this->bulletManager->getPrototype("dispenser"), sf::Vector2f(rand() % 1280, rand() % 900));
     }
     Control *panel = new Panel(true, 4.3, sf::Color::White, sf::Color(0, 0, 30, 220));
-    panel->resize(sf::FloatRect(100, 100, 640, 222));
+    panel->resize(sf::FloatRect(160, 720, 960, 240));
     addControl(panel);
 }

@@ -123,7 +123,13 @@ GPU and doesn't change it. Won't work for bullets since they change every frame 
 
 This will not matter unless a very large number of GUI things are being rendered.
 
-
 # Scene stack requires all the game stuff to be reentrant
 Therefore, we can't really have a master bullet manager that is used everywhere since we could potentially need multiple
 states of bullet managers.
+
+# Event Listeners
+We are gonna need coroutines connected to event listeners (Very similar to what they have in godot admittedly).
+This is the best way to really let scripts get involved with everything going on in the game since they can then do
+whatever. Since there is this scene stack thing, listeners in lower scenes will still be set up down there and waiting,
+but a listener can only hear stuff in it's own scene. When a scene returns back to a lower scene it returns a value
+though and I will make sure there is a listenable event for that.
