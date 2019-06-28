@@ -14,6 +14,7 @@ namespace Constant {
     constexpr static float const FPS_WARN = 55;
     constexpr static int const BULLET_LIMIT = 2048;
     constexpr static int const FILENAME_BUFFER_SIZE = 64;
+    constexpr static int const SMALL_TEXT_BUFFER_SIZE = 256;
     constexpr static int const SCENE_STACK_SIZE = 8;
     // Filenames
     constexpr static char const *BULLET_FILE = "bullets";

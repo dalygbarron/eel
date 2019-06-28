@@ -18,7 +18,7 @@ char const *Bopper::getDescription() {
 }
 
 sf::Vector2f Bopper::getDesiredSize(sf::Vector2f bounds) const {
-    // TODO: should this be configurable?
+    // TODO: this should be configurable.
     return sf::Vector2f(32, 32);
 }
 

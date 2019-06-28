@@ -28,6 +28,13 @@ namespace Utils {
     float max(float a, float b);
 
     /**
+     * Tells you if a given character is whitespace.
+     * @param c is the character to check.
+     * @return true if the character is whitespace and otherwise false.
+     */
+    int isWhitespace(char c);
+
+    /**
      * Wraps a vector around inside a rect.
      * @param pos    is a position to be fitted inside the rectangle.
      * @param bounds is the bounds within which the position is wrapped around.
