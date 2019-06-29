@@ -42,6 +42,12 @@ namespace Utils {
     int endOfWord(char const *string);
 
     /**
+     * Tells you the number of characters from the start of the string to the start of the next string.
+     * @param is the string to check on.
+     */
+    int startOfNextWord(char const *string);
+
+    /**
      * Wraps a vector around inside a rect.
      * @param pos    is a position to be fitted inside the rectangle.
      * @param bounds is the bounds within which the position is wrapped around.
@@ -121,6 +127,16 @@ namespace Utils {
      * @param bg         is the colour of the rest of the box.
      */
     void makeStack(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg);
+
+    /**
+     * Forms 12 vertices into a box that has a border only on the left and right sides.
+     * @param vertices   is a pointer to the vertices.
+     * @param dimensions is the dimensions of the box.
+     * @param border     is the thickness of the border (inside the dimensions).
+     * @param fg         is the colour of the border.
+     * @param bg         is the colour of the rest of the box.
+     */
+    void makeWall(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg);
 };
 
 #endif

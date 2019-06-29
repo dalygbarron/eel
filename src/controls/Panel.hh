@@ -13,20 +13,31 @@
 class Panel: public Control {
     sf::VertexArray vertices;
     std::list<Control *> children;
+
+public:
+    constexpr static int const BORDER_VERTICAL = 0;
+    constexpr static int const BORDER_HORIZONTAL = 1;
+
     int vertical;
     float border;
+    int borderMode;
     sf::Color fg;
     sf::Color bg;
 
-public:
+    /**
+     * Default constructor that does not configure anything.
+     */
+    Panel();
+
     /**
      * Create and configure a panel.
      * @param vertical tells the panel whether to stack children vertically or horizontally.
-     * @param border   is how thinck the panel's border should be.
-     * @param fg       is the colour with which to render the panel's border.
-     * @param bg       is the colour with which to render the panel's back part.
+     * @param border     is how thinck the panel's border should be.
+     * @param borderMode is the style the border should be done in.
+     * @param fg         is the colour with which to render the panel's border.
+     * @param bg         is the colour with which to render the panel's back part.
      */
-    Panel(int vertical, float border, sf::Color fg, sf::Color bg);
+    Panel(int vertical, float border, int borderMode, sf::Color fg, sf::Color bg);
 
     virtual int onEvent(sf::Event *e) override;
 

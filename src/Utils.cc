@@ -27,6 +27,14 @@ int Utils::endOfWord(char const *string) {
     return i;
 }
 
+int Utils::startOfNextWord(char const *string) {
+    if (!string[0]) return 0;
+    for (int i = 1; string[i]; i++) {
+        if (!Utils::isWhitespace(string[i] && Utils::isWhitespace(string[i - 1]))) return i;
+    }
+    return 0;
+}
+
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
     while (pos.x < bounds.left) pos.x += bounds.width;
     while (pos.x >= bounds.left + bounds.width) pos.x -= bounds.width;
@@ -143,6 +151,33 @@ void Utils::makeStack(sf::Vertex *vertices, sf::FloatRect dimensions, float bord
         dimensions.top + dimensions.height - border,
         dimensions.width,
         border
+    ));
+    // Colouring.
+    for (int i = 0; i < 4; i++) vertices[i].color = bg;
+    for (int i = 4; i < 4 + 2 * 4; i++) vertices[i].color = fg;
+}
+
+void Utils::makeWall(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg) {
+    // Middle part.
+    Utils::fitQuad(vertices, sf::FloatRect(
+        dimensions.left + border,
+        dimensions.top,
+        dimensions.width - border * 2,
+        dimensions.height
+    ));
+    // Top and bottom.
+    Utils::fitQuad(vertices + 4, sf::FloatRect(
+        dimensions.left,
+        dimensions.top,
+        border,
+        dimensions.height
+
+    ));
+    Utils::fitQuad(vertices + 8, sf::FloatRect(
+        dimensions.left + dimensions.width - border,
+        dimensions.top,
+        border,
+        dimensions.height
     ));
     // Colouring.
     for (int i = 0; i < 4; i++) vertices[i].color = bg;

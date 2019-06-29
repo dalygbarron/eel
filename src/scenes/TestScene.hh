@@ -3,6 +3,7 @@
 
 #include "../Scene.hh"
 #include "../BulletManager.hh"
+#include "../controls/Panel.hh"
 
 /**
  * A scene for putting all my test junk in so it's not cluttering up the main function.
@@ -11,11 +12,11 @@ class TestScene: public Scene {
     BulletManager *bulletManager;
     Config const *config;
     sf::Font font;
-    sf::Texture texture;
-    sf::RectangleShape shape;
     sf::Text text;
     sf::RectangleShape background;
     sf::Shader shader;
+    Panel leftPanel;
+    Panel rightPanel;
     int i = 0;
 
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;

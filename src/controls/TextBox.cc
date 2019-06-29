@@ -13,10 +13,16 @@ void TextBox::fitContent(sf::FloatRect bounds) {
     while (true) {
         int word = Utils::endOfWord(this->content + readHead);
         if (!word) break;
-        for (int i = 0; i < word; i++) fittedContent[writeHead + i] = this->content[readHead + i];
+        for (int i = 0; i < word; i++) {
+            char c = this->content[readHead + i];
+            if (c == '\n') fittedContent[writeHead + i] = ' ';
+            else if (c == '#') fittedContent[writeHead + i] = '\n';
+            else fittedContent[writeHead + i] = this->content[readHead + i];
+        }
         this->text.setString(fittedContent);
         sf::FloatRect newBounds = this->text.getLocalBounds();
         if (newBounds.width > bounds.width) {
+            readHead += Utils::startOfNextWord(this->content + readHead);
             fittedContent[writeHead] = '\n';
             writeHead++;
         } else {
