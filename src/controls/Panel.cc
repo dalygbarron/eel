@@ -9,7 +9,7 @@ Panel::Panel(int vertical, float border, sf::Color fg, sf::Color bg): vertices(s
     this->fg = fg;
     this->bg = bg;
     // TODO: delete this.
-    this->addChild(new TextBox("Mark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the EelMark of the Eel", 33));
+    this->addChild(new TextBox("Bongo bingo I am going to the shop and I am gonna have a nice time and I am gonna purchase two hats one hat will be real big and the other hat will be white with a fern pattern on it hell yeah man the hat", 33));
     this->addChild(new Bopper(fg));
 }
 

@@ -35,6 +35,13 @@ namespace Utils {
     int isWhitespace(char c);
 
     /**
+     * Finds the end of the word that is occurring at the given offset.
+     * @param string is the string to check.
+     * @return the point at which the given word ends.
+     */
+    int endOfWord(char const *string);
+
+    /**
      * Wraps a vector around inside a rect.
      * @param pos    is a position to be fitted inside the rectangle.
      * @param bounds is the bounds within which the position is wrapped around.

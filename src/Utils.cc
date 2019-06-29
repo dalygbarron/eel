@@ -18,6 +18,15 @@ int Utils::isWhitespace(char c) {
     return (c == ' ' || c == '\n' || c == '\t');
 }
 
+int Utils::endOfWord(char const *string) {
+    if (!string[0]) return 0;
+    int i;
+    for (i = 1; string[i]; i++) {
+        if (Utils::isWhitespace(string[i])) return i;
+    }
+    return i;
+}
+
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
     while (pos.x < bounds.left) pos.x += bounds.width;
     while (pos.x >= bounds.left + bounds.width) pos.x -= bounds.width;

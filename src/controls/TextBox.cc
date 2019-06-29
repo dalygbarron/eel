@@ -8,36 +8,24 @@ void TextBox::fitContent(sf::FloatRect bounds) {
     // TODO: refactor this to keep the string manipulation but keep the sizing stuff elsewhere.
     //       maybe even move this to utils just as a fitting text into a box kinda deal.
     char fittedContent[Constant::SMALL_TEXT_BUFFER_SIZE];
-    char *endOfWord = fittedContent;
-    char const *readHead = this->content;
-    char *writeHead = fittedContent;
-    for (int i = 0; this->content[i]; i++) {
-        if (Utils::isWhitespace(this->content[i])) {
-            endOfWord = fittedContent + (readHead - this->content);
+    int readHead = 0;
+    int writeHead = 0;
+    while (true) {
+        int word = Utils::endOfWord(this->content + readHead);
+        if (!word) break;
+        for (int i = 0; i < word; i++) fittedContent[writeHead + i] = this->content[readHead + i];
+        this->text.setString(fittedContent);
+        sf::FloatRect newBounds = this->text.getLocalBounds();
+        if (newBounds.width > bounds.width) {
+            fittedContent[writeHead] = '\n';
+            writeHead++;
         } else {
-            if (readHead - endOfWord > 1) {
-                *writeHead = this->content[i];
-                writeHead++;
-                *writeHead = 0;
-                this->text.setString(fittedContent);
-                sf::FloatRect textBounds = this->text.getLocalBounds();
-                if (textBounds.width > bounds.width) {
-                    endOfWord[1] = '\n';
-                    for (int v = endOfWord - fittedContent + 2; v < fittedContent - writeHead; v++) {
-                        fittedContent[v] = this->content[v];
-                    }
-                }
-                if (textBounds.height > bounds.height) {
-                    endOfWord[1] = 0;
-                    this->text.setString(fittedContent);
-                    return;
-                }
-            }
-            readHead = this->content + i;
+            readHead += word;
+            writeHead += word;
         }
-        *writeHead = this->content[i];
-        writeHead++;
     }
+    fittedContent[writeHead] = 0;
+
     this->text.setString(fittedContent);
 }
 
