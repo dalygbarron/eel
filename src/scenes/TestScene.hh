@@ -11,8 +11,6 @@
 class TestScene: public Scene {
     BulletManager *bulletManager;
     Config const *config;
-    sf::Font font;
-    sf::Text text;
     sf::RectangleShape background;
     sf::Shader shader;
     Panel leftPanel;

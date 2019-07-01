@@ -2,14 +2,14 @@
 #define EXCLUSIVE_SPEAKER_H
 
 #include "Listener.hh"
-#include <List>
+#include <list>
 
 /**
  * A speaker that maintains a stack of it's registered listeners, and only sends it's events to the topmost one, then
  * feeding it down the stack when it is rejected by the higher ups.
  */
 class ExclusiveSpeaker {
-    std::list<Listener *listener> listeners;
+    std::list<Listener *> listeners;
 
 public:
     /**

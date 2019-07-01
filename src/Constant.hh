@@ -16,6 +16,7 @@ namespace Constant {
     constexpr static int const FILENAME_BUFFER_SIZE = 64;
     constexpr static int const SMALL_TEXT_BUFFER_SIZE = 256;
     constexpr static int const TIMER_LIMIT = 128;
+    constexpr static char const *SCRIPT_ENTRY = "main";
     // Filenames
     constexpr static char const *BULLET_FILE = "bullets";
     constexpr static char const *FISHES_FILE = "fishes";

@@ -1,5 +1,6 @@
 // TODO: find a better spot for this.
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+#define LUA_USE_APICHECK
 
 #include "Constant.hh"
 #include "Game.hh"

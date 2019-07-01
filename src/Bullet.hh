@@ -16,6 +16,7 @@ public:
     float angle;
     union {
         class {
+        public:
             float radius;
             float speed;
             int shape;

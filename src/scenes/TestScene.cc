@@ -22,11 +22,6 @@ void TestScene::render(sf::RenderTarget *target, sf::RenderStates states) const 
 TestScene::TestScene(BulletManager *bulletManager, Config const *config, Repository *repository) {
     spdlog::info("Creating test scene");
     this->bulletManager = bulletManager;
-    this->text.setFont(*(repository->getFont()));
-    this->text.setString("Eel game");
-    this->text.setCharacterSize(40);
-    this->text.setFillColor(sf::Color::White);
-    this->text.setPosition(0, 0);
     this->background.setSize(sf::Vector2f(640, 960));
     this->background.setPosition(320, 0);
     this->background.setTextureRect(sf::IntRect(0, 0, 1, 1));
@@ -41,9 +36,6 @@ TestScene::TestScene(BulletManager *bulletManager, Config const *config, Reposit
         this->bulletManager->addBullet(this->bulletManager->getPrototype("bubble"), sf::Vector2f(320 + rand() % 640, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("dispenser"), sf::Vector2f(320 + rand() % 640, rand() % 900));
     }
-    Control *panel = new Panel(true, 4.3, Panel::BORDER_VERTICAL, sf::Color::White, sf::Color(0, 0, 20));
-    panel->resize(sf::FloatRect(320, 720, 640, 240));
-    addControl(panel);
     this->leftPanel.vertical = true;
     this->leftPanel.border = 4.3;
     this->leftPanel.borderMode = Panel::BORDER_HORIZONTAL;
@@ -56,4 +48,5 @@ TestScene::TestScene(BulletManager *bulletManager, Config const *config, Reposit
     this->rightPanel.fg = sf::Color::White;
     this->rightPanel.bg = sf::Color(0, 0, 20);
     this->rightPanel.resize(sf::FloatRect(960, 0, 320, 960));
+    // load in the script
 }

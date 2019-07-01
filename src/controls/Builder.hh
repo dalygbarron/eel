@@ -3,6 +3,7 @@
 
 #include "../Control.hh"
 #include "../Config.hh"
+#include "../Repository.hh"
 #include "../Utils.hh"
 
 /**
@@ -10,12 +11,14 @@
  */
 class Builder {
     Config const *config;
+    Repository *repository;
 
     /**
      * Makes the builder and injects dependencies.
-     * @param config is the game's base configuration.
+     * @param config     is the game's base configuration.
+     * @param repository is the game's source of assets to use.
      */
-    Builder(Config const *config);
+    Builder(Config const *config, Repository *repository);
 };
 
 #endif

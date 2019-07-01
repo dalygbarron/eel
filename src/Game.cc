@@ -1,6 +1,7 @@
 #include "Game.hh"
 #include "Constant.hh"
 #include "Utils.hh"
+#include "scenes/PlainScene.hh"
 #include "spdlog/spdlog.h"
 
 void Game::handleEvents() {
@@ -17,6 +18,16 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+    // update timers.
+    for (int i = 0; i < Constant::TIMER_LIMIT; i++) {
+        if (this->timers[i].listener && this->timers[i].content.time == this->tick) {
+            this->timers[i].listener->listen(Signal(Signal::TYPE_TIMED));
+            this->timers[i].listener = 0;
+            this->timers[i].content.next = this->emptyTimer;
+            this->emptyTimer = this->timers + i;
+        }
+    }
+    // update scene.
     scenes.front()->update();
 }
 
@@ -41,9 +52,17 @@ Game::Game(Config const *config, Repository *repository, BulletManager *bulletMa
     this->view = Utils::getLetterboxView(this->view, windowWidth, windowHeight);
     // Set up the timers.
     this->tick = 0;
-
-    // set up a test scene.
-    this->scenes.push_front(new TestScene(bulletManager, config, repository));
+    for (int i = 0; i < Constant::TIMER_LIMIT - 1; i++) {
+        this->timers[i].listener = 0;
+        this->timers[i].content.next = this->timers + i + 1;
+    }
+    this->timers[Constant::TIMER_LIMIT - 1].listener = 0;
+    this->timers[Constant::TIMER_LIMIT - 1].content.next = 0;
+    this->emptyTimer = this->timers;
+    // set up first scene.
+    char startFile[Constant::FILENAME_BUFFER_SIZE];
+    config->inRoot(startFile, config->get("start"));
+    this->scenes.push_front(new PlainScene(repository, startFile));
 }
 
 int Game::run() {
@@ -65,12 +84,13 @@ int Game::run() {
     return 0;
 }
 
-void Game::addTimer(Listener *listener, long time) {
+void Game::startTimer(Listener *listener, long time) {
     if (!this->emptyTimer) {
         spdlog::error("Trying to start timer but all are in use");
     } else {
         Timer *next = this->emptyTimer->content.next;
-        this->emptyTime->listener = listener;
-        this->emptyTime->content.time = this->tick + time;
+        this->emptyTimer->listener = listener;
+        this->emptyTimer->content.time = this->tick + time;
+        this->emptyTimer = next;
     }
 }

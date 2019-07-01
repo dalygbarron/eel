@@ -1,6 +1,7 @@
 #ifndef SCRIPT_H
 #define SCRIPT_H
 
+#include "Listener.hh"
 #include <lua5.3/lua.hpp>
 
 /**
@@ -8,10 +9,12 @@
  * If I ever need to implement a second scripting language I will move the lua specific stuff to a subclass but right
  * now it's not worth the effort.
  */
-class Script {
+class Script: public Listener {
     lua_State *state = 0;
     lua_State *thread = 0;
+    Scene *scene = 0;
     int alive = true;
+    int listeningFor = -1;
 
     /**
      * Shows the most recent error in the script.
@@ -22,10 +25,11 @@ class Script {
 public:
     /**
      * Creates the script from a source file.
-     * @param file is the file containing the script content.
+     * @param scene is the scene that the script is operating in.
+     * @param file  is the file containing the script content.
      * TODO: probably better to load and compile seperately and use it for each instance of given script.
      */
-    Script(char const *file);
+    Script(Scene *scene, char const *file);
 
     /**
      * Deletes the script and it's junk.
@@ -42,6 +46,8 @@ public:
      * @return true if the script is not over, and false if it is over.
      */
     int isAlive();
+
+    virtual int listen(Signal signal) override;
 };
 
 #endif

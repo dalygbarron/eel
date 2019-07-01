@@ -3,7 +3,7 @@
 
 #include "BulletManager.hh"
 #include "Listener.hh"
-#include "scenes/TestScene.hh"
+#include "Scene.hh"
 #include <forward_list>
 
 /**
@@ -15,12 +15,13 @@ class Game {
      * registered along with a listener, and when that time is the current time they will be notified and removed.
      */
     class Timer {
+    public:
         Listener *listener = 0;
         union {
             long time;
-            Listener *next = 0;
+            Timer *next = 0;
         } content;
-    }
+    };
 
     Config const *config;
     Repository *repository;
@@ -30,7 +31,7 @@ class Game {
     sf::View view;
     int tick;
     Timer timers[Constant::TIMER_LIMIT];
-    Timer *emptyTimer = timers;
+    Timer *emptyTimer;
 
     /**
      * Gets the game to handle events.

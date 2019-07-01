@@ -1,7 +1,7 @@
 #include "Script.hh"
-#include <iostream>
-#include <lua5.3/lua.hpp>
+#include "Constant.hh"
 #include "spdlog/spdlog.h"
+#include <lua5.3/lua.hpp>
 
 void Script::showError(lua_State *state) {
     char const *message = lua_tostring(state, -1);
@@ -9,7 +9,8 @@ void Script::showError(lua_State *state) {
     lua_pop(state, 1);
 }
 
-Script::Script(char const *file) {
+Script::Script(Scene *scene, char const *file) {
+    this->scene = scene;
     this->state = luaL_newstate();
     luaL_openlibs(this->state);
     int result = luaL_loadfile(this->state, file);
@@ -19,7 +20,7 @@ Script::Script(char const *file) {
     }
     lua_pcall(this->state, 0, 0, 0);
     this->thread = lua_newthread(this->state);
-    lua_getglobal(this->thread, "main");
+    lua_getglobal(this->thread, Constant::SCRIPT_ENTRY);
 }
 
 Script::~Script() {
@@ -40,4 +41,10 @@ void Script::tick() {
 
 int Script::isAlive() {
     return this->alive;
+}
+
+int Script::listen(Signal signal) {
+    if (this->listeningFor != signal.type) return false;
+    // TODO: figure out a way to pass in the info.
+    tick();
 }

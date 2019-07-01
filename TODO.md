@@ -116,6 +116,9 @@ include it in another project too since it's useful.
 There are going to be times when I need more complicated data than INI can do. Some of those times I am going to need
 some custom binary format, but a lot of the time I think I will need JSON, so it might be best to just switch now.
 
+Actually, I just saw a thing online where a guy was using Lua files as his config files. Not a bad idea tbh.
+Hmm maybe it is a bad idea. Who can say?
+
 
 # Gui use vertex buffer instead of vertex array
 Probably not needed, but could improve performance somewhat by using a vertex buffer which stores the gui stuff in the

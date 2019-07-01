@@ -25,6 +25,10 @@ void Scene::onEvent(sf::Event *event) {
         if (response >= 0) {
             // TODO: put event text in that log message.
             spdlog::debug("Control '{}' responded to event 'TODO' with {}", this->gui->getDescription(), response);
+            Signal signal;
+            signal.type = Signal::TYPE_SCENE;
+            signal.value = response;
+            speak(signal);
             delete this->gui;
             this->gui = 0;
         }
