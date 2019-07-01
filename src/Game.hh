@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "BulletManager.hh"
+#include "Listener.hh"
 #include "scenes/TestScene.hh"
 #include <forward_list>
 
@@ -9,12 +10,27 @@
  * Contains the main loop of the game, handles events, and creates and manages the game's scenes.
  */
 class Game {
+    /**
+     * Behind the scenes datastructure for running timers. The idea is that a given time in the future (in ticks) is
+     * registered along with a listener, and when that time is the current time they will be notified and removed.
+     */
+    class Timer {
+        Listener *listener = 0;
+        union {
+            long time;
+            Listener *next = 0;
+        } content;
+    }
+
     Config const *config;
     Repository *repository;
     BulletManager *bulletManager;
     std::forward_list<Scene *> scenes;
     sf::RenderWindow window;
     sf::View view;
+    int tick;
+    Timer timers[Constant::TIMER_LIMIT];
+    Timer *emptyTimer = timers;
 
     /**
      * Gets the game to handle events.
@@ -51,6 +67,13 @@ public:
      * @return 0 if it's all been good, and another value if there was an unhandled exception in the game logic.
      */
     int run();
+
+    /**
+     * Starts a timer which will send a signal when done.
+     * @param listener is the listener to inform when it is done.
+     * @param time     is the number of ticks from now at which the timer is done.
+     */
+    void startTimer(Listener *listener, long time);
 };
 
 #endif

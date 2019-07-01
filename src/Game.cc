@@ -39,6 +39,9 @@ Game::Game(Config const *config, Repository *repository, BulletManager *bulletMa
     this->view.setSize(windowWidth, windowHeight);
     this->view.setCenter(this->view.getSize().x / 2, this->view.getSize().y / 2);
     this->view = Utils::getLetterboxView(this->view, windowWidth, windowHeight);
+    // Set up the timers.
+    this->tick = 0;
+
     // set up a test scene.
     this->scenes.push_front(new TestScene(bulletManager, config, repository));
 }
@@ -46,14 +49,13 @@ Game::Game(Config const *config, Repository *repository, BulletManager *bulletMa
 int Game::run() {
     // Main loop of game.
     sf::Clock clock;
-    int i = 0;
     while (this->window.isOpen()) {
         this->handleEvents();
         this->update();
         this->render();
         // Timekeeping.
-        i++;
-        if (!(i % 300)) {
+        this->tick++;
+        if (!(this->tick % 300)) {
             float fps = 300.0 / clock.getElapsedTime().asSeconds();
             if (fps < Constant::FPS_WARN) spdlog::warn("FPS: {}", fps);
             else spdlog::debug("FPS: {}", fps);
@@ -61,4 +63,14 @@ int Game::run() {
         }
     }
     return 0;
+}
+
+void Game::addTimer(Listener *listener, long time) {
+    if (!this->emptyTimer) {
+        spdlog::error("Trying to start timer but all are in use");
+    } else {
+        Timer *next = this->emptyTimer->content.next;
+        this->emptyTime->listener = listener;
+        this->emptyTime->content.time = this->tick + time;
+    }
 }

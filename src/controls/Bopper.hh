@@ -1,7 +1,7 @@
 #ifndef BOPPER_H
 #define BOPPER_H
 
-#include "Control.hh"
+#include "../Control.hh"
 
 /**
  * A thing that simply returns as soon as an appropriate button is clicked.

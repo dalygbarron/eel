@@ -1,7 +1,7 @@
 #ifndef BUILDER_H
 #define BUILDER_H
 
-#include "Control.hh"
+#include "../Control.hh"
 #include "../Config.hh"
 #include "../Utils.hh"
 

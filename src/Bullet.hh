@@ -15,14 +15,12 @@ public:
     sf::Vector2f gravity;
     float angle;
     union {
-        // It's parameters when alive.
-        struct {
+        class {
             float radius;
             float speed;
             int shape;
             char *sprite;
         } live;
-        // It's list pointer when dead.
         Bullet *next;
     } state;
 

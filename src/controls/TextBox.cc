@@ -4,37 +4,6 @@
 #include "../spdlog/spdlog.h"
 #include <stdio.h>
 
-void TextBox::fitContent(sf::FloatRect bounds) {
-    // TODO: refactor this to keep the string manipulation but keep the sizing stuff elsewhere.
-    //       maybe even move this to utils just as a fitting text into a box kinda deal.
-    char fittedContent[Constant::SMALL_TEXT_BUFFER_SIZE];
-    int readHead = 0;
-    int writeHead = 0;
-    while (true) {
-        int word = Utils::endOfWord(this->content + readHead);
-        if (!word) break;
-        for (int i = 0; i < word; i++) {
-            char c = this->content[readHead + i];
-            if (c == '\n') fittedContent[writeHead + i] = ' ';
-            else if (c == '#') fittedContent[writeHead + i] = '\n';
-            else fittedContent[writeHead + i] = this->content[readHead + i];
-        }
-        this->text.setString(fittedContent);
-        sf::FloatRect newBounds = this->text.getLocalBounds();
-        if (newBounds.width > bounds.width) {
-            readHead += Utils::startOfNextWord(this->content + readHead);
-            fittedContent[writeHead] = '\n';
-            writeHead++;
-        } else {
-            readHead += word;
-            writeHead += word;
-        }
-    }
-    fittedContent[writeHead] = 0;
-
-    this->text.setString(fittedContent);
-}
-
 TextBox::TextBox(char const *content, float size) {
     this->content = content;
     // TODO: drop this shit.
@@ -60,7 +29,9 @@ sf::Vector2f TextBox::getDesiredSize(sf::Vector2f bounds) const {
 }
 
 sf::FloatRect TextBox::resize(sf::FloatRect bounds) {
-    this->text.setPosition(sf::Vector2f(bounds.left, bounds.top));
-    this->fitContent(bounds);
+    Utils::fitText(this->content, bounds, &(this->text));
+    sf::FloatRect localBounds = this->text.getLocalBounds();
+    this->text.setPosition(sf::Vector2f(bounds.left, bounds.top - localBounds.top));
+    sf::Vector2f pos = this->text.getPosition();
     return this->text.getLocalBounds();
 }

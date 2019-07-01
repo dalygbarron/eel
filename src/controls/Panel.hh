@@ -1,7 +1,7 @@
 #ifndef PANEL_H
 #define PANEL_H
 
-#include "Control.hh"
+#include "../Control.hh"
 #include "../Config.hh"
 #include <SFML/Graphics.hpp>
 #include <list>

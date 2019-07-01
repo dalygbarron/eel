@@ -1,7 +1,7 @@
 #ifndef TEXT_BOX_H
 #define TEXT_BOX_H
 
-#include "Control.hh"
+#include "../Control.hh"
 #include "../Constant.hh"
 
 /**
@@ -9,15 +9,9 @@
  */
 class TextBox: public Control {
     char const *content;
+    sf::RectangleShape box;
     sf::Text text;
     sf::Font font;
-
-    /**
-     * Fits the text box's content into the given bounds by using new lines and cutting words off the end, and then
-     * saves it like that.
-     * @param bounds are the bounds that the content must fit within.
-     */
-    void fitContent(sf::FloatRect bounds);
 
 public:
     /**

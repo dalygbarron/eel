@@ -48,6 +48,14 @@ namespace Utils {
     int startOfNextWord(char const *string);
 
     /**
+     * fits some text into a given space.
+     * @param string    is     the text to fit in.
+     * @param FloatRect bounds are the boundaries that the text must fit within.
+     * @param text      is     the text object to write it to.
+     */
+    void fitText(char const *string, sf::FloatRect bounds, sf::Text *text);
+
+    /**
      * Wraps a vector around inside a rect.
      * @param pos    is a position to be fitted inside the rectangle.
      * @param bounds is the bounds within which the position is wrapped around.

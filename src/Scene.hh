@@ -1,7 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "controls/Control.hh"
+#include "Control.hh"
 #include <list>
 #include <SFML/Graphics.hpp>
 

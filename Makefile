@@ -2,9 +2,9 @@ CC = g++
 CFLAGS = -std=c++14 -g
 LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 MAIN = src/main.o
-SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils
+SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils Control ExclusiveSpeaker
 SCENES = TestScene
-CONTROLS = Builder Control Panel TextBox Bopper
+CONTROLS = Builder Panel TextBox Bopper
 TESTS = testGeneral testBullet testUtils helpers
 OBJS = $(addprefix src/,$(addsuffix .o,$(SOURCES) $(addprefix scenes/,$(SCENES)) $(addprefix controls/,$(CONTROLS))))
 TEST_OBJS = $(addprefix src/test/,$(addsuffix .o,$(TESTS)))

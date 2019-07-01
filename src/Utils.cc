@@ -35,6 +35,44 @@ int Utils::startOfNextWord(char const *string) {
     return 0;
 }
 
+void Utils::fitText(char const *string, sf::FloatRect bounds, sf::Text *text) {
+    char fittedContent[Constant::SMALL_TEXT_BUFFER_SIZE];
+    int readHead = 0;
+    int writeHead = 0;
+    while (true) {
+        int word = Utils::endOfWord(string + readHead);
+        if (!word) break;
+        if (readHead + word >= Constant::SMALL_TEXT_BUFFER_SIZE) {
+            writeHead = Constant::SMALL_TEXT_BUFFER_SIZE - 1;
+            spdlog::error("Buffer was too small to fit whole text '{}'", string);
+            break;
+        }
+        for (int i = 0; i < word; i++) {
+            char c = string[readHead + i];
+            // TODO: format strings and fancy stuff would be cool.
+            //       perhaps that would belong in a different function I guess.
+            if (c == '\n') fittedContent[writeHead + i] = ' ';
+            else if (c == '#') fittedContent[writeHead + i] = '\n';
+            else fittedContent[writeHead + i] = string[readHead + i];
+        }
+        text->setString(fittedContent);
+        sf::FloatRect newBounds = text->getLocalBounds();
+        if (newBounds.width > bounds.width) {
+            readHead += Utils::startOfNextWord(string + readHead);
+            fittedContent[writeHead] = '\n';
+            writeHead++;
+        } else if (newBounds.height > bounds.height) {
+            spdlog::error("Box was too small to fit whole text '{}'", string);
+            break;
+        } else {
+            readHead += word;
+            writeHead += word;
+        }
+    }
+    fittedContent[writeHead] = 0;
+    text->setString(fittedContent);
+}
+
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
     while (pos.x < bounds.left) pos.x += bounds.width;
     while (pos.x >= bounds.left + bounds.width) pos.x -= bounds.width;
