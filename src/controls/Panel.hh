@@ -39,6 +39,12 @@ public:
      */
     Panel(int vertical, float border, int borderMode, sf::Color fg, sf::Color bg);
 
+    /**
+     * Adds a control onto this panel.
+     * @param child is the child to add.
+     */
+    void addChild(Control *child);
+
     virtual int onEvent(sf::Event *e) override;
 
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
@@ -48,12 +54,6 @@ public:
     virtual sf::Vector2f getDesiredSize(sf::Vector2f bounds) const override;
 
     virtual sf::FloatRect resize(sf::FloatRect bounds) override;
-
-    /**
-     * Adds a control onto this panel.
-     * @param child is the child to add.
-     */
-    void addChild(Control *child);
 };
 
 #endif

@@ -2,6 +2,9 @@
 #define SCENE_H
 
 #include "Control.hh"
+#include "ExclusiveSpeaker.hh"
+#include "Builder.hh"
+#include "Timer.hh"
 #include <list>
 #include <SFML/Graphics.hpp>
 
@@ -11,7 +14,7 @@ class Scene;
  * Represents some phase of the overall game for example the part where you are in the level and playing, or the main
  * menu or some other thing like that.
  */
-class Scene: public sf::Drawable {
+class Scene: public sf::Drawable, public ExclusiveSpeaker {
     Control *gui = 0;
 
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -29,10 +32,15 @@ class Scene: public sf::Drawable {
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const = 0;
 
 public:
+    Builder const *builder;
+    Timer *timer;
+
     /**
      * Point at which scene is created.
+     * @param builder is the gui builder the scene has access to.
+     * @param timer   is the game timer.
      */
-    Scene();
+    Scene(Builder const *builder, Timer *timer);
 
     /**
      * Updates the scene as should be called every frame.

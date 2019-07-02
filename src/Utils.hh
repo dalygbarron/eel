@@ -8,9 +8,6 @@
  * This namespace should be completely free of any state, and just have some helpful bits of code in it.
  */
 namespace Utils {
-    // TODO: this should probably have more digits but lets wait until it wrecks something haha.
-    constexpr static float const PI = 3.14159;
-
     /**
      * Gives the lesser of two values.
      * @param a is the first value.

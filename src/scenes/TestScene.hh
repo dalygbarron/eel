@@ -24,10 +24,12 @@ class TestScene: public Scene {
 public:
     /**
      * Sets up the scene's junk.
+     * @param builder       is the gui builder.
+     * @param timer         is the timer.
      * @param bulletManager is the bullet manager which we shall use a little.
      * @param repository    allows the scene access to the game assets.
      */
-    TestScene(BulletManager *bulletManager, Config const *config, Repository *repository);
+    TestScene(Builder const *builder, Timer *timer, BulletManager *bulletManager, Config const *config, Repository *repository);
 };
 
 #endif

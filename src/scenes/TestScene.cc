@@ -19,7 +19,13 @@ void TestScene::render(sf::RenderTarget *target, sf::RenderStates states) const 
     this->rightPanel.render(target, states);
 }
 
-TestScene::TestScene(BulletManager *bulletManager, Config const *config, Repository *repository) {
+TestScene::TestScene(
+    Builder const *builder,
+    Timer *timer,
+    BulletManager *bulletManager,
+    Config const *config,
+    Repository *repository
+): Scene(builder, timer) {
     spdlog::info("Creating test scene");
     this->bulletManager = bulletManager;
     this->background.setSize(sf::Vector2f(640, 960));
@@ -31,7 +37,7 @@ TestScene::TestScene(BulletManager *bulletManager, Config const *config, Reposit
     }
     this->shader.setUniform("resolution", sf::Vector2f(1280, 960));
     // TODO: clear the bullet manager before use.
-    for (int i = 0; i < Constant::BULLET_LIMIT; i += 3) {
+    for (int i = 0; i < Constant::BULLET_LIMIT; i += 20) {
         this->bulletManager->addBullet(this->bulletManager->getPrototype("roe"), sf::Vector2f(320 + rand() % 640, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("bubble"), sf::Vector2f(320 + rand() % 640, rand() % 900));
         this->bulletManager->addBullet(this->bulletManager->getPrototype("dispenser"), sf::Vector2f(320 + rand() % 640, rand() % 900));

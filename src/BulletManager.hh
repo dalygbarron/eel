@@ -12,6 +12,7 @@
 
 /**
  * Manages all the bullets that are going. draws them and does their collisions and shit.
+ * TODO: making this a top level thing is not reentrant, so it should be made one per scene that uses it.
  */
 class BulletManager: private Store<Bullet *>, public sf::Drawable, public sf::Transformable {
     Config const *config;

@@ -19,10 +19,12 @@ class PlainScene: public Scene {
 public:
     /**
      * Creates the plain scene.
+     * @param builder    is the gui builder.
+     * @param timer      is the timer.
      * @param repository is the game asset repository.
      * @param script     is the filename of the script to run.
      */
-    PlainScene(Repository *repository, char const *script);
+    PlainScene(Builder const *builder, Timer *timer, Repository *repository, char const *script);
 };
 
 #endif

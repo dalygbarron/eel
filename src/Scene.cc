@@ -1,4 +1,5 @@
 #include "Scene.hh"
+#include "Signal.hh"
 #include "spdlog/spdlog.h"
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -7,8 +8,9 @@ void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     if (this->gui) this->gui->render(&target, states);
 }
 
-Scene::Scene() {
-    // does nothing rn.
+Scene::Scene(Builder const *builder, Timer *timer) {
+    this->builder = builder;
+    this->timer = timer;
 }
 
 void Scene::update() {
@@ -27,10 +29,10 @@ void Scene::onEvent(sf::Event *event) {
             spdlog::debug("Control '{}' responded to event 'TODO' with {}", this->gui->getDescription(), response);
             Signal signal;
             signal.type = Signal::TYPE_SCENE;
-            signal.value = response;
-            speak(signal);
+            signal.content.scene.value = response;
             delete this->gui;
             this->gui = 0;
+            speak(signal);
         }
     }
 }

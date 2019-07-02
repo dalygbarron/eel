@@ -41,8 +41,10 @@ int main(int argc, char **argv) {
     try {
         Config config(gameFile);
         Repository repository(&config);
+        Builder builder(&repository, &config);
+        Timer timer;
         BulletManager bulletManager(&config, &repository);
-        Game game(&config, &repository, &bulletManager);
+        Game game(&config, &repository, &builder, &timer, &bulletManager);
         // run the game.
         spdlog::info("Starting '{}' version '{}'", config.get("title"), config.get("version"));
         int status = game.run();
