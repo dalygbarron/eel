@@ -1,6 +1,7 @@
 #include "Game.hh"
 #include "Constant.hh"
 #include "Utils.hh"
+#include "scenes/SplashScene.hh"
 #include "scenes/PlainScene.hh"
 #include "scenes/TestScene.hh"
 #include "spdlog/spdlog.h"
@@ -54,7 +55,8 @@ Game::Game(
     // set up first scene.
     char startFile[Constant::FILENAME_BUFFER_SIZE];
     config->inRoot(startFile, config->get("start"));
-    this->scenes.push_front(new PlainScene(builder, timer, repository, startFile));
+    this->scenes.push_front(new SplashScene(builder, timer, config));
+    //this->scenes.push_front(new PlainScene(builder, timer, repository, startFile));
     //this->scenes.push_front(new TestScene(bulletManager, config, repository));
 }
 
