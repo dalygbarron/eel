@@ -6,9 +6,8 @@
 #include "../Repository.hh"
 #include "../controls/Panel.hh"
 
-void TestScene::logic() {
-    this->i++;
-    this->shader.setUniform("time", this->i / 60.f);
+void TestScene::logic(long tick) {
+    this->shader.setUniform("time", tick / 60.f);
     this->bulletManager->update();
 }
 

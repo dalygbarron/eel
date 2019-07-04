@@ -21,8 +21,9 @@ class Scene: public sf::Drawable, public ExclusiveSpeaker {
 
     /**
      * This scene's actual logic implementation.
+     * @param tick is the frame number.
      */
-    virtual void logic() = 0;
+    virtual void logic(long tick) = 0;
 
     /**
      * Draws the actual content in the scene.
@@ -44,8 +45,9 @@ public:
 
     /**
      * Updates the scene as should be called every frame.
+     * @param tick is the frame number.
      */
-    void update();
+    void update(long tick);
 
     /**
      * Adds a gui widget to this scene.

@@ -41,6 +41,12 @@ public:
      * @param time     is the number of ticks from now at which the timer is done.
      */
     void start(Listener *listener, long time);
+
+    /**
+     * Gives the current frame number.
+     * @return the number of frames since the start of the game.
+     */
+    long getTick() const;
 };
 
 #endif

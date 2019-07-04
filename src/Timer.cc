@@ -44,3 +44,7 @@ void Timer::start(Listener *listener, long time) {
         this->emptyTimer = next;
     }
 }
+
+long Timer::getTick() const {
+    return this->tick;
+}

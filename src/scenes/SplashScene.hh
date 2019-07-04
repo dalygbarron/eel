@@ -16,7 +16,7 @@ class SplashScene: public Scene {
 
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
 
-    virtual void logic() override;
+    virtual void logic(long tick) override;
 
 public:
     /**

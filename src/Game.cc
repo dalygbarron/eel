@@ -21,7 +21,7 @@ void Game::handleEvents() {
 
 void Game::update() {
     this->timer->update();
-    scenes.front()->update();
+    scenes.front()->update(this->timer->getTick());
 }
 
 void Game::render() {

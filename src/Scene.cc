@@ -13,8 +13,8 @@ Scene::Scene(Builder const *builder, Timer *timer) {
     this->timer = timer;
 }
 
-void Scene::update() {
-    if (!this->gui) this->logic();
+void Scene::update(long tick) {
+    if (!this->gui) this->logic(tick);
 }
 
 void Scene::addControl(Control *control) {
