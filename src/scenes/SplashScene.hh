@@ -13,17 +13,19 @@ class SplashScene: public Scene {
     sf::RectangleShape shape;
     float width;
     float height;
+    char startScript[Constant::FILENAME_BUFFER_SIZE];
 
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
 
-    virtual void logic(long tick) override;
+    virtual void logic(long tick, char *transition) override;
 
 public:
+    constexpr static int const WAIT = 180;
+
     /**
      * Does setting up.
      */
     SplashScene(Builder const *builder, Timer *timer, Config const *config);
-
 };
 
 #endif

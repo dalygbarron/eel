@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 /**
  * Loads assets out of files and then keeps them stored for later.
@@ -36,6 +37,13 @@ public:
      * @return the sprite batch.
      */
     SpriteBatch *getSpriteBatch(char const *name);
+
+    /**
+     * Gives you a sound buffer from a file or saved you know.
+     * @param name is the name of the sound to load.
+     * @return a pointer to the sound buffer.
+     */
+    sf::SoundBuffer *getSound(char const *name);
 
     /**
      * Gives you the game's font.

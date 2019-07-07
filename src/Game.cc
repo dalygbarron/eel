@@ -21,13 +21,54 @@ void Game::handleEvents() {
 
 void Game::update() {
     this->timer->update();
-    scenes.front()->update(this->timer->getTick());
+    char transitionBuffer[Constant::FILENAME_BUFFER_SIZE];
+    transitionBuffer[0] = 0;
+    scenes.front()->update(this->timer->getTick(), transitionBuffer);
+    if (transitionBuffer[0]) this->transition(transitionBuffer);
 }
 
 void Game::render() {
     this->window.setView(this->view);
     this->window.draw(*(scenes.front()));
     this->window.display();
+}
+
+void Game::transition(char const *transitionBuffer) {
+    spdlog::info("Transition '{}'", transitionBuffer);
+    char operation = transitionBuffer[0];
+    char type = transitionBuffer[1];
+    Scene *scene = 0;
+    switch(type) {
+        case 'p':
+            scene = new PlainScene(this->builder, this->timer, this->repository, transitionBuffer + 2);
+            break;
+        case 't':
+            // TODO: this.
+            scene = 0;
+            break;
+        case 's':
+            // TODO: this.
+            scene = 0;
+            break;
+        case 0:
+            break;
+        default:
+            spdlog::error("No such scene letter code as '{}'", type);
+            break;
+    }
+    if (operation == 'p') {
+        if (!scene) {
+            spdlog::error("Trying to add nothing to stack.");
+            throw -1;
+        }
+        this->scenes.push_front(scene);
+    } else if (operation == 'r') {
+        this->scenes.pop_front();
+        if (scene) this->scenes.push_front(scene);
+    } else {
+        spdlog::error("Trying to perform unknown transtion '{}'", operation);
+        delete scene;
+    }
 }
 
 Game::Game(

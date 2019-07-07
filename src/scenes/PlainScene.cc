@@ -5,7 +5,7 @@ void PlainScene::render(sf::RenderTarget *target, sf::RenderStates states) const
     target->clear();
 }
 
-void PlainScene::logic(long tick) {
+void PlainScene::logic(long tick, char *transition) {
     // does nothing.
 }
 

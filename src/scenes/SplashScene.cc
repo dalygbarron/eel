@@ -1,10 +1,11 @@
 #include "SplashScene.hh"
+#include <cstring>
 
 void SplashScene::render(sf::RenderTarget *target, sf::RenderStates states) const {
     target->draw(this->shape);
 }
 
-void SplashScene::logic(long tick) {
+void SplashScene::logic(long tick, char *transition) {
     // does nothing.
     float scale = Utils::random() / 20 + 1;
     this->shape.setScale(scale, scale);
@@ -13,6 +14,11 @@ void SplashScene::logic(long tick) {
     float y = Utils::random() * this->height;
     this->shape.setOrigin(x, y);
     this->shape.setPosition(x, y);
+    if (tick == SplashScene::WAIT) {
+        transition[0] = 'r';
+        transition[1] = 'p';
+        strcpy(transition + 2, this->startScript);
+    }
 }
 
 SplashScene::SplashScene(Builder const *builder, Timer *timer, Config const *config): Scene(builder, timer) {
@@ -21,4 +27,5 @@ SplashScene::SplashScene(Builder const *builder, Timer *timer, Config const *con
     this->width = Utils::parseInt(config->get("width"));
     this->height = Utils::parseInt(config->get("height"));
     this->shape.setSize(sf::Vector2f(this->width, this->height));
+    config->inRoot(this->startScript, config->get("start"));
 }

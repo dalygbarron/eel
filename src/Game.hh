@@ -37,9 +37,9 @@ class Game {
 
     /**
      * Does the frame by frame transition of scenes (or does nothing most of the time).
-     * @param transition is the object defining how the current scene stack should be updated.
+     * @param transitionBuffer is the string defining how the current scene stack should be updated.
      */
-    void transition();
+    void transition(char const *transitionBuffer);
 
 public:
     /**

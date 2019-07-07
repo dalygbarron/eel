@@ -34,6 +34,16 @@ void Radio::playSoundAt(char const *sound, sf::Vector3f pos, Listener *listener)
 }
 
 void Radio::playSoundListened(char const *sound, Listener *listener) {
+    for (int i = 0; i < Constant::SOUND_LISTENER_LIMIT; i++) {
+        if (!this->soundListeners[i].listener) {
+            sf::SoundBuffer *soundBuffer = this->repository->getSound(sound);
+            if (soundBuffer) {
+                this->soundListeners[i].listener = listener;
+                this->soundListeners[i].
+            }
+        }
+    }
+
 
 }
 
