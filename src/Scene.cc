@@ -8,9 +8,10 @@ void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     if (this->gui) this->gui->render(&target, states);
 }
 
-Scene::Scene(Builder const *builder, Timer *timer) {
+Scene::Scene(Builder const *builder, Timer *timer, Radio *radio) {
     this->builder = builder;
     this->timer = timer;
+    this->radio = radio;
 }
 
 void Scene::update(long tick, char *transition) {

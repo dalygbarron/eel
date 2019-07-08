@@ -20,12 +20,17 @@ class SplashScene: public Scene {
     virtual void logic(long tick, char *transition) override;
 
 public:
-    constexpr static int const WAIT = 150;
+    // TODO: make this short in debug mode and long in main mode.
+    constexpr static int const WAIT = 90;
 
     /**
      * Does setting up.
+     * @param builder is the gui builder thingo.
+     * @param timer   is the time keeper thingy.
+     * @param radio   is the music plauer.
+     * @param config  is the game configuration.
      */
-    SplashScene(Builder const *builder, Timer *timer, Config const *config);
+    SplashScene(Builder const *builder, Timer *timer, Radio *radio, Config const *config);
 };
 
 #endif

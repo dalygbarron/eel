@@ -25,11 +25,18 @@ void Radio::stopSong() {
     this->currentSong = 0;
 }
 
-void Radio::playSound(char const *sound, Listener *listener) {
-
+void Radio::playSound(char const *sound) {
+    for (int i = 0; i < Constant::SOUND_LIMIT; i++) {
+        if (this->sounds[i].getStatus() == sf::Music::Status::Stopped) {
+            this->sounds[i].setBuffer(*(this->repository->getSound(sound)));
+            this->sounds[i].play();
+            return;
+        }
+    }
+    spdlog::warn("Could not find free sound player for sound '{}'", sound);
 }
 
-void Radio::playSoundAt(char const *sound, sf::Vector3f pos, Listener *listener) {
+void Radio::playSoundAt(char const *sound, sf::Vector3f pos) {
 
 }
 
@@ -37,14 +44,12 @@ void Radio::playSoundListened(char const *sound, Listener *listener) {
     for (int i = 0; i < Constant::SOUND_LISTENER_LIMIT; i++) {
         if (!this->soundListeners[i].listener) {
             sf::SoundBuffer *soundBuffer = this->repository->getSound(sound);
-            if (soundBuffer) {
-                this->soundListeners[i].listener = listener;
-                this->soundListeners[i].
-            }
+            this->soundListeners[i].listener = listener;
+            this->soundListeners[i].sound.setBuffer(*(soundBuffer));
+            return;
         }
     }
-
-
+    spdlog::warn("Could not find listened sound player for sound '{}'", sound);
 }
 
 void Radio::playSoundAtListened(char const *sound, sf::Vector3f pos, Listener *listener) {

@@ -13,7 +13,6 @@ void Script::showError(lua_State *state) {
 
 void Script::listenToScene(Scene *scene, int type) {
     scene->addListener(this);
-    this->listeningFor = type;
 }
 
 int Script::validateLuaArgs(lua_State *luaState, int n) {
@@ -39,7 +38,6 @@ int Script::luaWait(lua_State *luaState) {
     double time = lua_tonumber(luaState, 1);
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
     script->scene->timer->start(script, floor(time));
-    script->listeningFor = Signal::TYPE_TIMED;
     return 0;
 }
 
@@ -62,6 +60,28 @@ int Script::luaListen(lua_State *luaState) {
     return 0;
 }
 
+int Script::luaTransition(lua_State *luaState) {
+    Script::validateLuaArgs(luaState, 2);
+    // TODO: implement.
+    return 0;
+}
+
+int Script::luaPlaySound(lua_State *luaState) {
+    Script::validateLuaArgs(luaState, 2);
+    char const *name = lua_tostring(luaState, 1);
+    Script *script = (Script *)Script::getLuaPointer(luaState, 2);
+    script->scene->radio->playSound(name);
+    return 0;
+}
+
+int Script::luaPlaySoundListened(lua_State *luaState) {
+    Script::validateLuaArgs(luaState, 2);
+    char const *name = lua_tostring(luaState, 1);
+    Script *script = (Script *)Script::getLuaPointer(luaState, 2);
+    script->scene->radio->playSoundListened(name, script);
+    return 0;
+}
+
 Script::Script(Scene *scene, char const *file) {
     this->scene = scene;
     this->state = luaL_newstate();
@@ -69,6 +89,8 @@ Script::Script(Scene *scene, char const *file) {
     luaL_openlibs(this->state);
     lua_register(this->state, "_wait", Script::luaWait);
     lua_register(this->state, "_declare", Script::luaDeclare);
+    lua_register(this->state, "_playSound", Script::luaPlaySound);
+    lua_register(this->state, "_playSoundListened", Script::luaPlaySoundListened);
     // load the file.
     int result = luaL_loadstring(this->state, file);
     if (result != LUA_OK) {
@@ -103,8 +125,5 @@ int Script::isAlive() {
 }
 
 int Script::listen(Signal signal) {
-    if (this->listeningFor != signal.type) return false;
-    // TODO: figure out a way to pass in the info.
-    this->listeningFor = -1;
     tick();
 }

@@ -5,6 +5,7 @@
 #include "ExclusiveSpeaker.hh"
 #include "Builder.hh"
 #include "Timer.hh"
+#include "Radio.hh"
 #include <list>
 #include <SFML/Graphics.hpp>
 
@@ -36,13 +37,15 @@ class Scene: public sf::Drawable, public ExclusiveSpeaker {
 public:
     Builder const *builder;
     Timer *timer;
+    Radio *radio;
 
     /**
      * Point at which scene is created.
      * @param builder is the gui builder the scene has access to.
      * @param timer   is the game timer.
+     * @param radio   is the music and sound player for your sensual enjoyment.
      */
-    Scene(Builder const *builder, Timer *timer);
+    Scene(Builder const *builder, Timer *timer, Radio *radio);
 
     /**
      * Updates the scene as should be called every frame.

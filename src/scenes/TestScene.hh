@@ -25,10 +25,18 @@ public:
      * Sets up the scene's junk.
      * @param builder       is the gui builder.
      * @param timer         is the timer.
+     * @param radio         is the radio.
      * @param bulletManager is the bullet manager which we shall use a little.
      * @param repository    allows the scene access to the game assets.
      */
-    TestScene(Builder const *builder, Timer *timer, BulletManager *bulletManager, Config const *config, Repository *repository);
+    TestScene(
+        Builder const *builder,
+        Timer *timer,
+        Radio *radio,
+        BulletManager *bulletManager,
+        Config const *config,
+        Repository *repository
+    );
 };
 
 #endif

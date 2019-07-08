@@ -15,12 +15,12 @@ Repository::Repository(Config const *config) {
 }
 
 sf::Texture *Repository::getTexture(char const *name) {
-    spdlog::debug("get texture: '{}'", name);
+    spdlog::info("get texture: '{}'", name);
 
 }
 
 SpriteBatch *Repository::getSpriteBatch(char const *name) {
-    spdlog::debug("get sprite batch: '{}'", name);
+    spdlog::info("get sprite batch: '{}'", name);
     try {
         return this->spriteBatches.at(name);
     } catch (...) {
@@ -32,8 +32,31 @@ SpriteBatch *Repository::getSpriteBatch(char const *name) {
     }
 }
 
+sf::SoundBuffer *Repository::getSound(char const *name) {
+    spdlog::info("get sound: '{}'", name);
+    try {
+        return this->sounds.at(name);
+    } catch (...) {
+        char filename[Constant::FILENAME_BUFFER_SIZE];
+        this->config->inRoot(filename, name);
+        sf::SoundBuffer *sound = new sf::SoundBuffer();
+        if (sound->loadFromFile(filename)) {
+            this->sounds[name] = sound;
+            return sound;
+        } else {
+            spdlog::error("Cannot load sound at '{}'", filename);
+            throw -1;
+        }
+    }
+}
+
+sf::Music *Repository::getSong(char const *name) {
+    spdlog::info("get song: '{}'", name);
+
+}
+
 char const *Repository::getText(char const *name) {
-    spdlog::debug("get text: '{}'", name);
+    spdlog::info("get text: '{}'", name);
     try {
         return this->texts.at(name);
     } catch (...) {
@@ -46,6 +69,6 @@ char const *Repository::getText(char const *name) {
 }
 
 sf::Font const *Repository::getFont() {
-    spdlog::debug("get font");
+    spdlog::info("get font");
     return &this->font;
 }

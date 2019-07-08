@@ -18,6 +18,7 @@ class Repository {
     std::unordered_map<std::string, sf::Texture *> textures;
     std::unordered_map<std::string, SpriteBatch *> spriteBatches;
     std::unordered_map<std::string, char *> texts;
+    std::unordered_map<std::string, sf::SoundBuffer *> sounds;
 
 public:
     /**
@@ -45,6 +46,13 @@ public:
      * @return a pointer to the sound buffer.
      */
     sf::SoundBuffer *getSound(char const *name);
+
+    /**
+     * Gives you a song which is cached.
+     * @param name is the name of the song to load and the key to cache it by.
+     * @return a poiinter to the song.
+     */
+    sf::Music *getSong(char const *name);
 
     /**
      * Gives you a pointer to a file as a string.

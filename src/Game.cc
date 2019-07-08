@@ -40,7 +40,7 @@ void Game::transition(char const *transitionBuffer) {
     Scene *scene = 0;
     switch(type) {
         case 'p':
-            scene = new PlainScene(this->builder, this->timer, this->repository, transitionBuffer + 2);
+            scene = new PlainScene(this->builder, this->timer, this->radio, this->repository, transitionBuffer + 2);
             break;
         case 't':
             // TODO: this.
@@ -76,12 +76,14 @@ Game::Game(
     Repository *repository,
     Builder const *builder,
     Timer *timer,
+    Radio *radio,
     BulletManager *bulletManager
 ) {
     this->config = config;
     this->repository = repository;
     this->builder = builder;
     this->timer = timer;
+    this->radio = radio;
     this->bulletManager = bulletManager;
     // set up rendering window.
     int windowWidth = Utils::parseInt(config->get("width"));
@@ -96,9 +98,7 @@ Game::Game(
     // set up first scene.
     char startFile[Constant::FILENAME_BUFFER_SIZE];
     config->inRoot(startFile, config->get("start"));
-    this->scenes.push_front(new SplashScene(builder, timer, config));
-    //this->scenes.push_front(new PlainScene(builder, timer, repository, startFile));
-    //this->scenes.push_front(new TestScene(bulletManager, config, repository));
+    this->scenes.push_front(new SplashScene(builder, timer, radio, config));
 }
 
 int Game::run() {

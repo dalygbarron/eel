@@ -21,7 +21,8 @@ void SplashScene::logic(long tick, char *transition) {
     }
 }
 
-SplashScene::SplashScene(Builder const *builder, Timer *timer, Config const *config): Scene(builder, timer) {
+SplashScene::SplashScene(Builder const *builder, Timer *timer, Radio *radio, Config const *config):
+Scene(builder, timer, radio) {
     this->texture.loadFromMemory(SplashScene::LOGO, SplashScene::LOGO_SIZE);
     this->shape.setTexture(&(this->texture));
     this->width = Utils::parseInt(config->get("width"));

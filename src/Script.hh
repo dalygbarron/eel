@@ -68,13 +68,39 @@ public:
 
     /**
      * Lua function to make a script listen to a scene for info.
-     * in: pointer to scene.
      * in: pointer to script.
      * in: type of signal to lsiten to.
      * @param luaState is the lua state that called this.
      * @return the number of items returned.
      */
     static int luaListen(lua_State *luaState);
+
+    /**
+     * Tell the scene to transition to a new scene after the next frame.
+     * in: pointer to script.
+     * in: scene transition text.
+     * @param luaState is the lua state that called this.
+     * @return the number of things returned.
+     */
+    static int luaTransition(lua_State *luaState);
+
+    /**
+     * Plays a sound.
+     * in: pointer to script.
+     * in: name of sound.
+     * @param luaState is the calling lua state thingy.
+     * @return the number of things returned to lua.
+     */
+    static int luaPlaySound(lua_State *luaState);
+
+    /**
+     * Plays a sound and makes the calling script listen for it to finish.
+     * in: pointer to script.
+     * in: name of sound.
+     * @param luaState is the calling lua state thingy.
+     * @return the number of things returned to lua.
+     */
+    static int luaPlaySoundListened(lua_State *luaState);
 
     /**
      * Creates the script from a source file.

@@ -24,7 +24,7 @@ public:
      * @param repository is the game asset repository.
      * @param script     is the filename of the script to run.
      */
-    PlainScene(Builder const *builder, Timer *timer, Repository *repository, char const *script);
+    PlainScene(Builder const *builder, Timer *timer, Radio *radio, Repository *repository, char const *script);
 };
 
 #endif

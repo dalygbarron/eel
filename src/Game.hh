@@ -15,6 +15,7 @@ class Game {
     Repository *repository;
     Builder const *builder;
     Timer *timer;
+    Radio *radio;
     BulletManager *bulletManager;
     std::forward_list<Scene *> scenes;
     sf::RenderWindow window;
@@ -48,6 +49,7 @@ public:
      * @param repository    is where the game will get it's assets.
      * @param builder       is the gui builder.
      * @param timer         is used to time stuff.
+     * @param radio         is the game's music player.
      * @param bulletManager is used by some scenes for their enjoyment.
      */
     Game(
@@ -55,6 +57,7 @@ public:
         Repository *repository,
         Builder const *builder,
         Timer *timer,
+        Radio *radio,
         BulletManager *bulletManager
     );
 

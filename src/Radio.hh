@@ -3,6 +3,8 @@
 
 #include "Repository.hh"
 #include "Listener.hh"
+#include "Constant.hh"
+#include <SFML/Audio.hpp>
 
 /**
  * Handles the playing of sounds and music.
@@ -50,7 +52,7 @@ public:
      * @param sound is the name of the sound file.
      * @param pos   is the 3d location to play the sound at relative to the player.
      */
-    void playSoundAt(char const *sound, sf::Vector3f pos)
+    void playSoundAt(char const *sound, sf::Vector3f pos);
 
     /**
      * Starts a sound playing, and connects a listener to know when it is done.

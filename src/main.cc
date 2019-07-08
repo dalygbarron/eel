@@ -6,13 +6,14 @@
 #include "Game.hh"
 #include "Config.hh"
 #include "Repository.hh"
+#include "Radio.hh"
 #include "BulletManager.hh"
 #include <iostream>
 #include <fstream>
 #include <forward_list>
 #include <SFML/Graphics.hpp>
 #include "spdlog/spdlog.h"
-#include "spdlog/daily_file_sink.h"
+#include "spdlog/rotating_file_sink.h"
 
 #define DEFAULT_CONFIG_FILE "game.ini"
 
@@ -24,7 +25,7 @@
  */
 int main(int argc, char **argv) {
     // Start logging right away.
-    spdlog::set_default_logger(spdlog::daily_logger_mt("heart", "logs/eel.log", 2, 30));
+    spdlog::set_default_logger(spdlog::rotating_logger_mt("heart", "eel.log", 1048576, 2));
     spdlog::flush_on(spdlog::level::debug); // TODO: obviously change this for production to error.
     spdlog::flush_every(std::chrono::seconds(10));
     spdlog::info(
@@ -43,8 +44,9 @@ int main(int argc, char **argv) {
         Repository repository(&config);
         Builder builder(&repository, &config);
         Timer timer;
+        Radio radio(&repository);
         BulletManager bulletManager(&config, &repository);
-        Game game(&config, &repository, &builder, &timer, &bulletManager);
+        Game game(&config, &repository, &builder, &timer, &radio, &bulletManager);
         // run the game.
         spdlog::info("Starting '{}' version '{}'", config.get("title"), config.get("version"));
         int status = game.run();

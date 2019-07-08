@@ -21,10 +21,11 @@ void TestScene::render(sf::RenderTarget *target, sf::RenderStates states) const 
 TestScene::TestScene(
     Builder const *builder,
     Timer *timer,
+    Radio *radio,
     BulletManager *bulletManager,
     Config const *config,
     Repository *repository
-): Scene(builder, timer) {
+): Scene(builder, timer, radio) {
     spdlog::info("Creating test scene");
     this->bulletManager = bulletManager;
     this->background.setSize(sf::Vector2f(640, 960));

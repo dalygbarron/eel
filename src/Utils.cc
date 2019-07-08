@@ -85,7 +85,6 @@ char *Utils::readFile(char const *file) {
     char *string = new char[length + 1];
     input.read(string, length);
     string[length - 1] = 0;
-    spdlog::error("{}", length);
     return string;
 }
 
