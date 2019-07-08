@@ -10,7 +10,7 @@
  */
 class PlainScene: public Scene {
     Repository *repository;
-    Script script;
+    Script *script;
 
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
 

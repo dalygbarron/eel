@@ -79,10 +79,9 @@ public:
     /**
      * Creates the script from a source file.
      * @param scene is the scene that the script is operating in.
-     * @param file  is the file containing the script content.
-     * TODO: probably better to load and compile seperately and use it for each instance of given script.
+     * @param text is the text of the script.
      */
-    Script(Scene *scene, char const *file);
+    Script(Scene *scene, char const *text);
 
     /**
      * Deletes the script and it's junk.

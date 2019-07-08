@@ -7,7 +7,7 @@
 
 void Script::showError(lua_State *state) {
     char const *message = lua_tostring(state, -1);
-    spdlog::error(message);
+    spdlog::error("Lua Error: {}", message);
     lua_pop(state, 1);
 }
 
@@ -70,7 +70,7 @@ Script::Script(Scene *scene, char const *file) {
     lua_register(this->state, "_wait", Script::luaWait);
     lua_register(this->state, "_declare", Script::luaDeclare);
     // load the file.
-    int result = luaL_loadfile(this->state, file);
+    int result = luaL_loadstring(this->state, file);
     if (result != LUA_OK) {
         showError(this->state);
         throw -1;

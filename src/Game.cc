@@ -21,7 +21,7 @@ void Game::handleEvents() {
 
 void Game::update() {
     this->timer->update();
-    char transitionBuffer[Constant::FILENAME_BUFFER_SIZE];
+    char transitionBuffer[Constant::TRANSITION_BUFFER_SIZE];
     transitionBuffer[0] = 0;
     scenes.front()->update(this->timer->getTick(), transitionBuffer);
     if (transitionBuffer[0]) this->transition(transitionBuffer);

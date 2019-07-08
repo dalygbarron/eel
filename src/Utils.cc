@@ -73,6 +73,22 @@ void Utils::fitText(char const *string, sf::FloatRect bounds, sf::Text *text) {
     text->setString(fittedContent);
 }
 
+char *Utils::readFile(char const *file) {
+    sf::FileInputStream input;
+    if (!input.open(file)) {
+        spdlog::error("Can't open file '{}' for reading", file);
+        char *empty = new char[1];
+        empty[0] = 0;
+        return empty;
+    }
+    int length = input.getSize();
+    char *string = new char[length + 1];
+    input.read(string, length);
+    string[length - 1] = 0;
+    spdlog::error("{}", length);
+    return string;
+}
+
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
     while (pos.x < bounds.left) pos.x += bounds.width;
     while (pos.x >= bounds.left + bounds.width) pos.x -= bounds.width;

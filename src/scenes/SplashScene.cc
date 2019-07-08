@@ -27,5 +27,5 @@ SplashScene::SplashScene(Builder const *builder, Timer *timer, Config const *con
     this->width = Utils::parseInt(config->get("width"));
     this->height = Utils::parseInt(config->get("height"));
     this->shape.setSize(sf::Vector2f(this->width, this->height));
-    config->inRoot(this->startScript, config->get("start"));
+    this->startScript = config->get("start");
 }

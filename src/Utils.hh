@@ -53,6 +53,13 @@ namespace Utils {
     void fitText(char const *string, sf::FloatRect bounds, sf::Text *text);
 
     /**
+     * Reads in a whole file and returns it as a string.
+     * @param file is the file to read in.
+     * @return the whole file contents as text.
+     */
+    char *readFile(char const *file);
+
+    /**
      * Wraps a vector around inside a rect.
      * @param pos    is a position to be fitted inside the rectangle.
      * @param bounds is the bounds within which the position is wrapped around.

@@ -10,8 +10,9 @@ void PlainScene::logic(long tick, char *transition) {
 }
 
 PlainScene::PlainScene(Builder const *builder, Timer *timer, Repository *repository, char const *script):
-Scene(builder, timer), script(this, script) {
+Scene(builder, timer) {
     spdlog::info("Creating plain scene with script '{}'", script);
     this->repository = repository;
-    this->script.tick();
+    this->script = new Script(this, repository->getText(script));
+    this->script->tick();
 }

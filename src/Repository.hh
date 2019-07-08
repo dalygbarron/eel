@@ -17,6 +17,7 @@ class Repository {
     sf::Font font;
     std::unordered_map<std::string, sf::Texture *> textures;
     std::unordered_map<std::string, SpriteBatch *> spriteBatches;
+    std::unordered_map<std::string, char *> texts;
 
 public:
     /**
@@ -46,7 +47,14 @@ public:
     sf::SoundBuffer *getSound(char const *name);
 
     /**
-     * Gives you the game's font.
+     * Gives you a pointer to a file as a string.
+     * @param name is the name of the text to load.
+     * @return a pointer to the text.
+     */
+    char const *getText(char const *name);
+
+    /**
+     * Gives you the game's only font.
      * @return the font which was decided in the game's main config file.
      */
     sf::Font const *getFont();

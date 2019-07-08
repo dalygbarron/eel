@@ -16,6 +16,7 @@ namespace Constant {
     constexpr static int const BULLET_LIMIT = 2048;
     constexpr static int const FILENAME_BUFFER_SIZE = 128;
     constexpr static int const SMALL_TEXT_BUFFER_SIZE = 256;
+    constexpr static int const TRANSITION_BUFFER_SIZE = 1024;
     constexpr static int const TIMER_LIMIT = 8;
     constexpr static int const SOUND_LIMIT = 32;
     constexpr static int const SOUND_LISTENER_LIMIT = 8;
