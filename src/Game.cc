@@ -21,10 +21,9 @@ void Game::handleEvents() {
 
 void Game::update() {
     this->timer->update();
-    char transitionBuffer[Constant::TRANSITION_BUFFER_SIZE];
-    transitionBuffer[0] = 0;
-    scenes.front()->update(this->timer->getTick(), transitionBuffer);
-    if (transitionBuffer[0]) this->transition(transitionBuffer);
+    Scene *scene = this->scenes.front();
+    scene->update(this->timer->getTick());
+    this->transition(scene);
 }
 
 void Game::render() {
@@ -33,14 +32,21 @@ void Game::render() {
     this->window.display();
 }
 
-void Game::transition(char const *transitionBuffer) {
-    spdlog::info("Transition '{}'", transitionBuffer);
-    char operation = transitionBuffer[0];
-    char type = transitionBuffer[1];
+void Game::transition(Scene *transitioning) {
+    if (!transitioning->transition[0]) return;
+    spdlog::info("Transition '{}'", transitioning->transition);
+    char operation = transitioning->transition[0];
+    char type = transitioning->transition[1];
     Scene *scene = 0;
     switch(type) {
         case 'p':
-            scene = new PlainScene(this->builder, this->timer, this->radio, this->repository, transitionBuffer + 2);
+            scene = new PlainScene(
+                this->builder,
+                this->timer,
+                this->radio,
+                this->repository,
+                transitioning->transition + 2
+            );
             break;
         case 't':
             // TODO: this.
@@ -69,6 +75,7 @@ void Game::transition(char const *transitionBuffer) {
         spdlog::error("Trying to perform unknown transtion '{}'", operation);
         delete scene;
     }
+    transitioning->transition[0] = 0;
 }
 
 Game::Game(
@@ -93,8 +100,6 @@ Game::Game(
     this->view.setSize(windowWidth, windowHeight);
     this->view.setCenter(this->view.getSize().x / 2, this->view.getSize().y / 2);
     this->view = Utils::getLetterboxView(this->view, windowWidth, windowHeight);
-    // Set up the timers.
-
     // set up first scene.
     char startFile[Constant::FILENAME_BUFFER_SIZE];
     config->inRoot(startFile, config->get("start"));
@@ -106,6 +111,7 @@ int Game::run() {
     while (this->window.isOpen()) {
         this->handleEvents();
         this->update();
+        if (this->scenes.empty()) break;
         this->render();
     }
     return 0;

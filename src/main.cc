@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
         spdlog::info("Exiting Normally");
         return status;
     } catch(...) {
-        spdlog::info("Aborting");
+        spdlog::warn("Aborting");
         return -1;
     }
 }

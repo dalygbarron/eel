@@ -19,7 +19,7 @@ BulletManager::BulletManager(Config const *config, Repository *repository): Stor
     // Load in the bullet info.
     spdlog::info("Loading bullets from '{}'", file);
     if (ini_parse(file, BulletManager::handleIni, this) < 0) {
-        spdlog::error("Could not open file '{}'", file);
+        spdlog::critical("Could not open bullets file '{}'", file);
         throw -1;
     }
     // Init the bullets to nothing.

@@ -4,6 +4,7 @@
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     // I hate references man so I am treating this method as an adaptor to my own style.
+    if (this->bg.a > 0) target.clear(this->bg);
     this->render(&target, states);
     if (this->gui) this->gui->render(&target, states);
 }
@@ -12,10 +13,11 @@ Scene::Scene(Builder const *builder, Timer *timer, Radio *radio) {
     this->builder = builder;
     this->timer = timer;
     this->radio = radio;
+    this->transition[0] = 0;
 }
 
-void Scene::update(long tick, char *transition) {
-    if (!this->gui) this->logic(tick, transition);
+void Scene::update(long tick) {
+    if (!this->gui) this->logic(tick);
 }
 
 void Scene::addControl(Control *control) {

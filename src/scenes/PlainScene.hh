@@ -11,10 +11,11 @@
 class PlainScene: public Scene {
     Repository *repository;
     Script *script;
+    char *file;
 
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
 
-    virtual void logic(long tick, char *transition) override;
+    virtual void logic(long tick) override;
 
 public:
     /**

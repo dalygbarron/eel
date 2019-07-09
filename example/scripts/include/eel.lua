@@ -1,5 +1,8 @@
 return function(context)
-    local eel = {radio = {}}
+    local eel = {
+        util = {},
+        radio = {}
+    };
 
     --- Wait for a given period of time.
     -- Yields until the given number of ticks have passed.
@@ -22,6 +25,27 @@ return function(context)
         coroutine.yield();
     end
 
+    --- Sets the scene's background colour.
+    -- @number colour is the colour to set it to as a 32 bit int.
+    function eel.setRefresh(colour)
+        _setRefresh(colour, context);
+    end
+
+    --- Pushes a new scene on the stack and waits for it to return.
+    -- @string text is the main body of the transition
+    -- @return the return value of the on top scene.
+    function eel.push(text)
+        _transition("p"..text, context);
+        return coroutine.yield();
+    end
+
+    --- Converts a time in seconds into a time in ticks.
+    -- @number time is the number of seconds
+    -- @return time in seconds multiplied by the framerate.
+    function eel.util.seconds(time)
+        return time * 60.0;
+    end
+
     --- Plays a sound.
     -- @string sound is the name of the sound file to play.
     function eel.radio.playSound(sound)
@@ -31,8 +55,8 @@ return function(context)
     --- Plays a sound and yields until it has ended.
     -- @string sound is the name of the sound file to play.
     function eel.radio.waitSound(sound)
-        _playSoundListened(sound, context);
-        coroutine.yield();
+        local length = _playSound(sound, context);
+        eel.wait(length);
     end
 
     return eel;

@@ -5,7 +5,7 @@ void SplashScene::render(sf::RenderTarget *target, sf::RenderStates states) cons
     target->draw(this->shape);
 }
 
-void SplashScene::logic(long tick, char *transition) {
+void SplashScene::logic(long tick) {
     // does nothing.
     float scale = Utils::random() / 20 + 1;
     this->shape.setScale(scale, scale);
@@ -15,8 +15,8 @@ void SplashScene::logic(long tick, char *transition) {
     this->shape.setOrigin(x, y);
     this->shape.setPosition(x, y);
     if (tick == SplashScene::WAIT) {
-        transition[0] = 'r';
-        transition[1] = 'p';
+        this->transition[0] = 'r';
+        this->transition[1] = 'p';
         strcpy(transition + 2, this->startScript);
     }
 }

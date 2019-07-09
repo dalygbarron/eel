@@ -8,7 +8,7 @@ TextBox::TextBox(char const *content, float size) {
     this->content = content;
     // TODO: drop this shit.
     if (!this->font.loadFromFile("example/bocklin.ttf")) {
-        spdlog::error("cant open font");
+        spdlog::critical("cant open font");
         throw -1;
     }
     this->text.setFont(this->font);

@@ -6,7 +6,7 @@
 void Bullet::copy(Bullet const *bullet) {
     if (!this->alive) {
         // Must not copy to dead bullet as it could corrupt the lazy list.
-        spdlog::error("Trying to copy to dead bullet.");
+        spdlog::critical("Trying to copy to dead bullet.");
         throw -1;
     }
     this->state.live.radius = bullet->state.live.radius;

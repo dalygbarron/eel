@@ -25,33 +25,34 @@ void Radio::stopSong() {
     this->currentSong = 0;
 }
 
-void Radio::playSound(char const *sound) {
+int Radio::playSound(char const *sound) {
+    // TODO: this is a pretty inefficient way of doing this. Maybe I should use one of those dead lists or sometihng.
+    //       also, should try to find a way of stopping the same sound from playing twice in the same frame.
+    //       could store most recent name pointer and stop you from playing twice in a row in one frame. Would also need
+    //       to add an update every frame though.
     for (int i = 0; i < Constant::SOUND_LIMIT; i++) {
         if (this->sounds[i].getStatus() == sf::Music::Status::Stopped) {
-            this->sounds[i].setBuffer(*(this->repository->getSound(sound)));
+            sf::SoundBuffer *soundBuffer = this->repository->getSound(sound);
+            this->sounds[i].setBuffer(*(soundBuffer));
             this->sounds[i].play();
-            return;
+            int length = ceil(soundBuffer->getDuration().asSeconds() * Constant::FPS);
+            spdlog::debug("Playing sound '{}' for {} frames", sound, length);
+            return length;
         }
     }
     spdlog::warn("Could not find free sound player for sound '{}'", sound);
 }
 
-void Radio::playSoundAt(char const *sound, sf::Vector3f pos) {
-
-}
-
-void Radio::playSoundListened(char const *sound, Listener *listener) {
-    for (int i = 0; i < Constant::SOUND_LISTENER_LIMIT; i++) {
-        if (!this->soundListeners[i].listener) {
+int Radio::playSoundAt(char const *sound, sf::Vector3f pos) {
+    // TODO: make this positioned.
+    for (int i = 0; i < Constant::SOUND_LIMIT; i++) {
+        if (this->sounds[i].getStatus() == sf::Music::Status::Stopped) {
             sf::SoundBuffer *soundBuffer = this->repository->getSound(sound);
-            this->soundListeners[i].listener = listener;
-            this->soundListeners[i].sound.setBuffer(*(soundBuffer));
-            return;
+            this->sounds[i].setBuffer(*(soundBuffer));
+            this->sounds[i].play();
+            return ceil(soundBuffer->getDuration().asSeconds() / Constant::FPS);
         }
     }
-    spdlog::warn("Could not find listened sound player for sound '{}'", sound);
-}
-
-void Radio::playSoundAtListened(char const *sound, sf::Vector3f pos, Listener *listener) {
+    spdlog::warn("Could not find free sound player for sound '{}'", sound);
 
 }

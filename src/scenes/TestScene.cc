@@ -6,7 +6,7 @@
 #include "../Repository.hh"
 #include "../controls/Panel.hh"
 
-void TestScene::logic(long tick, char *transition) {
+void TestScene::logic(long tick) {
     this->shader.setUniform("time", tick / 60.f);
     this->bulletManager->update();
 }
@@ -32,7 +32,7 @@ TestScene::TestScene(
     this->background.setPosition(320, 0);
     this->background.setTextureRect(sf::IntRect(0, 0, 1, 1));
     if (!this->shader.loadFromFile("example/shader/plain.vert", "example/shader/bullet.frag")) {
-        spdlog::error("Couldn't load nice shaders for test scene");
+        spdlog::critical("Couldn't load nice shaders for test scene");
         throw -1;
     }
     this->shader.setUniform("resolution", sf::Vector2f(1280, 960));

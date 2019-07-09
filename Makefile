@@ -2,7 +2,8 @@ CC = g++
 CFLAGS = -std=c++14
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 MAIN = src/main.o
-SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils Control ExclusiveSpeaker Signal Builder Timer Radio
+SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils Control \
+          ExclusiveSpeaker Signal Builder Timer Radio
 SCENES = SplashScene SplashSceneLogo TestScene PlainScene
 CONTROLS = Panel TextBox Bopper
 TESTS = testGeneral testBullet testUtils helpers

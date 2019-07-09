@@ -44,7 +44,7 @@ public:
         try {
             return this->values.at(key);
         } catch (...) {
-            spdlog::error("Failed to find key '{}' in store '{}'", key, this->name);
+            spdlog::critical("Failed to find key '{}' in store '{}'", key, this->name);
             throw -1;
         }
     }

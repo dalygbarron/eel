@@ -94,20 +94,19 @@ public:
     static int luaPlaySound(lua_State *luaState);
 
     /**
-     * Plays a sound and makes the calling script listen for it to finish.
-     * in: pointer to script.
-     * in: name of sound.
-     * @param luaState is the calling lua state thingy.
-     * @return the number of things returned to lua.
+     * Sets the screen refresh colour for the given script's scene.
+     * @param luaState is the state of the script doing this.
+     * @return the number of return values put on the stack.
      */
-    static int luaPlaySoundListened(lua_State *luaState);
+    static int luaSetRefresh(lua_State *luaState);
 
     /**
      * Creates the script from a source file.
-     * @param scene is the scene that the script is operating in.
+     * @param scene  is the scene that the script is operating in.
+     * @param config contains configuration settings, namely the root directory.
      * @param text is the text of the script.
      */
-    Script(Scene *scene, char const *text);
+    Script(Scene *scene, Config const *config, char const *text);
 
     /**
      * Deletes the script and it's junk.

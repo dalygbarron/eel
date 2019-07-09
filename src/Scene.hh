@@ -23,9 +23,8 @@ class Scene: public sf::Drawable, public ExclusiveSpeaker {
     /**
      * This scene's actual logic implementation.
      * @param tick       is the frame number.
-     * @param transition describes a transition between this scene and the next. Should be defaulted to no change.
      */
-    virtual void logic(long tick, char *transition) = 0;
+    virtual void logic(long tick) = 0;
 
     /**
      * Draws the actual content in the scene.
@@ -38,6 +37,8 @@ public:
     Builder const *builder;
     Timer *timer;
     Radio *radio;
+    char transition[Constant::TRANSITION_BUFFER_SIZE];
+    sf::Color bg = sf::Color(0);
 
     /**
      * Point at which scene is created.
@@ -50,9 +51,8 @@ public:
     /**
      * Updates the scene as should be called every frame.
      * @param tick       is the frame number.
-     * @param transition is a character buffer into which a transition request can be written.
      */
-    void update(long tick, char *transition);
+    void update(long tick);
 
     /**
      * Adds a gui widget to this scene.

@@ -13,11 +13,6 @@ class Radio {
     Repository *repository;
     sf::Music *currentSong;
     sf::Sound sounds[Constant::SOUND_LIMIT];
-    class {
-    public:
-        sf::Sound sound;
-        Listener *listener;
-    } soundListeners[Constant::SOUND_LISTENER_LIMIT];
 
 public:
     /**
@@ -42,8 +37,9 @@ public:
      * Note that there is a maximum allowed number of sounds at once.
      * @see Constant::SOUND_LIMIT.
      * @param sound is the name of the sound file.
+     * @return the number of frames the sound should go for.
      */
-    void playSound(char const *sound);
+    int playSound(char const *sound);
 
     /**
      * Plays a sound in 3d space.
@@ -51,27 +47,9 @@ public:
      * @see Constant::SOUND_LIMIT.
      * @param sound is the name of the sound file.
      * @param pos   is the 3d location to play the sound at relative to the player.
+     * @return the number of frames the sound should go for.
      */
-    void playSoundAt(char const *sound, sf::Vector3f pos);
-
-    /**
-     * Starts a sound playing, and connects a listener to know when it is done.
-     * Note that there is a maximum allowed number of sound listeners at once.
-     * @see Constant::SOUND_LISTENER_LIMIT.
-     * @param sound    is the name of the sound to play.
-     * @param listener is the listener to inform when the song ends. If the listener is null, nobody is informed.
-     */
-    void playSoundListened(char const *sound, Listener *listener);
-
-    /**
-     * Starts a sound playing as from a position, and connects a listener to know when it is done.
-     * Note that there is a maximum allowed number of sound listeners at once.
-     * @see Constant::SOUND_LISTENER_LIMIT.
-     * @param sound    is the name of the sound to play.
-     * @param pos      is the 3d place the song sounds like it's coming from relative to the player.
-     * @param listener is the listener to inform when the song ends. If the listener is null, nobody is informed.
-     */
-    void playSoundAtListened(char const *sound, sf::Vector3f pos, Listener *listener);
+    int playSoundAt(char const *sound, sf::Vector3f pos);
 };
 
 #endif

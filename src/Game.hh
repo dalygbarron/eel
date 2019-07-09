@@ -37,10 +37,10 @@ class Game {
     void render();
 
     /**
-     * Does the frame by frame transition of scenes (or does nothing most of the time).
-     * @param transitionBuffer is the string defining how the current scene stack should be updated.
+     * Checks if the scene should be transitioned and does the stuff if so.
+     * @param transitioning is the scene that may or may not be transitioned out of.
      */
-    void transition(char const *transitionBuffer);
+    void transition(Scene *transitioning);
 
 public:
     /**

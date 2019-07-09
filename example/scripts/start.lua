@@ -1,5 +1,6 @@
 function main(context)
     local e = require("example.scripts.include.eel")(context);
+    e.setRefresh(0xff00ffff);
     e.declare(
         "Gonna say a heap of dumb text hell yeah enjoy. ",
         "Real hard real good hell yeah man.\n",
@@ -16,5 +17,6 @@ function main(context)
         "Goodbye, I miss you all very, very much. However, it is time for me to go because I can hear the ",
         "microwave ringing and inside are my tendies hell yeah man. I am the greatest hell yeah."
     );
-    e.radio.playSound("sounds/glomp.wav")
+    e.radio.waitSound("sounds/glomp.wav");
+    _transition("ppscripts/test.lua", context);
 end

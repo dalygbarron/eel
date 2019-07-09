@@ -62,7 +62,7 @@ void Utils::fitText(char const *string, sf::FloatRect bounds, sf::Text *text) {
             fittedContent[writeHead] = '\n';
             writeHead++;
         } else if (newBounds.height > bounds.height) {
-            spdlog::error("Box was too small to fit whole text '{}'", string);
+            spdlog::warn("Box was too small to fit whole text '{}'", string);
             break;
         } else {
             readHead += word;

@@ -14,7 +14,6 @@ int32_t Read::readInt(sf::InputStream *stream) {
     }
     if (amount != 4) {
         spdlog::error("Reached end of input stream before getting int.");
-        throw -1;
     }
     return total;
 }

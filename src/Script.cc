@@ -62,7 +62,14 @@ int Script::luaListen(lua_State *luaState) {
 
 int Script::luaTransition(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
-    // TODO: implement.
+    char const *text = lua_tostring(luaState, 1);
+    Script *script = (Script *)Script::getLuaPointer(luaState, 2);
+    int length = strlen(text);
+    if (length > Constant::TRANSITION_BUFFER_SIZE - 2) {
+        spdlog::error("Lua Error: transition message too long");
+        return 0;
+    }
+    strcpy(script->scene->transition, text);
     return 0;
 }
 
@@ -70,27 +77,39 @@ int Script::luaPlaySound(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
     char const *name = lua_tostring(luaState, 1);
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    script->scene->radio->playSound(name);
-    return 0;
+    int frames = script->scene->radio->playSound(name);
+    lua_pushnumber(luaState, frames);
+    return 1;
 }
 
-int Script::luaPlaySoundListened(lua_State *luaState) {
+int Script::luaSetRefresh(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
-    char const *name = lua_tostring(luaState, 1);
+    unsigned int colour = floor(lua_tonumber(luaState, 1));
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    script->scene->radio->playSoundListened(name, script);
+    script->scene->bg = sf::Color(colour);
+    spdlog::debug("Setting refresh to {:x}", colour);
     return 0;
 }
 
-Script::Script(Scene *scene, char const *file) {
+Script::Script(Scene *scene, Config const *config, char const *file) {
     this->scene = scene;
     this->state = luaL_newstate();
     // declare my stuff in the lua context.
     luaL_openlibs(this->state);
     lua_register(this->state, "_wait", Script::luaWait);
     lua_register(this->state, "_declare", Script::luaDeclare);
+    lua_register(this->state, "_transition", Script::luaTransition);
     lua_register(this->state, "_playSound", Script::luaPlaySound);
-    lua_register(this->state, "_playSoundListened", Script::luaPlaySoundListened);
+    lua_register(this->state, "_setRefresh", Script::luaSetRefresh);
+    // Fix the path to go to the right joint.
+    char pathBuffer[Constant::FILENAME_BUFFER_SIZE];
+    lua_getglobal(this->state, "package");
+    lua_getfield(this->state, -1, "path");
+    config->inRoot(pathBuffer, lua_tostring(this->state, -1 )]);
+    lua_pop(this->state, 1 );
+    lua_pushstring(this->state, pathBuffer);
+    lua_setfield(this->state, -2, "path" );
+    lua_pop(this->state, 1 );
     // load the file.
     int result = luaL_loadstring(this->state, file);
     if (result != LUA_OK) {

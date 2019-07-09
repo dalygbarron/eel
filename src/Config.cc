@@ -9,7 +9,7 @@ Config::Config(char const *file): Store(file) {
     spdlog::info("Loading config data from '{}'", file);
     // Load in flags.
     if (ini_parse(file, Config::handleIni, this) < 0) {
-        spdlog::error("Could not open file '{}'", file);
+        spdlog::critical("Could not open file '{}'", file);
         throw -1;
     }
     // Validate version.
