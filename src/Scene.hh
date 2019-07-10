@@ -34,6 +34,7 @@ class Scene: public sf::Drawable, public ExclusiveSpeaker {
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const = 0;
 
 public:
+    Config const *config;
     Builder const *builder;
     Timer *timer;
     Radio *radio;
@@ -42,11 +43,12 @@ public:
 
     /**
      * Point at which scene is created.
+     * @param config  is the game configuration.
      * @param builder is the gui builder the scene has access to.
      * @param timer   is the game timer.
      * @param radio   is the music and sound player for your sensual enjoyment.
      */
-    Scene(Builder const *builder, Timer *timer, Radio *radio);
+    Scene(Config const *config, Builder const *builder, Timer *timer, Radio *radio);
 
     /**
      * Updates the scene as should be called every frame.
