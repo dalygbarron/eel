@@ -1,7 +1,7 @@
 #include "Read.hh"
 #include <stdint.h>
 #include <SFML/System.hpp>
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 
 int32_t Read::readInt(sf::InputStream *stream) {
     int32_t total = 0;

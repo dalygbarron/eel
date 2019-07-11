@@ -1,7 +1,7 @@
 #include "TextBox.hh"
 #include "../Constant.hh"
 #include "../Utils.hh"
-#include "../spdlog/spdlog.h"
+#include "../static/spdlog/spdlog.h"
 #include <stdio.h>
 
 TextBox::TextBox(char const *content, float size) {

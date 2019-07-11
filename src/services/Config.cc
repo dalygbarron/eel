@@ -2,7 +2,7 @@
 #include "Constant.hh"
 #include "Utils.hh"
 #include <string>
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 #include "inih.hh"
 
 Config::Config(char const *file): Store(file) {

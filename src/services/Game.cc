@@ -4,7 +4,7 @@
 #include "scenes/SplashScene.hh"
 #include "scenes/PlainScene.hh"
 #include "scenes/TestScene.hh"
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 
 void Game::handleEvents() {
     sf::Event event;

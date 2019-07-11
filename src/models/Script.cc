@@ -2,7 +2,7 @@
 #include "Constant.hh"
 #include "Control.hh"
 #include "controls/Panel.hh"
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 #include <lua5.3/lua.hpp>
 
 void Script::showError(lua_State *state) {

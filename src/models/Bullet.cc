@@ -1,7 +1,7 @@
 #include "Bullet.hh"
 #include "Utils.hh"
 #include <cmath>
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 
 void Bullet::copy(Bullet const *bullet) {
     if (!this->alive) {

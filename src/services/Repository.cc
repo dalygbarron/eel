@@ -2,7 +2,7 @@
 #include "Config.hh"
 #include "Constant.hh"
 #include "Utils.hh"
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 
 Repository::Repository(Config const *config) {
     this->config = config;

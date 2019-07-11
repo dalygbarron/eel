@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <string.h>
 #include <string>
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 
 /**
  * Generic storing thingy which stores stuff for example a store of config strings, or a store of booleans.

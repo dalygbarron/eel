@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 
 SpriteBatch::SpriteBatch(char const *file): Store(file) {
     spdlog::info("Loading Rat Pack '{}'", file);

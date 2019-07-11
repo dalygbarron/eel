@@ -1,5 +1,5 @@
 #include "Timer.hh"
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 #include <SFML/System.hpp>
 
 Timer::Timer() {

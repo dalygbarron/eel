@@ -12,7 +12,7 @@
 #include <fstream>
 #include <forward_list>
 #include <SFML/Graphics.hpp>
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 #include "spdlog/rotating_file_sink.h"
 
 #define DEFAULT_CONFIG_FILE "game.ini"

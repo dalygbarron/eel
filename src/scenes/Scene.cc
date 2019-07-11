@@ -1,6 +1,6 @@
 #include "Scene.hh"
 #include "Signal.hh"
-#include "spdlog/spdlog.h"
+#include "static/spdlog/spdlog.h"
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     // I hate references man so I am treating this method as an adaptor to my own style.

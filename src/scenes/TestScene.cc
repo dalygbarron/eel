@@ -1,7 +1,7 @@
 #include "TestScene.hh"
 
 #include <stdio.h>
-#include "../spdlog/spdlog.h"
+#include "../static/spdlog/spdlog.h"
 #include "../BulletManager.hh"
 #include "../Repository.hh"
 #include "../controls/Panel.hh"
