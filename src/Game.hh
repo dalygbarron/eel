@@ -11,12 +11,6 @@
  * Contains the main loop of the game, handles events, and creates and manages the game's scenes.
  */
 class Game {
-    Config const *config;
-    Repository *repository;
-    Builder const *builder;
-    Timer *timer;
-    Radio *radio;
-    BulletManager *bulletManager;
     std::forward_list<Scene *> scenes;
     sf::RenderWindow window;
     sf::View view;
@@ -43,6 +37,13 @@ class Game {
     void transition(Scene *transitioning);
 
 public:
+    Config const * const config;
+    Repository * const repository;
+    Builder const * const builder;
+    Timer * const timer;
+    Radio * const radio;
+    BulletManager * const bulletManager;
+
     /**
      * Builds the thing and gets it's dependencies injected.
      * @param config        is the game's configuration.

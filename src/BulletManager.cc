@@ -12,7 +12,6 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 }
 
 BulletManager::BulletManager(Config const *config, Repository *repository): Store("Bullet Manager") {
-    this->config = config;
     this->repository = repository;
     char file[Constant::FILENAME_BUFFER_SIZE];
     config->inRoot(file, config->get(Constant::BULLET_FILE));

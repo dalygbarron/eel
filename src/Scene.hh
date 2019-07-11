@@ -34,19 +34,25 @@ class Scene: public sf::Drawable, public ExclusiveSpeaker {
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const = 0;
 
 public:
-    Builder const *builder;
-    Timer *timer;
-    Radio *radio;
+    /**
+     * Encapsulates gamewide services as needed by scenes.
+     */
+    class Engine {
+        Config const *config;
+        Builder const *builder;
+        Timer *timer;
+        Radio *radio;
+    };
+
+    Engine const *engine;
     char transition[Constant::TRANSITION_BUFFER_SIZE];
     sf::Color bg = sf::Color(0);
 
     /**
      * Point at which scene is created.
-     * @param builder is the gui builder the scene has access to.
-     * @param timer   is the game timer.
-     * @param radio   is the music and sound player for your sensual enjoyment.
+     * @param engine are the game engine services for the scene to make use of.
      */
-    Scene(Builder const *builder, Timer *timer, Radio *radio);
+    Scene(Engine const *engine);
 
     /**
      * Updates the scene as should be called every frame.

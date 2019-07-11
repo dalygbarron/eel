@@ -15,7 +15,6 @@
  * TODO: making this a top level thing is not reentrant, so it should be made one per scene that uses it.
  */
 class BulletManager: private Store<Bullet *>, public sf::Drawable, public sf::Transformable {
-    Config const *config;
     Repository *repository;
     Bullet bullets[Constant::BULLET_LIMIT];
     Bullet *empty;
