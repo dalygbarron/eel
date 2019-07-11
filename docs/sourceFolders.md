@@ -26,6 +26,6 @@ Objects that need to be created per scene. Some will be a lot dumber than others
  - BulletManager
 
 ## Static
-for files that only contain global functions (no global state allowed but global functions are allowed.)
+for files that only contain global functions (no global state allowed but global functions and constants are allowed.)
  - Utils
- -
+ - Constant
