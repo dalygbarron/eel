@@ -1,17 +1,21 @@
 CC = g++
-CFLAGS = -std=c++14
+CFLAGS = -std=c++14 -I src/
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
-MAIN = src/main.o
-SOURCES = Game Script BulletManager Bullet SpriteBatch Read SubStream Scene Repository Config Utils Control \
-          ExclusiveSpeaker Signal Builder Timer Radio
-SCENES = SplashScene SplashSceneLogo TestScene PlainScene
-CONTROLS = Panel TextBox Bopper
-TESTS = testGeneral testBullet testUtils helpers
-OBJS = $(addprefix src/,$(addsuffix .o,$(SOURCES) $(addprefix scenes/,$(SCENES)) $(addprefix controls/,$(CONTROLS))))
-TEST_OBJS = $(addprefix src/test/,$(addsuffix .o,$(TESTS)))
+
+INTERFACE = $(addprefix interface/, ExclusiveSpeaker)
+MODEL = $(addprefix model/, Actor Bullet BulletManager Script Signal SpriteBatch SubStream)
+SCENE = $(addprefix model/scene/, Scene SplashScene SplashSceneLogo TestScene PlainScene)
+CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
+SERVICE = $(addprefix service/, Config Game Radio Repository Status Timer)
+BUILDER = $(addprefix service/builder/, ControlBuilder)
+STATIC = $(addprefix static/, Utils Read)
+TEST = $(addprefix test/, testGeneral testBullet testUtils helpers)
+
+OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(INTERFACE) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER)))
+TEST_OBJS = $(addprefix src/test/,$(addsuffix .o, $(TEST)))
+MAIN_OBJ = src/main.o
 OUT = main
 TEST_OUT = tester
-
 
 DEPS := $(OBJS:.o=.d)
 -include $(DEPS)
@@ -19,8 +23,8 @@ DEPS := $(OBJS:.o=.d)
 %.o: %.cc
 	$(CC) -MMD -c -o $@ $< $(CFLAGS)
 
-app: $(OBJS) $(MAIN)
-	$(CC) $(MAIN) $(OBJS) $(LFLAGS) -o $(OUT) $(CFLAGS)
+app: $(OBJS) $(MAIN_OBJ)
+	$(CC) $(MAIN_OBJ) $(OBJS) $(LFLAGS) -o $(OUT) $(CFLAGS)
 
 tests: $(OBJS) $(TEST_OBJS)
 	$(CC) $(OBJS) $(TEST_OBJS) $(LFLAGS) -o $(TEST_OUT) $(CFLAGS)
@@ -30,10 +34,7 @@ all: app tests
 run: app
 	./$(OUT) example/game.ini
 
-debug: app
-	gdb $(OUT)
-
-runTests: all
+test: all
 	./$(TEST_OUT)
 
 clean:

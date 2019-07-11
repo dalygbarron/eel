@@ -2,18 +2,17 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 #define LUA_USE_APICHECK
 
-#include "Constant.hh"
-#include "Game.hh"
-#include "Config.hh"
-#include "Repository.hh"
-#include "Radio.hh"
-#include "BulletManager.hh"
+#include "static/Constant.hh"
+#include "static/spdlog/spdlog.h"
+#include "static/spdlog/rotating_file_sink.h"
+#include "service/Game.hh"
+#include "service/Config.hh"
+#include "service/Repository.hh"
+#include "service/Radio.hh"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
 #include <forward_list>
-#include <SFML/Graphics.hpp>
-#include "static/spdlog/spdlog.h"
-#include "spdlog/rotating_file_sink.h"
 
 #define DEFAULT_CONFIG_FILE "game.ini"
 
@@ -42,11 +41,10 @@ int main(int argc, char **argv) {
     try {
         Config config(gameFile);
         Repository repository(&config);
-        Builder builder(&repository, &config);
+        ControlBuilder controlBuilder(&repository, &config);
         Timer timer;
         Radio radio(&repository);
-        BulletManager bulletManager(&config, &repository);
-        Game game(&config, &repository, &builder, &timer, &radio, &bulletManager);
+        Game game(&config, &repository, &controlBuilder, &timer, &radio);
         // run the game.
         spdlog::info("Starting '{}' version '{}'", config.get("title"), config.get("version"));
         int status = game.run();

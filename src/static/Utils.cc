@@ -1,6 +1,6 @@
-#include "Utils.hh"
-#include "Config.hh"
-#include "Constant.hh"
+#include "static/Utils.hh"
+#include "static/Constant.hh"
+#include "static/spdlog/spdlog.h"
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 
