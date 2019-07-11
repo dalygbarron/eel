@@ -1,5 +1,5 @@
 function main(context)
-    local e = require("example.scripts.include.eel")(context);
+    local e = require("scripts.include.eel")(context);
     e.setRefresh(0xff00ffff);
     e.declare(
         "Gonna say a heap of dumb text hell yeah enjoy. ",

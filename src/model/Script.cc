@@ -102,8 +102,11 @@ Script::Script(Scene *scene, char const *file) {
     lua_register(this->state, "_playSound", Script::luaPlaySound);
     lua_register(this->state, "_setRefresh", Script::luaSetRefresh);
     // Fix the path to go to the right joint.
-    lua_pushstring(this->state, scene->engine->config->getRoot());
-    lua_setfield(this->state, 1, "path");
+    char filename[Constant::FILENAME_BUFFER_SIZE];
+    sprintf(filename, "./%s/?.lua", scene->engine->config->getRoot());
+    lua_getglobal(this->state, "package");
+    lua_pushstring(this->state, filename);
+    lua_setfield(this->state, -2, "path");
     lua_pop(this->state, 1);
     // load the file.
     int result = luaL_loadstring(this->state, file);
