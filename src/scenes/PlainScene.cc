@@ -14,8 +14,14 @@ void PlainScene::logic(long tick) {
     }
 }
 
-PlainScene::PlainScene(Builder const *builder, Timer *timer, Radio *radio, Repository *repository, char const *script):
-Scene(builder, timer, radio) {
+PlainScene::PlainScene(
+    Config const *config,
+    Builder const *builder,
+    Timer *timer,
+    Radio *radio,
+    Repository *repository,
+    char const *script
+): Scene(config, builder, timer, radio) {
     spdlog::info("Creating plain scene with script '{}'", script);
     this->repository = repository;
     this->script = new Script(this, repository->getText(script));

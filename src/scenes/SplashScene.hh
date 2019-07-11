@@ -25,12 +25,12 @@ public:
 
     /**
      * Does setting up.
+     * @param config  is the game configuration.
      * @param builder is the gui builder thingo.
      * @param timer   is the time keeper thingy.
      * @param radio   is the music plauer.
-     * @param config  is the game configuration.
      */
-    SplashScene(Builder const *builder, Timer *timer, Radio *radio, Config const *config);
+    SplashScene(Config const *config, Builder const *builder, Timer *timer, Radio *radio);
 };
 
 #endif

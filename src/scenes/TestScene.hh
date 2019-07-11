@@ -23,6 +23,7 @@ class TestScene: public Scene {
 public:
     /**
      * Sets up the scene's junk.
+     * @param config        is the game configuration
      * @param builder       is the gui builder.
      * @param timer         is the timer.
      * @param radio         is the radio.
@@ -30,11 +31,11 @@ public:
      * @param repository    allows the scene access to the game assets.
      */
     TestScene(
+        Config const *config,
         Builder const *builder,
         Timer *timer,
         Radio *radio,
         BulletManager *bulletManager,
-        Config const *config,
         Repository *repository
     );
 };

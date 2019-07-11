@@ -9,7 +9,8 @@ void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     if (this->gui) this->gui->render(&target, states);
 }
 
-Scene::Scene(Builder const *builder, Timer *timer, Radio *radio) {
+Scene::Scene(Config const *config, Builder const *builder, Timer *timer, Radio *radio) {
+    this->config = config;
     this->builder = builder;
     this->timer = timer;
     this->radio = radio;
