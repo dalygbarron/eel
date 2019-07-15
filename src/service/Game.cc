@@ -20,9 +20,9 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    this->timer->update();
+    this->engine->timer->update();
     Scene *scene = this->scenes.front();
-    scene->update(this->timer->getTick());
+    scene->update(this->engine->timer->getTick());
     this->transition(scene);
 }
 
@@ -40,10 +40,7 @@ void Game::transition(Scene *transitioning) {
     Scene *scene = 0;
     switch(type) {
         case 'p':
-            scene = new PlainScene(
-                new Scene::Engine(this->config, this->controlBuilder, this->timer, this->radio, 0, this->repository),
-                transitioning->transition + 2
-            );
+            scene = new PlainScene(this->engine, transitioning->transition + 2);
             break;
         case 't':
             // TODO: this.
@@ -75,30 +72,20 @@ void Game::transition(Scene *transitioning) {
     transitioning->transition[0] = 0;
 }
 
-Game::Game(
-    Config const *config,
-    Repository *repository,
-    ControlBuilder const *controlBuilder,
-    Timer *timer,
-    Radio *radio
-) {
-    this->config = config;
-    this->repository = repository;
-    this->controlBuilder = controlBuilder;
-    this->timer = timer;
-    this->radio = radio;
+Game::Game(Engine const *engine) {
+    this->engine = engine;
     // set up rendering window.
-    int windowWidth = Utils::parseInt(config->get("width"));
-    int windowHeight = Utils::parseInt(config->get("height"));
-    this->window.create(sf::VideoMode(windowWidth, windowHeight), config->get("title"));
+    int windowWidth = Utils::parseInt(engine->config->get("width"));
+    int windowHeight = Utils::parseInt(engine->config->get("height"));
+    this->window.create(sf::VideoMode(windowWidth, windowHeight), engine->config->get("title"));
     this->window.setFramerateLimit(Constant::FPS);
     this->view.setSize(windowWidth, windowHeight);
     this->view.setCenter(this->view.getSize().x / 2, this->view.getSize().y / 2);
     this->view = Utils::getLetterboxView(this->view, windowWidth, windowHeight);
     // set up first scene.
     char startFile[Constant::FILENAME_BUFFER_SIZE];
-    config->inRoot(startFile, config->get("start"));
-    this->scenes.push_front(new SplashScene(new Scene::Engine(this->config, this->controlBuilder, this->timer, this->radio, 0, this->repository)));
+    engine->config->inRoot(startFile, engine->config->get("start"));
+    this->scenes.push_front(new SplashScene(engine));
 }
 
 int Game::run() {

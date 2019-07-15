@@ -46,7 +46,6 @@ class Script: public Listener {
      */
     static void *getLuaPointer(lua_State *luaState, int index);
 
-public:
     /**
      * Allows the script to connect itself up to a timer.
      * in: number of ticks to wait.
@@ -55,6 +54,17 @@ public:
      * @return the number of things put on the lua stack.
      */
     static int luaWait(lua_State *luaState);
+
+    /**
+     * Lua function to add a speech box to the current scene.
+     * in: name.
+     * in: text.
+     * in: pointer to script.
+     * out: pointer to new text box.
+     * @param luaState is the luaState that has called this.
+     * @return the number of items returned.
+     */
+    static int luaSay(lua_State *luaState);
 
     /**
      * Lua function to add a text box to the current scene.
@@ -100,6 +110,7 @@ public:
      */
     static int luaSetRefresh(lua_State *luaState);
 
+public:
     /**
      * Creates the script from a source file.
      * @param scene  is the scene that the script is operating in.

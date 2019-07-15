@@ -36,7 +36,10 @@ BulletManager::BulletManager(Config const *config, Repository *repository): Stor
 
 void BulletManager::update() {
     for (int i = 0; i < Constant::BULLET_LIMIT && this->bullets[i].alive; i++) {
-        this->bullets[i].pos = Utils::wrapped(this->bullets[i].pos + this->bullets[i].velocity, sf::FloatRect(320, 0, 640, 960));
+        this->bullets[i].pos = Utils::wrapped(
+            this->bullets[i].pos + this->bullets[i].velocity,
+            sf::FloatRect(320, 0, 640, 960)
+        );
         this->bullets[i].velocity += this->bullets[i].gravity;
         this->sprites->moveQuad(&(this->vertices[i * 4]), this->bullets[i].pos);
     }

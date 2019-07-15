@@ -13,10 +13,10 @@ public:
     sf::Vector2f pos;
     sf::Vector2f velocity;
     sf::Vector2f gravity;
-    float angle;
     union {
         class {
         public:
+            float angle;
             float radius;
             float speed;
             int shape;

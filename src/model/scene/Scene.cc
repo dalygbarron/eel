@@ -9,22 +9,6 @@ void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     if (this->gui) this->gui->render(&target, states);
 }
 
-Scene::Engine::Engine(
-    Config const *config,
-    ControlBuilder const *controlBuilder,
-    Timer *timer,
-    Radio *radio,
-    Status *status,
-    Repository *repository
-) {
-    this->config = config;
-    this->controlBuilder = controlBuilder;
-    this->timer = timer;
-    this->radio = radio;
-    this->status = status;
-    this->repository = repository;
-}
-
 Scene::Scene(Engine const *engine) {
     this->engine = engine;
     this->transition[0] = 0;

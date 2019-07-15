@@ -17,9 +17,10 @@ public:
     /**
      * Sets the content of the text box and processes it a little bit maybe to make it better.
      * @param content is the text to show.
+     * @param colour  is the colour to draw the text in.
      * @param size    is the size to make the text be.
      */
-    TextBox(char const *content, float size);
+    TextBox(char const *content, sf::Color colour, float size);
 
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
 

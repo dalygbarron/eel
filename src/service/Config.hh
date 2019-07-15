@@ -5,7 +5,7 @@
 #include <string>
 
 /**
- * Contains the game's base configuration values and also runs it.
+ * Contains the game's base configuration values.
  */
 class Config: public Store<char const *> {
     char *root;

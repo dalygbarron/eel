@@ -41,6 +41,17 @@ int Script::luaWait(lua_State *luaState) {
     return 0;
 }
 
+int Script::luaSay(lua_State *luaState) {
+    Script::validateLuaArgs(luaState, 3);
+    char const *name = lua_tostring(luaState, 1);
+    char const *text = lua_tostring(luaState, 2);
+    Script *script = (Script *)Script::getLuaPointer(luaState, 3);
+    script->listenToScene(script->scene, Signal::TYPE_SCENE);
+    Control *panel = script->scene->engine->controlBuilder->speechBox(name, text);
+    script->scene->addControl(panel);
+    return 0;
+}
+
 int Script::luaDeclare(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
     char const *text = lua_tostring(luaState, 1);
@@ -97,11 +108,13 @@ Script::Script(Scene *scene, char const *file) {
     // declare my stuff in the lua context.
     luaL_openlibs(this->state);
     lua_register(this->state, "_wait", Script::luaWait);
+    lua_register(this->state, "_say", Script::luaSay);
     lua_register(this->state, "_declare", Script::luaDeclare);
     lua_register(this->state, "_transition", Script::luaTransition);
     lua_register(this->state, "_playSound", Script::luaPlaySound);
     lua_register(this->state, "_setRefresh", Script::luaSetRefresh);
     // Fix the path to go to the right joint.
+    // TODO: do this more tidily.
     char filename[Constant::FILENAME_BUFFER_SIZE];
     sprintf(filename, "./%s/?.lua", scene->engine->config->getRoot());
     lua_getglobal(this->state, "package");

@@ -1,6 +1,7 @@
 function main(context)
     local e = require("scripts.include.eel")(context);
     e.setRefresh(0xff00ffff);
+    e.say("Dany Burton", "Hello and welcome to my game.");
     e.declare(
         "Gonna say a heap of dumb text hell yeah enjoy. ",
         "Real hard real good hell yeah man.\n",

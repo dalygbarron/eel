@@ -3,13 +3,9 @@
 
 #include "model/control/Control.hh"
 #include "interface/ExclusiveSpeaker.hh"
-#include "service/builder/ControlBuilder.hh"
-#include "service/Timer.hh"
-#include "service/Radio.hh"
-#include "service/Repository.hh"
-#include "service/Status.hh"
-#include <list>
+#include "service/Engine.hh"
 #include <SFML/Graphics.hpp>
+#include <list>
 
 /**
  * Represents some phase of the overall game for example the part where you are in the level and playing, or the main
@@ -34,37 +30,6 @@ class Scene: public sf::Drawable, public ExclusiveSpeaker {
     virtual void render(sf::RenderTarget *target, sf::RenderStates states) const = 0;
 
 public:
-    /**
-     * Encapsulates gamewide services as needed by scenes.
-     */
-    class Engine {
-    public:
-        Config const *config;
-        ControlBuilder const *controlBuilder;
-        Timer *timer;
-        Radio *radio;
-        Status *status;
-        Repository *repository;
-
-        /**
-         * Builds the engine and puts in all of it's dependencies in one swoop.
-         * @param config         is the configuration.
-         * @param controlBuilder is the control builder.
-         * @param timer          is the timer.
-         * @param radio          is the audio controller.
-         * @param status         is the game status.
-         * @param repository     is the asset repositoey.
-         */
-        Engine(
-            Config const *config,
-            ControlBuilder const *controlBuilder,
-            Timer *timer,
-            Radio *radio,
-            Status *status,
-            Repository *repository
-        );
-    };
-
     Engine const *engine;
     char transition[Constant::TRANSITION_BUFFER_SIZE];
     sf::Color bg = sf::Color(0);

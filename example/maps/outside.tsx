@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.4" name="outside" tilewidth="24" tileheight="24" tilecount="150" columns="10">
- <image source="../image/outside.png" width="240" height="360"/>
+ <image source="../images/outside.png" width="240" height="360"/>
  <terraintypes>
   <terrain name="dirt" tile="3"/>
   <terrain name="grass" tile="3"/>

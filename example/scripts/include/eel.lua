@@ -12,6 +12,16 @@ return function(context)
         coroutine.yield();
     end
 
+    function eel.say(name, ...)
+        local arg = {...}
+        local text = ""
+        for i = 1, #arg do
+            text = text .. arg[i];
+        end
+        _say(name, text, context);
+        coroutine.yield();
+    end
+
     --- Creates a gui text box.
     -- Yields until the text box has been closed by the player.
     -- @string ... all the text to say which gets concatenated together.

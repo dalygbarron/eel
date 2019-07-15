@@ -9,6 +9,7 @@
 #include "service/Config.hh"
 #include "service/Repository.hh"
 #include "service/Radio.hh"
+#include "service/Engine.hh"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
@@ -39,12 +40,14 @@ int main(int argc, char **argv) {
     else gameFile = DEFAULT_CONFIG_FILE;
     // Start up the game systems.
     try {
+        // Instantiate all the services.
         Config config(gameFile);
         Repository repository(&config);
         ControlBuilder controlBuilder(&repository, &config);
         Timer timer;
         Radio radio(&repository);
-        Game game(&config, &repository, &controlBuilder, &timer, &radio);
+        Engine engine(&config, &timer, &radio, 0, &repository, &controlBuilder);
+        Game game(&engine);
         // run the game.
         spdlog::info("Starting '{}' version '{}'", config.get("title"), config.get("version"));
         int status = game.run();

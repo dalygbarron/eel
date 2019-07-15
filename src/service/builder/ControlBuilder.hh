@@ -13,6 +13,7 @@ class ControlBuilder {
     Repository *repository;
     sf::Color bg;
     sf::Color fg;
+    sf::Color highlight;
     int border;
     int fontSizeNormal;
     int fontSizeBig;

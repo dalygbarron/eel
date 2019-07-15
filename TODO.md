@@ -52,3 +52,11 @@ The number of animation frames (including 1) must also be able to be customised.
 
 Also, the animation behaviour must be customisable as well. Some actors should be animated when they move, some should
 be animated all the time, and some should only be animated upon some event occurring.
+
+# Make scripts use pointers to their stuff hell yeah man
+bingo bongo you get the idea.
+
+# Change the order in header files for classes so that public goes before private
+There is not really ever any public interface that requires private stuff, but there is sometimes private stuff that
+requires public interface so therefore public should always go before private so that there is not a need to be
+inconsistent.
