@@ -9,17 +9,8 @@
  */
 class Actor {
 public:
-    int alive;
-    union {
-        class {
-        public:
-            sf::Vector2f position;
-            sf::Vector2f velocity;
-        } live;
-        Actor *next;
-    } state;
-
-
+    sf::Vector2f pos;
+    sf::Vector2f velocity;
 };
 
 #endif

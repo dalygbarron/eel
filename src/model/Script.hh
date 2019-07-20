@@ -2,7 +2,7 @@
 #define SCRIPT_H
 
 #include "interface/Listener.hh"
-#include "model/scene/Scene.hh"
+#include "scene/Scene.hh"
 #include <lua5.3/lua.hpp>
 
 /**

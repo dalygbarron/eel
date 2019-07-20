@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "model/scene/Scene.hh"
+#include "scene/Scene.hh"
 #include "interface/Listener.hh"
 #include "service/Timer.hh"
 #include <forward_list>
