@@ -1,4 +1,5 @@
 #include "list.h"
+#include <stdlib.h>
 
 struct Node *list_pushFront(void *item, struct Node *front) {
     struct Node *newNode = malloc(sizeof(struct Node));

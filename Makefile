@@ -1,9 +1,9 @@
 CC = gcc
-CFLAGS = -I src/ -DLOG_USE_COLOR
+CFLAGS = -I . -DLOG_USE_COLOR
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
 SOURCES = log util list
-TEST = doThisLater
+TEST = main
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(SOURCES)))
 TEST_OBJS = $(addprefix test/,$(addsuffix .o, $(TEST)))

@@ -6,10 +6,10 @@
  */
 struct Node {
     // The data item that the node points to.
-    void *item = 0;
+    void *item;
 
     // The next node in the list, with 0 meaning this is the last item.
-    struct Node *next = 0;
+    struct Node *next;
 };
 
 #endif
