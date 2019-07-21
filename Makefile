@@ -1,19 +1,12 @@
-CC = g++
-CFLAGS = -std=c++14 -I src/
+CC = gcc
+CFLAGS = -I src/ -DLOG_USE_COLOR
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
-INTERFACE = $(addprefix interface/, ExclusiveSpeaker)
-MODEL = $(addprefix model/, Actor Bullet Script Signal SpriteBatch SubStream)
-MANAGER = $(addprefix manager/, BulletManager ActorManager Manager)
-SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo TestScene PlainScene)
-CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
-SERVICE = $(addprefix service/, Config Game Radio Repository Status Timer Engine)
-BUILDER = $(addprefix service/builder/, ControlBuilder)
-STATIC = $(addprefix static/, Utils Read)
-TEST = $(addprefix test/, testGeneral testBullet testUtils helpers)
+SOURCES = log util list
+TEST = doThisLater
 
-OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(INTERFACE) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) $(MANAGER)))
-TEST_OBJS = $(addprefix src/test/,$(addsuffix .o, $(TEST)))
+OBJS = $(addprefix src/, $(addsuffix .o, $(SOURCES)))
+TEST_OBJS = $(addprefix test/,$(addsuffix .o, $(TEST)))
 MAIN_OBJ = src/main.o
 OUT = main
 TEST_OUT = tester
@@ -21,11 +14,11 @@ TEST_OUT = tester
 DEPS := $(OBJS:.o=.d)
 -include $(DEPS)
 
-%.o: %.cc
+%.o: %.c
 	$(CC) -MMD -c -o $@ $< $(CFLAGS)
 
 app: $(OBJS) $(MAIN_OBJ)
-	$(CC) $(MAIN_OBJ) $(OBJS) $(LFLAGS) -o $(OUT) $(CFLAGS)
+	$(CC) $(MAIN_OBJ) $(OBJS) -o $(OUT) $(CFLAGS)
 
 tests: $(OBJS) $(TEST_OBJS)
 	$(CC) $(OBJS) $(TEST_OBJS) $(LFLAGS) -o $(TEST_OUT) $(CFLAGS)

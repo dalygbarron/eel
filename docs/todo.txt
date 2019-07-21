@@ -1,0 +1,1 @@
+(A) rewrite the whole code base as C code. No Global state either.
