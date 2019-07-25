@@ -16,7 +16,11 @@ sfWindow render_createWindow(int width, int height, char const *title);
  * @param texture     is the texture that it will use.
  * @param n           is the number of sprites that it will support.
  */
-void render_initSpriteArray(struct SpriteArray *spriteArray, sfTexture *texture, int n);
+void render_initSpriteArray(
+    struct SpriteArray *spriteArray,
+    sfTexture *texture,
+    int n
+);
 
 /**
  * Takes back the memory being used by a sprite array's free list.

@@ -6,3 +6,4 @@ tester
 .DS_Store
 *.log
 *.swp
+.vimrc
