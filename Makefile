@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -I . -DLOG_USE_COLOR
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
-SOURCES = log util list
+SOURCES = log util list exe
 TEST = main
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(SOURCES)))
