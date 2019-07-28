@@ -1,5 +1,10 @@
+/**
+ * Dedicated to the setting up and execution of scripts.
+ */ 
 #ifndef EXE_H
 #define EXE_H
+
+#include "src/model/ScriptRunner.h"
 
 /**
  * Initialises a script runner.

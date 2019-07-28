@@ -1,15 +1,16 @@
 #ifndef SCRIPT_H
 #define SCRIPT_H
 
-#include <lua.h>
+#include <luajit-2.0/lua.h>
+#include <luajit-2.0/lualib.h>
+#include <luajit-2.0/lauxlib.h>
 
 /**
- * Basically just wraps around a lua script state and lets us store it's name.
+ * Basically just wraps around a lua script state and thread.
  */ 
 struct ScriptRunner {
     lua_State *state;
-    lua_Thread *thread;
-    int alive = false;
+    lua_State *thread;
 };
 
 #endif

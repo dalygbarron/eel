@@ -1,9 +1,0 @@
-digraph {
-    // Ok if we keep the game config and the main loop seperate it means that nothing needs to depend on the main loop
-    // part which is good because it will depend on pretty much everything.
-    scene -> sceneImplementation
-    scene -> game
-    sceneImplementation -> game
-    config -> scene
-    config -> game
-}

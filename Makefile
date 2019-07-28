@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -I . -DLOG_USE_COLOR
-LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
+LFLAGS = -lm -ldl -lluajit
 
 SOURCES = log util list exe
 TEST = main
@@ -18,7 +18,7 @@ DEPS := $(OBJS:.o=.d)
 	$(CC) -MMD -c -o $@ $< $(CFLAGS)
 
 app: $(OBJS) $(MAIN_OBJ)
-	$(CC) $(MAIN_OBJ) $(OBJS) -o $(OUT) $(CFLAGS)
+	$(CC) $(MAIN_OBJ) $(OBJS) $(LFLAGS) -o $(OUT) $(CFLAGS)
 
 tests: $(OBJS) $(TEST_OBJS)
 	$(CC) $(OBJS) $(TEST_OBJS) $(LFLAGS) -o $(TEST_OUT) $(CFLAGS)
