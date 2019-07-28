@@ -5,8 +5,11 @@
  * Stores the game's scene stack and core variables.
  */
 struct Engine {
+    /** start of linked stack of scenes */
     struct SceneFrame *scenes;
-    int time;
-}
+
+    /** the number of elapsed frames */
+    long time;
+};
 
 #endif

@@ -2,6 +2,8 @@
 #define RENDER_H
 
 #include "src/model/Sprite.h"
+#include "src/model/Engine.h"
+#include "src/model/Display.h"
 #include "src/model/SpriteArray.h"
 
 /**
@@ -14,13 +16,13 @@
  * @param title  is the title text to be placed upon the window.
  * @return the new window.
  */
-struct Window render_createWindow(int width, int height, char const *title);
+struct Display *render_createDisplay(int width, int height, char const *title);
 
 /**
  * Closes a window and clears it's memeory.
- * @param window is the window to destroy.
+ * @param display is the window to destroy.
  */
-void render_destroyWindow(struct Window *window);
+void render_destroyDisplay(struct Display *display);
 
 /**
  * Sets up a sprite array.
@@ -60,5 +62,11 @@ void render_addTransform(struct Sprite *sprite, struct Transform transform);
  */
 void render_setTransform(struct Sprite *sprite, struct Transform transform);
 
+/**
+ * Renders the current state of the game to the screen.
+ * @param engine  is the game state to display.
+ * @param display is the screen and stuff to display it onto.
+ */
+void render_frame(struct Engine const *engine, struct Display const *display);
 
 #endif

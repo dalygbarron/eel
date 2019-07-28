@@ -1,11 +1,14 @@
 #include "src/render.h"
-#include "src/model/Window.h"
-#include <SDL.h>
-#include <SDL_opengl.h>
+#include "src/model/Engine.h"
+#include "src/model/Display.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 
-static int initialised = false;
+static int initialised = 0;
 
-sfWindow render_createWindow(int width, int height, char const *title) {
+struct Display *render_createDisplay(int width, int height, char const *title) {
     // The first time SDL will have to be initialised.
     if (!initialised) {
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -21,7 +24,7 @@ sfWindow render_createWindow(int width, int height, char const *title) {
         if (SDL_GL_SetSwapInterval(1) < 0) {
             // TODO: log error.
         }
-        initialised = true;
+        initialised = 1;
     }
     // now make the window and context.
     SDL_Window *window = SDL_CreateWindow(
@@ -36,20 +39,20 @@ sfWindow render_createWindow(int width, int height, char const *title) {
         // TODO: log error.
         return 0;
     }
-    context = SDL_GL_CreateContext(window);
+    SDL_GLContext *context = SDL_GL_CreateContext(window);
     if (!context) {
         // TODO: log error.
         SDL_DestroyWindow(window);
         return 0;
     }
-    struct Window *windowObject = malloc(sizeof(struct Window));
-    windowObject->window = window;
-    windowObject->context = context;
-    return windowObject;
+    struct Display *display = malloc(sizeof(struct Display));
+    display->window = window;
+    display->context = context;
+    return display;
 }
 
-void render_destroyWindow(struct Window *window) {
-    // TODO: shit.
+void render_destroyDisplay(struct Display *display) {
+    SDL_DestroyWindow(display->window);
 }
 
 void render_initSpriteArray(
@@ -62,4 +65,14 @@ void render_initSpriteArray(
 
 void render_freeSpriteArray(struct SpriteArray *spriteArray) {
     // TODO: shit.
+}
+
+void render_frame(struct Engine const *engine, struct Display const *display) {
+    struct SceneFrame *scene = engine->scenes;
+    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    if (scene) {
+        // TODO: render the scene.
+    }
 }

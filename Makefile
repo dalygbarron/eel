@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -I . -DLOG_USE_COLOR
-LFLAGS = -lm -ldl -lluajit
+LFLAGS = -lm -ldl -lluajit -lSDL2 -framework OpenGL
 
-SOURCES = log util list exe
+SOURCES = log util list exe render game
 TEST = main
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(SOURCES)))

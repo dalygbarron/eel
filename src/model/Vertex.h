@@ -1,6 +1,8 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include <SDL2/SDL_opengl.h>
+
 /**
  * Represents a single vertex going to the GPU.
  */

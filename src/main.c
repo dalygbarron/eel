@@ -6,6 +6,7 @@
 #include "src/log.h"
 #include "src/const.h"
 #include "src/render.h"
+#include "src/game.h"
 #include "src/model/Display.h"
 #include <stdio.h>
 
@@ -17,7 +18,15 @@ int main(int argc, char const **argv) {
         const_V_MINOR,
         const_V_REVISION
     );
-    // Start up the game window.
-    struct Display = render_createDisplay("Eel", 640, 480);
+    // Start up the game bits.
+    struct Display *display = render_createDisplay(640, 480, "Eel");
+    struct Engine *engine = game_createEngine("pp");
+    // main loop
+    while (engine->scenes) {
+        if (!game_handleInput(engine)) break;
+        game_frame(engine);
+        render_frame(engine, display);
+    }
+    // cleaning up.
     return 0;
 }

@@ -1,6 +1,8 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
+#include "src/model/Vector.h"
+
 /**
  * Represents a transformation in 3d space.
  */
