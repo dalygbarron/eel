@@ -28,7 +28,9 @@ struct Bucket *util_createDictionary() {
 void util_addToDictionary(struct Bucket *bucket, char const *key, void *value) {
     int hash = util_hashString(key) % const_DICTIONARY_SIZE;
     if (!bucket[hash]->key) {
-        bucket[hash]->key = key;
+        char *freshKey = malloc(strlen(key));
+        memcpy(key, freshKey);
+        bucket[hash]->key = freshKey;
         bucket[hash]->value = value;
     } else {
         log_debug("Dictionary Collision for key '%s", key);
@@ -51,7 +53,19 @@ void *util_findInDictionary(struct Bucket *bucket, char const *key) {
 }
 
 void util_destroyDictionary(struct Bucket *bucket) {
+    for (int i = 0; i < const_DICTIONARY_SIZE; i++) util_destroyBucket(bucket);
+}
+
+void util_destroyDictionary(struct Bucket *bucket, void (delete*)(void*)) {
     for (int i = 0; i < const_DICTIONARY_SIZE; i++) {
-        util_destroyBucket(struct Bucket *bucket);
+        util_destroyBucketConstant(bucket, delete);
     }
+    free(bucket);
+}
+
+void util_destroyBucket(struct Bucket *bucket, void (delete*)(void*)) {
+    if (bucket->next) util_destroyBucket(bucket->next, delete);
+    free(bucket->value);
+    free(bucket->key);
+    free(bucket);
 }

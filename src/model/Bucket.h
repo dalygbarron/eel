@@ -5,8 +5,11 @@
  * A linked list of key value pairs.
  */
 struct Bucket {
-    /** The key by which the value is known */
-    char const *key;
+    /**
+     * The key by which the value is known. should not be const as it should
+     * be a copy
+     */
+    char *key;
 
     /** The value stored */
     void *value;

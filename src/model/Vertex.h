@@ -8,7 +8,7 @@
  */
 struct Vertex {
     /** location of the vertex */
-    GLfloat pos[3];
+    GLfloat pos[2];
 
     /**
      * location on the texture if there is one that the vertex has */

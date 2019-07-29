@@ -4,7 +4,7 @@
 #include "src/model/Sprite.h"
 #include "src/model/Engine.h"
 #include "src/model/Display.h"
-#include "src/model/SpriteArray.h"
+#include "src/model/Stage.h"
 
 /**
  * Creates a window and returns it.
@@ -25,28 +25,33 @@ struct Display *render_createDisplay(int width, int height, char const *title);
 void render_destroyDisplay(struct Display *display);
 
 /**
- * Sets up a sprite array.
- * @param spriteArray is the sprite array to be set up.
- * @param n           is the number of sprites that it will support.
+ * Creates a stage for you to use.
+ * @param maxSprites is the maximum number of sprites this stage can have.
+ * @param maxTiles   is the maximum number of tiles this stage can have.
+ * @return the new stage.
  */
-void render_initSpriteArray(
-    struct SpriteArray *spriteArray,
-    //sfTexture *texture,
-    int n
-);
+struct Stage *render_createStage(int maxSprites, int maxTiles);
 
 /**
- * Takes back the memory being used by a sprite array's free list.
- * @param spriteArray is the spriteArray to free.
+ * Frees a stage's memory and all it's sprites and tiles and stuff.
+ * Does not free it's texture or shader.
  */
-void render_freeSpriteArray(struct SpriteArray *spriteArray);
+void render_destroyStage(struct Stage *stage);
 
 /**
- * Creates a new sprite in a sprite array.
- * @param spriteArray is the sprite array to create it in.
- * @param sprite      is the sprite object to store the new sprite in.
+ * Creates a new sprite in a stage..
+ * @param stage is the stage to create it in.
+ * @return the new sprite.
  */
-void render_addSprite(struct SpriteArray *spriteArray, struct Sprite *sprite);
+struct Sprite *render_addSprite(struct Stage *stage);
+
+/**
+ * Frees the memory of a sprite and takes it out of the stage it is in.
+void render_destroySprite(struct Sprite *sprite);
+
+struct Tile *render_addTile(struct Stage *stage);
+
+void render_destroyTile(struct Tile *tile);
 
 /**
  * Adds a transformation to a sprite's transformation.

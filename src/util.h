@@ -91,15 +91,23 @@ void util_addToDictionary(struct Bucket *bucket, char const *key, void *value);
 void *util_findInDictionary(struct Bucket *bucket, char const *key);
 
 /**
- * Destroys a dictionary and it's contents.
- * @param bucket is a pointer to the dictionary.
+ * Destroys a dictionary and calls a custom delete function on each item.
+ * @param bucket is the start of the dictionary.
+ * @param delete is a custom delete function to call on the content of each
+ *               bucket. If it is null it just doesn't call it.
  */
-void util_destroyDictionary(struct Bucket *bucket);
+void util_destroyDictionary(
+    struct Bucket *bucket,
+    void (delete*)(void*)
+);
 
 /**
- * Takes a bucket and recursively destroys all contents.
- * @param bucket is the bucket to destroy.
+ * Takes a bucket and recursively destroys all contents, calling a custom
+ * delete function on each data item.
+ * @param bucket it the start of the bucket.
+ * @param delete is the custom delete function. If it's null then it just
+ *               doesn't run it.
  */
-void util_destroyBucket(struct Bucket *bucket);
+void util_destroyBucket(struct Bucket *bucket, void (delete*)(void*));
 
 #endif

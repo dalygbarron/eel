@@ -26,6 +26,10 @@ static void *createAdventureScene(char const *transition) {
     return 0;
 }
 
+static void plainFrame(struct SceneFrame *scene) {
+    struct PlainScene *scene = 
+}
+
 struct Engine *game_createEngine(char const *transition) {
     struct Engine *engine = malloc(sizeof(struct Engine));
     engine->time = 0;
@@ -85,7 +89,25 @@ int game_frame(struct Engine *engine) {
     log_info("Frame %d", engine->time);
     struct SceneFrame *scene = engine->scenes;
     if (!scene) return 0;
-    // TODO: make scenes actually do shit.
+    if (!scene->control) {
+        switch (scene->type) {
+        case SceneFrame_PLAIN:
+            plainScene(scene);
+            break;
+        case SceneFrame_JUMP:
+            jumpScene(scene);
+            break;
+        case SceneFrame_BOAT:
+            boatScene(scene);
+            break;
+        case SceneFrame_ADVENTURE:
+            adventureScene(scene);
+            break;
+        default:
+            log_error("Unknown scene type %d", scene->type);
+        }
+    }
+    // Increment the clock.
     engine->time++;
     return 1;
 }
@@ -95,5 +117,6 @@ int game_handleInput(struct Engine *engine) {
     while(SDL_PollEvent(&e) != 0) {
         if(e.type == SDL_QUIT) return 0;
     }
+    // TODO: handle other events.
     return 1;
 }
