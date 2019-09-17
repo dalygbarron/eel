@@ -1,6 +1,6 @@
 #include "scene/TestScene.hh"
 #include "model/control/Panel.hh"
-#include "model/BulletManager.hh"
+#include "manager/BulletManager.hh"
 #include "static/spdlog/spdlog.h"
 #include "service/Repository.hh"
 #include <stdio.h>
