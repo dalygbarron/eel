@@ -2,7 +2,7 @@
 #define TEST_SCENE_H
 
 #include "scene/Scene.hh"
-#include "manager/BulletManager.hh"
+#include "model/BulletManager.hh"
 #include "model/control/Panel.hh"
 
 /**

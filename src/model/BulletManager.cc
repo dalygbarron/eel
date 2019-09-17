@@ -1,4 +1,4 @@
-#include "manager/BulletManager.hh"
+#include "model/BulletManager.hh"
 #include "service/Repository.hh"
 #include "service/Config.hh"
 #include "static/Utils.hh"

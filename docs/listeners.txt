@@ -1,0 +1,23 @@
+LISTENERS
+===============================================================================
+
+Coming back to this code base, the most rubbish part right now is that it has
+got unnecessary event listeners which work the same way scripts and yields in
+godot work which is not a particularly good system and which allows scripts to
+zoom off into space and be lost forever.
+
+A better system would be to completely get rid of event listeners make it that
+scripts are yielded back to every single frame that the owner is updated (so
+for example if a script creates a gui box, no scripts at all will be updated
+until that box is gone). Therefore, a script will never need to check for when
+it's gui box has dissappeared because it will have dissappeared the next time
+it runs, but there will be other things where they will just need to poll every
+single frame, for example to check when a sound effect has finished playing.
+
+Polling for user input is probably for the best as there would be no way for
+the handling code to know whether the piece of input was important or not so
+they will resume a script just to send it junk. if you want to check on a key
+press I could probably add a "was just pressed" kind of check thingy so you can
+basically poll for an event.
+
+

@@ -7,6 +7,11 @@
  */
 template <class T> class Manager {
 public:
+    /**
+     * Creates the manager.
+     * @param n is the number of items to dynamically allocate for it's use.
+     */
+    Manager(int n);
 
 private:
     union Item {
@@ -20,12 +25,6 @@ private:
         } dead;
     };
     Item *items;
-
-    /**
-     * Creates the manager.
-     * @param n is the number of items to dynamically allocate for it's use.
-     */
-    Manager(int n);
 };
 
 #endif

@@ -21,12 +21,15 @@
  * Start of the program.
  * @param argc is the number of commandline arguments given.
  * @param argv is an array of commandline arguments as pointers to strings.
- * @return 0 when program exits expectedly, and otherwise returns something else probably meaningless.
+ * @return 0 when program exits expectedly, and otherwise returns something
+ *         else probably meaningless.
  */
 int main(int argc, char **argv) {
     // Start logging right away.
-    spdlog::set_default_logger(spdlog::rotating_logger_mt("heart", "eel.log", 1048576, 2));
-    spdlog::flush_on(spdlog::level::debug); // TODO: obviously change this for production to error.
+    spdlog::set_default_logger(
+        spdlog::rotating_logger_mt("heart", "eel.log", 1048576, 2)
+    );
+    spdlog::flush_on(spdlog::level::debug); // TODO: change for prod
     spdlog::flush_every(std::chrono::seconds(10));
     spdlog::info(
         "Eel Version {}.{}.{}",
@@ -49,7 +52,11 @@ int main(int argc, char **argv) {
         Engine engine(&config, &timer, &radio, 0, &repository, &controlBuilder);
         Game game(&engine);
         // run the game.
-        spdlog::info("Starting '{}' version '{}'", config.get("title"), config.get("version"));
+        spdlog::info(
+            "Starting '{}' version '{}'",
+            config.get("title"),
+            config.get("version")
+        );
         int status = game.run();
         spdlog::info("Exiting Normally");
         return status;
