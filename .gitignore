@@ -5,3 +5,6 @@ main
 tester
 .DS_Store
 *.log
+*.swp
+*.swo
+*.swn

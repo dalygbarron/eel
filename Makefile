@@ -1,12 +1,12 @@
 CC = g++
-CFLAGS = -std=c++14 -I src/
+CFLAGS = -std=c++14 -I src/ -g
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
 INTERFACE = $(addprefix interface/, ExclusiveSpeaker)
 MODEL = $(addprefix model/, Actor Bullet Script Signal SpriteBatch SubStream BulletManager ActorManager)
 SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo TestScene PlainScene)
 CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
-SERVICE = $(addprefix service/, Config Game Radio Repository Status Timer Engine)
+SERVICE = $(addprefix service/, Config Game Radio Repository Status Engine)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils Read)
 TEST = $(addprefix test/, testGeneral testBullet testUtils helpers)

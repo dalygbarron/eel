@@ -1,34 +1,26 @@
 #ifndef SCRIPT_H
 #define SCRIPT_H
 
-#include "interface/Listener.hh"
 #include "scene/Scene.hh"
 #include <lua5.3/lua.hpp>
 
 /**
- * Represents an external script that can be used to drive aspects of the engine for example the gui or enemy behavior.
- * If I ever need to implement a second scripting language I will move the lua specific stuff to a subclass but right
- * now it's not worth the effort.
+ * Represents a script which can control stuff. They should be run every update
+ * frame and if they want to wait for something to happen they should loop and
+ * poll and yield. No event listeners.
  */
-class Script: public Listener {
+class Script {
     lua_State *state = 0;
     lua_State *thread = 0;
     Scene *scene = 0;
     int alive = true;
-    int listeningFor = -1;
 
     /**
      * Shows the most recent error in the script.
-     * @param state is the lua state that caused the error since there are two in there.
+     * @param state is the lua state that caused the error since there are two
+     *              in there.
      */
     void showError(lua_State *state);
-
-    /**
-     * Makes the script start listening to the given scene.
-     * @param scene is the scene to listen to.
-     * @param type  is the type of signals to listen for.
-     */
-    void listenToScene(Scene *scene, int type);
 
     /**
      * Validates that the arguments to a lua function are all good.
@@ -45,15 +37,6 @@ class Script: public Listener {
      * @return the pointer.
      */
     static void *getLuaPointer(lua_State *luaState, int index);
-
-    /**
-     * Allows the script to connect itself up to a timer.
-     * in: number of ticks to wait.
-     * in: script.
-     * @param luaState is the lua state from which this is happening.
-     * @return the number of things put on the lua stack.
-     */
-    static int luaWait(lua_State *luaState);
 
     /**
      * Lua function to add a speech box to the current scene.
@@ -77,15 +60,6 @@ class Script: public Listener {
     static int luaDeclare(lua_State *luaState);
 
     /**
-     * Lua function to make a script listen to a scene for info.
-     * in: pointer to script.
-     * in: type of signal to lsiten to.
-     * @param luaState is the lua state that called this.
-     * @return the number of items returned.
-     */
-    static int luaListen(lua_State *luaState);
-
-    /**
      * Tell the scene to transition to a new scene after the next frame.
      * in: pointer to script.
      * in: scene transition text.
@@ -98,6 +72,7 @@ class Script: public Listener {
      * Plays a sound.
      * in: pointer to script.
      * in: name of sound.
+     * out: number of frames the sound should take to play.
      * @param luaState is the calling lua state thingy.
      * @return the number of things returned to lua.
      */
@@ -133,8 +108,6 @@ public:
      * @return true if the script is not over, and false if it is over.
      */
     int isAlive();
-
-    virtual int listen(Signal signal) override;
 };
 
 #endif

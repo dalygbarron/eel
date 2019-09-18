@@ -47,9 +47,8 @@ int main(int argc, char **argv) {
         Config config(gameFile);
         Repository repository(&config);
         ControlBuilder controlBuilder(&repository, &config);
-        Timer timer;
         Radio radio(&repository);
-        Engine engine(&config, &timer, &radio, 0, &repository, &controlBuilder);
+        Engine engine(&config, &radio, 0, &repository, &controlBuilder);
         Game game(&engine);
         // run the game.
         spdlog::info(

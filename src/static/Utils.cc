@@ -100,14 +100,6 @@ float Utils::random() {
     return (float)rand() / RAND_MAX;
 }
 
-float Utils::perSecond(float value) {
-    return value / Constant::FPS;
-}
-
-float Utils::perSecondPerSecond(float value) {
-    return value / (Constant::FPS * Constant::FPS);
-}
-
 sf::View Utils::getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
     float windowRatio = windowWidth / (float)windowHeight;
     float viewRatio = view.getSize().x / (float)view.getSize().y;

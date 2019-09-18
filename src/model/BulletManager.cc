@@ -67,7 +67,7 @@ Bullet *BulletManager::addBullet(Bullet const *prototype, sf::Vector2f position)
         newBullet->copy(prototype);
         newBullet->pos = position;
         newBullet->launch(Utils::random() * Constant::PI * 2);
-        newBullet->gravityLaunch(0, Utils::perSecondPerSecond(60));
+        newBullet->gravityLaunch(0, 1);
         this->sprites->buildQuad(
             &(this->vertices[(newBullet - this->bullets) * 4]),
             prototype->state.live.sprite,

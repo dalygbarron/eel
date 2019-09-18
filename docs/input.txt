@@ -1,0 +1,121 @@
+INPUT
+===============================================================================
+
+Previously, user input to GUI elements (and maybe other stuff if it had gotten
+implemented) was done through event handling where the game object would pick
+up input events and then pass these on to the appropriate gui elements.
+
+However, this is no longer going to be the case. Because the game is going to
+require the user to use a mouse, I have got to make it that buttons are
+clickable, so I might as well do away with most of this complicated stuff and
+just make it that you click on buttons to activate them. I can still add some
+gui item composition thingies for fancy placement of buttons and hud stuff, but
+there is not going to be any need for heirachical activation because whatever
+button is pressed is pressed (well unless two are overlaid but I would rather
+not have to go there).
+
+I will probably have to add polling functions for mouse clicks, which is
+basically just a matter of saying "if the mouse button was pressed in the last
+frame". This would be a bit inefficient if I had to do it for every single
+keyboard key, but they will purely be polled since they will not be controlling
+the gui. Doing it for a couple of mouse buttons is not a big deal at all imo.
+
+Ok yeah so then when a gui element is clicked on, we will need to add it's
+index onto a variable in the scene which we can then poll from a script or get
+in the game engine. However, if we have got multiple levels of buttons within
+sorted boxes and shit, how do we know what the index of the button that is
+chosen is?
+
+Most likely the most complex piece of UI is going to be the inventory screen
+which will give you a whole heap of item buttons (with tool tips to get the
+name and description etc).
+
+NICE CHARACTER PICS THAT ARE A BIT ANIMATED ALONG WITH TEXT
+===============================================================================
+
+Since characters are going to be small now, it would be nice if they had big
+pictures of them in conversation along the lines of touhou. When a given
+character is talking their picture would be highlighted and moved a bit closer
+to the middle of the screen, and thn when another is talking they would be
+dimmed and moved to the back.
+
+This would require the creation of some kind of little stage which is kept for
+the duration of the conversation. Possibly, the whole conversation could be
+created in advance and then just played out. That would work well in the sense
+that it would not fuck with the current flow too much. The downside is that
+whenever you were required to make a choice it would have to exit the
+conversation, but I think that depending on how the question box comes up, the
+user would not find that to be weird.
+
+As for the animation of the pictures moving towards the middle and swapping
+around and all that, I will make it that the stage object is a state machine
+with a state like "moving portrait into position" and while it is in that state
+it does not update the gui elements, and it will have a general purpose
+variable which in that state tells it which character it is moving. Once the
+character is in position it will transition to a waiting for gui stuff to
+happen state in which it updates the text box and waits for it to return
+something noteworthy, at which point it will read the next bit of info from the
+list of shit to show, then creates the right text box, sets the right character
+in the register, and goes back to "moving character into position" status.
+
+Ok so the process for building one of these dialogues would be something along
+the lines of:
+
+Dialogue *d = new Dialogue();
+d->addLeft("profile/john");
+d->addLeft("profile/aini");
+d->addLeft("profile/phm");
+d->addRight("profile/tony");
+d->addRight("profile/cuck");
+d->clear();
+d->leftMessage(0, "you are an idiot");
+d->rightMessage(0, "no YOU are an idiot, mate");
+
+in this dialogue, john fogle, aini and purple hat man talk to tony and mr Cuck.
+John says that tony is an idiot, and then tony says that john is an idiot.
+
+So that is how it will work in C++ code, but this feature will be used almost
+exclusively in scripts, which is why the clear feature exists. Generally, you
+are actually going to want to create the dialogue object once, but use it
+multiple times so that there is not the cost of setting it up multiple times.
+
+Only thing is we will have to add a flag or something to gui elements which
+tells the scene whether or not to free them after use, and we will have to make
+sure that the dialogue frees it's stuff when you call clear or when the script
+stops. Hmm yeah that is a bit tough as you never know when the script may stop.
+Actually maybe the two stage construction is a bad idea, having to free memory
+from a script seems really dumb.
+
+Yeah so instead, you will create intermediate lua objects which have a somewhat
+friendlier api, and then when the time comes to add the dialogue, you pass them
+to an interface function which uses them to call api to create the dialogue for
+real. so in the lua code it would be like.
+
+local stage = {
+    left: ["john", "aini", "phm"],
+    right: ["cuck", "tony"]
+};
+
+local chatA = [
+    ["john", "you are an idiot"],
+    ["cuck", "no, YOU are an idiot"]
+];
+
+local chatB = [
+    ["aini", "That was rude"],
+    ["tony", "Yeah, I apologise for my rude friend"],
+    ["phm", "hell yeah man"]
+];
+
+function main(context)
+    local e = require("scripts.include.eel")(context);
+    e.dialogue(stage, chatA);
+    e.wait(1);
+    e.dialogue(stage, chatB);
+end
+
+Anyway, I will study the dialogues in touhou and such and see what they should
+look like (not that I want it to look just like touhou, but you know). Probably
+one thing is that everything behind the gui should be darkened when it comes
+on. Probably just do that by putting a transparent quad in front of the rest of
+the screen.

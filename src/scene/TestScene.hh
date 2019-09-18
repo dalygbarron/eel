@@ -6,25 +6,30 @@
 #include "model/control/Panel.hh"
 
 /**
- * A scene for putting all my test junk in so it's not cluttering up the main function.
+ * A scene for putting all my test junk in so it's not cluttering up the main
+ * function.
  */
 class TestScene: public Scene {
-    BulletManager *bulletManager;
-    sf::RectangleShape background;
-    sf::Shader shader;
-    Panel leftPanel;
-    Panel rightPanel;
+    public:
+        /**
+         * Sets up the scene's junk.
+         * @param engine contains the game services.
+         */
+        TestScene(Engine const *engine);
 
-    virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
+    private:
+        BulletManager *bulletManager;
+        sf::RectangleShape background;
+        sf::Shader shader;
+        Panel leftPanel;
+        Panel rightPanel;
 
-    virtual void logic(long tick) override;
+        virtual void render(
+            sf::RenderTarget *target,
+            sf::RenderStates states
+        ) const override;
 
-public:
-    /**
-     * Sets up the scene's junk.
-     * @param engine contains the game services.
-     */
-    TestScene(Engine const *engine);
+        virtual void logic(float delta) override;
 };
 
 #endif

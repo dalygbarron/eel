@@ -37,19 +37,9 @@ public:
      * Note that there is a maximum allowed number of sounds at once.
      * @see Constant::SOUND_LIMIT.
      * @param sound is the name of the sound file.
-     * @return the number of frames the sound should go for.
+     * @return length of the sound in seconds.
      */
-    int playSound(char const *sound);
-
-    /**
-     * Plays a sound in 3d space.
-     * Note that there is a maximum allowed number of sounds at once.
-     * @see Constant::SOUND_LIMIT.
-     * @param sound is the name of the sound file.
-     * @param pos   is the 3d location to play the sound at relative to the player.
-     * @return the number of frames the sound should go for.
-     */
-    int playSoundAt(char const *sound, sf::Vector3f pos);
+    float playSound(char const *sound);
 };
 
 #endif

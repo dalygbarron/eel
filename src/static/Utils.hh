@@ -74,21 +74,6 @@ namespace Utils {
     float random();
 
     /**
-     * Converts a per second value into per frame using the framerate.
-     * @param value is the value to convert.
-     * @return the given value as being per frame rather than per second.
-     */
-    float perSecond(float value);
-
-    /**
-     * Converts a per second per second value into per frame using the config framerate. This kind of value
-     * is commonly used for calculating accelerations and other things like that.
-     * @param value is the value to convert.
-     * @return the given value as being per frame rather than per second per second.
-     */
-    float perSecondPerSecond(float value);
-
-    /**
      * Gives a view that will maintain the game's aspect ratio when resizing.
      * @param view         is the view as it has been changed.
      * @param windowWidth  is the width of the original window.

@@ -10,7 +10,6 @@ void Bullet::copy(Bullet const *bullet) {
         throw -1;
     }
     this->state.live.radius = bullet->state.live.radius;
-    this->state.live.speed = Utils::perSecond(bullet->state.live.speed);
     this->state.live.shape = bullet->state.live.shape;
     this->state.live.sprite = bullet->state.live.sprite;
 }

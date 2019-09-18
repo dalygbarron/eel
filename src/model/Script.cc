@@ -11,10 +11,6 @@ void Script::showError(lua_State *state) {
     lua_pop(state, 1);
 }
 
-void Script::listenToScene(Scene *scene, int type) {
-    scene->addListener(this);
-}
-
 int Script::validateLuaArgs(lua_State *luaState, int n) {
     if (lua_gettop(luaState) != n) {
         lua_pushstring(luaState, "Lua call error: invalid arguments");
@@ -33,20 +29,11 @@ void *Script::getLuaPointer(lua_State *luaState, int index) {
     return pointer;
 }
 
-int Script::luaWait(lua_State *luaState) {
-    Script::validateLuaArgs(luaState, 2);
-    double time = lua_tonumber(luaState, 1);
-    Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    script->scene->engine->timer->start(script, floor(time));
-    return 0;
-}
-
 int Script::luaSay(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 3);
     char const *name = lua_tostring(luaState, 1);
     char const *text = lua_tostring(luaState, 2);
     Script *script = (Script *)Script::getLuaPointer(luaState, 3);
-    script->listenToScene(script->scene, Signal::TYPE_SCENE);
     Control *panel = script->scene->engine->controlBuilder->speechBox(name, text);
     script->scene->addControl(panel);
     return 0;
@@ -56,18 +43,8 @@ int Script::luaDeclare(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
     char const *text = lua_tostring(luaState, 1);
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    script->listenToScene(script->scene, Signal::TYPE_SCENE);
     Control *panel = script->scene->engine->controlBuilder->declarationBox(text);
     script->scene->addControl(panel);
-    return 0;
-}
-
-int Script::luaListen(lua_State *luaState) {
-    Script::validateLuaArgs(luaState, 3);
-    Scene *scene = (Scene *)Script::getLuaPointer(luaState, 1);
-    Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    int type = floor(lua_tonumber(luaState, 3));
-    script->listenToScene(scene, type);
     return 0;
 }
 
@@ -107,7 +84,6 @@ Script::Script(Scene *scene, char const *file) {
     this->state = luaL_newstate();
     // declare my stuff in the lua context.
     luaL_openlibs(this->state);
-    lua_register(this->state, "_wait", Script::luaWait);
     lua_register(this->state, "_say", Script::luaSay);
     lua_register(this->state, "_declare", Script::luaDeclare);
     lua_register(this->state, "_transition", Script::luaTransition);
@@ -152,8 +128,4 @@ void Script::tick() {
 
 int Script::isAlive() {
     return this->alive;
-}
-
-int Script::listen(Signal signal) {
-    tick();
 }

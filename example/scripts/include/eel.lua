@@ -8,10 +8,14 @@ return function(context)
     -- Yields until the given number of ticks have passed.
     -- @int ticks is the number of ticks to wait
     function eel.wait(ticks)
-        _wait(ticks, context);
-        coroutine.yield();
+        for i = 1, ticks do
+            coroutine.yield();
+        end
     end
 
+    --- Writes a text box with a name on it on the screen.
+    -- @string name is the name to put on the box
+    -- @string ... a bunch of text to write in the text box.
     function eel.say(name, ...)
         local arg = {...}
         local text = ""
@@ -49,11 +53,19 @@ return function(context)
         return coroutine.yield();
     end
 
-    --- Converts a time in seconds into a time in ticks.
-    -- @number time is the number of seconds
-    -- @return time in seconds multiplied by the framerate.
-    function eel.util.seconds(time)
-        return time * 60.0;
+    function eel.dialogue(stage, dialogue)
+        local d = _createDialogue(context);
+        for k, v in pairs(stage.left) do
+            _dialogueAddLeft(d, v, context);
+        end
+        for k, v in pairs(stage.right) do
+            _dialogueAddRight(d, v, context);
+        end
+        for line in dialogue do
+            _dialogueAdd(d, line[0], line[1], context);
+        end
+        _dialogue(d, context);
+        return coroutine.yield();
     end
 
     --- Plays a sound.

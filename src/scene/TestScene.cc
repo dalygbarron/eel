@@ -5,18 +5,6 @@
 #include "service/Repository.hh"
 #include <stdio.h>
 
-void TestScene::logic(long tick) {
-    this->shader.setUniform("time", tick / 60.f);
-    this->bulletManager->update();
-}
-
-void TestScene::render(sf::RenderTarget *target, sf::RenderStates states) const {
-    target->draw(this->background, &this->shader);
-    target->draw(*(this->bulletManager));
-    this->leftPanel.render(target, states);
-    this->rightPanel.render(target, states);
-}
-
 TestScene::TestScene(Engine const *engine): Scene(engine) {
     spdlog::info("Creating test scene");
     this->background.setSize(sf::Vector2f(640, 960));
@@ -45,5 +33,16 @@ TestScene::TestScene(Engine const *engine): Scene(engine) {
     this->rightPanel.fg = sf::Color::White;
     this->rightPanel.bg = sf::Color(0, 0, 20);
     this->rightPanel.resize(sf::FloatRect(960, 0, 320, 960));
-    // load in the script
+}
+
+void TestScene::logic(float delta) {
+    this->shader.setUniform("time", delta);
+    this->bulletManager->update();
+}
+
+void TestScene::render(sf::RenderTarget *target, sf::RenderStates states) const {
+    target->draw(this->background, &this->shader);
+    target->draw(*(this->bulletManager));
+    this->leftPanel.render(target, states);
+    this->rightPanel.render(target, states);
 }

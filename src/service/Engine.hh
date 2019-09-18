@@ -2,7 +2,6 @@
 #define ENGINE_H
 
 #include "service/Config.hh"
-#include "service/Timer.hh"
 #include "service/Radio.hh"
 #include "service/Status.hh"
 #include "service/builder/ControlBuilder.hh"
@@ -14,7 +13,6 @@ class Engine {
 public:
     Config const *config;
     ControlBuilder const *controlBuilder;
-    Timer *timer;
     Radio *radio;
     Status *status;
     Repository *repository;
@@ -22,7 +20,6 @@ public:
     /**
      * Builds the engine and puts in all of it's dependencies in one swoop.
      * @param config         is the configuration.
-     * @param timer          is the timer.
      * @param radio          is the audio controller.
      * @param status         is the game status.
      * @param repository     is the asset repositoey.
@@ -30,7 +27,6 @@ public:
      */
     Engine(
         Config const *config,
-        Timer *timer,
         Radio *radio,
         Status *status,
         Repository *repository,

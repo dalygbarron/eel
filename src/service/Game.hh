@@ -3,51 +3,56 @@
 
 #include "scene/Scene.hh"
 #include "interface/Listener.hh"
-#include "service/Timer.hh"
 #include <forward_list>
 
 /**
- * Contains the main loop of the game, handles events, and creates and manages the game's scenes.
+ * Contains the main loop of the game, handles events, and creates and manages
+ * the game's scenes. Also keeps track of time.
  */
 class Game {
-    Engine const *engine;
-    std::forward_list<Scene *> scenes;
-    sf::RenderWindow window;
-    sf::View view;
+    public:
+        /**
+         * Builds the thing and gets it's dependencies injected.
+         * @param engine contains the game services.
+         */
+        Game(Engine const *engine);
 
-    /**
-     * Gets the game to handle events.
-     */
-    void handleEvents();
+        /**
+         * Runs the game.
+         * @return 0 if it's all been good, and another value if there was an
+         *         unhandled exception in the game logic.
+         */
+        int run();
 
-    /**
-     * Updates the game's state.
-     */
-    void update();
+    private:
+        Engine const *engine;
+        Scene *scene;
+        sf::RenderWindow window;
+        sf::View view;
+        sf::Clock clock;
 
-    /**
-     * Renders the game.
-     */
-    void render();
+        /**
+         * Gets the game to handle events.
+         */
+        void handleEvents();
 
-    /**
-     * Checks if the scene should be transitioned and does the stuff if so.
-     * @param transitioning is the scene that may or may not be transitioned out of.
-     */
-    void transition(Scene *transitioning);
+        /**
+         * Updates the game's state.
+         */
+        void update();
 
-public:
-    /**
-     * Builds the thing and gets it's dependencies injected.
-     * @param engine contains the game services.
-     */
-    Game(Engine const *engine);
+        /**
+         * Renders the game.
+         */
+        void render();
 
-    /**
-     * Runs the game.
-     * @return 0 if it's all been good, and another value if there was an unhandled exception in the game logic.
-     */
-    int run();
+        /**
+         * Checks if the scene should be transitioned and does the stuff if so.
+         * TODO: update this to not use these weird strings.
+         * @param transitioning is the scene that may or may not be
+         *        transitioned out of.
+         */
+        void transition(Scene *transitioning);
 };
 
 #endif
