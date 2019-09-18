@@ -30,8 +30,10 @@ class Scene: public sf::Drawable {
         /**
          * Updates the scene as should be called every frame.
          * @param delta is the time since the last frame.
+         * @param mouse is a bunch of bits representing what mouse buttons were
+         *              clicked last frame.
          */
-        void update(float delta);
+        void update(float delta, unsigned char mouse);
 
         /**
          * Adds a gui widget to this scene.

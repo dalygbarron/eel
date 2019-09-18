@@ -1,6 +1,6 @@
 #include "model/control/Control.hh"
 
-int Control::onEvent(sf::Event *event) {
-    // Default functionality is to just do nothing at all.
+int Control::update(unsigned char mouse) {
+    // Do nothing hell yeah.
     return -1;
 }

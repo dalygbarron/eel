@@ -17,7 +17,7 @@ Scene::~Scene() {
     // Does nothing I think.
 }
 
-void Scene::update(float delta) {
+void Scene::update(float delta, unsigned char mouse) {
     if (!this->gui) this->logic(delta);
 }
 

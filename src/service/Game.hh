@@ -34,7 +34,7 @@ class Game {
         /**
          * Gets the game to handle events.
          */
-        void handleEvents();
+        unsigned char handleEvents();
 
         /**
          * Updates the game's state.
