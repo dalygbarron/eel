@@ -58,11 +58,10 @@ class Panel: public Control {
         virtual sf::FloatRect resize(sf::FloatRect bounds) override;
 
     private:
-        sf::VertexArray vertices;
+        sf::RectangleShape box;
         std::list<Control *> children;
         int vertical;
         float border;
-        int borderMode;
         sf::Color fg;
         sf::Color bg;
 };
