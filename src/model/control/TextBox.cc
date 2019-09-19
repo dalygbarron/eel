@@ -20,7 +20,7 @@ void TextBox::render(sf::RenderTarget *target, sf::RenderStates states) const {
     target->draw(this->text);
 }
 
-char const *TextBox::getDescription() {
+char const *TextBox::getDescription() const {
     return "textbox";
 }
 

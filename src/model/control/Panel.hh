@@ -8,52 +8,63 @@
 
 /**
  * A widget which is a visibly rendered box which contains other widgets.
- * TODO: make border thickness configurable.
  */
 class Panel: public Control {
-    sf::VertexArray vertices;
-    std::list<Control *> children;
+    public:
+        constexpr static int const BORDER_VERTICAL = 0;
+        constexpr static int const BORDER_HORIZONTAL = 1;
 
-public:
-    constexpr static int const BORDER_VERTICAL = 0;
-    constexpr static int const BORDER_HORIZONTAL = 1;
+        /**
+         * Default constructor that does not configure anything.
+         */
+        Panel();
 
-    int vertical;
-    float border;
-    int borderMode;
-    sf::Color fg;
-    sf::Color bg;
+        /**
+         * Create and configure a panel.
+         * @param vertical   tells the panel whether to stack children
+         *                   vertically or horizontally.
+         * @param border     is how thinck the panel's border should be.
+         * @param borderMode is the style the border should be done in.
+         * @param fg         colour to render the panel's border with.
+         * @param bg         colour to render panel body with.
+         */
+        Panel(
+            int vertical,
+            float border,
+            int borderMode,
+            sf::Color fg,
+            sf::Color bg
+        );
 
-    /**
-     * Default constructor that does not configure anything.
-     */
-    Panel();
+        /**
+         * Adds a control onto this panel.
+         * @param child is the child to add.
+         */
+        void addChild(Control *child);
 
-    /**
-     * Create and configure a panel.
-     * @param vertical tells the panel whether to stack children vertically or horizontally.
-     * @param border     is how thinck the panel's border should be.
-     * @param borderMode is the style the border should be done in.
-     * @param fg         is the colour with which to render the panel's border.
-     * @param bg         is the colour with which to render the panel's back part.
-     */
-    Panel(int vertical, float border, int borderMode, sf::Color fg, sf::Color bg);
+        virtual int update(unsigned char mouse) override;
 
-    /**
-     * Adds a control onto this panel.
-     * @param child is the child to add.
-     */
-    void addChild(Control *child);
+        virtual void render(
+            sf::RenderTarget *target,
+            sf::RenderStates states
+        ) const override;
 
-    virtual int onEvent(sf::Event *e) override;
+        virtual char const *getDescription() const override;
 
-    virtual void render(sf::RenderTarget *target, sf::RenderStates states) const override;
+        virtual sf::Vector2f getDesiredSize(
+            sf::Vector2f bounds
+        ) const override;
 
-    virtual char const *getDescription() override;
+        virtual sf::FloatRect resize(sf::FloatRect bounds) override;
 
-    virtual sf::Vector2f getDesiredSize(sf::Vector2f bounds) const override;
-
-    virtual sf::FloatRect resize(sf::FloatRect bounds) override;
+    private:
+        sf::VertexArray vertices;
+        std::list<Control *> children;
+        int vertical;
+        float border;
+        int borderMode;
+        sf::Color fg;
+        sf::Color bg;
 };
 
 #endif

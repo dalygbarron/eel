@@ -7,7 +7,13 @@ Panel::Panel(): vertices(sf::Quads) {
     // does nothing.
 }
 
-Panel::Panel(int vertical, float border, int borderMode, sf::Color fg, sf::Color bg): vertices(sf::Quads) {
+Panel::Panel(
+    int vertical,
+    float border,
+    int borderMode,
+    sf::Color fg,
+    sf::Color bg
+): vertices(sf::Quads) {
     this->vertical = vertical;
     this->border = border;
     this->borderMode = borderMode;
@@ -15,10 +21,10 @@ Panel::Panel(int vertical, float border, int borderMode, sf::Color fg, sf::Color
     this->bg = bg;
 }
 
-int Panel::onEvent(sf::Event *e) {
+int Panel::update(unsigned char mouse) {
     for (Control *child: this->children) {
-        int response = child->onEvent(e);
-        if (response >= 0) return response;
+        int result = child->update(mouse);
+        if (result >= 0) return result;
     }
     return -1;
 }
@@ -28,7 +34,7 @@ void Panel::render(sf::RenderTarget *target, sf::RenderStates states) const {
     for (Control *child: this->children) child->render(target, states);
 }
 
-char const *Panel::getDescription() {
+char const *Panel::getDescription() const {
     return "Panel";
 }
 
@@ -40,15 +46,25 @@ sf::FloatRect Panel::resize(sf::FloatRect bounds) {
     this->vertices.resize(12);
     // Panels intentionally take up all of the space given to them.
     this->dimensions = bounds;
-    // TODO: load colours from game file and save in config object.
     if (this->borderMode == Panel::BORDER_VERTICAL) {
-        Utils::makeStack(&this->vertices[0], bounds, this->border, this->fg, this->bg);
+        Utils::makeStack(
+            &this->vertices[0],
+            bounds,
+            this->border,
+            this->fg,
+            this->bg
+        );
     } else if (this->borderMode == Panel::BORDER_HORIZONTAL) {
-        Utils::makeWall(&this->vertices[0], bounds, this->border, this->fg, this->bg);
+        Utils::makeWall(
+            &this->vertices[0],
+            bounds,
+            this->border,
+            this->fg,
+            this->bg
+        );
     } else {
         spdlog::error("No such panel border mode as {}", this->borderMode);
     }
-
     // do it to the children now.
     bounds.left += this->border;
     bounds.top += this->border;
