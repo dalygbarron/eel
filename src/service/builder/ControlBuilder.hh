@@ -11,9 +11,8 @@
  */
 class ControlBuilder {
     Repository *repository;
-    sf::Color bg;
-    sf::Color fg;
-    sf::Color highlight;
+    sf::Texture *bg;
+    sf::Texture *fg;
     int border;
     int fontSizeNormal;
     int fontSizeBig;

@@ -5,9 +5,8 @@
 
 ControlBuilder::ControlBuilder(Repository *repository, Config const *config) {
     this->repository = repository;
-    this->fg = sf::Color(Utils::parseInt(config->get("fg")));
-    this->bg = sf::Color(Utils::parseInt(config->get("bg")));
-    this->highlight = sf::Color(Utils::parseInt(config->get("highlight")));
+    this->fg = repository->getTexture(config->get("fg"));
+    this->bg = repository->getTexture(config->get("bg"));
     this->border = Utils::parseInt(config->get("border"));
     this->fontSizeNormal = Utils::parseInt(config->get("fontNormal"));
     this->fontSizeBig = Utils::parseInt(config->get("fontBig"));
@@ -16,12 +15,12 @@ ControlBuilder::ControlBuilder(Repository *repository, Config const *config) {
 }
 
 Control *ControlBuilder::speechBox(char const *name, char const *text) const {
-    Panel *panel = new Panel(true, this->border, Panel::BORDER_VERTICAL, this->fg, this->bg);
-    TextBox *nameBox = new TextBox(name, this->highlight, this->fontSizeBig);
-    TextBox *textBox = new TextBox(text, this->fg, this->fontSizeNormal);
+    Panel *panel = new Panel(true, this->border, this->bg);
+    TextBox *nameBox = new TextBox(name, this->fontSizeBig);
+    TextBox *textBox = new TextBox(text, this->fontSizeNormal);
     panel->addChild(nameBox);
     panel->addChild(textBox);
-    panel->addChild(new Bopper(this->fg));
+    panel->addChild(new Bopper());
     panel->resize(sf::FloatRect(
         this->screenWidth / 4,
         this->screenHeight / 4 * 3,
@@ -32,10 +31,10 @@ Control *ControlBuilder::speechBox(char const *name, char const *text) const {
 }
 
 Control *ControlBuilder::declarationBox(char const *text) const {
-    Panel *panel = new Panel(true, this->border, Panel::BORDER_VERTICAL, this->fg, this->bg);
-    TextBox *textBox = new TextBox(text, this->fg, this->fontSizeNormal);
+    Panel *panel = new Panel(true, this->border, this->bg);
+    TextBox *textBox = new TextBox(text, this->fontSizeNormal);
     panel->addChild(textBox);
-    panel->addChild(new Bopper(this->fg));
+    panel->addChild(new Bopper());
     panel->resize(sf::FloatRect(
         this->screenWidth / 4,
         this->screenHeight / 4 * 3,

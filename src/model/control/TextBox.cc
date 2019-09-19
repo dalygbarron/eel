@@ -4,7 +4,7 @@
 #include "static/spdlog/spdlog.h"
 #include <stdio.h>
 
-TextBox::TextBox(char const *content, sf::Color colour, float size) {
+TextBox::TextBox(char const *content, float size) {
     this->content = content;
     // TODO: drop this shit.
     if (!this->font.loadFromFile("example/bocklin.ttf")) {
@@ -13,7 +13,7 @@ TextBox::TextBox(char const *content, sf::Color colour, float size) {
     }
     this->text.setFont(this->font);
     this->text.setCharacterSize(size);
-    this->text.setFillColor(colour);
+    this->text.setFillColor(sf::Color::White);
 }
 
 void TextBox::render(sf::RenderTarget *target, sf::RenderStates states) const {

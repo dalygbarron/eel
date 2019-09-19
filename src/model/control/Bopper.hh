@@ -5,17 +5,10 @@
 
 /**
  * A thing that simply returns as soon as an appropriate button is clicked.
- * TODO: we should probably make this thing have variable size, or make it
- *       invisible or something because at the moment it's massive.
+ * They are invisible.
  */
 class Bopper: public Control {
     public:
-        /**
-         * Creates the bopper.
-         * @param colour the colour to draw it in.
-         */
-        Bopper(sf::Color colour);
-
         virtual int update(unsigned char mouse) override;
 
         virtual void render(
@@ -30,9 +23,6 @@ class Bopper: public Control {
         ) const override;
 
         virtual sf::FloatRect resize(sf::FloatRect bounds) override;
-    private:
-        sf::VertexArray vertices;
-        sf::Color colour;
 };
 
 #endif

@@ -11,30 +11,14 @@
  */
 class Panel: public Control {
     public:
-        constexpr static int const BORDER_VERTICAL = 0;
-        constexpr static int const BORDER_HORIZONTAL = 1;
-
-        /**
-         * Default constructor that does not configure anything.
-         */
-        Panel();
-
         /**
          * Create and configure a panel.
-         * @param vertical   tells the panel whether to stack children
-         *                   vertically or horizontally.
-         * @param border     is how thinck the panel's border should be.
-         * @param borderMode is the style the border should be done in.
-         * @param fg         colour to render the panel's border with.
-         * @param bg         colour to render panel body with.
+         * @param vertical tells the panel whether to stack childre vertically
+         * or horizontally.
+         * @param border   is how thinck the panel's border should be.
+         * @param texture  is the texture to draw in the box.
          */
-        Panel(
-            int vertical,
-            float border,
-            int borderMode,
-            sf::Color fg,
-            sf::Color bg
-        );
+        Panel(int vertical, float border, sf::Texture *texture);
 
         /**
          * Adds a control onto this panel.
