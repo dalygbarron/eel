@@ -9,6 +9,7 @@ Panel::Panel(int vertical, float border, sf::Texture *texture) {
     this->box.setOutlineThickness(border);
     this->box.setOutlineColor(sf::Color::White);
     this->box.setTexture(texture);
+    this->box.setFillColor(sf::Color::Black);
 }
 
 int Panel::update(unsigned char mouse) {
