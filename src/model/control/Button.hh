@@ -37,6 +37,10 @@ class Button: public Control {
     private:
         Control *content;
         int id;
+        int highlighted;
+        sf::Color fg;
+        sf::Color bg;
+        sf::Color highlight;
 };
 
 #endif

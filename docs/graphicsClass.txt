@@ -1,0 +1,18 @@
+GRAPHICS CLASS
+===============================================================================
+
+Right now, pretty much every class in the project that has a visual
+representation has it's own code for building that representation out of quads.
+The only exceptions are classes that are built in like the text box and stuff.
+
+When I say they have their own code for building that representation, they do
+call a function that puts the quads into position, but they store these quads
+and initialise them etc etc.
+
+Instead, I could make a class specifically for storing a bunch of quads and it
+can also have features like keeping track of when it is initialised and when to
+delete it's data
+
+Actually, now that I come to think of it, there is already a class for this,
+it's called SquareShape. I haven't got a clue what I have been making my own
+bloody quads for now I think of it.
