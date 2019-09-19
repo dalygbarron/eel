@@ -1,5 +1,4 @@
 #include "scene/Scene.hh"
-#include "model/Signal.hh"
 #include "static/spdlog/spdlog.h"
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -18,9 +17,21 @@ Scene::~Scene() {
 }
 
 void Scene::update(float delta, unsigned char mouse) {
-    if (!this->gui) this->logic(delta);
+    if (this->gui) {
+        this->result = this->gui->update(mouse);
+        if (this->result >= 0) {
+            delete this->gui;
+            this->gui = 0;
+        }
+    } else {
+        this->logic(delta);
+    }
 }
 
 void Scene::addControl(Control *control) {
     this->gui = control;
+}
+
+int Scene::getResult() {
+    return this->result;
 }

@@ -1,6 +1,5 @@
 #include "scene/SplashScene.hh"
 #include "scene/PlainScene.hh"
-#include "scene/TestScene.hh"
 #include "static/Constant.hh"
 #include "static/Utils.hh"
 #include "static/spdlog/spdlog.h"
@@ -34,7 +33,6 @@ Game::Game(Engine const *engine) {
 int Game::run() {
     this->clock.restart();
     while (this->window.isOpen()) {
-        this->handleEvents();
         this->update();
         this->clock.restart();
         if (!this->scene) break;
@@ -43,8 +41,9 @@ int Game::run() {
     return 0;
 }
 
-void Game::handleEvents() {
+unsigned char Game::handleEvents() {
     sf::Event event;
+    unsigned char mouse = 0;
     while (this->window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             this->window.close();
@@ -54,14 +53,16 @@ void Game::handleEvents() {
                 event.size.width,
                 event.size.height
             );
-        } else {
-            // TODO: handle key presses so that the game can poll them.
+        } else if (event.type == sf::Event::MouseButtonPressed) {
+            mouse = 1;
         }
     }
+    return mouse;
 }
 
 void Game::update() {
-    this->scene->update(this->clock.getElapsedTime().asSeconds());
+    unsigned char mouse = this->handleEvents();
+    this->scene->update(this->clock.getElapsedTime().asSeconds(), mouse);
     this->transition(this->scene);
 }
 

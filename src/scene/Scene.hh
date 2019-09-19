@@ -42,8 +42,15 @@ class Scene: public sf::Drawable {
          */
         void addControl(Control *widget);
 
+        /**
+         * Gives you the result of the last gui box.
+         * @return the result number which is 0 or greater.
+         */
+        int getResult();
+
     private:
         Control *gui = 0;
+        int result = -1;
 
         virtual void draw(
             sf::RenderTarget &target,

@@ -24,7 +24,7 @@ void PlainScene::render(
 
 void PlainScene::logic(float delta) {
     if (this->script->isAlive()) {
-        this->script->tick();
+        this->script->tick(delta);
     } else if (!this->transition[0]) {
         spdlog::info("Plain scene '{}' finished", this->file);
         this->transition[0] = 'r';

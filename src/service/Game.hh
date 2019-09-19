@@ -2,7 +2,6 @@
 #define GAME_H
 
 #include "scene/Scene.hh"
-#include "interface/Listener.hh"
 #include <forward_list>
 
 /**

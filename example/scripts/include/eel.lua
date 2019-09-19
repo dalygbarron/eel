@@ -5,11 +5,11 @@ return function(context)
     };
 
     --- Wait for a given period of time.
-    -- Yields until the given number of ticks have passed.
-    -- @int ticks is the number of ticks to wait
-    function eel.wait(ticks)
-        for i = 1, ticks do
-            coroutine.yield();
+    -- @float seconds is the number of seconds to wait
+    function eel.wait(seconds)
+        while seconds > 0 do
+            local delta = coroutine.yield();
+            seconds = seconds - delta;
         end
     end
 

@@ -65,8 +65,8 @@ int Script::luaPlaySound(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
     char const *name = lua_tostring(luaState, 1);
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    int frames = script->scene->engine->radio->playSound(name);
-    lua_pushnumber(luaState, frames);
+    float length = script->scene->engine->radio->playSound(name);
+    lua_pushnumber(luaState, length);
     return 1;
 }
 
@@ -114,8 +114,13 @@ Script::~Script() {
     // TODO: there's probably something I can delete I dunno.
 }
 
-void Script::tick() {
-    lua_pushlightuserdata(this->thread, (void *)this);
+void Script::tick(float delta) {
+    if (this->virgin) {
+        lua_pushlightuserdata(this->thread, (void *)this);
+        this->virgin = false;
+    } else {
+        lua_pushnumber(this->thread, delta);
+    }
     int result = lua_resume(this->thread, 0, 1);
     if (result == LUA_OK) {
         this->alive = false;

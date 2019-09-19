@@ -9,7 +9,7 @@ function main(context)
     );
     for i = 1, 10 do
         e.declare(string.format("%d bingoglgogo %d", i, i));
-        e.wait(i * 2);
+        e.wait(i / 10);
     end
     e.radio.playSound("sounds/glomp.wav")
     e.declare("Ok, I am bored of that, that is the ENDE!");
