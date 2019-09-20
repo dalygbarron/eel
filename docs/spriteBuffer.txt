@@ -1,0 +1,100 @@
+SPRITE BUFFER
+===============================================================================
+
+Since the game is going to be isometric, every single element that is in the
+level is going to need to be sorted against every single other element, even
+bullets are not safe from this.
+
+That means that all of them are going to have to be put in amongst each other
+for rendering as well, so rather than having a billion different draw calls
+with no batching, we are going to have put absolutely everything into one big
+spritesheet and batch the entire thing.
+
+
+PROCESS
+=======
+
+We have an array of pointers to a class called Mob or something which
+represents something which exists in 3D space and can be sorted and all that.
+They also have a pointer to their vertices which they keep up to date
+themselves when they are updated. Each frame that they change their vertices
+they will set a dirty flag on themselves, and it will be unset if they stay the
+same.
+
+After updates have happened, we will sort the whole array of mobs. we will
+define a dirty region of the array which will cover the area of all mobs that
+have moved in the list, as well as all mobs that have updated their vertices,
+and everything in between. We then update that region in the vertex buffer
+which stores the vertices of all the mobs.
+
+This should be coded in such a way that mobs do not know that they are in
+a vertex buffer and do not need to be necessarily. They always will be, though.
+
+I imagine that the whole second half of the vertex buffer is going to be
+updated almost every frame, but the first half or so should not need to be
+updated very often, since it will be the ground which never really changes in
+any way.
+
+JOINED LEVELS
+=============
+
+It would be nice to be able to make it that the overworld does not require
+portals between levels and they just join together smoothly. To do this,
+I think that bullets, and characters and such should be stored not in the
+specific map at runtime, but in the general gameplay scene, which is also where
+the mob vertex buffer will be stored.
+
+When you get close enough to a level that it can almost be seen it will be
+added to the buffer, then when you get further from a level it will remove all
+it's stuff from the list and buffer.
+
+TILESETS
+========
+
+In order to do this, we are going to have to store pretty much everything
+rendered in the given level in a single spritesheet. I have read online that
+you should be able to assume the graphics card can handle a spritesheet of
+2048x2048 pixels, so therefore everything has to fit within that.
+
+Depending on how much stuff there is, this might not be enough, so in order to
+compensate for this, I could have a tileset system, in which the spritesheet
+sent to the graphics card is generated dynamically by joining the sprite
+portion with the given level's elected tileset.
+
+Levels that are joined together would have to use the same tileset though since
+they will be rendered at the same time.
+
+If tiles take up 64x96 pixels, that will allow 128 tiles while taking up less
+than a quarter of the total spritesheet. Actually I think that 128 tiles should
+be enough, and if that only takes less than a quater then it should be
+perfectly fine. In fact, we could probably even increase it to 192 tiles and it
+would still be fine.
+
+KEEPING TRACK OF DIFFERENT OBJECTS WITHIN LEVEL
+===============================================
+
+As well as storing everything within a big mobs array, we are also going to
+need to store them within their own type segregated arrays so that we can do
+the stuff that we need to do to them. However, that introduces difficulty when
+it comes to deleting.
+
+When a bullet hits a wall it should be deleted right, but if we are iterating
+over the bullets array and decide a bullet must be deleted then how can we also
+remove it from the mobs array without having to iterate over the entire array
+to find it's pointer?
+
+Ok I have got a solution, and it's probably good in general for the game. We
+will make it that all mobs are pooled, and they are not deleted or whatever,
+they are just made to be dead. When a mob dies it will be set to dirty which
+gives it a chance to hide it's vertices, and it will be sorted to the front.
+(They go to the front because dying and coming back to life can happen quickly
+so it's best not to require updates to the back of the vertex array too often).
+
+Since we are going to be iterating over those segregated lists, they will be
+kept free of air bubbles with the swapping around approach, so like when you
+kill a mob the loop will notice, get the item from the back and put it in it's
+place, then decrement and then do the iteration for that item then and there,
+and if it also dies we repeat the process.
+
+For the general list, mobs are never removed, they just go to the front and
+stay there.

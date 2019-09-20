@@ -9,6 +9,12 @@
 class Control {
     public:
         /**
+         * Virtual destructor so that controls can delete their children and
+         * such.
+         */
+        virtual ~Control();
+
+        /**
          * Updates the control.
          * @param mouse is a set of bytes for what mouse buttons have just been
          *              pressed.

@@ -14,6 +14,7 @@ Game::Game(Engine const *engine) {
         sf::VideoMode(windowWidth, windowHeight),
         engine->config->get("title")
     );
+    this->window.setVerticalSyncEnabled(true);
     this->view.setSize(windowWidth, windowHeight);
     this->view.setCenter(
         this->view.getSize().x / 2,
