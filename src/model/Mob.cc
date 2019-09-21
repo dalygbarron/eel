@@ -1,4 +1,4 @@
-#include "src/model/Mob.hh"
+#include "model/Mob.hh"
 
 void Mob::moveTo(sf::Vertex *index) const {
     index[0] = this->vertices[0];
@@ -8,6 +8,6 @@ void Mob::moveTo(sf::Vertex *index) const {
 }
 
 int Mob::behind(Mob *other) const {
-    return other.position.z > this->position.z ||
-        other.position.y > this->position.y;
+    return other->position.z > this->position.z ||
+        other->position.y > this->position.y;
 }

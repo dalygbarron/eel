@@ -1,6 +1,8 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
+#include "model/control/Control.hh"
+
 /**
  * Represents a button which is clicked with the mouse and contains arbitrary
  * stuff and returns an arbitrary predefined value when clicked.

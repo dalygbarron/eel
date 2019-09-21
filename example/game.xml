@@ -1,4 +1,4 @@
-<game name="Eel Test Game" version="pre alpha" engine=0x0001 width=640 height=480>
+<game name="Eel Test Game" version="pre alpha" engine="0x0001" width="640" height="480">
     <opts>
         <opt name="start" value="scripts/start.lua" />
         <opt name="tileWidth" value="64" />

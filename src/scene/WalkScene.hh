@@ -1,7 +1,13 @@
 #ifndef WALK_SCENE_H
 #define WALK_SCENE_H
 
-#include "src/scene/Scene.hh"
+#include "scene/Scene.hh"
+#include "service/Engine.hh"
+#include "model/Mob.hh"
+#include "model/Actor.hh"
+#include "model/Bullet.hh"
+#include "model/Item.hh"
+#include "model/Tile.hh"
 
 /**
  * The main scene of the game where you walk around and shoot bullets and shit.
@@ -16,9 +22,10 @@ class WalkScene: public Scene {
 
         /**
          * Creates the scene.
-         * @param level is the filename of the level.
+         * @param level  is the filename of the level.M
+         * @param engine is the engine stuff that the scene uses.
          */
-        WalkScene(char const *level);
+        WalkScene(char const *level, Engine const *engine);
 
         /**
          * Deletes all of this junk.
@@ -50,7 +57,7 @@ class WalkScene: public Scene {
         virtual void render(
             sf::RenderTarget *target,
             sf::RenderStates states
-        ) const;
+        ) const override;
 };
 
 #endif

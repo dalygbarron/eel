@@ -1,10 +1,10 @@
 CC = g++
-CFLAGS = -std=c++14 -I src/ -g
+CFLAGS = -std=c++14 -I src/
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
-MODEL = $(addprefix model/, Actor Bullet Script SpriteBatch SubStream BulletManager ActorManager)
+MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream)
 SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene WalkScene)
-CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper Button)
+CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
 SERVICE = $(addprefix service/, Config Game Radio Repository Status Engine)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils)
@@ -31,7 +31,7 @@ tests: $(OBJS) $(TEST_OBJS)
 all: app tests
 
 run: app
-	./$(OUT) example/game.ini
+	./$(OUT) example/game.xml
 
 test: all
 	./$(TEST_OUT)

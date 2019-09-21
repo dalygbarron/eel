@@ -1,9 +1,9 @@
-#include "src/scene/WalkScene.hh"
+#include "scene/WalkScene.hh"
 
-WalkScene::WalkScene(char const *level) {
+WalkScene::WalkScene(char const *level, Engine const *engine): Scene(engine) {
     // TODO: load the level and build the initial junk.
-    this->buffer.setPrimitiveType(sf::QUADS);
-    this->buffer.setUsage(sf::Usage::Stream);
+    this->buffer.setPrimitiveType(sf::Quads);
+    this->buffer.setUsage(sf::VertexBuffer::Usage::Stream);
     this->buffer.create(WalkScene::MAX_MOBS * 4);
 }
 
@@ -31,7 +31,9 @@ void WalkScene::logic(float delta) {
     }
     // Sort all mobs and upload dirty to GPU.
     sf::Vector2i dirty = this->sortMobs();
-    for (int i = dirty.x; i < dirty.y; i++) this->mobs->moveTo(i * 4);
+    for (int i = dirty.x; i < dirty.y; i++) {
+        this->mobs[i]->moveTo(this->vertices + i * 4);
+    }
     this->buffer.update(
         this->vertices + dirty.x * 4,
         (dirty.y - dirty.x) * 4,
@@ -39,6 +41,9 @@ void WalkScene::logic(float delta) {
     );
 }
 
-void render(sf::RenderTarget *target, sf::RenderStates *states) const {
+void WalkScene::render(
+    sf::RenderTarget *target,
+    sf::RenderStates states
+) const {
     target->draw(this->buffer);
 }

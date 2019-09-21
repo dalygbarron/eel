@@ -4,15 +4,25 @@
 #include "interface/Store.hh"
 
 /**
- * Contains the game's base configuration values.
+ * Contains the game's base configuration values. This is the in engine
+ * representation of the first file that is loaded and thus it must load the
+ * file itself from wherever it is, and from that point be referred to in order
+ * to find the root directory from which other files are referred to.
  */
 class Config: public Store<char const *> {
     public:
+        constexpr static char const * const NAME = "name";
+        constexpr static char const * const VERSION = "version";
+        constexpr static char const * const ENGINE = "engine";
+        constexpr static char const * const WIDTH = "width";
+        constexpr static char const * const HEIGHT = "height";
+
         /**
-         * Creates config object.
-         * @param file is the file in which the game configuration is stored.
+         * Creates the config object and loads in it's shit.
+         * @param filename is the file that the config data should be read
+         *                 from.
          */
-        Config(char const *file);
+        Config(char const *filename);
 
         /**
          * Clears out all the junk hell yeah.
@@ -35,24 +45,56 @@ class Config: public Store<char const *> {
          */
         int inRoot(char *buffer, char const *file) const;
 
+        /**
+         * Gives you the name of the game.
+         * @return the name of the game.
+         */
         char const *getName() const;
 
+        /**
+         * Gives you the game's version.
+         * @return the version which is a piece of text.
+         */
         char const *getVersion() const;
 
-        int getEngine() const;
+        /**
+         * Gives the major engine version that the game needs.
+         * @return the version number.
+         */
+        int getEngineMajor() const;
 
+        /**
+         * Gives the minor engine version that the game needs.
+         * @return version number.
+         */
+        int getEngineMinor() const;
+
+        /**
+         * Gives the screen width that the game wants.
+         * @return the width.
+         */
         int getWidth() const;
 
+        /**
+         * Gives the screen height that the game wants.
+         * @return the height.
+         */
         int getHeight() const;
-
 
     private:
         char *root;
         char *name;
         char *version;
-        int engine;
+        int engineMajor;
+        int engineMinor;
         int width;
         int height;
+
+        /**
+         * Parses the xml data format.
+         * @param data is the data it is parsing.
+         */
+        void parseXml(char *data);
 };
 
 #endif

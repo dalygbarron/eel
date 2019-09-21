@@ -59,8 +59,8 @@ int main(int argc, char **argv) {
         int status = game.run();
         spdlog::info("Exiting Normally");
         return status;
-    } catch(...) {
-        spdlog::warn("Aborting");
+    } catch(int e) {
+        spdlog::warn("Aborting {}", e);
         return -1;
     }
 }

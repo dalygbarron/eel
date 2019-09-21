@@ -110,5 +110,6 @@ namespace Utils {
      * @param colour   is the colour to colour the quad.
      */
     void colourQuad(sf::Vertex *vertices, sf::Color colour);
+};
 
 #endif

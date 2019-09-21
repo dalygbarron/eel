@@ -1,6 +1,6 @@
-#include "src/model/control/Button.hh"
+#include "model/control/Button.hh"
 
-Button::Button(int id, Control *content): vertices(sf::Quads) {
+Button::Button(int id, Control *content) {
     this->id = id;
     this->content = content;
 }
@@ -19,10 +19,10 @@ void Button::render(sf::RenderTarget *target, sf::RenderStates states) const {
     // TODO: display quads.
 }
 
-char const *getDescription() const {
+char const *Button::getDescription() const {
     return "button";
 }
 
-sf::FloatRect resize(sf::FloatRect bounds) {
+sf::FloatRect Button::resize(sf::FloatRect bounds) {
     // TODO: actually this is where we make those quads, not up there.
 }
