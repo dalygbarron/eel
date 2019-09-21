@@ -2,19 +2,28 @@
 #define TILE_MAP_H
 
 /**
- * Represents a map made out of tiles that can be looked at and collided into and all that kind of stuff.
- * At least for the time being. it only renders tiles that appear under active parts of the scene, and only does a
- * fairly simple collision model of the map which is that if there is any collidable tile on any layer then that makes
- * that unit a collision.
+ * Represents a game map as it is loaded from the tiled editor.
  */
 class TileMap {
-public:
+    public:
+        /**
+         * Creates a tilemap which is totally empty.
+         * @param width  is the width of the map.
+         * @param height is the height of the map.
+         * @param depth  is the depth of the map.
+         */
+        TileMap(int width, int height, int depth);
 
-private:
-    int width;
-    int height;
-    char 
+        /**
+         * Creates a tilemap out of an input stream.
+         * @param stream is the input stream to create the file from.
+         */
+        TileMap(sf::InputStream *stream);
 
+    private:
+        int width;
+        int height;
+        char *tiles;
 };
 
 #endif

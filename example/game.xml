@@ -1,0 +1,15 @@
+<game name="Eel Test Game" version="pre alpha" engine=0x0001 width=640 height=480>
+    <opts>
+        <opt name="start" value="scripts/start.lua" />
+        <opt name="tileWidth" value="64" />
+        <opt name="tileHeight" value="96" />
+        <opt name="tileRatio" value="2" />
+        <opt name="font" value="bocklins.ttf" />
+        <opt name="fg" value="images/redMarbel.png" />
+        <opt name="bg" value="images/bg.png" />
+        <opt name="highlight" value="0xff0012ff" />
+        <opt name="border" value="3" />
+        <opt name="fontNormal" value="14" />
+        <opt name="fontBig" value="20" />
+    </opts>
+</game>

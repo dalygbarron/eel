@@ -30,7 +30,10 @@ int Utils::endOfWord(char const *string) {
 int Utils::startOfNextWord(char const *string) {
     if (!string[0]) return 0;
     for (int i = 1; string[i]; i++) {
-        if (!Utils::isWhitespace(string[i] && Utils::isWhitespace(string[i - 1]))) return i;
+        if (!Utils::isWhitespace(string[i] &&
+            Utils::isWhitespace(string[i - 1]))) {
+            return i;
+        }
     }
     return 0;
 }
@@ -44,7 +47,10 @@ void Utils::fitText(char const *string, sf::FloatRect bounds, sf::Text *text) {
         if (!word) break;
         if (readHead + word >= Constant::SMALL_TEXT_BUFFER_SIZE) {
             writeHead = Constant::SMALL_TEXT_BUFFER_SIZE - 1;
-            spdlog::error("Buffer was too small to fit whole text '{}'", string);
+            spdlog::error(
+                "Buffer was too small to fit whole text '{}'",
+                string
+            );
             break;
         }
         for (int i = 0; i < word; i++) {
@@ -100,7 +106,11 @@ float Utils::random() {
     return (float)rand() / RAND_MAX;
 }
 
-sf::View Utils::getLetterboxView(sf::View view, int windowWidth, int windowHeight) {
+sf::View Utils::getLetterboxView(
+    sf::View view,
+    int windowWidth,
+    int windowHeight
+) {
     float windowRatio = windowWidth / (float)windowHeight;
     float viewRatio = view.getSize().x / (float)view.getSize().y;
     float sizeX = 1;
@@ -127,7 +137,10 @@ int Utils::parseInt(char const *text) {
 void Utils::fitQuad(sf::Vertex *vertices, sf::FloatRect rect) {
     vertices[0].position = sf::Vector2f(rect.left, rect.top);
     vertices[1].position = sf::Vector2f(rect.left + rect.width, rect.top);
-    vertices[2].position = sf::Vector2f(rect.left + rect.width, rect.top + rect.height);
+    vertices[2].position = sf::Vector2f(
+        rect.left + rect.width,
+        rect.top + rect.height
+    );
     vertices[3].position = sf::Vector2f(rect.left, rect.top + rect.height);
 }
 
@@ -136,95 +149,4 @@ void Utils::colourQuad(sf::Vertex *vertices, sf::Color colour) {
     vertices[1].color = colour;
     vertices[2].color = colour;
     vertices[3].color = colour;
-}
-
-void Utils::makeBox(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg) {
-    // set up the middle part.
-    Utils::fitQuad(vertices, sf::FloatRect(
-        dimensions.left + border,
-        dimensions.top + border,
-        dimensions.width - border,
-        dimensions.height - border
-    ));
-    // set up the border quads in a swastika formation.
-    Utils::fitQuad(vertices + 4, sf::FloatRect(
-        dimensions.left,
-        dimensions.top,
-        border,
-        dimensions.height - border
-    ));
-    Utils::fitQuad(vertices + 8, sf::FloatRect(
-        dimensions.left + border,
-        dimensions.top,
-        dimensions.width - border,
-        border
-    ));
-    Utils::fitQuad(vertices + 12, sf::FloatRect(
-        dimensions.left + dimensions.width - border,
-        dimensions.top + border,
-        border,
-        dimensions.height - border
-    ));
-    Utils::fitQuad(vertices + 16, sf::FloatRect(
-        dimensions.left,
-        dimensions.top + dimensions.height - border,
-        dimensions.width - border,
-        border
-    ));
-    // Colouring.
-    for (int i = 0; i < 4; i++) vertices[i].color = bg;
-    for (int i = 4; i < 4 + 4 * 4; i++) vertices[i].color = fg;
-}
-
-void Utils::makeStack(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg) {
-    // Middle part.
-    Utils::fitQuad(vertices, sf::FloatRect(
-        dimensions.left,
-        dimensions.top + border,
-        dimensions.width,
-        dimensions.height - border * 2
-    ));
-    // Top and bottom.
-    Utils::fitQuad(vertices + 4, sf::FloatRect(
-        dimensions.left,
-        dimensions.top,
-        dimensions.width,
-        border
-    ));
-    Utils::fitQuad(vertices + 8, sf::FloatRect(
-        dimensions.left,
-        dimensions.top + dimensions.height - border,
-        dimensions.width,
-        border
-    ));
-    // Colouring.
-    for (int i = 0; i < 4; i++) vertices[i].color = bg;
-    for (int i = 4; i < 4 + 2 * 4; i++) vertices[i].color = fg;
-}
-
-void Utils::makeWall(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg) {
-    // Middle part.
-    Utils::fitQuad(vertices, sf::FloatRect(
-        dimensions.left + border,
-        dimensions.top,
-        dimensions.width - border * 2,
-        dimensions.height
-    ));
-    // Top and bottom.
-    Utils::fitQuad(vertices + 4, sf::FloatRect(
-        dimensions.left,
-        dimensions.top,
-        border,
-        dimensions.height
-
-    ));
-    Utils::fitQuad(vertices + 8, sf::FloatRect(
-        dimensions.left + dimensions.width - border,
-        dimensions.top,
-        border,
-        dimensions.height
-    ));
-    // Colouring.
-    for (int i = 0; i < 4; i++) vertices[i].color = bg;
-    for (int i = 4; i < 4 + 2 * 4; i++) vertices[i].color = fg;
 }

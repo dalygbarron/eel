@@ -1,41 +1,13 @@
 #include "static/Constant.hh"
 #include "static/Utils.hh"
-#include "static/inih.hh"
+#include "static/rapidxml/rapidxml.hpp"
 #include "static/spdlog/spdlog.h"
 #include "service/Config.hh"
 #include <string>
 
 Config::Config(char const *file): Store(file) {
     spdlog::info("Loading config data from '{}'", file);
-    // Load in flags.
-    if (ini_parse(file, Config::handleIni, this) < 0) {
-        spdlog::critical("Could not open file '{}'", file);
-        throw -1;
-    }
-    // Validate version.
-    int engine = Utils::parseInt(this->get("engine"));
-    int major = (engine >> 8) & 0xff;
-    int minor = engine & 0xff;
-    if (major != Constant::VERSION_MAJOR) {
-        spdlog::critical(
-            "Game requires major version {}, is {}.{}.{}",
-            major,
-            Constant::VERSION_MAJOR,
-            Constant::VERSION_MINOR,
-            Constant::VERSION_REVISION
-        );
-        throw -1;
-    } else if (minor > Constant::VERSION_MINOR) {
-        spdlog::critical(
-            "Game requires minimum version {}.{}, is {}.{}.{}",
-            major,
-            minor,
-            Constant::VERSION_MAJOR,
-            Constant::VERSION_MINOR,
-            Constant::VERSION_REVISION
-        );
-        throw -1;
-    }
+    // TODO: load the data from xml.
     // Save root directory where file was.
     int directory = -1;
     for (int i = 0; file[i]; i++) {
@@ -57,13 +29,4 @@ char const *Config::getRoot() const {
 
 int Config::inRoot(char *buffer, char const *file) const {
     return sprintf(buffer, "%s/%s", this->root, file);
-}
-
-int Config::handleIni(void *reference, char const *section, char const *name, char const *value) {
-    spdlog::debug("Config value '{}': '{}'", name, value);
-    char *newValue = new char[strlen(value)];
-    strcpy(newValue, value);
-    Config *config = (Config *)reference;
-    config->store(name, newValue);
-    return 1;
 }

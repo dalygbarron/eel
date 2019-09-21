@@ -8,6 +8,7 @@
 class Mob {
     public:
         int dirty = false;
+        int alive = false;
         sf::Vector3f position;
 
         /**
