@@ -3,11 +3,11 @@ CFLAGS = -std=c++14 -I src/ -g
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
 MODEL = $(addprefix model/, Actor Bullet Script SpriteBatch SubStream BulletManager ActorManager)
-SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene)
-CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
+SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene WalkScene)
+CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper Button)
 SERVICE = $(addprefix service/, Config Game Radio Repository Status Engine)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
-STATIC = $(addprefix static/, Utils Read)
+STATIC = $(addprefix static/, Utils)
 TEST = $(addprefix test/, testGeneral testBullet testUtils helpers)
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) ))

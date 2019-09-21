@@ -4,8 +4,9 @@
 #include <SFML/Graphics.hpp>
 
 /**
- * Contains generally helpful functions that are generally helpful without forming a profound aspect of the system.
- * This namespace should be completely free of any state, and just have some helpful bits of code in it.
+ * Contains generally helpful functions that are generally helpful without
+ * forming a profound aspect of the system. This namespace should be completely
+ * free of any state, and just have some helpful bits of code in it.
  */
 namespace Utils {
     /**
@@ -39,16 +40,17 @@ namespace Utils {
     int endOfWord(char const *string);
 
     /**
-     * Tells you the number of characters from the start of the string to the start of the next string.
+     * Tells you the number of characters from the start of the string to the
+     * start of the next string.
      * @param is the string to check on.
      */
     int startOfNextWord(char const *string);
 
     /**
      * fits some text into a given space.
-     * @param string    is     the text to fit in.
-     * @param FloatRect bounds are the boundaries that the text must fit within.
-     * @param text      is     the text object to write it to.
+     * @param string is the text to fit in.
+     * @param bounds are the boundaries that the text must fit within.
+     * @param text   is the text object to write it to.
      */
     void fitText(char const *string, sf::FloatRect bounds, sf::Text *text);
 
@@ -80,7 +82,11 @@ namespace Utils {
      * @param windowHeight is the height of the original window.
      * @return the new letterboxed version of the view.
      */
-    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight);
+    sf::View getLetterboxView(
+        sf::View view,
+        int windowWidth,
+        int windowHeight
+    );
 
     /**
      * Reads a string containing a number and turns it into an int.
@@ -91,7 +97,8 @@ namespace Utils {
     int parseInt(char const *text);
 
     /**
-     * Takes a set of vertices and a rectangle and sets the vertices positions to that of the rectangle.
+     * Takes a set of vertices and a rectangle and sets the vertices positions
+     * to that of the rectangle.
      * @param vertices is a pointer to the four vertices to arrange.
      * @param rect     is the rectangle to make the vertices reflect.
      */
@@ -103,37 +110,5 @@ namespace Utils {
      * @param colour   is the colour to colour the quad.
      */
     void colourQuad(sf::Vertex *vertices, sf::Color colour);
-
-    /**
-     * Forms 20 vertices into a box on the screen with a nice border. The middle of the box will be the first 4
-     * vertices and the rest will be the border so if you want to recolour bits it should not be too hard.
-     * @param vertices   is a pointer to the vertices.
-     * @param dimensions is the dimensions of the box.
-     * @param border     is the thickness of the border (inside the dimensions).
-     * @param fg         is the colour of the border.
-     * @param bg         is the colour of the rest of the box.
-     */
-    void makeBox(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg);
-
-    /**
-     * Forms 12 vertices into a box that has a border only on the top and bottom.
-     * @param vertices   is a pointer to the vertices.
-     * @param dimensions is the dimensions of the box.
-     * @param border     is the thickness of the border (inside the dimensions).
-     * @param fg         is the colour of the border.
-     * @param bg         is the colour of the rest of the box.
-     */
-    void makeStack(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg);
-
-    /**
-     * Forms 12 vertices into a box that has a border only on the left and right sides.
-     * @param vertices   is a pointer to the vertices.
-     * @param dimensions is the dimensions of the box.
-     * @param border     is the thickness of the border (inside the dimensions).
-     * @param fg         is the colour of the border.
-     * @param bg         is the colour of the rest of the box.
-     */
-    void makeWall(sf::Vertex *vertices, sf::FloatRect dimensions, float border, sf::Color fg, sf::Color bg);
-};
 
 #endif
