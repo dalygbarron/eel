@@ -94,6 +94,12 @@ char *Utils::readFile(char const *file) {
     return string;
 }
 
+char *Utils::moveString(char const *string) {
+    char *moved = new char[strlen(string) + 1];
+    strcpy(moved, string);
+    return moved;
+}
+
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
     while (pos.x < bounds.left) pos.x += bounds.width;
     while (pos.x >= bounds.left + bounds.width) pos.x -= bounds.width;

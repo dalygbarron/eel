@@ -62,6 +62,14 @@ namespace Utils {
     char *readFile(char const *file);
 
     /**
+     * Moves a string into a new piece of memory that fits it. Useful if the
+     * passed string is going to be deleted by some other code.
+     * @param string is the string to make a copy of.
+     * @return a pointer to the new string.
+     */
+    char *moveString(char const *string);
+
+    /**
      * Wraps a vector around inside a rect.
      * @param pos    is a position to be fitted inside the rectangle.
      * @param bounds is the bounds within which the position is wrapped around.

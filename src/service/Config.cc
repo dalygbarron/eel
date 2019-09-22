@@ -37,35 +37,4 @@ int Config::inRoot(char *buffer, char const *file) const {
 }
 
 void Config::parseXml(char *data) {
-    rapidxml::xml_document<> doc;
-    try {
-        doc.parse<0>(data);
-    } catch (rapidxml::parse_error e) {
-        spdlog::critical("parsing exception. should add the error message");
-        throw -1;
-    }
-    rapidxml::xml_node<> *node = doc.first_node("game");
-    for (rapidxml::xml_attribute<> *attr = node->first_attribute();
-        attr; attr = attr->next_attribute()) {
-        char *name = attr->name();
-        char *value = attr->value();
-        if (strcmp(name, NAME) == 0) {
-
-        } else if (strcmp(name, VERSION) == 0) {
-
-        } else if (strcmp(name, ENGINE) == 0) {
-
-        } else if (strcmp(name, WIDTH) == 0) {
-            
-        } else if (strcmp(name, HEIGHT) == 0) {
-
-        } else {
-            spdlog::warn(
-                "ignoring unknown game attribute '{}' => '{}'",
-                name,
-                value
-            );
-        }
-        spdlog::info("'{}' => '{}'", attr->name(), attr->value());
-    }
 }

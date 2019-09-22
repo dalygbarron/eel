@@ -22,7 +22,7 @@ class WalkScene: public Scene {
 
         /**
          * Creates the scene.
-         * @param level  is the filename of the level.M
+         * @param level  is the filename of the level.
          * @param engine is the engine stuff that the scene uses.
          */
         WalkScene(char const *level, Engine const *engine);
