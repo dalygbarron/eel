@@ -4,7 +4,7 @@
         <opt name="tileWidth" value="64" />
         <opt name="tileHeight" value="96" />
         <opt name="tileRatio" value="2" />
-        <opt name="font" value="bocklins.ttf" />
+        <opt name="font" value="bocklin.ttf" />
         <opt name="fg" value="images/redMarbel.png" />
         <opt name="bg" value="images/bg.png" />
         <opt name="highlight" value="0xff0012ff" />

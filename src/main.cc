@@ -50,11 +50,26 @@ int main(int argc, char **argv) {
         Radio radio(&repository);
         Engine engine(&config, &radio, 0, &repository, &controlBuilder);
         Game game(&engine);
+        // Make sure the engine version is compatible with the game.
+        int engineMajor = config.getEngineMajor();
+        int engineMinor = config.getEngineMinor();
+        if (Constant::VERSION_MAJOR && engineMajor != Constant::VERSION_MAJOR) {
+            spdlog::critical("Game is for Eel version {}", engineMajor);
+            throw -1;
+        }
+        if (Constant::VERSION_MINOR < engineMinor) {
+            spdlog::critical(
+                "Game requires at least Eel version {}.{}",
+                engineMajor,
+                engineMinor
+            );
+            throw -1;
+        }
         // run the game.
         spdlog::info(
             "Starting '{}' version '{}'",
-            config.get("title"),
-            config.get("version")
+            config.getName(),
+            config.getVersion()
         );
         int status = game.run();
         spdlog::info("Exiting Normally");

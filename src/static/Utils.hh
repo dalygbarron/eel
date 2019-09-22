@@ -86,15 +86,10 @@ namespace Utils {
     /**
      * Gives a view that will maintain the game's aspect ratio when resizing.
      * @param view         is the view as it has been changed.
-     * @param windowWidth  is the width of the original window.
-     * @param windowHeight is the height of the original window.
+     * @param dimensions is a vector of the window dimensions.
      * @return the new letterboxed version of the view.
      */
-    sf::View getLetterboxView(
-        sf::View view,
-        int windowWidth,
-        int windowHeight
-    );
+    sf::View getLetterboxView(sf::View view, sf::Vector2i dimensions);
 
     /**
      * Reads a string containing a number and turns it into an int.

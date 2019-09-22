@@ -8,23 +8,18 @@
 Game::Game(Engine const *engine) {
     this->engine = engine;
     // set up rendering window.
-    int windowWidth = Utils::parseInt(engine->config->get("width"));
-    int windowHeight = Utils::parseInt(engine->config->get("height"));
+    sf::Vector2i dimensions = engine->config->getDimensions();
     this->window.create(
-        sf::VideoMode(windowWidth, windowHeight),
-        engine->config->get("title")
+        sf::VideoMode(dimensions.x, dimensions.y),
+        engine->config->getName()
     );
     this->window.setVerticalSyncEnabled(true);
-    this->view.setSize(windowWidth, windowHeight);
+    this->view.setSize(sf::Vector2f(dimensions.x, dimensions.y));
     this->view.setCenter(
         this->view.getSize().x / 2,
         this->view.getSize().y / 2
     );
-    this->view = Utils::getLetterboxView(
-        this->view,
-        windowWidth,
-        windowHeight
-    );
+    this->view = Utils::getLetterboxView(this->view, dimensions);
     // set up first scene.
     char startFile[Constant::FILENAME_BUFFER_SIZE];
     engine->config->inRoot(startFile, engine->config->get("start"));
@@ -51,8 +46,7 @@ unsigned char Game::handleEvents() {
         } else if (event.type == sf::Event::Resized) {
             this->view = Utils::getLetterboxView(
                 this->view,
-                event.size.width,
-                event.size.height
+                sf::Vector2i(event.size.width, event.size.height)
             );
         } else if (event.type == sf::Event::MouseButtonPressed) {
             mouse = 1;

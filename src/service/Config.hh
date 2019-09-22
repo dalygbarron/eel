@@ -2,6 +2,7 @@
 #define CONFIG_H
 
 #include "interface/Store.hh"
+#include <SFML/Graphics.hpp>
 
 /**
  * Contains the game's base configuration values. This is the in engine
@@ -70,16 +71,10 @@ class Config: public Store<char const *> {
         int getEngineMinor() const;
 
         /**
-         * Gives the screen width that the game wants.
-         * @return the width.
+         * Gives the desired virtual screen dimensions.
+         * @return the dimensions as a vector.
          */
-        int getWidth() const;
-
-        /**
-         * Gives the screen height that the game wants.
-         * @return the height.
-         */
-        int getHeight() const;
+        sf::Vector2i getDimensions() const;
 
     private:
         char *root;
@@ -87,14 +82,14 @@ class Config: public Store<char const *> {
         char *version;
         int engineMajor;
         int engineMinor;
-        int width;
-        int height;
+        sf::Vector2i dimensions;
 
         /**
-         * Parses the xml data format.
-         * @param data is the data it is parsing.
+         * Loads the game config data in from a file and sets everything using
+         * it.
+         * @param filename is the name of the file to load from.
          */
-        void parseXml(char *data);
+        void parseXml(char const *filename);
 };
 
 #endif

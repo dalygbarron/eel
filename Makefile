@@ -7,7 +7,7 @@ SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene WalkSce
 CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
 SERVICE = $(addprefix service/, Config Game Radio Repository Status Engine)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
-STATIC = $(addprefix static/, Utils)
+STATIC = $(addprefix static/, Utils xml/pugixml)
 TEST = $(addprefix test/, testGeneral testBullet testUtils helpers)
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) ))

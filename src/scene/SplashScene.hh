@@ -24,8 +24,8 @@ class SplashScene: public Scene {
         static unsigned int const LOGO_SIZE;
         sf::Texture texture;
         sf::RectangleShape shape;
-        float width;
-        float height;
+        int width;
+        int height;
         char const *startScript;
         float timer;
 

@@ -4,8 +4,8 @@
 SplashScene::SplashScene(Engine const *engine): Scene(engine) {
     this->texture.loadFromMemory(SplashScene::LOGO, SplashScene::LOGO_SIZE);
     this->shape.setTexture(&(this->texture));
-    this->width = Utils::parseInt(engine->config->get("width"));
-    this->height = Utils::parseInt(engine->config->get("height"));
+    this->width = engine->config->getDimensions().x;
+    this->height = engine->config->getDimensions().y;
     this->shape.setSize(sf::Vector2f(this->width, this->height));
     this->startScript = engine->config->get("start");
     this->timer = 0;

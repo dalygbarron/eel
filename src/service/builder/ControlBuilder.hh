@@ -16,8 +16,7 @@ class ControlBuilder {
     int border;
     int fontSizeNormal;
     int fontSizeBig;
-    int screenWidth;
-    int screenHeight;
+    sf::Vector2i screen;
 
 public:
     /**

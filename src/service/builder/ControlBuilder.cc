@@ -10,8 +10,7 @@ ControlBuilder::ControlBuilder(Repository *repository, Config const *config) {
     this->border = Utils::parseInt(config->get("border"));
     this->fontSizeNormal = Utils::parseInt(config->get("fontNormal"));
     this->fontSizeBig = Utils::parseInt(config->get("fontBig"));
-    this->screenWidth = Utils::parseInt(config->get("width"));
-    this->screenHeight = Utils::parseInt(config->get("height"));
+    this->screen = config->getDimensions();
 }
 
 Control *ControlBuilder::speechBox(char const *name, char const *text) const {
@@ -22,10 +21,10 @@ Control *ControlBuilder::speechBox(char const *name, char const *text) const {
     panel->addChild(textBox);
     panel->addChild(new Bopper());
     panel->resize(sf::FloatRect(
-        this->screenWidth / 4,
-        this->screenHeight / 4 * 3,
-        this->screenWidth / 2,
-        this->screenHeight / 4
+        this->screen.x / 4,
+        this->screen.y / 4 * 3,
+        this->screen.x / 2,
+        this->screen.y / 4
     ));
     return panel;
 }
@@ -36,10 +35,10 @@ Control *ControlBuilder::declarationBox(char const *text) const {
     panel->addChild(textBox);
     panel->addChild(new Bopper());
     panel->resize(sf::FloatRect(
-        this->screenWidth / 4,
-        this->screenHeight / 4 * 3,
-        this->screenWidth / 2,
-        this->screenHeight / 4
+        this->screen.x / 4,
+        this->screen.y / 4 * 3,
+        this->screen.x / 2,
+        this->screen.y / 4
     ));
     return panel;
 }

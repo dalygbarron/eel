@@ -112,12 +112,8 @@ float Utils::random() {
     return (float)rand() / RAND_MAX;
 }
 
-sf::View Utils::getLetterboxView(
-    sf::View view,
-    int windowWidth,
-    int windowHeight
-) {
-    float windowRatio = windowWidth / (float)windowHeight;
+sf::View Utils::getLetterboxView(sf::View view, sf::Vector2i dimensions) {
+    float windowRatio = dimensions.x / (float)dimensions.y;
     float viewRatio = view.getSize().x / (float)view.getSize().y;
     float sizeX = 1;
     float sizeY = 1;
