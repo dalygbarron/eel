@@ -7,22 +7,14 @@
 class TileMap {
     public:
         /**
-         * Creates a tilemap which is totally empty.
-         * @param width  is the width of the map.
-         * @param height is the height of the map.
-         * @param depth  is the depth of the map.
-         */
-        TileMap(int width, int height, int depth);
-
-        /**
          * Creates a tilemap out of an input stream.
-         * @param stream is the input stream to create the file from.
+         * @param data is the contents of the tiled editor xml file the map is
+         *             being loaded from.
          */
-        TileMap(sf::InputStream *stream);
+        TileMap(char const *data);
 
     private:
-        int width;
-        int height;
+        sf::Vector3i dimensions;
         char *tiles;
 };
 

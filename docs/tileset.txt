@@ -1,0 +1,21 @@
+TILESET
+===============================================================================
+
+So tilemaps are all gonna have tilesets and there will be different tile sets
+you see which is a bit of a pain in the balls you see because we want to have
+all of the pictures stuck into a giant texture so how do we handle the
+different tilesets that we allegedly need.
+
+Alright I think that this shows we are going to need that big complicated idea
+I had about having the texture atlas start after a reserved space at the top
+which is where we will graft on whatever tileset is needed at the current time,
+which is decided not by the tile map, but by the walking scene. The tilemap
+will load the tileset (if it is not yet loaded) and have a reference to it, but
+the walking scene will just use the tileset of the first tilemap that it loads
+and from that time on it will keep using it.
+
+If the walking scene has to load in a map which has got a different tileset to
+the tileset that it is currently using then it will simply have to shit itself
+and emit a warning but after that we can just keep running and see whatever
+kind of fucked up looking graphics we get from using ids from one tileset on
+another tileset.
