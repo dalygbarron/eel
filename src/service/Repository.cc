@@ -14,6 +14,12 @@ Repository::Repository(Config const *config) {
     }
 }
 
+Repository::~Repository() {
+    this->textures.clear();
+    this->texts.clear();
+
+}
+
 sf::Texture *Repository::getTexture(char const *name) {
     spdlog::info("get texture: '{}'", name);
     try {
@@ -68,6 +74,19 @@ sf::SoundBuffer *Repository::getSound(char const *name) {
 sf::Music *Repository::getSong(char const *name) {
     spdlog::info("get song: '{}'", name);
 
+}
+
+Tileset *Repository::getTileset(char const *name) {
+    spdlog::info("Get tileset: '{}'", name);
+    try {
+        return this->tilesets.at(name);
+    } catch(...) {
+        char const *data = this->getText(name);
+        Tileset *tileset = new Tileset(data);
+        this->tilesets[name] = tileset;
+        return tileset;
+    }
+    
 }
 
 char const *Repository::getText(char const *name) {

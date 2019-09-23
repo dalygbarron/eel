@@ -23,6 +23,11 @@ class Repository {
         Repository(Config const *config);
 
         /**
+         * Deletes everything the repository is storing.
+         */
+        ~Repository();
+
+        /**
          * Gives you a texture from a given file. After the first time it gets
          * loaded it stores it for faster loading.
          * @param name is the filename of the texture.
@@ -54,6 +59,13 @@ class Repository {
         sf::Music *getSong(char const *name);
 
         /**
+         * Gives you a tileset which is cached.
+         * @param name is the name of the tileset to load.
+         * @return a pointer to the tileset.
+         */
+        Tileset *getTileset(char const *name);
+
+        /**
          * Gives you a pointer to a file as a string.
          * @param name is the name of the text to load.
          * @return a pointer to the text.
@@ -71,6 +83,7 @@ class Repository {
         sf::Font font;
         std::unordered_map<std::string, sf::Texture *> textures;
         std::unordered_map<std::string, SpriteBatch *> spriteBatches;
+        std::unordered_map<std::string, Tileset *> tilesets;
         std::unordered_map<std::string, char *> texts;
         std::unordered_map<std::string, sf::SoundBuffer *> sounds;
 };

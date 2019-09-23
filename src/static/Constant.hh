@@ -6,7 +6,7 @@
  */
 namespace Constant {
     // Versions.
-    constexpr static int const VERSION_MAJOR = 1;
+    constexpr static int const VERSION_MAJOR = 0;
     constexpr static int const VERSION_MINOR = 1;
     constexpr static int const VERSION_REVISION = 0;
     // Engine constant values.

@@ -11,7 +11,7 @@
  */
 class Tile: public Mob {
 public:
-    char value;
+    unsigned char value;
     char const *effect;
 };
 

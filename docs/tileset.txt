@@ -19,3 +19,7 @@ the tileset that it is currently using then it will simply have to shit itself
 and emit a warning but after that we can just keep running and see whatever
 kind of fucked up looking graphics we get from using ids from one tileset on
 another tileset.
+
+Also, when a tileset is loaded for the first time, if it's image is too big it
+will either not load it and crash the program, or it will only load the portion
+that fits into the allowed space which should be 8 * 64 wide and 16 * 96 tall.
