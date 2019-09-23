@@ -27,7 +27,7 @@ void SplashScene::logic(float delta) {
     float scale = Utils::random() / 20 + 1;
     this->shape.setScale(scale, scale);
     this->shape.setFillColor(
-        sf::Color(rand() % 255, rand() % 255, rand() % 255, rand() % 40)
+        sf::Color(rand() % 255, rand() % 255, rand() % 255, rand() % 7)
     );
     float x = Utils::random() * this->width;
     float y = Utils::random() * this->height;

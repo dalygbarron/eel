@@ -3,6 +3,7 @@
 
 #include "service/Config.hh"
 #include "model/SpriteBatch.hh"
+#include "model/Tileset.hh"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <unordered_map>

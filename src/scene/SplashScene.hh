@@ -9,7 +9,7 @@
 class SplashScene: public Scene {
     public:
         // TODO: make this short in debug mode and long in main mode.
-        constexpr static float const WAIT = 1.32;
+        constexpr static float const WAIT = 2.32;
 
         /**
          * Does setting up.

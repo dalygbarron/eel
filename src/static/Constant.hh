@@ -17,6 +17,8 @@ namespace Constant {
     constexpr static int const TRANSITION_BUFFER_SIZE = 1024;
     constexpr static int const SOUND_LIMIT = 32;
     constexpr static int const SOUND_LISTENER_LIMIT = 8;
+    constexpr static int const TILESET_MAX_WIDTH = 512;
+    constexpr static int const TILESET_MAX_HEIGHT = 1536;
     constexpr static char const *SCRIPT_ENTRY = "main";
 };
 

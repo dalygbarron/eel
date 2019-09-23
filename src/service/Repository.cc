@@ -82,7 +82,7 @@ Tileset *Repository::getTileset(char const *name) {
         return this->tilesets.at(name);
     } catch(...) {
         char const *data = this->getText(name);
-        Tileset *tileset = new Tileset(data);
+        Tileset *tileset = new Tileset(data, this);
         this->tilesets[name] = tileset;
         return tileset;
     }
