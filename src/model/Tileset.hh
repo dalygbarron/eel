@@ -30,20 +30,20 @@ class Tileset {
          * Gives the name of the tileset.
          * @return the name.
          */
-        char const *getName();
+        char const *getName() const;
 
         /**
          * Gives the size of a tile in the tileset.
          * @return the size as a vector.
          */
-        sf::Vector2i getTileSize();
+        sf::Vector2i getTileSize() const;
 
         /**
          * Takes four vertices and makes them into a quad for the given tile.
          * @param vertices is a pointer to the first vertex.
          * @param id       is the id of the tile to make.
          */
-        void buildQuad(sf::Vertex *vertices, unsigned char id);
+        void buildQuad(sf::Vertex *vertices, unsigned char id) const;
 
         /**
          * Places this texture on top of another texture presumed to be a
@@ -53,7 +53,7 @@ class Tileset {
          * too big it will log an error and crash.
          * @param atlas is the texture to draw this tileset onto.
          */
-        void apply(sf::Texture *atlas);
+        void apply(sf::Texture *atlas) const;
 
     private:
         char const *name;

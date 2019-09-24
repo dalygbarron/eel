@@ -47,25 +47,28 @@ Tileset::Tileset(char const *data, Repository *repository) {
         throw -1;
     }
     this->texture = repository->getTexture(image.attribute("source").value());
+    // TODO: presumably tile properties are going to be stored in the tileset.
+    //       need to load in the creator defined tiled height which will default
+    //       to 0. Maybe other custom properties as well, I do not know.
 }
 
 Tileset::~Tileset() {
     delete this->name;
 }
 
-char const *Tileset::getName() {
+char const *Tileset::getName() const {
     return this->name;
 }
 
-sf::Vector2i Tileset::getTileSize() {
+sf::Vector2i Tileset::getTileSize() const {
     return this->tileSize;
 }
 
-void Tileset::buildQuad(sf::Vertex *vertices, unsigned char id) {
+void Tileset::buildQuad(sf::Vertex *vertices, unsigned char id) const {
 
 }
 
-void Tileset::apply(sf::Texture *atlas) {
+void Tileset::apply(sf::Texture *atlas) const {
     sf::Vector2u size = this->texture->getSize();
     if (size.x > Constant::TILESET_MAX_WIDTH ||
         size.y > Constant::TILESET_MAX_HEIGHT) {
