@@ -4,6 +4,7 @@
 #include "service/Config.hh"
 #include "model/SpriteBatch.hh"
 #include "model/Tileset.hh"
+#include "model/TileMap.hh"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <unordered_map>
@@ -64,7 +65,14 @@ class Repository {
          * @param name is the name of the tileset to load.
          * @return a pointer to the tileset.
          */
-        Tileset *getTileset(char const *name);
+        Tileset const *getTileset(char const *name);
+
+        /**
+         * Gives you a tilemap which is cached.
+         * @param name is the filename to get it from originally.
+         * @return a pointer to the tile map.
+         */
+        TileMap const *getTileMap(char const *name);
 
         /**
          * Gives you a pointer to a file as a string.
@@ -85,6 +93,7 @@ class Repository {
         std::unordered_map<std::string, sf::Texture *> textures;
         std::unordered_map<std::string, SpriteBatch *> spriteBatches;
         std::unordered_map<std::string, Tileset *> tilesets;
+        std::unordered_map<std::string, TileMap *> tileMaps;
         std::unordered_map<std::string, char *> texts;
         std::unordered_map<std::string, sf::SoundBuffer *> sounds;
 };

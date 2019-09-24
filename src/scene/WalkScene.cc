@@ -1,7 +1,7 @@
 #include "scene/WalkScene.hh"
 
-WalkScene::WalkScene(char const *level, Engine const *engine): Scene(engine) {
-    // TODO: load the level and build the initial junk.
+WalkScene::WalkScene(Engine const *engine, char const *level): Scene(engine) {
+    this->map = engine->repository->getTileMap(level);
     this->buffer.setPrimitiveType(sf::Quads);
     this->buffer.setUsage(sf::VertexBuffer::Usage::Stream);
     this->buffer.create(WalkScene::MAX_MOBS * 4);

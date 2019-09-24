@@ -8,6 +8,7 @@
 #include "model/Bullet.hh"
 #include "model/Item.hh"
 #include "model/Tile.hh"
+#include "model/TileMap.hh"
 
 /**
  * The main scene of the game where you walk around and shoot bullets and shit.
@@ -22,10 +23,10 @@ class WalkScene: public Scene {
 
         /**
          * Creates the scene.
-         * @param level  is the filename of the level.
          * @param engine is the engine stuff that the scene uses.
+         * @param level  is the filename of the level.
          */
-        WalkScene(char const *level, Engine const *engine);
+        WalkScene(Engine const *engine, char const *level);
 
         /**
          * Deletes all of this junk.
@@ -33,6 +34,8 @@ class WalkScene: public Scene {
         virtual ~WalkScene();
 
     private:
+        // TODO: this should not actually be there.
+        TileMap const *map;
         Mob *mobs[WalkScene::MAX_MOBS];
         Tile *tiles[WalkScene::MAX_TILES];
         Actor *actors[WalkScene::MAX_ACTORS];

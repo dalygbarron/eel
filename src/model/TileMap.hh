@@ -2,6 +2,7 @@
 #define TILE_MAP_H
 
 #include "model/Tileset.hh"
+#include <SFML/Graphics.hpp>
 
 // Forward Declaration.
 class Repository;
@@ -43,7 +44,7 @@ class TileMap {
          * Gives you the dimensions of the map.
          * @return the width, the height, and the number of layers.
          */
-        sf::Vector3u getSize() const;
+        sf::Vector3i getSize() const;
 
         /**
          * Gives the dimensions that the map gives to tiles.
@@ -61,8 +62,8 @@ class TileMap {
         static TileMap::Orientation parseOrientation(char const *orientation);
 
     private:
-        Tileset *tileset;
-        sf::Vector3u size;
+        Tileset const *tileset;
+        sf::Vector3i size;
         sf::Vector2u tileSize;
         unsigned char *tiles;
         sf::IntRect *regions;

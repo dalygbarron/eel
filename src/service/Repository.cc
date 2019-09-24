@@ -4,6 +4,11 @@
 #include "service/Repository.hh"
 #include "service/Config.hh"
 
+// TODO: I forgot now damn it. uhhhhhh.
+//       Oh yeah, these catches will catch exceptions thrown by me with the
+//       intention of stopping the program. I need to make the exception
+//       catching actually catch the exception I am looking for.
+
 Repository::Repository(Config const *config) {
     this->config = config;
     char fontFile[Constant::FILENAME_BUFFER_SIZE];
@@ -76,7 +81,7 @@ sf::Music *Repository::getSong(char const *name) {
 
 }
 
-Tileset *Repository::getTileset(char const *name) {
+Tileset const *Repository::getTileset(char const *name) {
     spdlog::info("Get tileset: '{}'", name);
     try {
         return this->tilesets.at(name);
@@ -87,6 +92,18 @@ Tileset *Repository::getTileset(char const *name) {
         return tileset;
     }
     
+}
+
+TileMap const *Repository::getTileMap(char const *name) {
+    spdlog::info("Get tilemap: '{}'", name);
+    try {
+        return this->tileMaps.at(name);
+    } catch (...) {
+        char const *data = this->getText(name);
+        TileMap *tileMap = new TileMap(data, this);
+        this->tileMaps[name] = tileMap;
+        return tileMap;
+    }
 }
 
 char const *Repository::getText(char const *name) {

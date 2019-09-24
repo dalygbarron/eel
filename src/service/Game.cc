@@ -1,5 +1,6 @@
 #include "scene/SplashScene.hh"
 #include "scene/PlainScene.hh"
+#include "scene/WalkScene.hh"
 #include "static/Constant.hh"
 #include "static/Utils.hh"
 #include "static/spdlog/spdlog.h"
@@ -82,11 +83,11 @@ void Game::transition(Scene *transitioning) {
                 transitioning->transition + 2
             );
             break;
-        case 't':
-            // TODO: this.
-            break;
-        case 's':
-            // TODO: this.
+        case 'w':
+            newScene = new WalkScene(
+                this->engine,
+                transitioning->transition + 2
+            );
             break;
         case 0:
             break;
@@ -95,12 +96,9 @@ void Game::transition(Scene *transitioning) {
             break;
     }
     if (operation == 'p') {
-        if (!newScene) {
-            spdlog::error("Trying to add nothing to stack.");
-            throw -1;
-        }
         if (this->scene) delete this->scene;
-        this->scene = newScene;
+        if (newScene) this->scene = newScene;
+        else spdlog::error("Trying to add nothing to stack.");
     } else if (operation == 'r') {
         if (this->scene) delete this->scene;
         this->scene = 0;
