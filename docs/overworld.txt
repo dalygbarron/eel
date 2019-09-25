@@ -1,0 +1,72 @@
+OVERWORLD
+===============================================================================
+
+we want the overworld map to be able to consist of a bunch of maps fitted
+together. Because what is rendered just consists of a big list of stuff, we do
+not need to keep references to all the current maps necessarily, though we may
+want a reference to the main one or the first one or something.
+
+basically we are going to want to keep a map on either side of the map the
+player is in loaded at all times which means we will need 9 maps loaded.
+
+When the player crosses the border from the centre map to another map, that map
+becomes the new centre map. At that point we are going to have to load in
+at least three new maps worth of tiles. In order to add them to our list of
+tiles we can iterate over our list of tiles and whenever we find a tile that is
+now too far away we overwrite that object with a new tile and then increment
+a counter for the new tile list to find a spot for the next one. We can put
+that in a method and call it for each new map being added.
+
+We are almost certainly going to want to add a little bit of a margin so that
+you can walk a little way out of the middle map before it changes middle maps
+so that it does not update maps constantly as I imagine it will cause
+a hopefully short but noticable pause. If this pause is too jarring I can look
+at figuring out another strategy. The time taken is going to be linear on the
+number of mobs in the worst case which I assume it will be close to most of the
+time, so for that reason having lots of smaller maps is likely a bad idea since
+it will still have to iterate over the whole map to find the spaces to put in
+the new tiles.
+
+We will also need to validate that every map has the same size and tile size as
+the current middle map but that is fine.
+
+We will not store the bordering maps because putting them into the right spots
+will be annoying and we only use them at the start pretty much anyway so it
+would be easier to just load them all up out of the repository at such time as
+they are needed. The current map is stored though obviously.
+
+LOADING REGIONS AND OBJECTS AND SHIET
+=====================================
+
+So we load that junk into the tilemap object somewhere, then we need to figure
+out how we are going to use it in going into the scene. I will enumerate the
+use cases for this stuff:
+ - putting a point on a tile to say that the tile under the point is a door.
+ - putting a point or image or something down to say that an actor is here.
+ - putting a point or image or something down to say that an item is here.
+
+As far as I can think of that's basically the whole thing except maybe as well
+as doors there will be tiles that are interacted with arbitrarily but that will
+be similar.
+
+Now, when you place a thing and say that it applies to a door it will find the
+highest layer with something in it spacially at floor level and then apply the
+door thing to it. When you place an item it will just be placed over everything
+in the exactly visual spot you placed it.
+
+For actors, it will have to find the highest floor under the visual spot on
+screen and place them there, so placing them on a wall will make them go behind
+the wall or something.
+
+ACTUALLY I SHOULD BE USING INFINITE MAPS
+========================================
+
+I just realised that infinite maps in tiled editor are exactly what I have
+wanted all along, they just split the map into chunks which I can add and
+remove at my leisure, also since they are all there at creation time I can
+access them directly rather than having to create a file name and load a bunch
+of shit from the cache. Hell yeah that will be much better.
+
+In order to access the right chunks for the right time I think I will just put
+them in a map based on their position in three dimensions (the third dimension
+being layer number rather than actual height though).

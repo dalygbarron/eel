@@ -15,6 +15,9 @@ class Item {
         char const * const action;
         int const stacking;
 
+        /**
+         * Creates the item by giving it the stuff that it needs.
+         */
         Item(char const *name, char const *description, char const *icon);
 };
 

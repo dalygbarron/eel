@@ -6,7 +6,7 @@
 #include "model/Mob.hh"
 #include "model/Actor.hh"
 #include "model/Bullet.hh"
-#include "model/Item.hh"
+#include "model/Placement.hh"
 #include "model/Tile.hh"
 #include "model/TileMap.hh"
 
@@ -18,8 +18,9 @@ class WalkScene: public Scene {
         constexpr static int MAX_MOBS = 10000;
         constexpr static int MAX_TILES = 7824;
         constexpr static int MAX_ACTORS = 64;
-        constexpr static int MAX_ITEMS = 64;
         constexpr static int MAX_BULLETS = 2048;
+        constexpr static int MAX_PLACEMENTS = 64;
+        constexpr static float MAP_CROSSING_BUFFER = 0.2;
 
         /**
          * Creates the scene.
@@ -34,19 +35,6 @@ class WalkScene: public Scene {
         virtual ~WalkScene();
 
     private:
-        // TODO: this should not actually be there.
-        TileMap const *map;
-        Mob *mobs[WalkScene::MAX_MOBS];
-        Tile *tiles[WalkScene::MAX_TILES];
-        Actor *actors[WalkScene::MAX_ACTORS];
-        Item *items[WalkScene::MAX_ITEMS];
-        Bullet *bullets[WalkScene::MAX_BULLETS];
-        int nTiles = 0;
-        int nActors = 0;
-        int nItems = 0;
-        int nBullets = 0;
-        sf::Vertex vertices[WalkScene::MAX_MOBS * 4];
-        sf::VertexBuffer buffer;
 
         /**
          * Sorts all the scene's mobs and gives the range that changed.

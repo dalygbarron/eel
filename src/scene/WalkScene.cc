@@ -29,6 +29,17 @@ void WalkScene::logic(float delta) {
     for (int i = 0; i < nBullets; i++) {
         // TODO: update bullets.
     }
+    // Check if the player has moved over the edge of the map into a new one.
+    if (!this->map->bounds(this->player, MAP_CROSSING_BUFFER)) {
+        sf::Vector2i oldSector = this->sector;
+        this->sector.x = this->player->pos.x / this->map->
+        sf::Vector2i pos(
+            this->player->pos.x / this->mapSize.x
+            this->player->pos.y / this->mapSize.y
+        );
+
+    }
+
     // Sort all mobs and upload dirty to GPU.
     sf::Vector2i dirty = this->sortMobs();
     for (int i = dirty.x; i < dirty.y; i++) {

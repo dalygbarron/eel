@@ -53,6 +53,14 @@ class TileMap {
         sf::Vector2u getTileSize() const;
 
         /**
+         * If this map is a map that fits with other maps around the joint then
+         * this is the distance in two dimensions that this map is from the
+         * original map.
+         * @return the distance in each direction.
+         */
+        sf::Vector2i getOffset() const;
+
+        /**
          * Takes a string containing the name of an orientation and parses it
          * into an orientation enum. If it is not recognised it logs a warning
          * and defaults to isometric.
@@ -65,6 +73,7 @@ class TileMap {
         Tileset const *tileset;
         sf::Vector3i size;
         sf::Vector2u tileSize;
+        sf::Vector2i offset;
         unsigned char *tiles;
         sf::IntRect *regions;
         TileMap::Orientation orientation;
