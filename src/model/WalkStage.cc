@@ -25,6 +25,16 @@ void WalkStage::refocus(sf::Vector2f newFocus) {
 }
 
 void WalkStage::update(Engine *engine, float delta) {
+    for (int i = 0; i < this->nActors; i++) {
+        this->actors[i]->update(engine, delta);
+    }
+    for (int i = 0; i < this->nBullets; i++) {
+        this->bullets[i]->update(delta);
+    }
+    for (int i = 0; i < this->nPlacements; i++) {
+        this->placements[i]->update(engine, delta);
+    }
+
 
 }
 

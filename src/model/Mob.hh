@@ -26,6 +26,16 @@ class Mob {
          */
         int behind(Mob *other) const;
 
+        /**
+         * Sorts a list of mobs and tells you what range of items was changed
+         * by the sorting.
+         * @param mobs is a pointer to an array of pointers to mobs.
+         * @param n    is the number of mobs in the array.
+         * @return a vector where x is the first edited index and y is the last
+         *         edited index.
+         */
+        static sf::Vector2u sort(Mob const **mobs, int n);
+
     private:
         sf::Vertex *vertices;
 };
