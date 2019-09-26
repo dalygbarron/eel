@@ -17,10 +17,10 @@
 class WalkStage {
     public:
         /**
-         * Creates the walk stage by giving it the first map it will enjoy.
-         * @param start is the first map.
+         * Creates the walk stage by giving it the map.
+         * @param map is the map the stage will use.
          */
-        WalkStage(TileMap const *start);
+        WalkStage(TileMap const *map);
 
         /**
          * Deletes the stage's mobs and crap.
@@ -28,34 +28,28 @@ class WalkStage {
         ~WalkStage();
 
         /**
-         * Adds the tiles of several chunks into the level, overwriting ones
-         * that are no longer in focus.
-         * @param a is the first chunk.
-         * @param b is the second chunk.
-         * @param c is the third chunk.
+         * moves the focus of the stage which controls where the camera shows.
+         * Also if the focus moves too far over the borders of chunks then the
+         * currently displayed chunks will be changed.
+         * @param newFocus is the place that should be the new centre of
+         *                 attention in pixels not tiles.
          */
-        void addThreeChunks(
-            TileChunk const *a,
-            TileChunk const *b,
-            TileChunk const *c
-        );
+        void refocus(sf::Vector2f newFocus);
 
         /**
-         * Adds the tiles of several chunks into the level, overwriting ones
-         * that are no longer in focus.
-         * @param a is the first chunk.
-         * @param b is the second chunk.
-         * @param c is the third chunk.
-         * @param d is the fourth chunk.
-         * @param e is the fifth chunk.
+         * Updates all of the things in the stage like items and actors etc.
+         * @param engine provides access to input and other stuff.
+         * @param delta  is the time passed since the last frame.
          */
-        void addFiveChunks(
-            TileChunk const *a,
-            TileChunk const *b,
-            TileChunk const *c,
-            TileChunk const *d,
-            TileChunk const *e
-        );
+        void update(Engine *engine, float delta);
+
+        /**
+         * Renders the stage.
+         * @param target is the screen to render to.
+         * @param states are the rendering states used to modify how it's
+         *               rendered and all that.
+         */
+        void render(sf::RenderTarget &target, sf::RenderStates states);
 
     private:
         Mob *mobs[WalkScene::MAX_MOBS];
@@ -70,8 +64,8 @@ class WalkStage {
         sf::Vertex vertices[WalkScene::MAX_MOBS * 4];
         sf::VertexBuffer buffer;
         TileMap const *map;
-        sf::Vector2i sector;
-        sf::Vector2i mapSize;
+        sf::Vector2f focus;
+        sf::Vector2i focusChunk;
 };
 
 #endif

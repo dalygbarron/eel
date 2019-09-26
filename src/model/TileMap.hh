@@ -28,17 +28,9 @@ class TileMap {
         TileMap(char const *data, Repository *repository);
 
         /**
-         * Deletes the tile map's set of tiles. Note that this is only deleting
-         * the configuration of tiles in this map, not the tile or tileset
-         * objects.
+         * Deletes the map's chunks.
          */
         ~TileMap();
-
-        /**
-         * Gives you all of the tiles in the map in a read only form.
-         * @return a pointer to the first tile in the whole map.
-         */
-        unsigned char const *getTiles() const;
 
         /**
          * Gives you the dimensions of the map.
@@ -53,14 +45,6 @@ class TileMap {
         sf::Vector2u getTileSize() const;
 
         /**
-         * If this map is a map that fits with other maps around the joint then
-         * this is the distance in two dimensions that this map is from the
-         * original map.
-         * @return the distance in each direction.
-         */
-        sf::Vector2i getOffset() const;
-
-        /**
          * Takes a string containing the name of an orientation and parses it
          * into an orientation enum. If it is not recognised it logs a warning
          * and defaults to isometric.
@@ -71,10 +55,8 @@ class TileMap {
 
     private:
         Tileset const *tileset;
-        sf::Vector3i size;
         sf::Vector2u tileSize;
-        sf::Vector2i offset;
-        unsigned char *tiles;
+        std::unordered_map<sf::Vector2i, TileChunk *> chunks;
         sf::IntRect *regions;
         TileMap::Orientation orientation;
 };

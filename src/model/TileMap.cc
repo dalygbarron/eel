@@ -23,7 +23,9 @@ TileMap::TileMap(char const *data, Repository *repository) {
     this->size.x = Utils::parseInt(tilemap.attribute("width").value());
     this->size.y = Utils::parseInt(tilemap.attribute("height").value());
     this->tileSize.x = Utils::parseInt(tilemap.attribute("tileWidth").value());
-    this->tileSize.y = Utils::parseInt(tilemap.attribute("tileHeight").value());
+    this->tileSize.y = Utils::parseInt(
+        tilemap.attribute("tileHeight").value()
+    );
     this->orientation = TileMap::parseOrientation(
         tilemap.attribute("orientation").value()
     );
@@ -77,7 +79,7 @@ TileMap::TileMap(char const *data, Repository *repository) {
 }
 
 TileMap::~TileMap() {
-    delete this->tiles;
+    delete this->chunks;
     delete this->regions;
 }
 
@@ -86,16 +88,16 @@ unsigned char const *TileMap::getTiles() const {
 }
 
 sf::Vector3i TileMap::getSize() const {
-    return this->size;
+    // TODO: iterate over the chunks and find what the bounds are. Actually
+    //       maybe just calculate this when the map is loaded in and save.
+    //       Assuming this method is actually useful for something.
 }
 
 sf::Vector2u TileMap::getTileSize() const {
     return this->tileSize;
 }
 
-TileMap::Orientation TileMap::parseOrientation(
-    char const *orientation
-) {
+TileMap::Orientation TileMap::parseOrientation(char const *orientation) {
     if (strcmp(orientation, "orthagonal") == 0) {
         return TileMap::Orientation::ORTHAGONAL;
     } else if (strcmp(orientation, "isometric") == 0) {
