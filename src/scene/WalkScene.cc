@@ -1,10 +1,7 @@
 #include "scene/WalkScene.hh"
 
 WalkScene::WalkScene(Engine const *engine, char const *level): Scene(engine) {
-    this->map = engine->repository->getTileMap(level);
-    this->buffer.setPrimitiveType(sf::Quads);
-    this->buffer.setUsage(sf::VertexBuffer::Usage::Stream);
-    this->buffer.create(WalkScene::MAX_MOBS * 4);
+    // TODO: load walkstage.
 }
 
 WalkScene::~WalkScene() {
@@ -22,39 +19,12 @@ sf::Vector2i WalkScene::sortMobs() {
 }
 
 void WalkScene::logic(float delta) {
-    // Update objects that need to be updated.
-    for (int i = 0; i < nActors; i++) {
-        // TODO: update actors.
-    }
-    for (int i = 0; i < nBullets; i++) {
-        // TODO: update bullets.
-    }
-    // Check if the player has moved over the edge of the map into a new one.
-    if (!this->map->bounds(this->player, MAP_CROSSING_BUFFER)) {
-        sf::Vector2i oldSector = this->sector;
-        this->sector.x = this->player->pos.x / this->map->
-        sf::Vector2i pos(
-            this->player->pos.x / this->mapSize.x
-            this->player->pos.y / this->mapSize.y
-        );
-
-    }
-
-    // Sort all mobs and upload dirty to GPU.
-    sf::Vector2i dirty = this->sortMobs();
-    for (int i = dirty.x; i < dirty.y; i++) {
-        this->mobs[i]->moveTo(this->vertices + i * 4);
-    }
-    this->buffer.update(
-        this->vertices + dirty.x * 4,
-        (dirty.y - dirty.x) * 4,
-        dirty.x * 4
-    );
+    // TODO: update walkstage.
 }
 
 void WalkScene::render(
     sf::RenderTarget *target,
     sf::RenderStates states
 ) const {
-    target->draw(this->buffer);
+    // TODO: draw the walkstage.
 }

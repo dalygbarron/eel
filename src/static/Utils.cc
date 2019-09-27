@@ -152,3 +152,7 @@ void Utils::colourQuad(sf::Vertex *vertices, sf::Color colour) {
     vertices[2].color = colour;
     vertices[3].color = colour;
 }
+
+std::size_t Utils::VectHash::operator()(sf::Vector2i const &v) const noexcept {
+    return v.x ^ v.y;
+}

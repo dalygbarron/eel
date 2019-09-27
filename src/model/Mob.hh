@@ -24,7 +24,7 @@ class Mob {
          * @param other is the other mob to compare against.
          * @return true if this should be behind, false for equal or in front.
          */
-        int behind(Mob *other) const;
+        int behind(Mob const *other) const;
 
         /**
          * Sorts a list of mobs and tells you what range of items was changed

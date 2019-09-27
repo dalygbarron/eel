@@ -1,6 +1,8 @@
 #ifndef PLACEMENT_H
 #define PLACEMENT_H
 
+#include "model/Item.hh"
+
 /**
  * Represents the placement of a type of item into the world.
  */

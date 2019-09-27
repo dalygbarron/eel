@@ -2,7 +2,10 @@
 #define TILE_MAP_H
 
 #include "model/Tileset.hh"
+#include "model/TileChunk.hh"
+#include "static/Utils.hh"
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 // Forward Declaration.
 class Repository;
@@ -56,7 +59,7 @@ class TileMap {
     private:
         Tileset const *tileset;
         sf::Vector2u tileSize;
-        std::unordered_map<sf::Vector2i, TileChunk *> chunks;
+        std::unordered_map<sf::Vector2i, TileChunk *, Utils::VectHash> chunks;
         sf::IntRect *regions;
         TileMap::Orientation orientation;
 };

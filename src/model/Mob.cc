@@ -7,7 +7,7 @@ void Mob::moveTo(sf::Vertex *index) const {
     index[3] = this->vertices[3];
 }
 
-int Mob::behind(Mob *other) const {
+int Mob::behind(Mob const *other) const {
     return other->position.z > this->position.z ||
         other->position.y > this->position.y;
 }

@@ -20,8 +20,6 @@ TileMap::TileMap(char const *data, Repository *repository) {
         throw -1;
     }
     // Load main properties.
-    this->size.x = Utils::parseInt(tilemap.attribute("width").value());
-    this->size.y = Utils::parseInt(tilemap.attribute("height").value());
     this->tileSize.x = Utils::parseInt(tilemap.attribute("tileWidth").value());
     this->tileSize.y = Utils::parseInt(
         tilemap.attribute("tileHeight").value()
@@ -38,11 +36,6 @@ TileMap::TileMap(char const *data, Repository *repository) {
     char const *tilesetSource = tileset.attribute("source").value();
     this->tileset = repository->getTileset(tilesetSource);
     // Load layers. All layers must have same size as level.
-    this->size.z = tileset.select_nodes("layer").size();
-    if (this->size.z == 0) spdlog::warn("map has no layers");
-    this->tiles = new unsigned char[
-        this->size.x * this->size.y * this->size.z
-    ];
     for (pugi::xml_node layer = tilemap.child("layer"); layer;
         layer = layer.next_sibling("layer")) {
         spdlog::info(
@@ -51,14 +44,6 @@ TileMap::TileMap(char const *data, Repository *repository) {
         );
         int width = Utils::parseInt(layer.attribute("width").value());
         int height = Utils::parseInt(layer.attribute("height").value());
-        if (this->size.x != width || this->size.y != height) {
-            spdlog::critical(
-                "Layer '{}' has different size to map",
-                layer.attribute("name").value()
-            );
-            delete this->tiles;
-            throw -1;
-        }
         pugi::xml_node data = layer.child("data");
         if (!data) {
             spdlog::warn(
@@ -79,12 +64,8 @@ TileMap::TileMap(char const *data, Repository *repository) {
 }
 
 TileMap::~TileMap() {
-    delete this->chunks;
+    this->chunks.clear();
     delete this->regions;
-}
-
-unsigned char const *TileMap::getTiles() const {
-    return this->tiles;
 }
 
 sf::Vector3i TileMap::getSize() const {
