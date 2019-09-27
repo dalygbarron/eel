@@ -1,6 +1,7 @@
 #ifndef PLACEMENT_H
 #define PLACEMENT_H
 
+#include "model/Mob.hh"
 #include "model/Item.hh"
 
 /**

@@ -1,18 +1,18 @@
-#include "catch.hh"
-#include "../Utils.hh"
-#include "helpers.hh"
+#include "test/catch.hh"
+#include "static/Utils.hh"
+#include "test/helpers.hh"
 #include <SFML/Graphics.hpp>
 
-TEST_CASE("min works", "[utils][maths]") {
+TEST_CASE("min", "[utils][maths]") {
     using namespace Catch::literals;
-    REQUIRE(min(1, 2) == 1);
-    REQUIRE(min(69.91, 5.3) == 5.3_a);
+    REQUIRE(Utils::min(1, 2) == 1);
+    REQUIRE(Utils::min(69.91, 5.3) == 5.3_a);
 }
 
-TEST_CASE("max works", "[utils][maths]") {
+TEST_CASE("max", "[utils][maths]") {
     using namespace Catch::literals;
-    REQUIRE(min(1, 2) == 2);
-    REQUIRE(min(69.91, 5.3) == 69.91_a);
+    REQUIRE(Utils::max(1, 2) == 2);
+    REQUIRE(Utils::max(69.91, 5.3) == 69.91_a);
 }
 
 TEST_CASE("wrapped works", "[utils][maths]") {
@@ -56,7 +56,7 @@ TEST_CASE("wrapped works", "[utils][maths]") {
     );
 }
 
-TEST_CASE("random works", "[utils][maths]") {
+TEST_CASE("random", "[utils][maths]") {
     for (int i = 0; i < 10; i++) {
         float value = Utils::random();
         REQUIRE(value >= 0);
@@ -64,23 +64,7 @@ TEST_CASE("random works", "[utils][maths]") {
     }
 }
 
-TEST_CASE("perSecond works", "[utils][maths]") {
-    using namespace Catch::literals;
-    REQUIRE(Utils::perSecond(90) == 1.5_a);
-    REQUIRE(Utils::perSecond(60) == 1_a);
-    REQUIRE(Utils::perSecond(30) == 0.5_a);
-    REQUIRE(Utils::perSecond(15) == 0.25_a);
-    REQUIRE(Utils::perSecond(6) == 0.1_a);
-}
-
-TEST_CASE("perSecondPerSecond works", "[utils][maths]") {
-    using namespace Catch::literals;
-    REQUIRE(Utils::perSecondPerSecond(3600) == 1_a);
-    REQUIRE(Utils::perSecondPerSecond(60) == 0.016666666_a);
-    REQUIRE(Utils::perSecondPerSecond(45) == 0.0125_a);
-}
-
-TEST_CASE("parseInt works", "[utils]") {
+TEST_CASE("parseInt", "[utils]") {
     // Test normal numbers.
     REQUIRE(Utils::parseInt("12") == 12);
     REQUIRE(Utils::parseInt("1") == 1);
@@ -98,36 +82,36 @@ TEST_CASE("parseInt works", "[utils]") {
     REQUIRE(Utils::parseInt("") == 0);
 }
 
-TEST_CASE("getLetterboxView works", "[utils][graphics][maths]") {
+TEST_CASE("getLetterboxView", "[utils][graphics][maths]") {
     sf::View view;
     // on a small unit square.
     view.setViewport(sf::FloatRect(0, 0, 1, 1));
     compareRects(
-        Utils::getLetterboxView(view, 1, 1).getViewport(),
+        Utils::getLetterboxView(view, sf::Vector2i(1, 1)).getViewport(),
         sf::FloatRect(0, 0, 1, 1)
     );
     compareRects(
-        Utils::getLetterboxView(view, 2, 1).getViewport(),
+        Utils::getLetterboxView(view, sf::Vector2i(2, 1)).getViewport(),
         sf::FloatRect(0.25, 0, 0.5, 1)
     );
     compareRects(
-        Utils::getLetterboxView(view, 1, 2).getViewport(),
+        Utils::getLetterboxView(view, sf::Vector2i(1, 2)).getViewport(),
         sf::FloatRect(0, 0.25, 1, 0.5)
     );
     compareRects(
-        Utils::getLetterboxView(view, 2, 2).getViewport(),
+        Utils::getLetterboxView(view, sf::Vector2i(2, 2)).getViewport(),
         sf::FloatRect(0, 0, 1, 1)
     );
     // on a wacky shape.
     view.setViewport(sf::FloatRect(0, 0, 324, 543));
     compareRects(
-        Utils::getLetterboxView(view, 333, 111).getViewport(),
+        Utils::getLetterboxView(view, sf::Vector2i(333, 111)).getViewport(),
         sf::FloatRect(0.33333, 0, 0.33333, 1)
     );
 
 }
 
-TEST_CASE("fitQuad works", "[utils][graphics]") {
+TEST_CASE("fitQuad", "[utils][graphics]") {
     sf::VertexArray vertices(sf::Quads, 10);
     Utils::fitQuad(&vertices[0], sf::FloatRect());
     // make sure the vertices are in the right places.
@@ -135,7 +119,7 @@ TEST_CASE("fitQuad works", "[utils][graphics]") {
     REQUIRE(false);
 }
 
-TEST_CASE("colourQuad works", "[utils][graphics]") {
+TEST_CASE("colourQuad", "[utils][graphics]") {
     sf::VertexArray vertices(sf::Quads, 6);
     Utils::colourQuad(&vertices[0], sf::Color::Red);
     Utils::colourQuad(&vertices[2], sf::Color::Green);
@@ -148,7 +132,7 @@ TEST_CASE("colourQuad works", "[utils][graphics]") {
     REQUIRE(vertices[5].color == sf::Color::Green);
 }
 
-TEST_CASE("makeBox works") {
+TEST_CASE("makeBox") {
     // TODO: this.
     REQUIRE(false);
 }

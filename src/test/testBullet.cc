@@ -1,5 +1,5 @@
-#include "catch.hh"
-#include "../Bullet.hh"
+#include "test/catch.hh"
+#include "model/Bullet.hh"
 
 TEST_CASE("copy should work", "[bullet]") {
     Bullet a;
