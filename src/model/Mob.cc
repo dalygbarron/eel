@@ -13,6 +13,12 @@ int Mob::behind(Mob const *other) const {
 }
 
 sf::Vector2u Mob::sort(Mob const **mobs, int n) {
+    // TODO: this is a rather naive sorting algorithm (though it has good best
+    //       case performance which I need). It is quite possible that when
+    //       adding chunks into the level the performance shit itself, so if
+    //       that is the case I will need to look at improving this. There was
+    //       something I read about called timsort which sounded decent and a
+    //       bit freaky.
     int min = -1;
     int max = -1;
     for (int i = 0; i < n; i++) {

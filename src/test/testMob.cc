@@ -96,7 +96,9 @@ TEST_CASE("sorting mobs speed", "[mob][maths][speed]") {
         REQUIRE(!constMobs[i]->behind(constMobs[i - 1]));
     }
     // Sorting from a case with few errors.
-    for (int i = 0; i < 10; i++) mobs[rand() % 40000].position.y = rand() % 40000;
+    for (int i = 0; i < 10; i++) {
+        mobs[rand() % 40000].position.y = rand() % 40000;
+    }
     clock.restart();
     Mob::sort(constMobs, 40000);
     float goodTime = clock.getElapsedTime().asSeconds();
