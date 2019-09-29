@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++14 -I src/
+CFLAGS = -std=c++14 -I src/ -g
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
 MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset TileMap)
