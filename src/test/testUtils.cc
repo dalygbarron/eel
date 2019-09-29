@@ -1,4 +1,3 @@
-#include "test/tests.hh"
 #include "test/catch.hh"
 #include "static/Utils.hh"
 #include "test/helpers.hh"

@@ -8,7 +8,7 @@ CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
 SERVICE = $(addprefix service/, Config Game Radio Repository Status Engine)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils xml/pugixml)
-TEST = testGeneral testBullet testMob testUtils helpers
+TEST = testGeneral testBullet testMob testUtils helpers catch
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) ))
 TEST_OBJS = $(addprefix src/test/,$(addsuffix .o, $(TEST)))

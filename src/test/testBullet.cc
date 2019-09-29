@@ -4,6 +4,7 @@
 TEST_CASE("copy should work", "[bullet]") {
     Bullet a;
     Bullet b;
+    a.alive = true;
     b.alive = true;
     a.state.live.radius = 1;
     a.state.live.speed = 2;

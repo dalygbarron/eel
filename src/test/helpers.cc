@@ -1,4 +1,4 @@
-#include "helpers.hh"
+#include "catch.hh"
 #include <SFML/Graphics.hpp>
 
 void compareVectors(sf::Vector2f a, sf::Vector2f b) {

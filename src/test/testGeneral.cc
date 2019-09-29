@@ -1,4 +1,3 @@
-#include "tests.hh"
 #include "catch.hh"
 
 TEST_CASE("test ints work", "[general][junk][maths]") {

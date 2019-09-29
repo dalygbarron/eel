@@ -12,6 +12,7 @@ void Bullet::copy(Bullet const *bullet) {
     this->state.live.radius = bullet->state.live.radius;
     this->state.live.shape = bullet->state.live.shape;
     this->state.live.sprite = bullet->state.live.sprite;
+    this->state.live.speed = bullet->state.live.speed;
 }
 
 void Bullet::launch(float angle) {
