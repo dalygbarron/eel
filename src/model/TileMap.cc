@@ -28,38 +28,21 @@ TileMap::TileMap(char const *data, Repository *repository) {
         tilemap.attribute("orientation").value()
     );
     // Load tileset.
-    pugi::xml_node tileset = tilemap.child("tileset");
+    pugi::xml_node tileset = data.child("tileset");
     if (!tileset) {
         spdlog::critical("Tilemap lacked tileset object");
         throw -1;
     }
     char const *tilesetSource = tileset.attribute("source").value();
     this->tileset = repository->getTileset(tilesetSource);
-    // Load layers. All layers must have same size as level.
+    // Load layers.
     for (pugi::xml_node layer = tilemap.child("layer"); layer;
         layer = layer.next_sibling("layer")) {
         spdlog::info(
             "Loading tilemap layer '{}'",
             layer.attribute("name").value()
         );
-        int width = Utils::parseInt(layer.attribute("width").value());
-        int height = Utils::parseInt(layer.attribute("height").value());
-        pugi::xml_node data = layer.child("data");
-        if (!data) {
-            spdlog::warn(
-                "Layer '{}' has no data",
-                layer.attribute("name").value()
-            );
-            continue;
-        }
         spdlog::info(data.value());
-        // TODO: this is the part where we iterate over the data. This should
-        //       possibly be moved out to a function. Also I think tiled has
-        //       multiple methods of storing the data so possibly I will want
-        //       to handle all of them though that seems like a bit of a waste
-        //       of time.
-        //       It would at least be good to be able to say I handle one of
-        //       them and reject the others.
     }
 }
 
