@@ -1,9 +1,9 @@
 #include "model/TileChunk.hh"
+#include "static/Utils.hh"
 
-TileChunk::TileChunk(sf::Vector3i size, sf::Vector2i offset) {
-    this->size = size;
-    this->offset = offset;
-    this->tiles = new unsigned char[size.x * size.y * size.z];
+TileChunk::TileChunk(pugi::xml_node node) {
+    this->size.x = node->attribute("width")->valueAsInt();
+    this->size.y = node->attribute("width")->valueAsInt();
 }
 
 TileChunk::~TileChunk() {
@@ -17,4 +17,12 @@ void TileChunk::setTile(sf::Vector3i pos, unsigned char value) {
 
 unsigned char const *TileChunk::getTiles() {
     return this->tiles;
+}
+
+sf::Vector2i TileChunk::getSize() const {
+    return this->size;
+}
+
+sf::Vector2i TileChunk::getOffset() const {
+    return this->offset;
 }

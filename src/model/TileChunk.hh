@@ -1,18 +1,18 @@
 #ifndef TILE_CHUNK_H
 #define TILE_CHUNK_H
 
+#include "static/xml/pugixml.hpp"
+
 /**
  * Represents a chunk of tiles within a tile map.
  */
 class TileChunk {
     public:
-        sf::Vector3i const size;
-        sf::Vector2i const offset;
-
         /**
          * Creates the tile chunk.
+         * @param node is the xml node to read the chunk out of.
          */
-        TileChunk(sf::Vector2u size, sf::Vector2i offset);
+        TileChunk(pugi::xml_node node);
 
         /**
          * Deletes the tiles.
@@ -32,8 +32,22 @@ class TileChunk {
          */
         unsigned char const *getTiles() const;
 
+        /**
+         * Gives you the size of the chunk.
+         * @return the size on the x and y axis.
+         */
+        sf::Vector2i getSize() const;
+
+        /**
+         * Gives you the offset of the chunk in the world.
+         * @return the offset.
+         */
+        sf::Vector2i getOffset() const;
+
     private:
         unsigned char *tiles;
+        sf::Vector2i size;
+        sf::Vector2i offset;
 };
 
 #endif
