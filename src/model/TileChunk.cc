@@ -2,8 +2,13 @@
 #include "static/Utils.hh"
 
 TileChunk::TileChunk(pugi::xml_node node) {
-    this->size.x = node->attribute("width")->valueAsInt();
-    this->size.y = node->attribute("width")->valueAsInt();
+    this->offset.x = node->attribute("x")->asInt();
+    this->offset.y node->attribute("y")->asInt();
+    this->size.x = node->attribute("width")->asInt();
+    this->size.y = node->attribute("width")->asInt();
+    this->tiles = new unsigned char[this->size.x * this->size.y];
+
+
 }
 
 TileChunk::~TileChunk() {
