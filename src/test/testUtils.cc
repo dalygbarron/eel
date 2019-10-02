@@ -1,6 +1,7 @@
 #include "test/catch.hh"
-#include "static/Utils.hh"
 #include "test/helpers.hh"
+#include "static/Utils.hh"
+#include "static/spdlog/spdlog.h"
 #include <SFML/Graphics.hpp>
 
 TEST_CASE("min", "[utils][maths]") {
@@ -95,13 +96,40 @@ TEST_CASE("parse base 64", "[utils]") {
     REQUIRE(Utils::parseBase64('/') == 63);
 }
 
+TEST_CASE("parse base64 empty string", "[utils]") {
+    char const *input = "";
+    unsigned char output[5];
+    int written = Utils::parseBase64String(input, output, 5);
+    REQUIRE(written == 0);
+    REQUIRE(output[0] == 0);
+}
+
 TEST_CASE("parse base64 string", "[utils]") {
     char const *input = "VGFuZ28gaXMgYW4gaWRpb3Q=";
     unsigned char output[18];
     char const *expected = "Tango is an idiot";
     int written = Utils::parseBase64String(input, output, 18);
-    REQUIRE(written == 18);
+    REQUIRE(written == 17);
     for (int i = 0; i < 18; i++) REQUIRE(output[i] == expected[i]);
+}
+
+TEST_CASE("parse base64 string max length is long", "[utils]") { 
+    char const *input = "Y2hhciBjb25zdCAqaW5wdXQgPSAiVkdGdVoyOGdhWFlXZzRnYVdS"
+        "cGIzUT0iOw==";
+    unsigned char output[200];
+    char const *expected = "char const *input = \"VGFuZ28gaXYWg4gaWRpb3Q=\";";
+    int written = Utils::parseBase64String(input, output, 200);
+    REQUIRE(written == 46);
+    for (int i = 0; i < 47; i++) REQUIRE(output[i] == expected[i]);
+}
+
+TEST_CASE("parse base64 string max length is short", "[utils]") {
+    char const *input = "VGFuZ28gaXMgYW4gaWRpb3Q=";
+    unsigned char output[6];
+    char const *expected = "Tango";
+    int written = Utils::parseBase64String(input, output, 5);
+    REQUIRE(written == 5);
+    for (int i = 0; i < 6; i++) REQUIRE(output[i] == expected[i]);
 }
 
 TEST_CASE("getLetterboxView", "[utils][graphics][maths]") {

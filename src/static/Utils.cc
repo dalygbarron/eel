@@ -142,17 +142,39 @@ unsigned int Utils::parseBase64(char c) {
     else if (c >= 48 && c < 58) return c + 4;
     else if (c == '+') return 62;
     else if (c == '/') return 63;
-    spdlog::error("{} is not a base64 character", c);
+    else if (c == '=') return 0;
+    spdlog::error("{} is not a base64 character", (int)c);
     return 0;
 }
 
 int Utils::parseBase64String(char const *src, unsigned char *dst, int max) {
-    int write = 0;
     int length = strlen(src);
-    for (int i = 0; i < length; i += 3) {
-    
-
+    if (length % 4 != 0) {
+        spdlog::error(
+            "Base64 encoded string '{}' should be multiple of 4 in length",
+            src
+        );
+        return 0;
     }
+    int write = 0;
+    for (int i = 0; i < length; i += 4) {
+        int pads = 0;
+        for (int j = i; j < i + 4; j++) {
+            if (src[j] == '=') pads++;
+        }
+        unsigned int a = Utils::parseBase64(src[i]);
+        unsigned int b = Utils::parseBase64(src[i + 1]);
+        unsigned int c = Utils::parseBase64(src[i + 2]);
+        unsigned int d = Utils::parseBase64(src[i + 3]);
+        unsigned int value = a << 18 | b << 12 | c << 6 | d;
+        int stop = write + 3 - pads;
+        for (write; write < stop && write < max; write++) {
+            dst[write] = (value & 0xff0000) >> 16;
+            value <<= 8;
+        }
+    }
+    dst[write] = 0;
+    return write;
 }
 
 void Utils::fitQuad(sf::Vertex *vertices, sf::FloatRect rect) {
