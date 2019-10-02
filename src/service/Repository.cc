@@ -99,7 +99,7 @@ TileMap const *Repository::getTileMap(char const *name) {
     try {
         return this->tileMaps.at(name);
     } catch (...) {
-        pugi::xml_node node = this->readNode(name, "tilemap");
+        pugi::xml_node node = this->readNode(name, "map");
         TileMap *tileMap = new TileMap(node, this);
         this->tileMaps[name] = tileMap;
         return tileMap;

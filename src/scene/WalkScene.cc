@@ -1,7 +1,8 @@
 #include "scene/WalkScene.hh"
 
 WalkScene::WalkScene(Engine const *engine, char const *level): Scene(engine) {
-    // TODO: load walkstage.
+    // TODO: who knows what is going on hahahahhHAHAHHA
+    TileMap const *map = engine->repository->getTileMap(level);
 }
 
 WalkScene::~WalkScene() {

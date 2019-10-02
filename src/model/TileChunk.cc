@@ -12,6 +12,9 @@ TileChunk::TileChunk(pugi::xml_node node) {
     if (n != length) {
         spdlog::warn("Tilechunk data less than expected");
     }
+    for (int i = 0; i < n; i++) {
+        spdlog::info(this->tiles[i]);
+    }
 }
 
 TileChunk::~TileChunk() {
