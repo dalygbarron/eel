@@ -3,32 +3,17 @@
 #include "static/Utils.hh"
 #include "static/xml/pugixml.hpp"
 
-TileMap::TileMap(char const *data, Repository *repository) {
-    spdlog::info("Loading tilemap");
-    pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_string(data);
-    if (!result) {
-        spdlog::critical(
-            "Invalid XML in tilemap file: {}",
-            result.description()
-        );
-        throw -1;
-    }
-    pugi::xml_node tilemap = doc.child("map");
-    if (!tilemap) {
-        spdlog::critical("Tilemap object lacks top level map object");
-        throw -1;
-    }
+TileMap::TileMap(pugi::xml_node node, Repository *repository) {
     // Load main properties.
-    this->tileSize.x = Utils::parseInt(tilemap.attribute("tileWidth").value());
+    this->tileSize.x = Utils::parseInt(node.attribute("tileWidth").value());
     this->tileSize.y = Utils::parseInt(
-        tilemap.attribute("tileHeight").value()
+        node.attribute("tileHeight").value()
     );
     this->orientation = TileMap::parseOrientation(
-        tilemap.attribute("orientation").value()
+        node.attribute("orientation").value()
     );
     // Load tileset.
-    pugi::xml_node tileset = data.child("tileset");
+    pugi::xml_node tileset = node.child("tileset");
     if (!tileset) {
         spdlog::critical("Tilemap lacked tileset object");
         throw -1;
@@ -36,13 +21,12 @@ TileMap::TileMap(char const *data, Repository *repository) {
     char const *tilesetSource = tileset.attribute("source").value();
     this->tileset = repository->getTileset(tilesetSource);
     // Load layers.
-    for (pugi::xml_node layer = tilemap.child("layer"); layer;
+    for (pugi::xml_node layer = node.child("layer"); layer;
         layer = layer.next_sibling("layer")) {
         spdlog::info(
             "Loading tilemap layer '{}'",
             layer.attribute("name").value()
         );
-        spdlog::info(data.value());
     }
 }
 

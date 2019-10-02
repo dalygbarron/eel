@@ -86,8 +86,8 @@ Tileset const *Repository::getTileset(char const *name) {
     try {
         return this->tilesets.at(name);
     } catch(...) {
-        char const *data = this->getText(name);
-        Tileset *tileset = new Tileset(data, this);
+        pugi::xml_node node = this->readNode(name, "tileset");
+        Tileset *tileset = new Tileset(node, this);
         this->tilesets[name] = tileset;
         return tileset;
     }
@@ -99,8 +99,8 @@ TileMap const *Repository::getTileMap(char const *name) {
     try {
         return this->tileMaps.at(name);
     } catch (...) {
-        char const *data = this->getText(name);
-        TileMap *tileMap = new TileMap(data, this);
+        pugi::xml_node node = this->readNode(name, "tilemap");
+        TileMap *tileMap = new TileMap(node, this);
         this->tileMaps[name] = tileMap;
         return tileMap;
     }
@@ -122,4 +122,20 @@ char const *Repository::getText(char const *name) {
 sf::Font const *Repository::getFont() {
     spdlog::info("get font");
     return &this->font;
+}
+
+pugi::xml_node Repository::readNode(char const *name, char const *tag) {
+    char const *text = this->getText(name);
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_string(text);
+    if (!result) {
+        spdlog::critical("'{}' is not a valid xml file", name);
+        throw -1;
+    }
+    pugi::xml_node node = doc.child(tag);
+    if (!node) {
+        spdlog::critical("xml file '{}' lacks top level node '{}'", name, tag);
+        throw -1;
+    }
+    return node;
 }

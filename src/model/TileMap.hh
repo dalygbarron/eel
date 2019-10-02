@@ -3,6 +3,7 @@
 
 #include "model/Tileset.hh"
 #include "static/Utils.hh"
+#include "static/xml/pugixml.hpp"
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 
@@ -24,10 +25,11 @@ class TileMap {
 
         /**
          * Creates a tilemap out of an input stream.
-         * @param data is the contents of the tiled editor xml file the map is
-         *             being loaded from.
+         * @param node       is the xml node to read the map from.
+         * @param repository is the repo which is used to load in child bits
+         *                   like the tileset.
          */
-        TileMap(char const *data, Repository *repository);
+        TileMap(pugi::xml_node node, Repository *repository);
 
         /**
          * Deletes the map's chunks.

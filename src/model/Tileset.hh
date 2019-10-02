@@ -1,6 +1,7 @@
 #ifndef TILESET_H
 #define TILESET_H
 
+#include "static/xml/pugixml.hpp"
 #include <SFML/Graphics.hpp>
 
 // Forward declaration because repo also handles tilesets.
@@ -13,13 +14,11 @@ class Tileset {
     public:
         /**
          * Creates the tileset from the given data.
-         * @param data       is the contents of a tiled tileset xml file. If
-         *                   this file is screwed then I am ready and willing
-         *                   to crash the whole game so be good.
+         * @param node       is the tiled xml node of the tileset.
          * @param repository is the asset repository which is used to load the
          *                   tileset's texture.
          */
-        Tileset(char const *data, Repository *repository);
+        Tileset(pugi::xml_node node, Repository *repository);
 
         /**
          * Deletes the tilset name because that is all it needs to worry about.

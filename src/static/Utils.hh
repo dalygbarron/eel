@@ -100,6 +100,22 @@ namespace Utils {
     int parseInt(char const *text);
 
     /**
+     * Gives the base64 representation of a character.
+     * @param c is the character to parse.
+     * @return the number that character represents in base 64.
+     */
+    unsigned int parseBase64(char c);
+
+    /**
+     * Takes a string of base64 encoded data and writes it into an array.
+     * @param src is the text to read from.
+     * @param dst is the data to write to.
+     * @param max is the maximum number of bytes to write.
+     * @return the number of bytes written.
+     */
+    int parseBase64String(char const *src, unsigned char *dst, int max);
+
+    /**
      * Takes a set of vertices and a rectangle and sets the vertices positions
      * to that of the rectangle.
      * @param vertices is a pointer to the four vertices to arrange.

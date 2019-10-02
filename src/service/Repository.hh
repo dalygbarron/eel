@@ -87,6 +87,15 @@ class Repository {
          */
         sf::Font const *getFont();
 
+        /**
+         * Loads in a cached text file then parses it as xml.
+         * @param name is the name of the file to open the text from.
+         * @param tag  is the type of top level node to seek and return.
+         * @return the desired node always. if it fails it will crash the
+         *         program.
+         */
+        pugi::xml_node readNode(char const *name, char const *tag);
+
     private:
         Config const *config;
         sf::Font font;

@@ -136,6 +136,25 @@ int Utils::parseInt(char const *text) {
     return strtol(text, 0, 0);
 }
 
+unsigned int Utils::parseBase64(char c) {
+    if (c >= 64 && c < 91) return c - 65;
+    else if (c >= 97 && c < 123) return c - 71;
+    else if (c >= 48 && c < 58) return c + 4;
+    else if (c == '+') return 62;
+    else if (c == '/') return 63;
+    spdlog::error("{} is not a base64 character", c);
+    return 0;
+}
+
+int Utils::parseBase64String(char const *src, unsigned char *dst, int max) {
+    int write = 0;
+    int length = strlen(src);
+    for (int i = 0; i < length; i += 3) {
+    
+
+    }
+}
+
 void Utils::fitQuad(sf::Vertex *vertices, sf::FloatRect rect) {
     vertices[0].position = sf::Vector2f(rect.left, rect.top);
     vertices[1].position = sf::Vector2f(rect.left + rect.width, rect.top);

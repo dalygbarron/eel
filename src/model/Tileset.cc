@@ -5,24 +5,9 @@
 #include "static/xml/pugixml.hpp"
 #include <climits>
 
-Tileset::Tileset(char const *data, Repository *repository) {
-    pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_string(data);
-    if (!result) {
-        spdlog::critical(
-            "Invalid XML in tileset file: {}",
-            result.description()
-        );
-        throw -1;
-    }
-    pugi::xml_node tileset = doc.child("tileset");
-    if (!tileset) {
-        spdlog::critical("Tileset file lacks top level tileset object");
-        throw -1;
-    }
-    // Load main properties.
-    this->name = Utils::moveString(tileset.attribute("name").value());
-    int tileCount = Utils::parseInt(tileset.attribute("tilecount").value());
+Tileset::Tileset(pugi::xml_node node, Repository *repository) {
+    this->name = Utils::moveString(node.attribute("name").value());
+    int tileCount = Utils::parseInt(node.attribute("tilecount").value());
     if (tileCount > UCHAR_MAX + 1) {
         spdlog::critical(
             "Tileset '{}' cannot be used as it has more than {} tiles",
@@ -32,12 +17,12 @@ Tileset::Tileset(char const *data, Repository *repository) {
         delete this->name;
         throw -1;
     }
-    int tileWidth = Utils::parseInt(tileset.attribute("tilewidth").value());
-    int tileHeight = Utils::parseInt(tileset.attribute("tileheight").value());
+    int tileWidth = Utils::parseInt(node.attribute("tilewidth").value());
+    int tileHeight = Utils::parseInt(node.attribute("tileheight").value());
     this->tileSize = sf::Vector2i(tileWidth, tileHeight);
-    this->columns = Utils::parseInt(tileset.attribute("columns").value());
+    this->columns = Utils::parseInt(node.attribute("columns").value());
     // Load in the image and validate it.
-    pugi::xml_node image = tileset.child("image");
+    pugi::xml_node image = node.child("image");
     if (!image) {
         spdlog::critical(
             "Tileset '{}' has no image object in xml file",

@@ -82,6 +82,28 @@ TEST_CASE("parseInt", "[utils]") {
     REQUIRE(Utils::parseInt("") == 0);
 }
 
+TEST_CASE("parse base 64", "[utils]") {
+    REQUIRE(Utils::parseBase64('A') == 0);
+    REQUIRE(Utils::parseBase64('E') == 4);
+    REQUIRE(Utils::parseBase64('Z') == 25);
+    REQUIRE(Utils::parseBase64('a') == 26);
+    REQUIRE(Utils::parseBase64('j') == 35);
+    REQUIRE(Utils::parseBase64('z') == 51);
+    REQUIRE(Utils::parseBase64('0') == 52);
+    REQUIRE(Utils::parseBase64('9') == 61);
+    REQUIRE(Utils::parseBase64('+') == 62);
+    REQUIRE(Utils::parseBase64('/') == 63);
+}
+
+TEST_CASE("parse base64 string", "[utils]") {
+    char const *input = "VGFuZ28gaXMgYW4gaWRpb3Q=";
+    unsigned char output[18];
+    char const *expected = "Tango is an idiot";
+    int written = Utils::parseBase64String(input, output, 18);
+    REQUIRE(written == 18);
+    for (int i = 0; i < 18; i++) REQUIRE(output[i] == expected[i]);
+}
+
 TEST_CASE("getLetterboxView", "[utils][graphics][maths]") {
     sf::View view;
     // on a small unit square.
