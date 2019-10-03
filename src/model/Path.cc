@@ -34,7 +34,7 @@ char const *Path::render() {
 }
 
 int Path::token(char const *start) {
-    int i = 0;
+    int i = 1;
     while (start[i] && start[i] != '/') i++;
     return i;
 }
