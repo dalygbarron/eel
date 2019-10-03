@@ -1,14 +1,14 @@
 CC = g++
-CFLAGS = -std=c++14 -I src/ -g
+CFLAGS = -std=c++14 -I src/
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
-MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset TileMap)
+MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset TileMap Path)
 SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene WalkScene)
 CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
 SERVICE = $(addprefix service/, Config Game Radio Repository Status Engine)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils xml/pugixml)
-TEST = testGeneral testBullet testMob testUtils helpers catch
+TEST = testGeneral testBullet testMob testUtils testPath helpers catch
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) ))
 TEST_OBJS = $(addprefix src/test/,$(addsuffix .o, $(TEST)))
@@ -34,7 +34,7 @@ run: app
 	./$(OUT) example/game.xml
 
 test: all
-	./$(TEST_OUT)
+	./$(TEST_OUT) ~[slow]
 
 clean:
 	find . -name '*.o' -delete

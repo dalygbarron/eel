@@ -82,7 +82,7 @@ TEST_CASE("sorting mobs", "[mob][maths]") {
     for (int i = 0; i < 7; i++) REQUIRE(correct[i] == test[i]);
 }
 
-TEST_CASE("sorting mobs speed", "[mob][maths][speed]") {
+TEST_CASE("sorting mobs a lot", "[mob][maths][slow]") {
     Mob *mobs = new Mob[40000];
     Mob const *constMobs[40000];
     for (int i = 0; i < 40000; i++) mobs[i].position.y = rand() % 40000;

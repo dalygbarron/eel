@@ -17,6 +17,8 @@
  */
 class Repository {
     public:
+        constexpr static int const OFFSET_BUFFER_SIZE = 1024;
+
         /**
          * Creates the repository.
          * @param config is the configuration which the repo uses to get the
@@ -98,6 +100,7 @@ class Repository {
 
     private:
         Config const *config;
+        char offset[Repository::OFFSET_BUFFER_SIZE];
         sf::Font font;
         std::unordered_map<std::string, sf::Texture *> textures;
         std::unordered_map<std::string, SpriteBatch *> spriteBatches;
