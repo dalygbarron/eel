@@ -26,10 +26,10 @@ void Path::remove(char const *text) {
 
 char const *Path::render() {
     int start = 0;
-    int end = 0;
     while (start < this->n) {
-        // TODO: this, obviously.
-        return "a";
+        int end = Path::token(start);
+        for (int i = 0; i < end; i ++) {
+        }
     }
 }
 
