@@ -26,13 +26,16 @@ class Path {
 
         /**
          * Removes a path off the end of this path. The inverse of apply.
+         * Note that it is not validating, so if you enter weird inputs then
+         * I do not know or care what will happen.
          * @param text is the path to remove.
          */
         void remove(char const *text);
 
         /**
          * Creates the actual text of the path as it currently is.
-         * @return the path.
+         * @return the path. The data is subject to change so save it if you
+         *         want it.
          */
         char const *render();
 

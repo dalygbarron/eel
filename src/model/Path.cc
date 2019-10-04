@@ -15,22 +15,39 @@ Path::Path(Path const *parent) {
 }
 
 void Path::apply(char const *text) {
+    if (this->n > 0 && this->text[this->n - 1] != '/') {
+        this->text[this->n] = '/';
+        this->n++;
+    }
     strcpy(this->text + this->n, text);
     this->n += strlen(text);
 }
 
 void Path::remove(char const *text) {
-    this->n -= strlen(text);
+    this->n -= (strlen(text) + 1);
     this->text[this->n] = 0;
 }
 
 char const *Path::render() {
     int start = 0;
+    int write = 0;
+    int oldEnd = 0;
     while (start < this->n) {
-        int end = Path::token(start);
-        for (int i = 0; i < end; i ++) {
+        int end = Path::token(this->text + start);
+        if (this->text[start + 1] == '.' && this->text[start + 2] == '.' &&
+            end == 3) {
+            write -= oldEnd;
+            this->rendered[write] = 0;
+        } else if (end > 0) {
+            memcpy(this->rendered + write, this->text + start, end);
+            write += end;
         }
+        start += end;
+        oldEnd = end;
     }
+    this->rendered[write] = 0;
+    spdlog::error("'{}'", this->rendered);
+    return this->rendered;
 }
 
 int Path::token(char const *start) {
