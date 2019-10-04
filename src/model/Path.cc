@@ -23,8 +23,28 @@ void Path::apply(char const *text) {
     this->n += strlen(text);
 }
 
+void Path::applyFolders(char const *text) {
+    if (this->n > 0 && this->text[this->n - 1] != '/') {
+        this->text[this->n] = '/';
+        this->n++;
+    }
+    int length = strlen(text);
+    for (length; length >= 0 && text[length] != '/'; length--);
+    memcpy(this->text + this->n, text, length);
+    this->n += length;
+    this->text[this->n] = 0;
+}
+
 void Path::remove(char const *text) {
     this->n -= (strlen(text) + 1);
+    this->text[this->n] = 0;
+}
+
+void Path::removeFolders(char const *text) {
+    int length = strlen(text);
+    for (length; length > 0 && text[length] != '/'; length--);
+    this->n -= length;
+    if (this->n > 0) this->n -= 1;
     this->text[this->n] = 0;
 }
 

@@ -25,12 +25,27 @@ class Path {
         void apply(char const *text);
 
         /**
+         * Applys the folder part of a path but not the filename.
+         * @param text is the text containing folders and a filename.
+         */
+        void applyFolders(char const *text);
+
+        /**
          * Removes a path off the end of this path. The inverse of apply.
          * Note that it is not validating, so if you enter weird inputs then
          * I do not know or care what will happen.
          * @param text is the path to remove.
          */
         void remove(char const *text);
+
+        /**
+         * Removes the folder part of a path off the end of this path. The
+         * inverse of applyFolders. Again, input is not validated so be good.
+         * Also, even though the file part is cut off, it still needs to be the
+         * same thing that was passed to apply folders.
+         * @param text is the text to remove.
+         */
+        void removeFolders(char const *text);
 
         /**
          * Creates the actual text of the path as it currently is.

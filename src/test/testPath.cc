@@ -13,8 +13,8 @@ TEST_CASE("path token", "[path]") {
 TEST_CASE("making nice paths", "[path]") {
     Path path;
     path.apply("camel/pictures");
-    path.apply("../sounds");
-    char const *expected = "camel/sounds";
+    path.applyFolders("../sounds/../birds/mePissingOnTango.mp3");
+    char const *expected = "camel/birds";
     char const *result = path.render();
     for (int i = 0; i < strlen(expected) + 1; i++) {
         REQUIRE(expected[i] == result[i]);
@@ -26,7 +26,7 @@ TEST_CASE("making nice paths", "[path]") {
         REQUIRE(expected[i] == result[i]);
     }
     // now remove some
-    path.remove("../sounds");
+    path.removeFolders("../sounds/../birds/mePissingOnTango.mp3");
     result = path.render();
     expected = "camel/pictures";
     for (int i = 0; i < strlen(expected) + 1; i++) {

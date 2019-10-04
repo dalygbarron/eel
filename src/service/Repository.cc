@@ -22,7 +22,7 @@ Repository::Repository(Config const *config) {
 Repository::~Repository() {
     this->textures.clear();
     this->texts.clear();
-
+    // TODO: and the rest.
 }
 
 sf::Texture *Repository::getTexture(char const *name) {

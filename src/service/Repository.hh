@@ -21,10 +21,9 @@ class Repository {
 
         /**
          * Creates the repository.
-         * @param config is the configuration which the repo uses to get the
-         *               dir for files.
+         * @param root is the root directory for loading sprites.
          */
-        Repository(Config const *config);
+        Repository(char const *root);
 
         /**
          * Deletes everything the repository is storing.
@@ -99,7 +98,7 @@ class Repository {
         pugi::xml_node readNode(char const *name, char const *tag);
 
     private:
-        Config const *config;
+        Path path;
         char offset[Repository::OFFSET_BUFFER_SIZE];
         sf::Font font;
         std::unordered_map<std::string, sf::Texture *> textures;

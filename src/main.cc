@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     try {
         // Instantiate all the services.
         Config config(gameFile);
-        Repository repository(&config);
+        Repository repository(config.getRoot());
         ControlBuilder controlBuilder(&repository, &config);
         Radio radio(&repository);
         Engine engine(&config, &radio, 0, &repository, &controlBuilder);
