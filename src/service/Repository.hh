@@ -5,7 +5,6 @@
 #include "model/SpriteBatch.hh"
 #include "model/Tileset.hh"
 #include "model/TileMap.hh"
-#include "model/Path.hh"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <unordered_map>
@@ -18,77 +17,45 @@
  */
 class Repository {
     public:
-        constexpr static int const OFFSET_BUFFER_SIZE = 1024;
+        template <class T> void addFactory(Factory<T> *factory) {
+            std::type_index i = std::type_index(typeid(T));
+            if (factories.contains(i)) {
+                spdlog::error(
+                    "Trying to add two factories of same type to repository"
+                );
+            } else {
+                factories[i] = factory;
+            }
+        }
 
-        /**
-         * Creates the repository.
-         * @param config is used to find some files and also has the root dir.
-         */
-        Repository(Config const *config);
+        template<typename T>
+        bool addFactory( std::unique_ptr<ResourceFactory<T>> factory ) {
+            std::type_index ti = std::type_index(typeid(T));
 
-        /**
-         * Deletes everything the repository is storing.
-         */
-        ~Repository();
+            auto searchResult = factories.find(ti);
+            if(searchResult != factories.end()) {
+                return false;
+            } else {
+                factories[ti] = std::move(factory);
+                return true;
+            }
+        }
 
-        /**
-         * Gives you a texture from a given file. After the first time it gets
-         * loaded it stores it for faster loading.
-         * @param name is the filename of the texture.
-         * @return the texture.
-         */
-        sf::Texture *getTexture(char const *name);
+        template <typename T>
+        ResourceHandle<T> load(const std::string &path) {
+            std::type_index ti = std::type_index(typeid(T));
+            auto searchResult = factories.find(ti);
 
-        /**
-         * Gives you a sprite batch from a given file. After the first time it
-         * gets loaded it stores it for later.
-         * @param name is the filename of the sprite batch.
-         * @return the sprite batch.
-         */
-        SpriteBatch *getSpriteBatch(char const *name);
+            if(searchResult == factories.end()) {
+                throw NoValidFactory(std::string("No registered factory of type ") +
+                                     ti.name());
+            }
 
-        /**
-         * Gives you a sound buffer from a file or saved you know.
-         * @param name is the name of the sound to load.
-         * @return a pointer to the sound buffer.
-         */
-        sf::SoundBuffer *getSound(char const *name);
+            // TODO SOMEHOW DO LOADING
+            //return searchResult->second->load(path);
+        }
 
-        /**
-         * Gives you a song which is cached.
-         * @param name is the name of the song to load and the key to cache it
-         *             by.
-         * @return a poiinter to the song.
-         */
-        sf::Music *getSong(char const *name);
-
-        /**
-         * Gives you a tileset which is cached.
-         * @param name is the name of the tileset to load.
-         * @return a pointer to the tileset.
-         */
-        Tileset const *getTileset(char const *name);
-
-        /**
-         * Gives you a tilemap which is cached.
-         * @param name is the filename to get it from originally.
-         * @return a pointer to the tile map.
-         */
-        TileMap const *getTileMap(char const *name);
-
-        /**
-         * Gives you a pointer to a file as a string.
-         * @param name is the name of the text to load.
-         * @return a pointer to the text.
-         */
-        char const *getText(char const *name);
-
-        /**
-         * Gives you the game's only font.
-         * @return the font which was decided in the game's main config file.
-         */
-        sf::Font const *getFont();
-
+    private:
         /**
          * Loads in a cached text file then parses it as xml.
          * @param name is the name of the file to open the text from.
@@ -98,16 +65,7 @@ class Repository {
          */
         pugi::xml_node readNode(char const *name, char const *tag);
 
-    private:
-        Path path;
-        char offset[Repository::OFFSET_BUFFER_SIZE];
-        sf::Font font;
-        std::unordered_map<std::string, sf::Texture *> textures;
-        std::unordered_map<std::string, SpriteBatch *> spriteBatches;
-        std::unordered_map<std::string, Tileset *> tilesets;
-        std::unordered_map<std::string, TileMap *> tileMaps;
-        std::unordered_map<std::string, char *> texts;
-        std::unordered_map<std::string, sf::SoundBuffer *> sounds;
+        std::unordered_map<std::type_index, Factory *> factories;
 };
 
 #endif

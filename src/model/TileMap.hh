@@ -28,8 +28,9 @@ class TileMap {
          * @param node       is the xml node to read the map from.
          * @param repository is the repo which is used to load in child bits
          *                   like the tileset.
+         * @param dir        the directory the file existed in.
          */
-        TileMap(pugi::xml_node node, Repository *repository);
+        TileMap(pugi::xml_node node, Repository *repository, char const *dir);
 
         /**
          * Deletes the map's chunks.
