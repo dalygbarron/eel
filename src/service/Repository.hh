@@ -15,57 +15,22 @@
  * Could potentially add strategic dropping of little used data if memory 
  * usage is an issue but I doubt that.
  */
-class Repository {
+template <class T> class Repository {
     public:
-        template <class T> void addFactory(Factory<T> *factory) {
-            std::type_index i = std::type_index(typeid(T));
-            if (factories.contains(i)) {
-                spdlog::error(
-                    "Trying to add two factories of same type to repository"
-                );
-            } else {
-                factories[i] = factory;
-            }
+        Repository(Factory<T> factory) {
+            this->factory = factory;
         }
 
-        template<typename T>
-        bool addFactory( std::unique_ptr<ResourceFactory<T>> factory ) {
-            std::type_index ti = std::type_index(typeid(T));
-
-            auto searchResult = factories.find(ti);
-            if(searchResult != factories.end()) {
-                return false;
-            } else {
-                factories[ti] = std::move(factory);
-                return true;
+        T get(char const *name) {
+            if (!this->cache.contains(name)) {
+                cache[name] = this->factory.build(name);
             }
-        }
-
-        template <typename T>
-        ResourceHandle<T> load(const std::string &path) {
-            std::type_index ti = std::type_index(typeid(T));
-            auto searchResult = factories.find(ti);
-
-            if(searchResult == factories.end()) {
-                throw NoValidFactory(std::string("No registered factory of type ") +
-                                     ti.name());
-            }
-
-            // TODO SOMEHOW DO LOADING
-            //return searchResult->second->load(path);
+            return this->cache[name]
         }
 
     private:
-        /**
-         * Loads in a cached text file then parses it as xml.
-         * @param name is the name of the file to open the text from.
-         * @param tag  is the type of top level node to seek and return.
-         * @return the desired node always. if it fails it will crash the
-         *         program.
-         */
-        pugi::xml_node readNode(char const *name, char const *tag);
-
-        std::unordered_map<std::type_index, Factory *> factories;
+        std::unordered_map<std::string, T> cache;
+        Factory<T> factory;
 };
 
 #endif
