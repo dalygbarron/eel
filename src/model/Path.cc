@@ -4,14 +4,16 @@
 #include <string.h>
 
 Path::Path() {
-    text[0] = 0;
-    rendered[0] = 0;
-    n = 0;
+    this->text[0] = 0;
+    this->rendered[0] = 0;
+    this->n = 0;
+    this->rn = 0;
 }
 
 Path::Path(Path const *parent) {
-    strcpy(text, parent->text);
-    n = parent->n;
+    strcpy(this->text, parent->text);
+    this->n = parent->n;
+    this->rn = 0;
 }
 
 void Path::apply(char const *text) {
@@ -21,6 +23,7 @@ void Path::apply(char const *text) {
     }
     strcpy(this->text + this->n, text);
     this->n += strlen(text);
+    this->rn = 0;
 }
 
 void Path::applyFolders(char const *text) {
@@ -29,26 +32,30 @@ void Path::applyFolders(char const *text) {
         this->n++;
     }
     int length = strlen(text);
-    for (length; length >= 0 && text[length] != '/'; length--);
+    for (; length >= 0 && text[length] != '/'; length--);
     memcpy(this->text + this->n, text, length);
     this->n += length;
     this->text[this->n] = 0;
+    this->rn = 0;
 }
 
 void Path::remove(char const *text) {
     this->n -= (strlen(text) + 1);
     this->text[this->n] = 0;
+    this->rn = 0;
 }
 
 void Path::removeFolders(char const *text) {
     int length = strlen(text);
-    for (length; length > 0 && text[length] != '/'; length--);
+    for (; length > 0 && text[length] != '/'; length--);
     this->n -= length;
     if (this->n > 0) this->n -= 1;
     this->text[this->n] = 0;
+    this->rn = 0;
 }
 
 char const *Path::render() {
+    if (this->rn > 0) return this->rendered;
     int start = 0;
     int write = 0;
     int oldEnd = 0;
@@ -66,7 +73,24 @@ char const *Path::render() {
         oldEnd = end;
     }
     this->rendered[write] = 0;
-    spdlog::error("'{}'", this->rendered);
+    this->rn = write;
+    spdlog::error("rendered: '{}'", this->rendered);
+    return this->rendered;
+}
+
+char const *Path::in(char const *file) {
+    int length = strlen(file);
+    for (; length >= 0 && file[length] != '/'; length--);
+    this->render();
+    strcpy(this->rendered + this->rn, file + length);
+    spdlog::error("in'd: '{}'", this->rendered);
+    return this->rendered;
+}
+
+char const *Path::inWhole(char const *file) {
+    this->render();
+    this->rendered[this->rn] = '/';
+    strcpy(this->rendered + this->rn + 1, file);
     return this->rendered;
 }
 

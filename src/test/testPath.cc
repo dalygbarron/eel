@@ -52,6 +52,28 @@ TEST_CASE("path that starts with ..", "[path]") {
     }
 }
 
+TEST_CASE("path in", "[path]") {
+    Path path;
+    path.applyFolders("example/maps/idiot.tga");
+    char const *result = path.in("idiot.tga");
+    char const *expected = "example/maps/idiot.tga";
+    for (int i = 0; i < strlen(expected) + 1; i++) {
+        REQUIRE(expected[i] == result[i]);
+    }
+    path.applyFolders("tiles.tsx");
+    result = path.in("tiles.tsx");
+    expected = "example/maps/tiles.tsx";
+    for (int i = 0; i < strlen(expected) + 1; i++) {
+        REQUIRE(expected[i] == result[i]);
+    }
+    path.applyFolders("../images/tiles.png");
+    result = path.in("../images/tiles.png");
+    expected = "example/images/tiles.png";
+    for (int i = 0; i < strlen(expected) + 1; i++) {
+        REQUIRE(expected[i] == result[i]);
+    }
+}
+
 TEST_CASE("make path that is too big", "[path]") {
     Path path;
     for (int i = 0; i < 260; i++) {

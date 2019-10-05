@@ -5,6 +5,7 @@
 #include "model/SpriteBatch.hh"
 #include "model/Tileset.hh"
 #include "model/TileMap.hh"
+#include "model/Path.hh"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <unordered_map>
@@ -21,9 +22,9 @@ class Repository {
 
         /**
          * Creates the repository.
-         * @param root is the root directory for loading sprites.
+         * @param config is used to find some files and also has the root dir.
          */
-        Repository(char const *root);
+        Repository(Config const *config);
 
         /**
          * Deletes everything the repository is storing.

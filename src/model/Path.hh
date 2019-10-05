@@ -55,6 +55,24 @@ class Path {
         char const *render();
 
         /**
+         * Adds the name of a file onto the end of the path temporarily without
+         * affecting how applies and removes will affect it. Only the name part
+         * not the file path part.
+         * @param file is the name of the file to put on the end.
+         * @return a pointer to the rendered file path. It is subject to change
+         *         save it if you want it.
+         */
+        char const *in(char const *file);
+
+        /**
+         * Appends a whole path onto the rendered path for when you are only
+         * getting on thing so apply and remove are a waste of time.
+         * @param file is the path to add onto the main path.
+         * @return the newly rendered whole path.
+         */
+        char const *inWhole(char const *file);
+
+        /**
          * Takes in the start point of a token in a string and then returns how
          * long that token is so you can do stuff to it easily.
          * @param start is the start of the token.
@@ -64,6 +82,7 @@ class Path {
 
     private:
         int n;
+        int rn;
         char text[Path::TEXT_BUFFER_SIZE];
         char rendered[Path::TEXT_BUFFER_SIZE];
 };
