@@ -1,4 +1,5 @@
 #include "service/Radio.hh"
+#include "static/spdlog/spdlog.h"
 #include <cstring>
 
 Radio::Radio(SoundRepository *soundRepo, MusicRepository *musicRepo) {
@@ -7,7 +8,7 @@ Radio::Radio(SoundRepository *soundRepo, MusicRepository *musicRepo) {
 }
 
 void Radio::playSong(char const *song) {
-    sf::Music *music = this->musicRepo->get(song);
+    sf::Music *music = this->musicRepo->get(song)->content;
     if (!music) {
         spdlog::error("Cannot find song '{}'", song);
         return;
@@ -35,7 +36,7 @@ float Radio::playSound(char const *sound) {
     //       update every frame though.
     for (int i = 0; i < Radio::SOUND_LIMIT; i++) {
         if (this->sounds[i].getStatus() == sf::Music::Status::Stopped) {
-            sf::SoundBuffer *soundBuffer = this->soundRepo->get(sound);
+            sf::SoundBuffer *soundBuffer = this->soundRepo->get(sound)->content;
             this->sounds[i].setBuffer(*(soundBuffer));
             this->sounds[i].play();
             float length = soundBuffer->getDuration().asSeconds();

@@ -36,8 +36,8 @@ class ControlBuilder {
         Control *declarationBox(char const *text) const;
 
     private:
-        sf::Texture *bg;
-        sf::Texture *fg;
+        Asset<sf::Texture *> *bg;
+        Asset<sf::Texture *> *fg;
         int border;
         int fontSizeNormal;
         int fontSizeBig;

@@ -1,11 +1,11 @@
 #include "model/Tileset.hh"
-#include "service/Repository.hh"
 #include "static/Constant.hh"
 #include "static/Utils.hh"
 #include "static/xml/pugixml.hpp"
+#include "static/spdlog/spdlog.h"
 #include <climits>
 
-Tileset::Tileset(pugi::xml_node node, Repository *repository) {
+Tileset::Tileset(pugi::xml_node node, TextureRepository *textureRepo) {
     this->name = Utils::moveString(node.attribute("name").value());
     int tileCount = Utils::parseInt(node.attribute("tilecount").value());
     if (tileCount > UCHAR_MAX + 1) {
@@ -31,7 +31,7 @@ Tileset::Tileset(pugi::xml_node node, Repository *repository) {
         delete this->name;
         throw -1;
     }
-    this->texture = repository->getTexture(image.attribute("source").value());
+    this->texture = textureRepo->get(image.attribute("source").value())->content;
     // TODO: presumably tile properties are going to be stored in the tileset.
     //       need to load in the creator defined tiled height which will default
     //       to 0. Maybe other custom properties as well, I do not know.

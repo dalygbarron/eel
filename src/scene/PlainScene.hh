@@ -3,7 +3,6 @@
 
 #include "scene/Scene.hh"
 #include "model/Script.hh"
-#include "service/Repository.hh"
 
 /**
  * A scene where there is nothing but a background image and a script is run.

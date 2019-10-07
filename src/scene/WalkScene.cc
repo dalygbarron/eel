@@ -2,7 +2,8 @@
 
 WalkScene::WalkScene(Engine const *engine, char const *level): Scene(engine) {
     // TODO: who knows what is going on hahahahhHAHAHHA
-    TileMap const *map = engine->repository->getTileMap(level);
+    // TODO: ALSO, tilemap should be being stored as asset.
+    TileMap const *map = engine->tileMapRepo->get(level)->content;
 }
 
 WalkScene::~WalkScene() {

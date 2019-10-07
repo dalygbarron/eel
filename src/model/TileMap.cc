@@ -1,9 +1,10 @@
 #include "model/TileMap.hh"
-#include "service/Repository.hh"
 #include "static/Utils.hh"
+#include "static/spdlog/spdlog.h"
 #include "static/xml/pugixml.hpp"
+#include <string.h>
 
-TileMap::TileMap(pugi::xml_node node, Repository *repository) {
+TileMap::TileMap(pugi::xml_node node, TilesetRepository *tilesetRepo) {
     // Load main properties.
     this->tileSize.x = Utils::parseInt(node.attribute("tileWidth").value());
     this->tileSize.y = Utils::parseInt(
@@ -19,7 +20,7 @@ TileMap::TileMap(pugi::xml_node node, Repository *repository) {
         throw -1;
     }
     char const *tilesetSource = tileset.attribute("source").value();
-    this->tileset = repository->getTileset(tilesetSource);
+    this->tileset = tilesetRepo->get(tilesetSource);
     // Load layers.
     for (pugi::xml_node layer = node.child("layer"); layer;
         layer = layer.next_sibling("layer")) {

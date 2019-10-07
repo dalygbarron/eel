@@ -6,7 +6,7 @@ PlainScene::PlainScene(
     char const *filename
 ): Scene(engine) {
     spdlog::info("Creating plain scene with script '{}'", filename);
-    this->script = new Script(this, engine->repository->getText(filename));
+    this->script = new Script(this, engine->textRepo->get(filename)->content);
     this->file = new char[strlen(filename) + 1];
     strcpy(this->file, filename);
 }

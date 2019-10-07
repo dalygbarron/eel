@@ -14,6 +14,13 @@
 template <class T> class Asset {
     public:
         T content;
+
+        /**
+         * Deletes the asset's content.
+         */
+        ~Asset() {
+            delete this->content;
+        }
 };
 
 #endif

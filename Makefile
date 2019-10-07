@@ -5,12 +5,13 @@ LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 
 MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset TileMap Path)
 SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene WalkScene)
 CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
-SERVICE = $(addprefix service/, Config Game Radio Repository Status Engine)
+SERVICE = $(addprefix service/, Config Game Radio Status Engine)
+REPOSITORY = $(addprefix service/repository/, TextRepository TextureRepository TilesetRepository TileMapRepository SoundRepository MusicRepository)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils xml/pugixml)
 TEST = testGeneral testBullet testMob testUtils testPath helpers catch
 
-OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) ))
+OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) $(REPOSITORY)))
 TEST_OBJS = $(addprefix src/test/,$(addsuffix .o, $(TEST)))
 MAIN_OBJ = src/main.o
 OUT = main

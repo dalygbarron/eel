@@ -1,19 +1,14 @@
 #include "service/repository/TextureRepository.hh"
+#include "static/spdlog/spdlog.h"
 
-TextureRepository::TextureRepository(Config const *config) {
-    this->config = config;
-}
-
-sf::Texture *TextureRepository::create(char const *name) {
-    spdlog::info("create texture: '{}'", name);
-    char filename[Constant::FILENAME_BUFFER_SIZE];
-    this->config->inRoot(filename, name);
+sf::Texture *TextureRepository::create(char const *filename) {
+    spdlog::info("create texture: '{}'", filename);
     sf::Texture *texture = new sf::Texture();
-    if (!texture->loadFromFile(filename)) {
-        spdlog::error("Cannot load texture at '{}'", filename);
-    } else {
+    if (texture->loadFromFile(filename)) {
         texture->setSmooth(true);
         texture->setRepeated(true);
         return texture;
     }
+    spdlog::error("could nto laod texture at '{}'", filename);
+    return 0;
 }

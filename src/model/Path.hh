@@ -6,7 +6,7 @@
  */
 class Path {
     public:
-        constexpr static int const TEXT_BUFFER_SIZE = 1024;
+        constexpr static int const TEXT_BUFFER_SIZE = 128;
 
         /**
          * Default constructor for empty path.

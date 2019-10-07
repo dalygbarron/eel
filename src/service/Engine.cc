@@ -2,26 +2,24 @@
 
 Engine::Engine(
     Config const *config,
-    Radio *radio,
-    Status *status,
-    Repository *repository,
-    ControlBuilder const *controlBuilder,
     TextRepository *textRepo,
     TextureRepository *textureRepo,
     TilesetRepository *tilesetRepo,
     TileMapRepository *tileMapRepo,
     SoundRepository *soundRepo,
-    MusicRepository *musicRepo
+    MusicRepository *musicRepo,
+    Radio *radio,
+    Status *status,
+    ControlBuilder const *controlBuilder
 ) {
     this->config = config;
-    this->radio = radio;
-    this->status = status;
-    this->repository = repository;
-    this->controlBuilder = controlBuilder;
     this->textRepo = textRepo;
     this->textureRepo = textureRepo;
     this->tilesetRepo = tilesetRepo;
     this->tileMapRepo = tileMapRepo;
     this->soundRepo = soundRepo;
     this->musicRepo = musicRepo;
+    this->radio = radio;
+    this->status = status;
+    this->controlBuilder = controlBuilder;
 }

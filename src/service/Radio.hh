@@ -1,8 +1,8 @@
 #ifndef RADIO_H
 #define RADIO_H
 
-#include "static/Constant.hh"
-#include "service/Repository.hh"
+#include "service/repository/SoundRepository.hh"
+#include "service/repository/MusicRepository.hh"
 #include <SFML/Audio.hpp>
 
 /**
@@ -20,8 +20,8 @@ class Radio {
         Radio(SoundRepository *soundRepo, MusicRepository *musicRepo);
 
         /**
-         * Starts a nice song playing, unless it is already playing in which case
-         * it does nothing.
+         * Starts a nice song playing, unless it is already playing in which
+         * case it does nothing.
          * @param song is the name of the song to play.
          */
         void playSong(char const *song);
@@ -34,7 +34,7 @@ class Radio {
         /**
          * Plays a sound.
          * Note that there is a maximum allowed number of sounds at once.
-         * @see Constant::SOUND_LIMIT.
+         * @see Radio::SOUND_LIMIT.
          * @param sound is the name of the sound file.
          * @return length of the sound in seconds.
          */

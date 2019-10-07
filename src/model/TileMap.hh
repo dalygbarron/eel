@@ -2,13 +2,11 @@
 #define TILE_MAP_H
 
 #include "model/Tileset.hh"
+#include "service/repository/TilesetRepository.hh"
 #include "static/Utils.hh"
 #include "static/xml/pugixml.hpp"
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
-
-// Forward Declaration.
-class Repository;
 
 /**
  * Represents a game map as it is loaded from the tiled editor.
@@ -25,12 +23,10 @@ class TileMap {
 
         /**
          * Creates a tilemap out of an input stream.
-         * @param node       is the xml node to read the map from.
-         * @param repository is the repo which is used to load in child bits
-         *                   like the tileset.
-         * @param dir        the directory the file existed in.
+         * @param node        is the xml node to read the map from.
+         * @param tilesetRepo is the repo to get tilesets out of.
          */
-        TileMap(pugi::xml_node node, Repository *repository, char const *dir);
+        TileMap(pugi::xml_node node, TilesetRepository *tilesetRepo);
 
         /**
          * Deletes the map's chunks.
@@ -59,7 +55,7 @@ class TileMap {
         static TileMap::Orientation parseOrientation(char const *orientation);
 
     private:
-        Tileset const *tileset;
+        Asset<Tileset *> *tileset;
         sf::Vector2u tileSize;
         std::unordered_map<
             sf::Vector2i,

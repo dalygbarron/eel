@@ -1,11 +1,9 @@
 #ifndef TILESET_H
 #define TILESET_H
 
+#include "service/repository/TextureRepository.hh"
 #include "static/xml/pugixml.hpp"
 #include <SFML/Graphics.hpp>
-
-// Forward declaration because repo also handles tilesets.
-class Repository;
 
 /**
  * Represents a tileset loaded from tiled editor tileset file.
@@ -14,11 +12,11 @@ class Tileset {
     public:
         /**
          * Creates the tileset from the given data.
-         * @param node       is the tiled xml node of the tileset.
-         * @param repository is the asset repository which is used to load the
-         *                   tileset's texture.
+         * @param node        is the tiled xml node of the tileset.
+         * @param textureRepo is the asset repository which is used to load the
+         *                    texture of the tileset.
          */
-        Tileset(pugi::xml_node node, Repository *repository);
+        Tileset(pugi::xml_node node, TextureRepository *textureRepo);
 
         /**
          * Deletes the tilset name because that is all it needs to worry about.
@@ -56,6 +54,11 @@ class Tileset {
 
     private:
         char const *name;
+        // TODO: technically things that are gotten out of a repo and stored
+        //       should be kept in the asset pointer object, but the tileset is
+        //       not actually going to be storing a pointer to the texture and
+        //       will be drawing it onto another image, so we can just do it
+        //       like this for now.
         sf::Texture *texture;
         sf::Vector2i tileSize;
         int columns;

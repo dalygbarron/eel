@@ -8,8 +8,8 @@ ControlBuilder::ControlBuilder(
     TextureRepository *textureRepo,
     Config const *config
 ) {
-    this->fg = repository->getTexture(config->get("fg"));
-    this->bg = repository->getTexture(config->get("bg"));
+    this->fg = textureRepo->get(config->get("fg"));
+    this->bg = textureRepo->get(config->get("bg"));
     this->border = Utils::parseInt(config->get("border"));
     this->fontSizeNormal = Utils::parseInt(config->get("fontNormal"));
     this->fontSizeBig = Utils::parseInt(config->get("fontBig"));
@@ -17,7 +17,7 @@ ControlBuilder::ControlBuilder(
 }
 
 Control *ControlBuilder::speechBox(char const *name, char const *text) const {
-    Panel *panel = new Panel(true, this->border, this->bg);
+    Panel *panel = new Panel(true, this->border, this->bg->content);
     TextBox *nameBox = new TextBox(name, this->fontSizeBig);
     TextBox *textBox = new TextBox(text, this->fontSizeNormal);
     panel->addChild(nameBox);
@@ -33,7 +33,7 @@ Control *ControlBuilder::speechBox(char const *name, char const *text) const {
 }
 
 Control *ControlBuilder::declarationBox(char const *text) const {
-    Panel *panel = new Panel(true, this->border, this->bg);
+    Panel *panel = new Panel(true, this->border, this->bg->content);
     TextBox *textBox = new TextBox(text, this->fontSizeNormal);
     panel->addChild(textBox);
     panel->addChild(new Bopper());

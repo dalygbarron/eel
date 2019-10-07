@@ -7,7 +7,12 @@
 #include "static/spdlog/rotating_file_sink.h"
 #include "service/Game.hh"
 #include "service/Config.hh"
-#include "service/Repository.hh"
+#include "service/repository/TextRepository.hh"
+#include "service/repository/TextureRepository.hh"
+#include "service/repository/TilesetRepository.hh"
+#include "service/repository/TileMapRepository.hh"
+#include "service/repository/SoundRepository.hh"
+#include "service/repository/MusicRepository.hh"
 #include "service/Radio.hh"
 #include "service/Engine.hh"
 #include <SFML/Graphics.hpp>
@@ -43,22 +48,36 @@ int main(int argc, char **argv) {
     else gameFile = DEFAULT_CONFIG_FILE;
     // Start up the game systems.
     try {
-        // Instantiate all the services.
+        // Load the base game file.
         Config config(gameFile);
-        TextRepository textRepo();
-        TextureRepository textureRepo();
-        TilesetRepository tilesetRepo();
-        TileMapRepository tileMapRepo();
-        SoundRepository soundRepo();
-        MusicRepository musicRepo();
+        // Instantiate the repositories.
+        TextRepository textRepo;
+        TextureRepository textureRepo;
+        TilesetRepository tilesetRepo(&textRepo, &textureRepo);
+        TileMapRepository tileMapRepo(&tilesetRepo);
+        SoundRepository soundRepo;
+        MusicRepository musicRepo;
+        // Instantiate all the services.
         ControlBuilder controlBuilder(&textureRepo, &config);
         Radio radio(&soundRepo, &musicRepo);
-        Engine engine(&config, &radio, 0, &repository, &controlBuilder);
+        Engine engine(
+            &config,
+            &textRepo,
+            &textureRepo,
+            &tilesetRepo,
+            &tileMapRepo,
+            &soundRepo,
+            &musicRepo,
+            &radio,
+            0,
+            &controlBuilder
+        );
         Game game(&engine);
         // Make sure the engine version is compatible with the game.
         int engineMajor = config.getEngineMajor();
         int engineMinor = config.getEngineMinor();
-        if (Constant::VERSION_MAJOR && engineMajor != Constant::VERSION_MAJOR) {
+        if (Constant::VERSION_MAJOR &&
+            engineMajor != Constant::VERSION_MAJOR) {
             spdlog::critical("Game is for Eel version {}", engineMajor);
             throw -1;
         }
