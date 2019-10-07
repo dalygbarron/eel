@@ -1,0 +1,6 @@
+<mode name="Development Mode">
+    <hotkeys>
+        <hotkey bind="r" script="script/reload.lua" />
+        <hotkey bind="q" script="script/quit.lua" />
+    </hotkeys>
+</mode>

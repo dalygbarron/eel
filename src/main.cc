@@ -45,9 +45,14 @@ int main(int argc, char **argv) {
     try {
         // Instantiate all the services.
         Config config(gameFile);
-        Repository repository(&config);
-        ControlBuilder controlBuilder(&repository, &config);
-        Radio radio(&repository);
+        TextRepository textRepo();
+        TextureRepository textureRepo();
+        TilesetRepository tilesetRepo();
+        TileMapRepository tileMapRepo();
+        SoundRepository soundRepo();
+        MusicRepository musicRepo();
+        ControlBuilder controlBuilder(&textureRepo, &config);
+        Radio radio(&soundRepo, &musicRepo);
         Engine engine(&config, &radio, 0, &repository, &controlBuilder);
         Game game(&engine);
         // Make sure the engine version is compatible with the game.

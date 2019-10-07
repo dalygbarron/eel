@@ -14,7 +14,6 @@ sf::Texture *TextureRepository::create(char const *name) {
     } else {
         texture->setSmooth(true);
         texture->setRepeated(true);
-        this->textures[name] = texture;
         return texture;
     }
 }

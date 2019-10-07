@@ -15,13 +15,15 @@ template <class T> class Repository {
         /**
          * Gets you something from the repository. If it is cached it returns
          * it from there, and if not it loads it and then stores it in the
-         * cache for next time. If the thing can't be created then an exception
-         * will be thrown that crashes the program so you never need to worry
-         * about a thing not existing.
+         * cache for next time. If it is possible for the thing to not be
+         * created then you will need to consult the implementation for details
+         * but you will probably get a null pointer if it's a pointer type.
+         * Null pointers are cached too so that we don't need to fail
+         * repeatedly.
          * @param name is the name of the asset we seek.
          * @return the asset.
          */
-        T get(char const *name) {
+        Asset<T> *get(char const *name) {
             if (!this->items.contains(name)) {
                 this->items[name] = this->create(name);
             }
@@ -39,20 +41,29 @@ template <class T> class Repository {
          * @param name is the bit to add to the path.
          * @return the gotten asset.
          */
-        T getRelative(char const *from, char const *name) {
+        Asset<T> *getRelative(char const *from, char const *name) {
             // TODO: some freaky path processing shit.
             return this->get(name);
         }
 
+        /**
+         * Recreates everything in the cache and updates the pointers in the
+         * assets.
+         */
+        void zap() {
+            for(auto const &name: this->items) {
+            }
+        }
+
     private:
+        unordered_map<std::string, Asset<T>> items;
+
         /**
          * Create the object fresh.
          * @param name is the name of the thing to create which is often a file
          *        name but is not necessarily you know.
          */
         virtual T create(char const *name) = 0;
-
-        unordered_map<std::string, T> items;
 };
 
 #endif

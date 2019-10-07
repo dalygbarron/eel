@@ -1,10 +1,13 @@
 #include "service/builder/ControlBuilder.hh"
+#include "static/Utils.hh"
 #include "model/control/Panel.hh"
 #include "model/control/TextBox.hh"
 #include "model/control/Bopper.hh"
 
-ControlBuilder::ControlBuilder(Repository *repository, Config const *config) {
-    this->repository = repository;
+ControlBuilder::ControlBuilder(
+    TextureRepository *textureRepo,
+    Config const *config
+) {
     this->fg = repository->getTexture(config->get("fg"));
     this->bg = repository->getTexture(config->get("bg"));
     this->border = Utils::parseInt(config->get("border"));

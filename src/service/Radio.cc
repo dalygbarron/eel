@@ -1,12 +1,13 @@
 #include "service/Radio.hh"
 #include <cstring>
 
-Radio::Radio(Repository *repository) {
-    this->repository = repository;
+Radio::Radio(SoundRepository *soundRepo, MusicRepository *musicRepo) {
+    this->soundRepo = soundRepo;
+    this->musicRepo = musicRepo;
 }
 
 void Radio::playSong(char const *song) {
-    sf::Music *music = this->repository->getSong(song);
+    sf::Music *music = this->musicRepo->get(song);
     if (!music) {
         spdlog::error("Cannot find song '{}'", song);
         return;
@@ -32,9 +33,9 @@ float Radio::playSound(char const *sound) {
     //       frame. could store most recent name pointer and stop you from
     //       playing twice in a row in one frame. Would also need to add an
     //       update every frame though.
-    for (int i = 0; i < Constant::SOUND_LIMIT; i++) {
+    for (int i = 0; i < Radio::SOUND_LIMIT; i++) {
         if (this->sounds[i].getStatus() == sf::Music::Status::Stopped) {
-            sf::SoundBuffer *soundBuffer = this->repository->getSound(sound);
+            sf::SoundBuffer *soundBuffer = this->soundRepo->get(sound);
             this->sounds[i].setBuffer(*(soundBuffer));
             this->sounds[i].play();
             float length = soundBuffer->getDuration().asSeconds();
