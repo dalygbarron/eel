@@ -47,6 +47,14 @@ namespace Utils {
     int startOfNextWord(char const *string);
 
     /**
+     * Takes in the start point of a token in a string and then returns how
+     * long that token is so you can do stuff to it easily.
+     * @param start is the start of the token.
+     * @return the number of characters until it ends.
+     */
+    int pathToken(char const *start);
+
+    /**
      * fits some text into a given space.
      * @param string is the text to fit in.
      * @param bounds are the boundaries that the text must fit within.

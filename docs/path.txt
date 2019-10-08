@@ -1,0 +1,30 @@
+repository is handed root path which is prepended to asset keys.
+
+repository wants to load asset from other repository at path relative to path
+of key it has been passed. Key it has been passed will be like
+"map/big.tmx", and the asset it wants to load will relatively be
+"../tileset/outside.tsx". Non relatively will be
+"tileset/outside.tsx". Then when appended to the root directory it will be
+something like "example/tileset/outside.tsx".
+
+Would be nice to make some kind of appended string class which is created on
+the stack and takes either a pointer to a string or a pointer to another
+instance and appends some stuff.
+
+For example repository is created with pointer to root, when it calls create it 
+creates a root + name path object. when it calls the other repo to create some
+stuff it will need to create another path which consists of the path part of
+it's key without root + the path to the other asset.
+
+Ok so this stack path object starts with a string to a file, it cuts off the
+file and only takes the directories. the second half however can contain a file
+name and it will get added on.
+
+so from the parent repo's point of view, it would have a path of "map/big.tmx"
+and it would need "../tileset/tiles.tsx" so it would combine them into
+"tileset/tiles.tsx" which gets sent to the tileset repo which combines that
+with the path to get "example/tileset/tiles.tsx" which is the correct path of
+the file.
+
+Residual ".."s are kept so that you can use them in a future joining though
+that should not be necessary here.

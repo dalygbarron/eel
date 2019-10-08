@@ -1,15 +1,6 @@
 #include "test/catch.hh"
 #include "model/Path.hh"
 
-TEST_CASE("path token", "[path]") {
-    char const *test = "~/Documents/github/eel/README.md";
-    REQUIRE(Path::token(test) == 1);
-    REQUIRE(Path::token(test + 1) == 10);
-    REQUIRE(Path::token(test + 11) == 7);
-    REQUIRE(Path::token(test + 18) == 4);
-    REQUIRE(Path::token(test + 22) == 10);
-}
-
 TEST_CASE("making nice paths", "[path]") {
     Path path;
     path.apply("camel/pictures");

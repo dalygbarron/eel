@@ -38,6 +38,12 @@ int Utils::startOfNextWord(char const *string) {
     return 0;
 }
 
+int Utils::pathToken(char const *start) {
+    int i = 1;
+    while (start[i] && start[i] != '/') i++;
+    return i;
+}
+
 void Utils::fitText(char const *string, sf::FloatRect bounds, sf::Text *text) {
     char fittedContent[Constant::SMALL_TEXT_BUFFER_SIZE];
     int readHead = 0;
@@ -98,6 +104,24 @@ char *Utils::moveString(char const *string) {
     char *moved = new char[strlen(string) + 1];
     strcpy(moved, string);
     return moved;
+}
+
+int Path::token(char const *start) {
+    int i = 1;
+    while (start[i] && start[i] != '/') i++;
+    return i;
+}
+
+int Path::token(char const *start) {
+    int i = 1;
+    while (start[i] && start[i] != '/') i++;
+    return i;
+}
+
+int Path::token(char const *start) {
+    int i = 1;
+    while (start[i] && start[i] != '/') i++;
+    return i;
 }
 
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {

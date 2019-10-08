@@ -12,7 +12,9 @@
  */
 template <class T> class Repository {
     public:
-        Path path;
+        Repository(char const *path) {
+            root.apply(path);
+        }
 
         /**
          * Deletes everything that is cached as well as this repository.
@@ -35,7 +37,7 @@ template <class T> class Repository {
         Asset<T> *get(char const *name) {
             if (this->items.count(name) == 0) {
                 Asset<T> *asset = new Asset<T>();
-                asset->content = this->create(path.in(name));
+                asset->content = this->create(root.in(name));
                 this->items[name] = asset;
             }
             return this->items[name];
@@ -54,6 +56,7 @@ template <class T> class Repository {
 
     private:
         std::unordered_map<std::string, Asset<T> *> items;
+        Path root;
 
         /**
          * Create the object fresh.

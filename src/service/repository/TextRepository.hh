@@ -7,6 +7,9 @@
  * Repository for text files.
  */
 class TextRepository: public Repository<char const *> {
+    public:
+        TextRepository(char const *path);
+
     private:
         virtual char const *create(char const *name) override;
 };
