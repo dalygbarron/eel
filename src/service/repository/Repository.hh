@@ -4,6 +4,7 @@
 #include "model/Asset.hh"
 #include "model/Path.hh"
 #include <unordered_map>
+#include <string>
 
 /**
  * Represents a repository of some class which can load them in and then cache
