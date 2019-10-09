@@ -48,16 +48,15 @@ int main(int argc, char **argv) {
     else gameFile = DEFAULT_CONFIG_FILE;
     // Start up the game systems.
     try {
-        // Load the base game file.
-        Config config(gameFile);
         // Instantiate the repositories.
-        TextRepository textRepo;
-        TextureRepository textureRepo;
-        TilesetRepository tilesetRepo(&textRepo, &textureRepo);
-        TileMapRepository tileMapRepo(&tilesetRepo);
-        SoundRepository soundRepo;
-        MusicRepository musicRepo;
+        TextRepository textRepo(gameFile);
+        TextureRepository textureRepo(gameFile);
+        TilesetRepository tilesetRepo(gameFile, &textRepo, &textureRepo);
+        TileMapRepository tileMapRepo(gameFile, &tilesetRepo);
+        SoundRepository soundRepo(gameFile);
+        MusicRepository musicRepo(gameFile);
         // Instantiate all the services.
+        Config config(gameFile);
         ControlBuilder controlBuilder(&textureRepo, &config);
         Radio radio(&soundRepo, &musicRepo);
         Engine engine(

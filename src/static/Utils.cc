@@ -106,24 +106,6 @@ char *Utils::moveString(char const *string) {
     return moved;
 }
 
-int Path::token(char const *start) {
-    int i = 1;
-    while (start[i] && start[i] != '/') i++;
-    return i;
-}
-
-int Path::token(char const *start) {
-    int i = 1;
-    while (start[i] && start[i] != '/') i++;
-    return i;
-}
-
-int Path::token(char const *start) {
-    int i = 1;
-    while (start[i] && start[i] != '/') i++;
-    return i;
-}
-
 sf::Vector2f Utils::wrapped(sf::Vector2f pos, sf::FloatRect bounds) {
     while (pos.x < bounds.left) pos.x += bounds.width;
     while (pos.x >= bounds.left + bounds.width) pos.x -= bounds.width;

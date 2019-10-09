@@ -1,3 +1,4 @@
+#include "test/helpers.hh"
 #include "catch.hh"
 #include <SFML/Graphics.hpp>
 
@@ -16,4 +17,8 @@ void compareRects(sf::FloatRect a, sf::FloatRect b) {
     REQUIRE(a.top == Approx(b.top));
     REQUIRE(a.width == Approx(b.width));
     REQUIRE(a.height == Approx(b.height));
+}
+
+void compareStrings(char const *expected, char const *received) {
+    REQUIRE_THAT(received, Catch::Matchers::Equals(expected));
 }

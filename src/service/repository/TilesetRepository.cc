@@ -2,9 +2,10 @@
 #include "static/spdlog/spdlog.h"
 
 TilesetRepository::TilesetRepository(
+    char const *root,
     TextRepository *textRepo,
     TextureRepository *textureRepo
-) {
+): Repository(root) {
     this->textRepo = textRepo;
     this->textureRepo = textureRepo;
 }

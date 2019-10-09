@@ -13,7 +13,7 @@
 template <class T> class Repository {
     public:
         Repository(char const *path) {
-            root.apply(path);
+            this->root = path;
         }
 
         /**
@@ -36,8 +36,9 @@ template <class T> class Repository {
          */
         Asset<T> *get(char const *name) {
             if (this->items.count(name) == 0) {
+                Path filename(this->root, name);
                 Asset<T> *asset = new Asset<T>();
-                asset->content = this->create(root.in(name));
+                asset->content = this->create(filename.get());
                 this->items[name] = asset;
             }
             return this->items[name];
@@ -56,7 +57,7 @@ template <class T> class Repository {
 
     private:
         std::unordered_map<std::string, Asset<T> *> items;
-        Path root;
+        char const *root;
 
         /**
          * Create the object fresh.

@@ -132,7 +132,7 @@ TEST_CASE("parse base64 string max length is short", "[utils]") {
     for (int i = 0; i < 6; i++) REQUIRE(output[i] == expected[i]);
 }
 
-TEST_CASE("path token", "[path]") {
+TEST_CASE("path token", "[utils][path]") {
     char const *test = "~/Documents/github/eel/README.md";
     REQUIRE(Utils::pathToken(test) == 1);
     REQUIRE(Utils::pathToken(test + 1) == 10);

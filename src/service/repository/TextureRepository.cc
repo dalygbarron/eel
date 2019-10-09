@@ -1,6 +1,10 @@
 #include "service/repository/TextureRepository.hh"
 #include "static/spdlog/spdlog.h"
 
+TextureRepository::TextureRepository(char const *root): Repository(root) {
+    // does nothihng.
+}
+
 sf::Texture *TextureRepository::create(char const *filename) {
     spdlog::info("create texture: '{}'", filename);
     sf::Texture *texture = new sf::Texture();

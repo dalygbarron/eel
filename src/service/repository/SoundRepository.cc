@@ -2,6 +2,10 @@
 #include "static/Utils.hh"
 #include "static/spdlog/spdlog.h"
 
+SoundRepository::SoundRepository(char const *root): Repository(root) {
+    // Does nothing.
+}
+
 sf::SoundBuffer *SoundRepository::create(char const *filename) {
     spdlog::info("creating sound: '{}'", filename);
     sf::SoundBuffer *sound = new sf::SoundBuffer();

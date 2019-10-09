@@ -12,9 +12,10 @@ class TileMapRepository: public Repository<TileMap *> {
         /**
          * Creates the tilemap repo and gives it a pointer to a tileset repo
          * which is needed to create tile maps.
+         * @param root        is the root directory to load from.
          * @param tilesetRepo is the dependency of the tilemap repo.
          */
-        TileMapRepository(TilesetRepository *tilesetRepo);
+        TileMapRepository(char const *root, TilesetRepository *tilesetRepo);
 
     private:
         TilesetRepository *tilesetRepo;

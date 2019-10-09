@@ -8,6 +8,13 @@
  * Repository for musics.
  */
 class MusicRepository: public Repository<sf::Music *> {
+    public:
+        /**
+         * Creates the music repo.
+         * @param root is the root directory from which it loads the shit.
+         */
+        MusicRepository(char const *root);
+
     private:
         virtual sf::Music *create(char const *filename) override;
 };
