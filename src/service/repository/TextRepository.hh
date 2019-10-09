@@ -2,6 +2,7 @@
 #define TEXT_REPOSITORY_H
 
 #include "service/repository/Repository.hh"
+#include "static/xml/pugixml.hpp"
 
 /**
  * Repository for text files.

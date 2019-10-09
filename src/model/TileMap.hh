@@ -2,31 +2,26 @@
 #define TILE_MAP_H
 
 #include "model/Tileset.hh"
+#include "model/Chunk.hh"
 #include "service/repository/TilesetRepository.hh"
 #include "static/Utils.hh"
 #include "static/xml/pugixml.hpp"
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 
+// Forward Declaration.
+class TileMapRepository;
+
 /**
- * Represents a game map as it is loaded from the tiled editor.
+ * Represents a game map.
  */
 class TileMap {
+    friend class TileMapRepository;
     public:
         /**
-         * Represents the ways in which the map can be oriented.
+         * Creates a tilemap by putting in all it's data.
          */
-        enum Orientation {
-            ORTHAGONAL,
-            ISOMETRIC
-        };
-
-        /**
-         * Creates a tilemap out of an input stream.
-         * @param node        is the xml node to read the map from.
-         * @param tilesetRepo is the repo to get tilesets out of.
-         */
-        TileMap(pugi::xml_node node, TilesetRepository *tilesetRepo);
+        TileMap(sf::Vector2u tileSize, Tileset *tileset, );
 
         /**
          * Deletes the map's chunks.
@@ -45,25 +40,22 @@ class TileMap {
          */
         sf::Vector2u getTileSize() const;
 
-        /**
-         * Takes a string containing the name of an orientation and parses it
-         * into an orientation enum. If it is not recognised it logs a warning
-         * and defaults to isometric.
-         * @param orientation is the string to read.
-         * @return the orientation enum value.
-         */
-        static TileMap::Orientation parseOrientation(char const *orientation);
-
     private:
         Asset<Tileset *> *tileset;
         sf::Vector2u tileSize;
         std::unordered_map<
             sf::Vector2i,
-            unsigned char *,
+            Chunk const *,
             Utils::VectHash
         > chunks;
-        sf::IntRect *regions;
-        TileMap::Orientation orientation;
+
+        /**
+         * Adds a chunk into the map's hashmap of chunks.
+         * @param offset is the 2d location of the chunk in increments of chunk
+         *               size which should be the same for all chunks.
+         * @param chunk  is the chunk to add.
+         */
+        void addChunk(sf::Vector2i offset, Chunk const *chunk);
 };
 
 #endif
