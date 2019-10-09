@@ -23,7 +23,7 @@ class Chunk {
         Chunk(sf::Vector2u dimensions, int z);
 
         /**
-         * Destroys the tiles.
+         * Destroys the tiles and chunks that are linked from this one.
          */
         ~Chunk();
 

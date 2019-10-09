@@ -34,11 +34,11 @@ template <class T> class Repository {
          * @param name is the name of the asset we seek.
          * @return the asset.
          */
-        Asset<T> *get(char const *name) {
+        Asset<T> const *get(char const *name) {
             if (this->items.count(name) == 0) {
                 Path filename(this->root, name);
                 Asset<T> *asset = new Asset<T>();
-                asset->content = this->create(filename.get());
+                asset->content = this->create(filename.get(), name);
                 this->items[name] = asset;
             }
             return this->items[name];
@@ -51,7 +51,8 @@ template <class T> class Repository {
         void zap() {
             for(auto const &name: this->items) {
                 delete this->items[name];
-                this->items[name] = this->create(name);
+                Path path(this->root, name);
+                this->items[name] = this->create(path.get(), name);
             }
         }
 
@@ -64,8 +65,10 @@ template <class T> class Repository {
          * @param filename is the filename to open the data from. It is not the
          *                 same as the key as it can have extra directories in
          *                 it.
+         * @param key      is the key the file is named after. Useful for
+         *                 to other repos and stuff like that.
          */
-        virtual T create(char const *filename) = 0;
+        virtual T create(char const *filename, char const *key) = 0;
 };
 
 #endif

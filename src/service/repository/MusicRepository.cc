@@ -7,7 +7,7 @@ MusicRepository::MusicRepository(char const *root): Repository(root) {
     // nothing here.
 }
 
-sf::Music *MusicRepository::create(char const *filename) {
+sf::Music *MusicRepository::create(char const *filename, char const *key) {
     spdlog::info("creating music: '{}'", filename);
     return 0;
 }

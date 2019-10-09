@@ -28,7 +28,7 @@ class TilesetRepository: public Repository<Tileset *> {
         TextRepository *textRepo;
         TextureRepository *textureRepo;
 
-        virtual Tileset *create(char const *name) override;
+        virtual Tileset *create(char const *name, char const *key) override;
 };
 
 #endif

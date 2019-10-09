@@ -16,7 +16,10 @@ class MusicRepository: public Repository<sf::Music *> {
         MusicRepository(char const *root);
 
     private:
-        virtual sf::Music *create(char const *filename) override;
+        virtual sf::Music *create(
+            char const *filename,
+            char const *key
+        ) override;
 };
 
 #endif

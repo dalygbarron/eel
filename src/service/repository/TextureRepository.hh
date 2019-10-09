@@ -16,7 +16,10 @@ class TextureRepository: public Repository<sf::Texture *> {
         TextureRepository(char const *root);
 
     private:
-        virtual sf::Texture *create(char const *name) override;
+        virtual sf::Texture *create(
+            char const *name,
+            char const *key
+        ) override;
 };
 
 #endif

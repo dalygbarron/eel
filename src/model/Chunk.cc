@@ -6,6 +6,7 @@ Chunk::Chunk(sf::Vector2u dimensions, int z): dimensions(dimensions), z(z) {
 
 Chunk::~Chunk() {
     delete[] this->tiles;
+    delete this->next;
 }
 
 void Chunk::stack(Chunk *chunk) {

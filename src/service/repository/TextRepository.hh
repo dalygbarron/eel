@@ -25,7 +25,7 @@ class TextRepository: public Repository<char const *> {
         pugi::xml_node getXml(char const *name, char const *tag);
 
     private:
-        virtual char const *create(char const *name) override;
+        virtual char const *create(char const *name, char const *key) override;
 };
 
 #endif

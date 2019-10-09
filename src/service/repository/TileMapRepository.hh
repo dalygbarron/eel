@@ -2,6 +2,8 @@
 #define TILE_MAP_REPOSITORY_H
 
 #include "service/repository/Repository.hh"
+#include "service/repository/TilesetRepository.hh"
+#include "service/repository/TextRepository.hh"
 #include "model/TileMap.hh"
 
 /**
@@ -15,12 +17,19 @@ class TileMapRepository: public Repository<TileMap *> {
          * @param root        is the root directory to load from.
          * @param tilesetRepo is the dependency of the tilemap repo.
          */
-        TileMapRepository(char const *root, TilesetRepository *tilesetRepo);
+        TileMapRepository(
+            char const *root,
+            TextRepository *textRepo,
+            TilesetRepository *tilesetRepo
+        );
 
     private:
         TilesetRepository *tilesetRepo;
 
-        virtual TileMap *create(char const *filename) override;
+        virtual TileMap *create(
+            char const *filename,
+            char const *key
+        ) override;
 };
 
 #endif

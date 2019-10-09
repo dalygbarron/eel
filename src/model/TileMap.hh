@@ -20,8 +20,11 @@ class TileMap {
     public:
         /**
          * Creates a tilemap by putting in all it's data.
+         * @param tileSize is the size of each tile in the actual map like how
+         *                 they fit together kinda thing.
+         * @param tileset  is the tileset that the tiles in the map belong to.
          */
-        TileMap(sf::Vector2u tileSize, Tileset *tileset, );
+        TileMap(sf::Vector2u tileSize, Asset<Tileset *> const *tileset);
 
         /**
          * Deletes the map's chunks.
@@ -41,13 +44,9 @@ class TileMap {
         sf::Vector2u getTileSize() const;
 
     private:
-        Asset<Tileset *> *tileset;
         sf::Vector2u tileSize;
-        std::unordered_map<
-            sf::Vector2i,
-            Chunk const *,
-            Utils::VectHash
-        > chunks;
+        Asset<Tileset *> const *tileset;
+        std::unordered_map<sf::Vector2i, Chunk *, Utils::VectHash> chunks;
 
         /**
          * Adds a chunk into the map's hashmap of chunks.
@@ -55,7 +54,7 @@ class TileMap {
          *               size which should be the same for all chunks.
          * @param chunk  is the chunk to add.
          */
-        void addChunk(sf::Vector2i offset, Chunk const *chunk);
+        void addChunk(sf::Vector2i offset, Chunk *chunk);
 };
 
 #endif
