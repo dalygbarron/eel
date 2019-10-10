@@ -15,19 +15,12 @@
  */
 class WalkScene: public Scene {
     public:
-        constexpr static int MAX_MOBS = 10000;
-        constexpr static int MAX_TILES = 7824;
-        constexpr static int MAX_ACTORS = 64;
-        constexpr static int MAX_BULLETS = 2048;
-        constexpr static int MAX_PLACEMENTS = 64;
-        constexpr static float MAP_CROSSING_BUFFER = 0.2;
-
         /**
          * Creates the scene.
          * @param engine is the engine stuff that the scene uses.
-         * @param level  is the filename of the level.
+         * @param map    is the map that should be in the scene.
          */
-        WalkScene(Engine const *engine, char const *level);
+        WalkScene(Engine const *engine, TileMap *map);
 
         /**
          * Deletes all of this junk.
@@ -35,6 +28,8 @@ class WalkScene: public Scene {
         virtual ~WalkScene();
 
     private:
+        TileMap *map;
+
         /**
          * Sorts all the scene's mobs and gives the range that changed.
          * @return a vector where x is the lowest index of a mob that changed,

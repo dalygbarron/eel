@@ -13,7 +13,9 @@
 class TileMapRepository;
 
 /**
- * Represents a game map.
+ * Represents a game map. This can only represent the static data that was in
+ * the file. When you want to play in the map it must be transferred to another
+ * class because otherwise you will screw up stuff you know.
  */
 class TileMap {
     friend class TileMapRepository;

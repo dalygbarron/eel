@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -std=c++14 -I src/ -g
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
-MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset TileMap Path)
+MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset TileMap Path Chunk)
 SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene WalkScene)
 CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
 SERVICE = $(addprefix service/, Config Game Radio Status Engine)

@@ -4,25 +4,28 @@
 
 TileMapRepository::TileMapRepository(
     char const *root,
+    TextRepository *textRepo,
     TilesetRepository *tilesetRepo
 ): Repository(root) {
+    this->textRepo = textRepo;
     this->tilesetRepo = tilesetRepo;
 }
 
 TileMap *TileMapRepository::create(char const *filename, char const *key) {
     spdlog::info("creating tilemap: '{}'", filename);
+    pugi::xml_node node = this->textRepo->getXml(key, "tilemap");
     // Load main properties.
     sf::Vector2u tileSize;
-    tileSize.x = node.attribute("tileWidth").asInt();
-    tileSize.y = node.attribute("tileHeight").asInt();
-    pugi::xml_node tileset = node.child("tileset");
-    if (!tileset) {
+    tileSize.x = node.attribute("tileWidth").as_int();
+    tileSize.y = node.attribute("tileHeight").as_int();
+    pugi::xml_node tilesetNode = node.child("tileset");
+    if (!tilesetNode) {
         spdlog::error("Tilemap lacked tileset object");
         return 0;
     }
-    Path tilesetFile(key, tileset.attribute("source").value());
-    Asset<Tileset *> const tileset = tilesetRepo->get(tilesetFile.get());
-    TileMap tileMap = new TileMap(tileSize, tileset);
+    Path tilesetFile(key, tilesetNode.attribute("source").value());
+    Asset<Tileset *> const *tileset = tilesetRepo->get(tilesetFile.get());
+    TileMap *tileMap = new TileMap(tileSize, tileset);
     // Load layers.
     for (pugi::xml_node layer = node.child("layer"); layer;
         layer = layer.next_sibling("layer")) {

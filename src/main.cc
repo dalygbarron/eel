@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
         TextRepository textRepo(gameFile);
         TextureRepository textureRepo(gameFile);
         TilesetRepository tilesetRepo(gameFile, &textRepo, &textureRepo);
-        TileMapRepository tileMapRepo(gameFile, &tilesetRepo);
+        TileMapRepository tileMapRepo(gameFile, &textRepo, &tilesetRepo);
         SoundRepository soundRepo(gameFile);
         MusicRepository musicRepo(gameFile);
         // Instantiate all the services.

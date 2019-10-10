@@ -13,7 +13,14 @@
  */
 template <class T> class Asset {
     public:
-        T content;
+
+        /**
+         * Creates the asset thingy and populates it's content.
+         * @param content is the content to put in it.
+         */
+        Asset(T *content) {
+            this->content = content;
+        }
 
         /**
          * Deletes the asset's content.
@@ -21,6 +28,19 @@ template <class T> class Asset {
         ~Asset() {
             delete this->content;
         }
+
+        /**
+         * Gives the actual asset inside this. Don't just use this to strip out
+         * the meat and eat it, you need to keep this asset object whenever
+         * possible so that the asset you are holding can be reloaded live.
+         * @return a const pointer to your nice asset.
+         */
+        T const *get() {
+            return this->content;
+        }
+
+    private:
+        T *content;
 };
 
 #endif

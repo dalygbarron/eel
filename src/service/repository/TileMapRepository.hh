@@ -14,8 +14,9 @@ class TileMapRepository: public Repository<TileMap *> {
         /**
          * Creates the tilemap repo and gives it a pointer to a tileset repo
          * which is needed to create tile maps.
-         * @param root        is the root directory to load from.
-         * @param tilesetRepo is the dependency of the tilemap repo.
+         * @param root           is the root directory to load from.
+         * @param textRepository is the text repo used to open it's own xml.
+         * @param tilesetRepo    is the dependency of the tilemap repo.
          */
         TileMapRepository(
             char const *root,
@@ -24,6 +25,7 @@ class TileMapRepository: public Repository<TileMap *> {
         );
 
     private:
+        TextRepository *textRepo;
         TilesetRepository *tilesetRepo;
 
         virtual TileMap *create(

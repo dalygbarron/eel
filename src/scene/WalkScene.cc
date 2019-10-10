@@ -1,9 +1,7 @@
 #include "scene/WalkScene.hh"
 
-WalkScene::WalkScene(Engine const *engine, char const *level): Scene(engine) {
-    // TODO: who knows what is going on hahahahhHAHAHHA
-    // TODO: ALSO, tilemap should be being stored as asset.
-    TileMap const *map = engine->tileMapRepo->get(level)->content;
+WalkScene::WalkScene(Engine const *engine, TileMap *map): Scene(engine) {
+    this->map = map;
 }
 
 WalkScene::~WalkScene() {
@@ -28,5 +26,5 @@ void WalkScene::render(
     sf::RenderTarget *target,
     sf::RenderStates states
 ) const {
-    // TODO: draw the walkstage.
+    this->map->render(target, states);
 }

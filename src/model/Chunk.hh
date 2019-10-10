@@ -1,6 +1,8 @@
 #ifndef CHUNK_H
 #define CHUNK_H
 
+#include <SFML/Graphics.hpp>
+
 /**
  * Represents a two dimensional square of tiles existing in three dimensional
  * space that can also have other chunks stacked on top in a linked list type
