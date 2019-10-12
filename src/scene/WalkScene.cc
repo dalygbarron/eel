@@ -1,7 +1,10 @@
 #include "scene/WalkScene.hh"
 
-WalkScene::WalkScene(Engine const *engine, TileMap *map): Scene(engine) {
-    this->map = map;
+WalkScene::WalkScene(
+    Engine const *engine,
+    Asset<TileMap> const *map
+): Scene(engine) {
+    // TODO: convert tile map to tiles.
 }
 
 WalkScene::~WalkScene() {
@@ -26,5 +29,5 @@ void WalkScene::render(
     sf::RenderTarget *target,
     sf::RenderStates states
 ) const {
-    this->map->render(target, states);
+    target->clear(sf::Color::Red);
 }

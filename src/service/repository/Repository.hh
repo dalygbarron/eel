@@ -37,8 +37,9 @@ template <class T> class Repository {
         Asset<T> const *get(char const *name) {
             if (this->items.count(name) == 0) {
                 Path filename(this->root, name);
-                Asset<T> *asset = new Asset<T>();
-                asset->content = this->create(filename.get(), name);
+                Asset<T> *asset = new Asset<T>(
+                    this->create(filename.get(), name)
+                );
                 this->items[name] = asset;
             }
             return this->items[name];
@@ -67,8 +68,9 @@ template <class T> class Repository {
          *                 it.
          * @param key      is the key the file is named after. Useful for
          *                 to other repos and stuff like that.
+         * @return a non const pointer to the new object.
          */
-        virtual T create(char const *filename, char const *key) = 0;
+        virtual T *create(char const *filename, char const *key) = 0;
 };
 
 #endif

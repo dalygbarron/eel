@@ -31,10 +31,11 @@ Tileset::Tileset(pugi::xml_node node, TextureRepository *textureRepo) {
         delete this->name;
         throw -1;
     }
-    this->texture = textureRepo->get(image.attribute("source").value())->content;
+    this->texture = textureRepo->get(image.attribute("source").value())->get();
     // TODO: presumably tile properties are going to be stored in the tileset.
-    //       need to load in the creator defined tiled height which will default
-    //       to 0. Maybe other custom properties as well, I do not know.
+    //       need to load in the creator defined tiled height which will
+    //       default to 0. Maybe other custom properties as well, I do not
+    //       know.
 }
 
 Tileset::~Tileset() {

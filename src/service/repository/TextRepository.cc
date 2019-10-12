@@ -8,7 +8,7 @@ TextRepository::TextRepository(char const *root): Repository(root) {
 
 pugi::xml_node TextRepository::getXml(char const *name, char const *tag) {
     pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_string(this->get(name)->content);
+    pugi::xml_parse_result result = doc.load_string(this->get(name)->get());
     if (!result) {
         spdlog::error("xml file '{}' is not valid", name);
     }

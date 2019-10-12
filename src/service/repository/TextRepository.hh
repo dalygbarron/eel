@@ -5,9 +5,10 @@
 #include "static/xml/pugixml.hpp"
 
 /**
- * Repository for text files.
+ * Repository for text files. Slightly unusual in that it gives you a pointer
+ * to a null terminated array of characters, not just to one character.
  */
-class TextRepository: public Repository<char const *> {
+class TextRepository: public Repository<char> {
     public:
         /**
          * Creates the repository.
@@ -25,7 +26,7 @@ class TextRepository: public Repository<char const *> {
         pugi::xml_node getXml(char const *name, char const *tag);
 
     private:
-        virtual char const *create(char const *name, char const *key) override;
+        virtual char *create(char const *name, char const *key) override;
 };
 
 #endif

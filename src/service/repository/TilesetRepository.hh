@@ -9,7 +9,7 @@
 /**
  * Repository for tileset objects.
  */
-class TilesetRepository: public Repository<Tileset *> {
+class TilesetRepository: public Repository<Tileset> {
     public:
         /**
          * Builds the repo and injects the dependencies.

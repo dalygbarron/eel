@@ -7,7 +7,7 @@
 /**
  * Repository for textures.
  */
-class TextureRepository: public Repository<sf::Texture *> {
+class TextureRepository: public Repository<sf::Texture> {
     public:
         /**
          * Creates the repo.

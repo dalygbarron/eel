@@ -9,7 +9,7 @@
 /**
  * Repository for Tile Maps.
  */
-class TileMapRepository: public Repository<TileMap *> {
+class TileMapRepository: public Repository<TileMap> {
     public:
         /**
          * Creates the tilemap repo and gives it a pointer to a tileset repo

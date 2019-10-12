@@ -59,7 +59,7 @@ class Tileset {
         //       not actually going to be storing a pointer to the texture and
         //       will be drawing it onto another image, so we can just do it
         //       like this for now.
-        sf::Texture *texture;
+        sf::Texture const *texture;
         sf::Vector2i tileSize;
         int columns;
 };

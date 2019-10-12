@@ -13,7 +13,6 @@
  */
 template <class T> class Asset {
     public:
-
         /**
          * Creates the asset thingy and populates it's content.
          * @param content is the content to put in it.
@@ -35,7 +34,7 @@ template <class T> class Asset {
          * possible so that the asset you are holding can be reloaded live.
          * @return a const pointer to your nice asset.
          */
-        T const *get() {
+        T const *get() const {
             return this->content;
         }
 

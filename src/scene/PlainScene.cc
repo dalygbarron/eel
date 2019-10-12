@@ -6,7 +6,9 @@ PlainScene::PlainScene(
     char const *filename
 ): Scene(engine) {
     spdlog::info("Creating plain scene with script '{}'", filename);
-    this->script = new Script(this, engine->textRepo->get(filename)->content);
+    // TODO: maybe script object itself should be cached.
+    //       dunno if that is possible / worthwhile tbh.
+    this->script = new Script(this, engine->textRepo->get(filename)->get());
     this->file = new char[strlen(filename) + 1];
     strcpy(this->file, filename);
 }

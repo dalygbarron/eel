@@ -14,7 +14,7 @@ Tileset *TilesetRepository::create(char const *filename, char const *key) {
     spdlog::info("creating tileset: '{}'", filename);
     // TODO: this is meant to go through some xml loading function.
     pugi::xml_document  doc;
-    char const *data = this->textRepo->get(key)->content;
+    char const *data = this->textRepo->get(key)->get();
     Tileset *tileset = new Tileset(doc, this->textureRepo);
     return tileset;
 }

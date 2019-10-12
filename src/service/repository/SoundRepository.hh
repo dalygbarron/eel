@@ -7,7 +7,7 @@
 /**
  * Repository for sounds.
  */
-class SoundRepository: public Repository<sf::SoundBuffer *> {
+class SoundRepository: public Repository<sf::SoundBuffer> {
     public:
         /**
          * Creates the repo.

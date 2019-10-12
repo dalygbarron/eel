@@ -86,7 +86,7 @@ void Game::transition(Scene *transitioning) {
         case 'w':
             newScene = new WalkScene(
                 this->engine,
-                transitioning->transition + 2
+                this->engine->tileMapRepo->get(transitioning->transition + 2)
             );
             break;
         case 0:

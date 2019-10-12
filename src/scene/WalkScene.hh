@@ -18,9 +18,9 @@ class WalkScene: public Scene {
         /**
          * Creates the scene.
          * @param engine is the engine stuff that the scene uses.
-         * @param map    is the map that should be in the scene.
+         * @param map    is the map that should be put into the scene.
          */
-        WalkScene(Engine const *engine, TileMap *map);
+        WalkScene(Engine const *engine, Asset<TileMap> const *map);
 
         /**
          * Deletes all of this junk.
@@ -28,8 +28,6 @@ class WalkScene: public Scene {
         virtual ~WalkScene();
 
     private:
-        TileMap *map;
-
         /**
          * Sorts all the scene's mobs and gives the range that changed.
          * @return a vector where x is the lowest index of a mob that changed,
