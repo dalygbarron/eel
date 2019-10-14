@@ -1,6 +1,6 @@
 <game name="Eel Test Game" version="pre alpha" engine="0x0001" width="640" height="480">
     <opts>
-        <opt name="start" value="scripts/start.lua" />
+        <opt name="start" value="scripts/test.lua" />
         <opt name="tileWidth" value="64" />
         <opt name="tileHeight" value="96" />
         <opt name="tileRatio" value="2" />

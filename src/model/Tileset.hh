@@ -12,11 +12,18 @@ class Tileset {
     public:
         /**
          * Creates the tileset from the given data.
-         * @param node        is the tiled xml node of the tileset.
-         * @param textureRepo is the asset repository which is used to load the
-         *                    texture of the tileset.
+         * @param name     is the name of the tileset. This object will take
+         *                 care of the string from now on.
+         * @param tileSize is the size of tiles in this tileset in terms of the
+         *                 rectangles bounding the tile images.
+         * @param texture  is a pointer to the texture that is used to render
+         *                 the tileset.
          */
-        Tileset(pugi::xml_node node, TextureRepository *textureRepo);
+        Tileset(
+            char const *name,
+            sf::Vector2u tileSize,
+            Asset<sf::Texture> const *texture
+        );
 
         /**
          * Deletes the tilset name because that is all it needs to worry about.
@@ -33,7 +40,7 @@ class Tileset {
          * Gives the size of a tile in the tileset.
          * @return the size as a vector.
          */
-        sf::Vector2i getTileSize() const;
+        sf::Vector2u getTileSize() const;
 
         /**
          * Takes four vertices and makes them into a quad for the given tile.
@@ -54,14 +61,8 @@ class Tileset {
 
     private:
         char const *name;
-        // TODO: technically things that are gotten out of a repo and stored
-        //       should be kept in the asset pointer object, but the tileset is
-        //       not actually going to be storing a pointer to the texture and
-        //       will be drawing it onto another image, so we can just do it
-        //       like this for now.
-        sf::Texture const *texture;
-        sf::Vector2i tileSize;
-        int columns;
+        sf::Vector2u tileSize;
+        Asset<sf::Texture> const *texture;
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "model/control/Bopper.hh"
 
 ControlBuilder::ControlBuilder(
-    Repository<Texture> *textureRepo,
+    Repository<sf::Texture> *textureRepo,
     Config const *config
 ) {
     this->fg = textureRepo->get(config->get("fg"));
@@ -17,7 +17,7 @@ ControlBuilder::ControlBuilder(
 }
 
 Control *ControlBuilder::speechBox(char const *name, char const *text) const {
-    Panel *panel = new Panel(true, this->border, this->bg->content);
+    Panel *panel = new Panel(true, this->border, this->bg->get());
     TextBox *nameBox = new TextBox(name, this->fontSizeBig);
     TextBox *textBox = new TextBox(text, this->fontSizeNormal);
     panel->addChild(nameBox);
@@ -33,7 +33,7 @@ Control *ControlBuilder::speechBox(char const *name, char const *text) const {
 }
 
 Control *ControlBuilder::declarationBox(char const *text) const {
-    Panel *panel = new Panel(true, this->border, this->bg->content);
+    Panel *panel = new Panel(true, this->border, this->bg->get());
     TextBox *textBox = new TextBox(text, this->fontSizeNormal);
     panel->addChild(textBox);
     panel->addChild(new Bopper());

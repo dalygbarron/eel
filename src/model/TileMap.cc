@@ -1,7 +1,7 @@
 #include "model/TileMap.hh"
 #include "static/spdlog/spdlog.h"
 
-TileMap::TileMap(sf::Vector2u tileSize, Asset<Tileset *> const *tileset) {
+TileMap::TileMap(sf::Vector2u tileSize, Asset<Tileset> const *tileset) {
     this->tileSize = tileSize;
     this->tileset = tileset;
 }

@@ -3,7 +3,7 @@
 #include "model/control/Bopper.hh"
 #include "static/Utils.hh"
 
-Panel::Panel(int vertical, float border, sf::Texture *texture) {
+Panel::Panel(int vertical, float border, sf::Texture const *texture) {
     this->vertical = vertical;
     this->border = border;
     this->box.setOutlineThickness(border);

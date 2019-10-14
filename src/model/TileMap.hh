@@ -26,7 +26,7 @@ class TileMap {
          *                 they fit together kinda thing.
          * @param tileset  is the tileset that the tiles in the map belong to.
          */
-        TileMap(sf::Vector2u tileSize, Asset<Tileset *> const *tileset);
+        TileMap(sf::Vector2u tileSize, Asset<Tileset> const *tileset);
 
         /**
          * Deletes the map's chunks.
@@ -47,7 +47,7 @@ class TileMap {
 
     private:
         sf::Vector2u tileSize;
-        Asset<Tileset *> const *tileset;
+        Asset<Tileset> const *tileset;
         std::unordered_map<sf::Vector2i, Chunk *, Utils::VectHash> chunks;
 
         /**

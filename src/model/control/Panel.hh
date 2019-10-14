@@ -18,7 +18,7 @@ class Panel: public Control {
          * @param border   is how thinck the panel's border should be.
          * @param texture  is the texture to draw in the box.
          */
-        Panel(int vertical, float border, sf::Texture *texture);
+        Panel(int vertical, float border, sf::Texture const *texture);
 
         /**
          * Adds a control onto this panel.

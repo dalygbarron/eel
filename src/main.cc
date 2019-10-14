@@ -12,7 +12,6 @@
 #include "service/repository/TilesetRepository.hh"
 #include "service/repository/TileMapRepository.hh"
 #include "service/repository/SoundRepository.hh"
-#include "service/repository/MusicRepository.hh"
 #include "service/Radio.hh"
 #include "service/Engine.hh"
 #include <SFML/Graphics.hpp>
@@ -54,11 +53,10 @@ int main(int argc, char **argv) {
         TilesetRepository tilesetRepo(gameFile, &textRepo, &textureRepo);
         TileMapRepository tileMapRepo(gameFile, &textRepo, &tilesetRepo);
         SoundRepository soundRepo(gameFile);
-        MusicRepository musicRepo(gameFile);
         // Instantiate all the services.
         Config config(gameFile);
         ControlBuilder controlBuilder(&textureRepo, &config);
-        Radio radio(&soundRepo, &musicRepo);
+        Radio radio(&soundRepo);
         Engine engine(
             &config,
             &textRepo,
@@ -66,7 +64,6 @@ int main(int argc, char **argv) {
             &tilesetRepo,
             &tileMapRepo,
             &soundRepo,
-            &musicRepo,
             &radio,
             0,
             &controlBuilder

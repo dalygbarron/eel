@@ -1,4 +1,5 @@
 #include "service/repository/TilesetRepository.hh"
+#include "static/Utils.hh"
 #include "static/spdlog/spdlog.h"
 
 TilesetRepository::TilesetRepository(
@@ -12,9 +13,17 @@ TilesetRepository::TilesetRepository(
 
 Tileset *TilesetRepository::create(char const *filename, char const *key) {
     spdlog::info("creating tileset: '{}'", filename);
-    // TODO: this is meant to go through some xml loading function.
-    pugi::xml_document  doc;
-    char const *data = this->textRepo->get(key)->get();
-    Tileset *tileset = new Tileset(doc, this->textureRepo);
+    pugi::xml_node node = this->textRepo->getXml(key, "tileset");
+    char const *name = Utils::moveString(node.attribute("name").value());
+    sf::Vector2u tileSize;
+    tileSize.x = node.attribute("tileWidth").as_int();
+    tileSize.y = node.attribute("tileHeight").as_int();
+    pugi::xml_node imageNode = node.child("image");
+    Path imagePath(key, imageNode.attribute("source").value());
+    Tileset *tileset = new Tileset(
+        name,
+        tileSize,
+        this->textureRepo->get(imagePath.get())
+    );
     return tileset;
 }

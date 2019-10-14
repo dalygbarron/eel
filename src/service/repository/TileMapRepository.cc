@@ -13,7 +13,7 @@ TileMapRepository::TileMapRepository(
 
 TileMap *TileMapRepository::create(char const *filename, char const *key) {
     spdlog::info("creating tilemap: '{}'", filename);
-    pugi::xml_node node = this->textRepo->getXml(key, "tilemap");
+    pugi::xml_node node = this->textRepo->getXml(key, "map");
     // Load main properties.
     sf::Vector2u tileSize;
     tileSize.x = node.attribute("tileWidth").as_int();
@@ -24,9 +24,11 @@ TileMap *TileMapRepository::create(char const *filename, char const *key) {
         return 0;
     }
     Path tilesetFile(key, tilesetNode.attribute("source").value());
-    Asset<Tileset *> const *tileset = tilesetRepo->get(tilesetFile.get());
+    Asset<Tileset> const *tileset = tilesetRepo->get(tilesetFile.get());
     TileMap *tileMap = new TileMap(tileSize, tileset);
     // Load layers.
+    return tileMap;
+    // TODO: finish
     for (pugi::xml_node layer = node.child("layer"); layer;
         layer = layer.next_sibling("layer")) {
         spdlog::info(

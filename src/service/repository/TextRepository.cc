@@ -19,7 +19,7 @@ pugi::xml_node TextRepository::getXml(char const *name, char const *tag) {
     return node;
 }
 
-char const *TextRepository::create(char const *filename, char const *key) {
+char *TextRepository::create(char const *filename, char const *key) {
     spdlog::info("creating text: '{}'", filename);
     return Utils::readFile(filename);
 }
