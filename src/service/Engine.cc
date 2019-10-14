@@ -7,7 +7,6 @@ Engine::Engine(
     TilesetRepository *tilesetRepo,
     TileMapRepository *tileMapRepo,
     SoundRepository *soundRepo,
-    MusicRepository *musicRepo,
     Radio *radio,
     Status *status,
     ControlBuilder const *controlBuilder
@@ -18,7 +17,6 @@ Engine::Engine(
     this->tilesetRepo = tilesetRepo;
     this->tileMapRepo = tileMapRepo;
     this->soundRepo = soundRepo;
-    this->musicRepo = musicRepo;
     this->radio = radio;
     this->status = status;
     this->controlBuilder = controlBuilder;

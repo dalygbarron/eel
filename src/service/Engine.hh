@@ -6,7 +6,6 @@
 #include "service/repository/TilesetRepository.hh"
 #include "service/repository/TileMapRepository.hh"
 #include "service/repository/SoundRepository.hh"
-#include "service/repository/MusicRepository.hh"
 #include "service/Config.hh"
 #include "service/Radio.hh"
 #include "service/Status.hh"
@@ -23,7 +22,6 @@ public:
     TilesetRepository *tilesetRepo;
     TileMapRepository *tileMapRepo;
     SoundRepository *soundRepo;
-    MusicRepository *musicRepo;
     ControlBuilder const *controlBuilder;
     Radio *radio;
     Status *status;
@@ -36,7 +34,6 @@ public:
      * @param tilesetRepo    is the repo for tilesets.
      * @param tileMapRepo    is the repo for tile maps.
      * @param soundRepo      is the repo for sounds.
-     * @param musicRepo      is the repo for music.
      * @param radio          is the audio controller.
      * @param status         is the game status.
      * @param controlBuilder is the control builder.
@@ -48,7 +45,6 @@ public:
         TilesetRepository *tilesetRepo,
         TileMapRepository *tileMapRepo,
         SoundRepository *soundRepo,
-        MusicRepository *musicRepo,
         Radio *radio,
         Status *status,
         ControlBuilder const *controlBuilder

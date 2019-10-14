@@ -5,7 +5,7 @@
 #include "model/control/Bopper.hh"
 
 ControlBuilder::ControlBuilder(
-    TextureRepository *textureRepo,
+    Repository<Texture> *textureRepo,
     Config const *config
 ) {
     this->fg = textureRepo->get(config->get("fg"));

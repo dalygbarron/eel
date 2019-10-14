@@ -2,29 +2,28 @@
 #include "static/spdlog/spdlog.h"
 #include <cstring>
 
-Radio::Radio(SoundRepository *soundRepo, MusicRepository *musicRepo) {
+Radio::Radio(SoundRepository *soundRepo) {
     this->soundRepo = soundRepo;
-    this->musicRepo = musicRepo;
+    this->songName[0] = 0;
 }
 
 void Radio::playSong(char const *song) {
-    sf::Music const *music = this->musicRepo->get(song)->get();
-    if (!music) {
-        spdlog::error("Cannot find song '{}'", song);
+    if (strcmp(this->songName, song) == 0) {
+        spdlog::debug("Not changing song as it's same");
         return;
     }
-    if (music == this->currentSong) {
-        spdlog::debug("Not playing '{}' as it's already playing", song);
-        return;
+    if (this->music.openFromFile(song)) {
+        strncpy(this->songName, song, Constant::FILENAME_BUFFER_SIZE);
+        this->music.play();
+    } else {
+        this->songName[0] = 0;
+        this->music.stop();
     }
-    if (this->currentSong) this->currentSong->stop();
-    music->play();
-    this->currentSong = music;
 }
 
 void Radio::stopSong() {
-    if (this->currentSong) this->currentSong->stop();
-    this->currentSong = 0;
+    if (this->songName[0]) this->music.stop();
+    this->songName[0] = 0;
 }
 
 float Radio::playSound(char const *sound) {

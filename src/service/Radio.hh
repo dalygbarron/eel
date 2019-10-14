@@ -2,7 +2,7 @@
 #define RADIO_H
 
 #include "service/repository/SoundRepository.hh"
-#include "service/repository/MusicRepository.hh"
+#include "static/Constant.hh"
 #include <SFML/Audio.hpp>
 
 /**
@@ -15,9 +15,8 @@ class Radio {
         /**
          * Builds the radio.
          * @param soundRepo is name of the sound repo.
-         * @param musicRepo is the name of the music repo.
          */
-        Radio(SoundRepository *soundRepo, MusicRepository *musicRepo);
+        Radio(SoundRepository *soundRepo);
 
         /**
          * Starts a nice song playing, unless it is already playing in which
@@ -42,8 +41,8 @@ class Radio {
     
     private:
         SoundRepository *soundRepo;
-        MusicRepository *musicRepo;
-        sf::Music *currentSong;
+        sf::Music music;
+        char songName[Constant::FILENAME_BUFFER_SIZE];
         sf::Sound sounds[Radio::SOUND_LIMIT];
 };
 

@@ -3,7 +3,8 @@
 
 #include "model/control/Control.hh"
 #include "service/Config.hh"
-#include "service/repository/TextureRepository.hh"
+#include "service/repository/Repository.hh"
+#include <SFML/Graphics.hpp>
 
 /**
  * Puts gui windows together according to your specifications.
@@ -15,10 +16,15 @@ class ControlBuilder {
          * TODO: it would probably be better to get rid of this constructor and
          *       just make the thing configurable with methods, but we can do
          *       that another day.
-         * @param textureRepo is the game's source of textures to use.
+         * @param textureRepo is the game's source of textures to use. TODO:
+         *                    really shouldn't be passed in like this imo but
+         *                    we can put up with it for now.
          * @param config      is the game's base configuration.
          */
-        ControlBuilder(TextureRepository *textureRepo, Config const *config);
+        ControlBuilder(
+            Repository<sf::Texture> *textureRepo,
+            Config const *config
+        );
 
         /**
          * Makes a box containing speech.
@@ -36,8 +42,8 @@ class ControlBuilder {
         Control *declarationBox(char const *text) const;
 
     private:
-        Asset<sf::Texture *> const *bg;
-        Asset<sf::Texture *> const *fg;
+        Asset<sf::Texture> const *bg;
+        Asset<sf::Texture> const *fg;
         int border;
         int fontSizeNormal;
         int fontSizeBig;
