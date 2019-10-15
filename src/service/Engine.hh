@@ -15,40 +15,43 @@
  * Encapsulates gamewide services as needed by scenes.
  */
 class Engine {
-public:
-    Config const *config;
-    TextRepository *textRepo;
-    TextureRepository *textureRepo;
-    TilesetRepository *tilesetRepo;
-    TileMapRepository *tileMapRepo;
-    SoundRepository *soundRepo;
-    ControlBuilder const *controlBuilder;
-    Radio *radio;
-    Status *status;
+    public:
+        Config const *config;
+        TextRepository *textRepo;
+        TextureRepository *textureRepo;
+        TilesetRepository *tilesetRepo;
+        TileMapRepository *tileMapRepo;
+        SoundRepository *soundRepo;
+        ControlBuilder const *controlBuilder;
+        Radio *radio;
+        Status *status;
+        sf::Texture *spritesheet;
 
-    /**
-     * Builds the engine and puts in all of it's dependencies in one swoop.
-     * @param config         is the configuration.
-     * @param textRepo       is the repo for text files.
-     * @param textureRepo    is the repo for textures.
-     * @param tilesetRepo    is the repo for tilesets.
-     * @param tileMapRepo    is the repo for tile maps.
-     * @param soundRepo      is the repo for sounds.
-     * @param radio          is the audio controller.
-     * @param status         is the game status.
-     * @param controlBuilder is the control builder.
-     */
-    Engine(
-        Config const *config,
-        TextRepository *textRepo,
-        TextureRepository *textureRepo,
-        TilesetRepository *tilesetRepo,
-        TileMapRepository *tileMapRepo,
-        SoundRepository *soundRepo,
-        Radio *radio,
-        Status *status,
-        ControlBuilder const *controlBuilder
-    );
+        /**
+         * Builds the engine and puts in all of it's dependencies in one swoop.
+         * @param config         is the configuration.
+         * @param textRepo       is the repo for text files.
+         * @param textureRepo    is the repo for textures.
+         * @param tilesetRepo    is the repo for tilesets.
+         * @param tileMapRepo    is the repo for tile maps.
+         * @param soundRepo      is the repo for sounds.
+         * @param radio          is the audio controller.
+         * @param status         is the game status.
+         * @param controlBuilder is the control builder.
+         * @param spritesheet    is the game's sprite sheet for sprites.
+         */
+        Engine(
+            Config const *config,
+            TextRepository *textRepo,
+            TextureRepository *textureRepo,
+            TilesetRepository *tilesetRepo,
+            TileMapRepository *tileMapRepo,
+            SoundRepository *soundRepo,
+            Radio *radio,
+            Status *status,
+            ControlBuilder const *controlBuilder,
+            sf::Texture *spritesheet
+        );
 };
 
 #endif
