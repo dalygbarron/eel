@@ -19,7 +19,7 @@ class TextureRepository: public Repository<sf::Texture> {
         virtual sf::Texture *create(
             char const *name,
             char const *key
-        ) override;
+        ) const override;
 };
 
 #endif

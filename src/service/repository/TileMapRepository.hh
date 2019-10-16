@@ -31,7 +31,7 @@ class TileMapRepository: public Repository<TileMap> {
         virtual TileMap *create(
             char const *filename,
             char const *key
-        ) override;
+        ) const override;
 };
 
 #endif

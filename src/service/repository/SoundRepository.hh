@@ -19,7 +19,7 @@ class SoundRepository: public Repository<sf::SoundBuffer> {
         virtual sf::SoundBuffer *create(
             char const *filename,
             char const *key
-        ) override;
+        ) const override;
 };
 
 #endif

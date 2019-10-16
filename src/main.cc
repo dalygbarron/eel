@@ -22,6 +22,22 @@
 #define DEFAULT_CONFIG_FILE "game.ini"
 
 /**
+ * Logs some basic information.
+ */
+void diagnostics() {
+    spdlog::info(
+        "Eel Version {}.{}.{}",
+        Constant::VERSION_MAJOR,
+        Constant::VERSION_MINOR,
+        Constant::VERSION_REVISION
+    );
+    spdlog::info(
+        "Largest allowed texture on given hardware is {}",
+        sf::Texture::getMaximumSize()
+    );
+}
+
+/**
  * Start of the program.
  * @param argc is the number of commandline arguments given.
  * @param argv is an array of commandline arguments as pointers to strings.
@@ -35,12 +51,7 @@ int main(int argc, char **argv) {
     );
     spdlog::flush_on(spdlog::level::debug); // TODO: change for prod
     spdlog::flush_every(std::chrono::seconds(10));
-    spdlog::info(
-        "Eel Version {}.{}.{}",
-        Constant::VERSION_MAJOR,
-        Constant::VERSION_MINOR,
-        Constant::VERSION_REVISION
-    );
+    diagnostics();
     // Get the game file
     char const *gameFile;
     if (argc == 2) gameFile = argv[1];
@@ -57,6 +68,7 @@ int main(int argc, char **argv) {
         Config config(gameFile);
         ControlBuilder controlBuilder(&textureRepo, &config);
         Radio radio(&soundRepo);
+        sf::Texture *sprites = textureRepo.snatch(config.get("spritesheet"));
         Engine engine(
             &config,
             &textRepo,
@@ -66,7 +78,8 @@ int main(int argc, char **argv) {
             &soundRepo,
             &radio,
             0,
-            &controlBuilder
+            &controlBuilder,
+            sprites
         );
         Game game(&engine);
         // Make sure the engine version is compatible with the game.

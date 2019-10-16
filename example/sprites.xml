@@ -1,0 +1,15 @@
+<spritesheet image="images/sprites.png">
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+    <sprite name="redBullet.png" x="320" y="0" w="32" h="64" />
+</spritesheet>

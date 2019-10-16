@@ -1,9 +1,14 @@
 #include "model/TileMap.hh"
 #include "static/spdlog/spdlog.h"
 
-TileMap::TileMap(sf::Vector2u tileSize, Asset<Tileset> const *tileset) {
+TileMap::TileMap(
+    sf::Vector2u tileSize,
+    Asset<Tileset> const *tileset,
+    sf::Color bg
+) {
     this->tileSize = tileSize;
     this->tileset = tileset;
+    this->bg = bg;
 }
 
 TileMap::~TileMap() {
@@ -19,6 +24,10 @@ sf::Vector3i TileMap::getSize() const {
 
 sf::Vector2u TileMap::getTileSize() const {
     return this->tileSize;
+}
+
+Asset<Tileset> const *TileMap::getTileset() const {
+    return this->tileset;
 }
 
 void TileMap::addChunk(sf::Vector2i offset, Chunk *chunk) {

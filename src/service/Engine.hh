@@ -17,15 +17,14 @@
 class Engine {
     public:
         Config const *config;
-        TextRepository *textRepo;
-        TextureRepository *textureRepo;
-        TilesetRepository *tilesetRepo;
-        TileMapRepository *tileMapRepo;
-        SoundRepository *soundRepo;
+        TextRepository const *textRepo;
+        TextureRepository const *textureRepo;
+        TilesetRepository const *tilesetRepo;
+        TileMapRepository const *tileMapRepo;
+        SoundRepository const *soundRepo;
         ControlBuilder const *controlBuilder;
         Radio *radio;
         Status *status;
-        sf::Texture *spritesheet;
 
         /**
          * Builds the engine and puts in all of it's dependencies in one swoop.
@@ -38,20 +37,33 @@ class Engine {
          * @param radio          is the audio controller.
          * @param status         is the game status.
          * @param controlBuilder is the control builder.
-         * @param spritesheet    is the game's sprite sheet for sprites.
+         * @param spritesheet    is the game's sprite sheet for sprites which
+         *                       is not constant because it gets tilesets drawn
+         *                       right onto it.
          */
         Engine(
             Config const *config,
-            TextRepository *textRepo,
-            TextureRepository *textureRepo,
-            TilesetRepository *tilesetRepo,
-            TileMapRepository *tileMapRepo,
-            SoundRepository *soundRepo,
+            TextRepository const *textRepo,
+            TextureRepository const *textureRepo,
+            TilesetRepository const *tilesetRepo,
+            TileMapRepository const *tileMapRepo,
+            SoundRepository const *soundRepo,
             Radio *radio,
             Status *status,
             ControlBuilder const *controlBuilder,
             sf::Texture *spritesheet
         );
+
+        /**
+         * Makes a spritesheet by joining the game's general spritesheet with
+         * a given tileset picture.
+         * @param tileset is the tileset to add to the spritesheet.
+         * @return the new version of the spritesheet.
+         */
+        sf::Texture const *makeSpritesheet(sf::Texture const *tileset) const;
+
+    private:
+        sf::Texture *spritesheet;
 };
 
 #endif

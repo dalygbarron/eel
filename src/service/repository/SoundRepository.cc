@@ -9,7 +9,7 @@ SoundRepository::SoundRepository(char const *root): Repository(root) {
 sf::SoundBuffer *SoundRepository::create(
     char const *filename,
     char const *key
-) {
+) const {
     spdlog::info("creating sound: '{}'", filename);
     sf::SoundBuffer *sound = new sf::SoundBuffer();
     if (sound->loadFromFile(filename)) {

@@ -3,6 +3,7 @@
 
 #include "model/Asset.hh"
 #include "model/Path.hh"
+#include "static/spdlog/spdlog.h"
 #include <unordered_map>
 #include <string>
 
@@ -34,7 +35,7 @@ template <class T> class Repository {
          * @param name is the name of the asset we seek.
          * @return the asset.
          */
-        Asset<T> const *get(char const *name) {
+        Asset<T> const *get(char const *name) const {
             if (this->items.count(name) == 0) {
                 Path filename(this->root, name);
                 Asset<T> *asset = new Asset<T>(
@@ -43,6 +44,29 @@ template <class T> class Repository {
                 this->items[name] = asset;
             }
             return this->items[name];
+        }
+
+        /**
+         * Loads something from file, adds it to the cache, and returns you
+         * a mutable pointer to it. If the thing is already in the cache then
+         * this does not work and it blows up.
+         * @param name is the name of the thing to load.
+         * @return the thing.
+         */
+        T *snatch(char const *name) {
+            if (this->items.count(name) == 0) {
+                Path filename(this->root, name);
+                T *item = this->create(filename.get(), name);
+                Asset<T> *asset = new Asset<T>(item);
+                this->items[name] = asset;
+                return item;
+            } else {
+                spdlog::error(
+                    "Snatch must be first access to item '{}'",
+                    name
+                );
+                throw -1;
+            }
         }
 
         /**
@@ -58,7 +82,7 @@ template <class T> class Repository {
         }
 
     private:
-        std::unordered_map<std::string, Asset<T> *> items;
+        mutable std::unordered_map<std::string, Asset<T> *> items;
         char const *root;
 
         /**
@@ -70,7 +94,7 @@ template <class T> class Repository {
          *                 to other repos and stuff like that.
          * @return a non const pointer to the new object.
          */
-        virtual T *create(char const *filename, char const *key) = 0;
+        virtual T *create(char const *filename, char const *key) const = 0;
 };
 
 #endif

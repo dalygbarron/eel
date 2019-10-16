@@ -26,23 +26,10 @@ sf::Vector2u Tileset::getTileSize() const {
     return this->tileSize;
 }
 
-void Tileset::buildQuad(sf::Vertex *vertices, unsigned char id) const {
-
+Asset<sf::Texture> const *Tileset::getTexture() const {
+    return this->texture;
 }
 
-void Tileset::apply(sf::Texture *atlas) const {
-    sf::Vector2u size = this->texture->get()->getSize();
-    if (size.x > Constant::TILESET_MAX_WIDTH ||
-        size.y > Constant::TILESET_MAX_HEIGHT) {
-        spdlog::warn(
-            "Tileset '{}' must fit ({}, {}) for texture atlas. is ({}, {})",
-            this->name,
-            Constant::TILESET_MAX_WIDTH,
-            Constant::TILESET_MAX_HEIGHT,
-            size.x,
-            size.y
-        );
-        return;
-    }
-    atlas->update(*(this->texture->get()));
+void Tileset::buildQuad(sf::Vertex *vertices, unsigned char id) const {
+
 }

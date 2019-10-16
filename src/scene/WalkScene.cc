@@ -4,6 +4,9 @@ WalkScene::WalkScene(
     Engine const *engine,
     Asset<TileMap> const *map
 ): Scene(engine) {
+    this->spritesheet = engine->makeSpritesheet(
+        map->get()->getTileset()->get()->getTexture()->get()
+    );
     // TODO: convert tile map to tiles.
 }
 
@@ -29,5 +32,5 @@ void WalkScene::render(
     sf::RenderTarget *target,
     sf::RenderStates states
 ) const {
-    target->clear(sf::Color::Red);
+    target->clear(sf::Color::Black);
 }

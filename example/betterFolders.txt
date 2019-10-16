@@ -1,0 +1,8 @@
+sounds       -> snd
+shaders      -> shd
+images       -> img
+scripts      -> scr
+songs        -> sng
+spritesheets -> rat
+maps         -> map
+

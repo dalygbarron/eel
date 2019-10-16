@@ -11,7 +11,10 @@ TilesetRepository::TilesetRepository(
     this->textureRepo = textureRepo;
 }
 
-Tileset *TilesetRepository::create(char const *filename, char const *key) {
+Tileset *TilesetRepository::create(
+    char const *filename,
+    char const *key
+) const {
     spdlog::info("creating tileset: '{}'", filename);
     pugi::xml_node node = this->textRepo->getXml(key, "tileset");
     char const *name = Utils::moveString(node.attribute("name").value());

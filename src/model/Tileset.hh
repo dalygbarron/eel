@@ -43,21 +43,17 @@ class Tileset {
         sf::Vector2u getTileSize() const;
 
         /**
+         * Gives you the tileset's rendering texture.
+         * @return the texture.
+         */
+        Asset<sf::Texture> const *getTexture() const;
+
+        /**
          * Takes four vertices and makes them into a quad for the given tile.
          * @param vertices is a pointer to the first vertex.
          * @param id       is the id of the tile to make.
          */
         void buildQuad(sf::Vertex *vertices, unsigned char id) const;
-
-        /**
-         * Places this texture on top of another texture presumed to be a
-         * texture atlas so that all mobs can be rendered in a single draw
-         * call. Note that there is a hard coded maximum set of dimensions for
-         * a tileset to be applied to a texture atlas, and if this tileset is
-         * too big it will log an error and crash.
-         * @param atlas is the texture to draw this tileset onto.
-         */
-        void apply(sf::Texture *atlas) const;
 
     private:
         char const *name;

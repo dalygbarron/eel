@@ -9,24 +9,26 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 
-// Forward Declaration.
-class TileMapRepository;
-
 /**
  * Represents a game map. This can only represent the static data that was in
  * the file. When you want to play in the map it must be transferred to another
  * class because otherwise you will screw up stuff you know.
  */
 class TileMap {
-    friend class TileMapRepository;
+    friend class Repository<TileMap>;
     public:
         /**
          * Creates a tilemap by putting in all it's data.
          * @param tileSize is the size of each tile in the actual map like how
          *                 they fit together kinda thing.
          * @param tileset  is the tileset that the tiles in the map belong to.
+         * @param bg       is the colour to draw behind the map.
          */
-        TileMap(sf::Vector2u tileSize, Asset<Tileset> const *tileset);
+        TileMap(
+            sf::Vector2u tileSize,
+            Asset<Tileset> const *tileset,
+            sf::Color bg
+        );
 
         /**
          * Deletes the map's chunks.
@@ -45,10 +47,17 @@ class TileMap {
          */
         sf::Vector2u getTileSize() const;
 
+        /**
+         * Gives you the map's tileset.
+         * @return an asset pointer to the tileset.
+         */
+        Asset<Tileset> const *getTileset() const;
+
     private:
         sf::Vector2u tileSize;
         Asset<Tileset> const *tileset;
         std::unordered_map<sf::Vector2i, Chunk *, Utils::VectHash> chunks;
+        sf::Color bg;
 
         /**
          * Adds a chunk into the map's hashmap of chunks.

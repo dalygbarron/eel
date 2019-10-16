@@ -11,7 +11,10 @@ TileMapRepository::TileMapRepository(
     this->tilesetRepo = tilesetRepo;
 }
 
-TileMap *TileMapRepository::create(char const *filename, char const *key) {
+TileMap *TileMapRepository::create(
+    char const *filename,
+    char const *key
+) const {
     spdlog::info("creating tilemap: '{}'", filename);
     pugi::xml_node node = this->textRepo->getXml(key, "map");
     // Load main properties.
@@ -25,7 +28,8 @@ TileMap *TileMapRepository::create(char const *filename, char const *key) {
     }
     Path tilesetFile(key, tilesetNode.attribute("source").value());
     Asset<Tileset> const *tileset = tilesetRepo->get(tilesetFile.get());
-    TileMap *tileMap = new TileMap(tileSize, tileset);
+    sf::Color bg(node.attribute("backgroundcolor").as_int() << 8);
+    TileMap *tileMap = new TileMap(tileSize, tileset, bg);
     // Load layers.
     return tileMap;
     // TODO: finish
