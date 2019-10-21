@@ -12,6 +12,7 @@
 #include "service/repository/TilesetRepository.hh"
 #include "service/repository/TileMapRepository.hh"
 #include "service/repository/SoundRepository.hh"
+#include "service/repository/RatPackRepository.hh"
 #include "service/Radio.hh"
 #include "service/Engine.hh"
 #include <SFML/Graphics.hpp>

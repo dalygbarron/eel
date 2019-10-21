@@ -23,7 +23,7 @@ class TextRepository: public Repository<char> {
          * @return the node which now becomes your problem to deal with if it
          *         needs freeing I dunno.
          */
-        pugi::xml_node getXml(char const *name, char const *tag);
+        pugi::xml_node getXml(char const *name, char const *tag) const;
 
     private:
         virtual char *create(char const *name, char const *key) const override;

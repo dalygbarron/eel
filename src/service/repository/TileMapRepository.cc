@@ -32,9 +32,10 @@ TileMap *TileMapRepository::create(
     TileMap *tileMap = new TileMap(tileSize, tileset, bg);
     // Load layers.
     return tileMap;
-    // TODO: finish
     for (pugi::xml_node layer = node.child("layer"); layer;
-        layer = layer.next_sibling("layer")) {
+        layer = layer.next_sibling("layer")
+    ) {
+        // TODO: finish
         spdlog::info(
             "Loading tilemap layer '{}'",
             layer.attribute("name").value()

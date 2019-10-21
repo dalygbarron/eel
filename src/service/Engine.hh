@@ -6,6 +6,7 @@
 #include "service/repository/TilesetRepository.hh"
 #include "service/repository/TileMapRepository.hh"
 #include "service/repository/SoundRepository.hh"
+#include "service/repository/RatPackRepository.hh"
 #include "service/Config.hh"
 #include "service/Radio.hh"
 #include "service/Status.hh"
@@ -22,6 +23,7 @@ class Engine {
         TilesetRepository const *tilesetRepo;
         TileMapRepository const *tileMapRepo;
         SoundRepository const *soundRepo;
+        RatPackRepository const *soundRepo;
         ControlBuilder const *controlBuilder;
         Radio *radio;
         Status *status;
@@ -34,6 +36,7 @@ class Engine {
          * @param tilesetRepo    is the repo for tilesets.
          * @param tileMapRepo    is the repo for tile maps.
          * @param soundRepo      is the repo for sounds.
+         * @param ratPackRepo    is the repo for spritesheets.
          * @param radio          is the audio controller.
          * @param status         is the game status.
          * @param controlBuilder is the control builder.
@@ -48,6 +51,7 @@ class Engine {
             TilesetRepository const *tilesetRepo,
             TileMapRepository const *tileMapRepo,
             SoundRepository const *soundRepo,
+            RatPackRepository const *ratPackRepo,
             Radio *radio,
             Status *status,
             ControlBuilder const *controlBuilder,
@@ -57,13 +61,17 @@ class Engine {
         /**
          * Makes a spritesheet by joining the game's general spritesheet with
          * a given tileset picture.
+         * @param space   is the sprite to cover with this texture.
          * @param tileset is the tileset to add to the spritesheet.
-         * @return the new version of the spritesheet.
+         * @return the spritesheet.
          */
-        sf::Texture const *makeSpritesheet(sf::Texture const *tileset) const;
+        RatPack const *makeSpritesheet(
+            char const *space,
+            sf::Texture const *tileset
+        ) const;
 
     private:
-        sf::Texture *spritesheet;
+        RatPack *spriteSheet;
 };
 
 #endif

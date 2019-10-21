@@ -33,7 +33,6 @@ class RatPack {
         void addRat(char const *name, sf::IntRect shape);
 
     private:
-
         std::unordered_map<std::string, sf::IntRect> rats;
         Asset<sf::Texture> const *texture;
 }
