@@ -18,12 +18,6 @@
 class Engine {
     public:
         Config const *config;
-        TextRepository const *textRepo;
-        TextureRepository const *textureRepo;
-        TilesetRepository const *tilesetRepo;
-        TileMapRepository const *tileMapRepo;
-        SoundRepository const *soundRepo;
-        RatPackRepository const *soundRepo;
         ControlBuilder const *controlBuilder;
         Radio *radio;
         Status *status;
@@ -40,38 +34,75 @@ class Engine {
          * @param radio          is the audio controller.
          * @param status         is the game status.
          * @param controlBuilder is the control builder.
-         * @param spritesheet    is the game's sprite sheet for sprites which
-         *                       is not constant because it gets tilesets drawn
-         *                       right onto it.
          */
         Engine(
             Config const *config,
-            TextRepository const *textRepo,
-            TextureRepository const *textureRepo,
-            TilesetRepository const *tilesetRepo,
-            TileMapRepository const *tileMapRepo,
-            SoundRepository const *soundRepo,
-            RatPackRepository const *ratPackRepo,
+            TextRepository *textRepo,
+            TextureRepository *textureRepo,
+            TilesetRepository *tilesetRepo,
+            TileMapRepository *tileMapRepo,
+            SoundRepository *soundRepo,
+            RatPackRepository *ratPackRepo,
             Radio *radio,
             Status *status,
-            ControlBuilder const *controlBuilder,
-            sf::Texture *spritesheet
+            ControlBuilder const *controlBuilder
         );
 
         /**
-         * Makes a spritesheet by joining the game's general spritesheet with
-         * a given tileset picture.
-         * @param space   is the sprite to cover with this texture.
-         * @param tileset is the tileset to add to the spritesheet.
-         * @return the spritesheet.
+         * Gets the engine's text repository instance.
+         * @return the text repository.
          */
-        RatPack const *makeSpritesheet(
-            char const *space,
-            sf::Texture const *tileset
+        TextRepository const *getTextRepository();
+
+        /**
+         * Gets the engine's texture repository instance.
+         * @return the texture repository.
+         */
+        TextureRepository const *getTextureRepository();
+
+        /**
+         * Gets the engine's tileset repo instance.
+         * @return the tileset repo.
+         */
+        TilesetRepository const *getTilesetRepository();
+
+        /**
+         * Gets the engine's tilemap repo instance.
+         * @return the tilemap repo.
+         */
+        TileMapRepository const *getTileMapRepository();
+
+        /**
+         * Gets the engine's sound repo instance.
+         * @return the sound repo.
+         */
+        SoundRepository const *getSoundRepository();
+
+        /**
+         * Gets the engine's rat pack repo instance.
+         * @return the ratpack repo.
+         */
+        RatPackRepository const *getRatPackRepository();
+
+        /**
+         * Draws a texture onto a given ratpack object.
+         * @param pack    is the key to the ratpack to edit.
+         * @param name    is the name of the rat in the pack to draw over.
+         * @param texture is the texture to draw over it with.
+         */
+        void joinRatPack(
+            char const *pack,
+            char const *name,
+            char const *texture
         ) const;
 
     private:
-        RatPack *spriteSheet;
+        TextRepository *textRepo;
+        TextureRepository *textureRepo;
+        TilesetRepository *tilesetRepo;
+        TileMapRepository *tileMapRepo;
+        SoundRepository *soundRepo;
+        RatPackRepository *ratPackRepo;
 };
 
 #endif

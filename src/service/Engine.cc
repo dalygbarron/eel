@@ -3,15 +3,15 @@
 
 Engine::Engine(
     Config const *config,
-    TextRepository const *textRepo,
-    TextureRepository const *textureRepo,
-    TilesetRepository const *tilesetRepo,
-    TileMapRepository const *tileMapRepo,
-    SoundRepository const *soundRepo,
+    TextRepository *textRepo,
+    TextureRepository *textureRepo,
+    TilesetRepository *tilesetRepo,
+    TileMapRepository *tileMapRepo,
+    SoundRepository *soundRepo,
+    RatPackRepository *ratPackRepo,
     Radio *radio,
     Status *status,
-    ControlBuilder const *controlBuilder,
-    sf::Texture *spritesheet
+    ControlBuilder const *controlBuilder
 ) {
     this->config = config;
     this->textRepo = textRepo;
@@ -19,10 +19,45 @@ Engine::Engine(
     this->tilesetRepo = tilesetRepo;
     this->tileMapRepo = tileMapRepo;
     this->soundRepo = soundRepo;
+    this->ratPackRepo = ratPackRepo;
     this->radio = radio;
     this->status = status;
     this->controlBuilder = controlBuilder;
-    this->spritesheet = spritesheet;
+}
+
+TextRepository const *Engine::getTextRepository() {
+    return this->textRepo;
+}
+
+TextureRepository const *Engine::getTextureRepository() {
+    return this->textureRepo;
+}
+
+TilesetRepository const *Engine::getTilesetRepository() {
+    return this->tilesetRepo;
+}
+
+TileMapRepository const *Engine::getTileMapRepository() {
+    return this->tileMapRepo;
+}
+
+SoundRepository const *Engine::getSoundRepository() {
+    return this->soundRepo;
+}
+
+RatPackRepository const *Engine::getRatPackRepository() {
+    return this->ratPackRepo;
+}
+
+void Engine::joinRatPack(
+    char const *pack,
+    char const *name,
+    char const *texture
+) {
+    RatPack *ratpack = this->ratPackRepo->snatch(pack);
+    sf::Texture *rat = this->textureRepo->get(texture)->get();
+    ratPack
+
 }
 
 sf::Texture const *Engine::makeSpritesheet(sf::Texture const *tileset) const {

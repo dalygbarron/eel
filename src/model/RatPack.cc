@@ -1,10 +1,14 @@
 #include "model/RatPack.hh"
 
-RatPack::RatPack(Asset<sf::Texture> const *texture) {
+RatPack::RatPack(sf::Texture *texture) {
     this->texture = texture;
 }
 
-void RatPack::makeRat(char const *name, sf::Vertex *vertices) {
+sf::Texture *RatPack::getTexture() {
+    return this->texture;
+}
+
+void RatPack::makeRat(char const *name, sf::Vertex *vertices) const {
     sf::IntRect rat = this->rats[name];
     vertices[0].position = sf::Vertex2f(0 - rat.w / 2, 0 - rat.h / 2);
     vertices[1].position = sf::Vertex2f(rat.w / 2, 0 - rat.h / 2);

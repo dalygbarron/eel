@@ -12,16 +12,20 @@ class RatPackRepository: public Repository<RatPack> {
         /**
          * Builds the repo.
          * @param root is the base directory from which they will be loaded.
+         * @param textRepo is the text repository for reading the xml.
+         * @param textureRepo is the texture repo, to which this repo requires
+         *                    non const access. I know that is heavy but it is
+         *                    because rat packs need to have editable textures.
          */
         RatPackRepository(
             char const *root,
-            TextRepository const *TextRepo,
-            Repository<sf::Texture> const *textureRepo
+            TextRepository const *textRepo,
+            Repository<sf::Texture> *textureRepo
         );
 
     private:
         TextRepository const *textRepo;
-        Repository<sf::Texture> const *textureRepo;
+        Repository<sf::Texture> *textureRepo;
 
         virtual RatPack *create(
             char const *name,

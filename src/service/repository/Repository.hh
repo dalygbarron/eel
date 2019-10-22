@@ -38,9 +38,10 @@ template <class T> class Repository {
         Asset<T> const *get(char const *name) const {
             if (this->items.count(name) == 0) {
                 Path filename(this->root, name);
-                Asset<T> *asset = new Asset<T>(
-                    this->create(filename.get(), name)
-                );
+                Asset<T> *asset = new Asset<T>(this->create(
+                    filename.get(),
+                    name
+                ));
                 this->items[name] = asset;
             }
             return this->items[name];

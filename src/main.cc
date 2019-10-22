@@ -65,6 +65,7 @@ int main(int argc, char **argv) {
         TilesetRepository tilesetRepo(gameFile, &textRepo, &textureRepo);
         TileMapRepository tileMapRepo(gameFile, &textRepo, &tilesetRepo);
         SoundRepository soundRepo(gameFile);
+        RatPackRepository ratPackRepo(gameFile, &textRepo, &textureRepo);
         // Instantiate all the services.
         Config config(gameFile);
         ControlBuilder controlBuilder(&textureRepo, &config);
