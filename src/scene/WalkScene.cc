@@ -4,6 +4,7 @@ WalkScene::WalkScene(
     Engine const *engine,
     Asset<TileMap> const *map
 ): Scene(engine) {
+    engine->
     this->spritesheet = engine->makeSpritesheet(
         map->get()->getTileset()->get()->getTexture()->get()
     );

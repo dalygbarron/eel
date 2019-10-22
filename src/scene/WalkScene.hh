@@ -28,7 +28,7 @@ class WalkScene: public Scene {
         virtual ~WalkScene();
 
     private:
-        sf::Texture const *spritesheet;
+        Asset<RatPack> const *spritesheet;
 
         /**
          * Sorts all the scene's mobs and gives the range that changed.

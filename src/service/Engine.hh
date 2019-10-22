@@ -52,37 +52,37 @@ class Engine {
          * Gets the engine's text repository instance.
          * @return the text repository.
          */
-        TextRepository const *getTextRepository();
+        TextRepository const *getTextRepository() const;
 
         /**
          * Gets the engine's texture repository instance.
          * @return the texture repository.
          */
-        TextureRepository const *getTextureRepository();
+        TextureRepository const *getTextureRepository() const;
 
         /**
          * Gets the engine's tileset repo instance.
          * @return the tileset repo.
          */
-        TilesetRepository const *getTilesetRepository();
+        TilesetRepository const *getTilesetRepository() const;
 
         /**
          * Gets the engine's tilemap repo instance.
          * @return the tilemap repo.
          */
-        TileMapRepository const *getTileMapRepository();
+        TileMapRepository const *getTileMapRepository() const;
 
         /**
          * Gets the engine's sound repo instance.
          * @return the sound repo.
          */
-        SoundRepository const *getSoundRepository();
+        SoundRepository const *getSoundRepository() const;
 
         /**
          * Gets the engine's rat pack repo instance.
          * @return the ratpack repo.
          */
-        RatPackRepository const *getRatPackRepository();
+        RatPackRepository const *getRatPackRepository() const;
 
         /**
          * Draws a texture onto a given ratpack object.

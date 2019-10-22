@@ -25,27 +25,27 @@ Engine::Engine(
     this->controlBuilder = controlBuilder;
 }
 
-TextRepository const *Engine::getTextRepository() {
+TextRepository const *Engine::getTextRepository() const {
     return this->textRepo;
 }
 
-TextureRepository const *Engine::getTextureRepository() {
+TextureRepository const *Engine::getTextureRepository() const {
     return this->textureRepo;
 }
 
-TilesetRepository const *Engine::getTilesetRepository() {
+TilesetRepository const *Engine::getTilesetRepository() const {
     return this->tilesetRepo;
 }
 
-TileMapRepository const *Engine::getTileMapRepository() {
+TileMapRepository const *Engine::getTileMapRepository() const {
     return this->tileMapRepo;
 }
 
-SoundRepository const *Engine::getSoundRepository() {
+SoundRepository const *Engine::getSoundRepository() const {
     return this->soundRepo;
 }
 
-RatPackRepository const *Engine::getRatPackRepository() {
+RatPackRepository const *Engine::getRatPackRepository() const {
     return this->ratPackRepo;
 }
 
