@@ -5,7 +5,7 @@
     height="480">
     <opts>
         <opt name="spritesheet" value="sprites.xml" />
-        <opt name="tileset-sprite" value="tileset" />
+        <opt name="tileset-slot" value="tileset" />
         <opt name="start" value="scripts/test.lua" />
         <opt name="tileWidth" value="64" />
         <opt name="tileHeight" value="96" />

@@ -3,7 +3,7 @@
 RatPackRepository::RatPackRepository(
     char const *root,
     TextRepository const *textRepo,
-    sf::Texture *textureRepo
+    Repository<sf::Texture> *textureRepo
 ): Repository(root) {
     this->textRepo = textRepo;
     this->textureRepo = textureRepo;
@@ -13,7 +13,7 @@ RatPack *RatPackRepository::create(char const *name, char const *key) const {
     pugi::xml_node node = this->textRepo->getXml(key, "pack");
     Path imagePath(key, node.attribute("image").value());
     sf::Texture *texture = this->textureRepo->snatch(imagePath.get());
-    RatPack ratPack = new RatPack(texture);
+    RatPack *ratPack = new RatPack(texture);
     for (pugi::xml_node rat = node.child("rat"); rat;
         rat = rat.next_sibling("rat")
     ) {

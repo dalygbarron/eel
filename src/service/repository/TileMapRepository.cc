@@ -1,6 +1,7 @@
 #include "service/repository/TileMapRepository.hh"
 #include "service/repository/TextRepository.hh"
 #include "static/spdlog/spdlog.h"
+#include <SFML/Graphics.hpp>
 
 TileMapRepository::TileMapRepository(
     char const *root,
@@ -21,6 +22,7 @@ TileMap *TileMapRepository::create(
     sf::Vector2u tileSize;
     tileSize.x = node.attribute("tileWidth").as_int();
     tileSize.y = node.attribute("tileHeight").as_int();
+    sf::Color bg((node.attribute("backgroundcolor").as_int() << 8) | 0xff);
     pugi::xml_node tilesetNode = node.child("tileset");
     if (!tilesetNode) {
         spdlog::error("Tilemap lacked tileset object");
@@ -28,7 +30,6 @@ TileMap *TileMapRepository::create(
     }
     Path tilesetFile(key, tilesetNode.attribute("source").value());
     Asset<Tileset> const *tileset = tilesetRepo->get(tilesetFile.get());
-    sf::Color bg(node.attribute("backgroundcolor").as_int() << 8);
     TileMap *tileMap = new TileMap(tileSize, tileset, bg);
     // Load layers.
     return tileMap;

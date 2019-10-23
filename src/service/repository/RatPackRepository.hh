@@ -2,7 +2,9 @@
 #define RAT_PACK_REPOSITORY_H
 
 #include "service/repository/Repository.hh"
+#include "service/repository/TextRepository.hh"
 #include "model/RatPack.hh"
+#include <SFML/Graphics.hpp>
 
 /**
  * Repository for rat pack sprite sheets.
