@@ -28,8 +28,6 @@ class WalkScene: public Scene {
         virtual ~WalkScene();
 
     private:
-        Asset<RatPack> const *spritesheet;
-
         /**
          * Sorts all the scene's mobs and gives the range that changed.
          * @return a vector where x is the lowest index of a mob that changed,

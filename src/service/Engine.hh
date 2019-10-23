@@ -93,7 +93,7 @@ class Engine {
         void joinRatPack(
             char const *pack,
             char const *name,
-            char const *texture
+            sf::Texture const *rat
         ) const;
 
     private:

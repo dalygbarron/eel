@@ -6,7 +6,10 @@ TextRepository::TextRepository(char const *root): Repository(root) {
     // does nothing.
 }
 
-pugi::xml_node TextRepository::getXml(char const *name, char const *tag) {
+pugi::xml_node TextRepository::getXml(
+    char const *name,
+    char const *tag
+) const {
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_string(this->get(name)->get());
     if (!result) {

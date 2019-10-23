@@ -36,6 +36,12 @@ class RatPack {
         void makeRat(char const *name, sf::Vertex *vertices) const;
 
         /**
+         * Gives you the dimensions of the given rat.
+         * @return a rectangle that covers it.
+         */
+        sf::IntRect getRat(char const *name) const;
+
+        /**
          * Adds another rat to the rat pack.
          * @param name is the name of the added rat.
          * @param shape is the position and size of the rat within the overall

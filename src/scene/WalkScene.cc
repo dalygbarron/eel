@@ -4,11 +4,11 @@ WalkScene::WalkScene(
     Engine const *engine,
     Asset<TileMap> const *map
 ): Scene(engine) {
-    engine->
-    this->spritesheet = engine->makeSpritesheet(
+    engine->joinRatPack(
+        engine->config->get("spritesheet"),
+        engine->config->get("tileset-slot"),
         map->get()->getTileset()->get()->getTexture()->get()
     );
-    // TODO: convert tile map to tiles.
 }
 
 WalkScene::~WalkScene() {

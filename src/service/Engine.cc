@@ -52,27 +52,17 @@ RatPackRepository const *Engine::getRatPackRepository() const {
 void Engine::joinRatPack(
     char const *pack,
     char const *name,
-    char const *texture
-) {
-    RatPack *ratpack = this->ratPackRepo->snatch(pack);
-    sf::Texture *rat = this->textureRepo->get(texture)->get();
-    ratPack
-
-}
-
-sf::Texture const *Engine::makeSpritesheet(sf::Texture const *tileset) const {
-    sf::Vector2u size = tileset->getSize();
-    if (size.x > Constant::TILESET_MAX_WIDTH ||
-        size.y > Constant::TILESET_MAX_HEIGHT) {
+    sf::Texture const *rat
+) const {
+    RatPack *ratPack = this->ratPackRepo->snatch(pack);
+    sf::IntRect size = ratPack->getRat(name);
+    sf::Vector2u givenSize = rat->getSize();
+    ratPack->getTexture()->update(*rat, size.left, size.top);
+    if (givenSize.x != size.left || givenSize.y != size.top) {
         spdlog::warn(
-            "Tileset must fit ({}, {}) for texture atlas. is ({}, {})",
-            Constant::TILESET_MAX_WIDTH,
-            Constant::TILESET_MAX_HEIGHT,
-            size.x,
-            size.y
+            "texture added to ratpack '{}' as rat '{}' but wrong size",
+            pack,
+            name
         );
-        return 0;
     }
-    this->spritesheet->update(*(tileset));
-    return this->spritesheet;
 }

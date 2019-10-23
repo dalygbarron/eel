@@ -1,4 +1,5 @@
 #include "model/RatPack.hh"
+#include "static/spdlog/spdlog.h"
 
 RatPack::RatPack(sf::Texture *texture) {
     this->texture = texture;
@@ -9,11 +10,19 @@ sf::Texture *RatPack::getTexture() {
 }
 
 void RatPack::makeRat(char const *name, sf::Vertex *vertices) const {
-    sf::IntRect rat = this->rats[name];
-    vertices[0].position = sf::Vertex2f(0 - rat.w / 2, 0 - rat.h / 2);
-    vertices[1].position = sf::Vertex2f(rat.w / 2, 0 - rat.h / 2);
-    vertices[2].position = sf::Vertex2f(rat.w / 2, rat.h / 2);
-    vertices[3].position = sf::Vertex2f(0 - rat.w / 2, rat.h / 2);
+    sf::IntRect rat = this->rats.at(name);
+    vertices[0].position = sf::Vector2f(0 - rat.width / 2, 0 - rat.height / 2);
+    vertices[1].position = sf::Vector2f(rat.width / 2, 0 - rat.height / 2);
+    vertices[2].position = sf::Vector2f(rat.width / 2, rat.height / 2);
+    vertices[3].position = sf::Vector2f(0 - rat.width / 2, rat.height / 2);
+}
+
+sf::IntRect RatPack::getRat(char const *name) const {
+    if (!this->rats.count(name)) {
+        spdlog::warn("Rat pack lacks '{}'", name);
+        return sf::IntRect(0, 0, 0, 0);
+    }
+    return this->rats.at(name);
 }
 
 void RatPack::addRat(char const *name, sf::IntRect shape) {
@@ -23,10 +32,10 @@ void RatPack::addRat(char const *name, sf::IntRect shape) {
     spdlog::debug(
         "Adding new rat '{}' ({}, {}, {}, {})",
         name,
-        shape.x,
-        shape.y,
-        shape.w,
-        shape.h
+        shape.left,
+        shape.top,
+        shape.width,
+        shape.height
     );
     this->rats[name] = shape;
 }

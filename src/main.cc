@@ -59,14 +59,13 @@ int main(int argc, char **argv) {
     else gameFile = DEFAULT_CONFIG_FILE;
     // Start up the game systems.
     try {
-        // Instantiate the repositories.
+        // Instantiate the repositories and then the services.
         TextRepository textRepo(gameFile);
         TextureRepository textureRepo(gameFile);
         TilesetRepository tilesetRepo(gameFile, &textRepo, &textureRepo);
         TileMapRepository tileMapRepo(gameFile, &textRepo, &tilesetRepo);
         SoundRepository soundRepo(gameFile);
         RatPackRepository ratPackRepo(gameFile, &textRepo, &textureRepo);
-        // Instantiate all the services.
         Config config(gameFile);
         ControlBuilder controlBuilder(&textureRepo, &config);
         Radio radio(&soundRepo);
@@ -78,10 +77,10 @@ int main(int argc, char **argv) {
             &tilesetRepo,
             &tileMapRepo,
             &soundRepo,
+            &ratPackRepo,
             &radio,
             0,
-            &controlBuilder,
-            sprites
+            &controlBuilder
         );
         Game game(&engine);
         // Make sure the engine version is compatible with the game.
