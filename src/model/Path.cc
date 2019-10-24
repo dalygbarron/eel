@@ -6,10 +6,10 @@ Path::Path(char const *base, char const *file) {
     // Apply base text.
     int baseEnd = strlen(base);
     while (base[baseEnd] != '/' && baseEnd > 0) baseEnd--;
-    baseEnd++;
+    if (baseEnd > 0) baseEnd++;
     memcpy(this->buffer, base, baseEnd);
     this->n = baseEnd;
-    if (this->buffer[this->n - 1] != '/') {
+    if (this->n > 0 && this->buffer[this->n - 1] != '/') {
         this->buffer[this->n] = '/';
         this->n++;
     }

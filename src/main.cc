@@ -1,5 +1,5 @@
 // TODO: find a better spot for this.
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_INFO
 #define LUA_USE_APICHECK
 
 #include "static/Constant.hh"

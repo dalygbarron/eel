@@ -9,3 +9,5 @@ tester
 *.swo
 *.swn
 core
+example/meta
+example/meta/*

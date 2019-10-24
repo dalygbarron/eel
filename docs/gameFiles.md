@@ -7,7 +7,7 @@ The asset files will have the following formats, which should be fairly self exp
 is a custom texture packing format which you can find at https://github.com/dalygbarron/rat.
  - .wav for sounds.
  - .ogg for musics.
- - .rat for spritesheets.
+ - .xml for spritesheets
  - .png for non spritesheet pictures.
  - .ttf for fonts.
  - .lua for scripts.

@@ -23,6 +23,14 @@ TEST_CASE("path ignores slashes at start of file path", "[path]") {
     compareStrings(expected, path.get());
 }
 
+TEST_CASE("real life bug", "[path]") {
+    char const *root = "sprites.xml";
+    char const *file = "images/sprites.png";
+    char const *expected = "images/sprites.png";
+    Path path(root, file);
+    compareStrings(expected, path.get());
+}
+
 TEST_CASE("path cannot overrun it's buffer", "[path]") {
     // TODO: this.
     REQUIRE(false);
