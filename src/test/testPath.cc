@@ -23,7 +23,7 @@ TEST_CASE("path ignores slashes at start of file path", "[path]") {
     compareStrings(expected, path.get());
 }
 
-TEST_CASE("real life bug", "[path]") {
+TEST_CASE("real life bug when overwriting whole root", "[path]") {
     char const *root = "sprites.xml";
     char const *file = "images/sprites.png";
     char const *expected = "images/sprites.png";

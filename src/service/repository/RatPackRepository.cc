@@ -10,10 +10,9 @@ RatPackRepository::RatPackRepository(
 }
 
 RatPack *RatPackRepository::create(char const *name, char const *key) const {
+    spdlog::info("Creating rat pack: '{}'", name);
     pugi::xml_node node = this->textRepo->getXml(key, "pack");
     Path imagePath(key, node.attribute("image").value());
-    spdlog::error(node.attribute("image").value());
-    spdlog::error(imagePath.get());
     sf::Texture *texture = this->textureRepo->snatch(imagePath.get());
     RatPack *ratPack = new RatPack(texture);
     for (pugi::xml_node rat = node.child("rat"); rat;
