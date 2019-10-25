@@ -96,7 +96,7 @@ char *Utils::readFile(char const *file) {
     int length = input.getSize();
     char *string = new char[length + 1];
     input.read(string, length);
-    string[length - 1] = 0;
+    string[length] = 0;
     return string;
 }
 

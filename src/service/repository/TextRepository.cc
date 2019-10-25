@@ -13,7 +13,11 @@ pugi::xml_node TextRepository::getXml(
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_string(this->get(name)->get());
     if (!result) {
-        spdlog::error("xml file '{}' is not valid", name);
+        spdlog::error(
+            "xml file '{}' is not valid: '{}'",
+            name,
+            result.description()
+        );
     }
     pugi::xml_node node = doc.child(tag);
     if (!node) {
