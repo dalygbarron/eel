@@ -36,7 +36,7 @@ template <class T> class Repository {
          * @return the asset.
          */
         Asset<T> const *get(char const *name) const {
-            this->find();
+            this->find(name);
             return this->items[name];
         }
 
@@ -47,8 +47,8 @@ template <class T> class Repository {
          * @return the thing.
          */
         T *snatch(char const *name) {
-            this->find();
-            return this->items[name]->get();
+            this->find(name);
+            return this->items[name]->getMutable();
         }
 
         /**

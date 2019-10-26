@@ -12,7 +12,8 @@ WalkScene::WalkScene(
     this->sprites = engine->getRatPackRepository()->get(
         engine->config->get("spritesheet")
     );
-    this->background.setTexture(*(this->sprites->get()->getTexture()));
+    this->background.setTexture(*this->sprites->get()->getTexture());
+    this->background.setTextureRect(this->sprites->get()->getRat("tileset"));
 }
 
 WalkScene::~WalkScene() {
