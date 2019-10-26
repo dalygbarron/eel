@@ -124,6 +124,23 @@ namespace Utils {
     int parseBase64String(char const *src, unsigned char *dst, int max);
 
     /**
+     * Goes through the motions of opening up an xml file so I don't have to do
+     * it every time, and if anything goes wrong it automatically logs it and
+     * throws an exception.
+     * @param doc    is the xml document object to set up.
+     * @param node   is the xml node object that should contain the top node we
+     *               wanted.
+     * @param tag    is the top level node that we want to find.
+     * @param string is the xml file to parse in a string.
+     */
+    void openXml(
+        pugi::xml_document *doc,
+        pugi::xml_node *node,
+        char const *tag,
+        char const *string
+    );
+
+    /**
      * Takes a set of vertices and a rectangle and sets the vertices positions
      * to that of the rectangle.
      * @param vertices is a pointer to the four vertices to arrange.

@@ -183,6 +183,34 @@ int Utils::parseBase64String(char const *src, unsigned char *dst, int max) {
     return write;
 }
 
+void Utils::openXml(
+    pugi::xml_document *doc,
+    pugi::xml_node *node,
+    char const *tag,
+    char const *string
+) {
+    pugi::xml_parse_result result = doc->loadString(string);
+    // TODO: all this shit.
+    //
+    //
+    // 
+    // pugi::xml_document doc;
+    // pugi::xml_parse_result result = doc.load_string(this->get(name)->get());
+    // if (!result) {
+    //     spdlog::error(
+    //         "xml file '{}' is not valid: '{}'",
+    //         name,
+    //         result.description()
+    //     );
+    // }
+    // pugi::xml_node node = doc.child(tag);
+    // if (!node) {
+    //     spdlog::error("xml file '{}' lacks top level node '{}'", name, tag);
+    // }
+    // return node;
+
+}
+
 void Utils::fitQuad(sf::Vertex *vertices, sf::FloatRect rect) {
     vertices[0].position = sf::Vector2f(rect.left, rect.top);
     vertices[1].position = sf::Vector2f(rect.left + rect.width, rect.top);

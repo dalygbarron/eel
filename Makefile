@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++14 -I src/ -g
+CFLAGS = -std=c++14 -I src/ -O2
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
 MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset TileMap Path Chunk RatPack)
@@ -9,7 +9,7 @@ SERVICE = $(addprefix service/, Config Game Radio Status Engine)
 REPOSITORY = $(addprefix service/repository/, TextRepository TextureRepository TilesetRepository TileMapRepository SoundRepository RatPackRepository)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils xml/pugixml)
-TEST = testGeneral testBullet testMob testUtils testPath helpers catch
+TEST = testGeneral testBullet testMob testUtils testTextRepository testPugi testPath helpers catch
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) $(REPOSITORY)))
 TEST_OBJS = $(addprefix src/test/,$(addsuffix .o, $(TEST)))
