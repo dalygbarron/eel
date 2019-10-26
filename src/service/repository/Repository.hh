@@ -36,38 +36,19 @@ template <class T> class Repository {
          * @return the asset.
          */
         Asset<T> const *get(char const *name) const {
-            if (this->items.count(name) == 0) {
-                Path filename(this->root, name);
-                Asset<T> *asset = new Asset<T>(this->create(
-                    filename.get(),
-                    name
-                ));
-                this->items[name] = asset;
-            }
+            this->find();
             return this->items[name];
         }
 
         /**
-         * Loads something from file, adds it to the cache, and returns you
-         * a mutable pointer to it. If the thing is already in the cache then
-         * this does not work and it blows up.
-         * @param name is the name of the thing to load.
+         * Loads something from cache / file, and returns you the
+         * thing itself in a mutable form.
+         * @param name is the name of the thing to load / get.
          * @return the thing.
          */
         T *snatch(char const *name) {
-            if (this->items.count(name) == 0) {
-                Path filename(this->root, name);
-                T *item = this->create(filename.get(), name);
-                Asset<T> *asset = new Asset<T>(item);
-                this->items[name] = asset;
-                return item;
-            } else {
-                spdlog::error(
-                    "Snatch must be first access to item '{}'",
-                    name
-                );
-                throw -1;
-            }
+            this->find();
+            return this->items[name]->get();
         }
 
         /**
@@ -85,6 +66,20 @@ template <class T> class Repository {
     private:
         mutable std::unordered_map<std::string, Asset<T> *> items;
         char const *root;
+
+        /**
+         * Looks for a given key in the cache and creates it if it's not there.
+         */
+        void find(char const *name) const {
+            if (this->items.count(name) == 0) {
+                Path filename(this->root, name);
+                Asset<T> *asset = new Asset<T>(this->create(
+                    filename.get(),
+                    name
+                ));
+                this->items[name] = asset;
+            }
+        }
 
         /**
          * Create the object fresh.

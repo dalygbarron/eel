@@ -38,6 +38,14 @@ template <class T> class Asset {
             return this->content;
         }
 
+        /**
+         * If you have non const access to the asset you can get non const
+         * access to it's contents too.
+         */
+        T *getMutable() {
+            return this->content;
+        }
+
     private:
         T *content;
 };
