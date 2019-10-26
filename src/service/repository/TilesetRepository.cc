@@ -16,7 +16,14 @@ Tileset *TilesetRepository::create(
     char const *key
 ) const {
     spdlog::info("creating tileset: '{}'", filename);
-    pugi::xml_node node = this->textRepo->getXml(key, "tileset");
+    pugi::xml_document doc;
+    pugi::xml_node node;
+    Utils::openXml(
+        &doc,
+        &node,
+        "tileset",
+        this->textRepo->get(key)->get()
+    );
     char const *name = Utils::moveString(node.attribute("name").value());
     sf::Vector2u tileSize;
     tileSize.x = node.attribute("tileWidth").as_int();

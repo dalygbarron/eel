@@ -57,7 +57,7 @@ void Engine::joinRatPack(
     RatPack *ratPack = this->ratPackRepo->snatch(pack);
     sf::IntRect size = ratPack->getRat(name);
     sf::Vector2u givenSize = rat->getSize();
-    ratPack->getTexture()->update(*rat, size.left, size.top);
+    ratPack->getTextureMutable()->update(*rat, size.left, size.top);
     if (givenSize.x != size.left || givenSize.y != size.top) {
         spdlog::warn(
             "texture added to ratpack '{}' as rat '{}' but wrong size",

@@ -1,12 +1,11 @@
 #include "service/repository/TileMapRepository.hh"
-#include "service/repository/TextRepository.hh"
 #include "static/spdlog/spdlog.h"
 #include <SFML/Graphics.hpp>
 
 TileMapRepository::TileMapRepository(
     char const *root,
-    TextRepository *textRepo,
-    TilesetRepository *tilesetRepo
+    Repository<char> *textRepo,
+    Repository<Tileset> *tilesetRepo
 ): Repository(root) {
     this->textRepo = textRepo;
     this->tilesetRepo = tilesetRepo;
@@ -17,7 +16,14 @@ TileMap *TileMapRepository::create(
     char const *key
 ) const {
     spdlog::info("creating tilemap: '{}'", filename);
-    pugi::xml_node node = this->textRepo->getXml(key, "map");
+    pugi::xml_document doc;
+    pugi::xml_node node;
+    Utils::openXml(
+        &doc,
+        &node,
+        "map",
+        this->textRepo->get(key)->get()
+    );
     // Load main properties.
     sf::Vector2u tileSize;
     tileSize.x = node.attribute("tileWidth").as_int();

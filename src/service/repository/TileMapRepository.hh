@@ -2,8 +2,6 @@
 #define TILE_MAP_REPOSITORY_H
 
 #include "service/repository/Repository.hh"
-#include "service/repository/TilesetRepository.hh"
-#include "service/repository/TextRepository.hh"
 #include "model/TileMap.hh"
 
 /**
@@ -20,13 +18,13 @@ class TileMapRepository: public Repository<TileMap> {
          */
         TileMapRepository(
             char const *root,
-            TextRepository *textRepo,
-            TilesetRepository *tilesetRepo
+            Repository<char> *textRepo,
+            Repository<Tileset> *tilesetRepo
         );
 
     private:
-        TextRepository *textRepo;
-        TilesetRepository *tilesetRepo;
+        Repository<char> *textRepo;
+        Repository<Tileset> *tilesetRepo;
 
         virtual TileMap *create(
             char const *filename,

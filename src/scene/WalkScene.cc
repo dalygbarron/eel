@@ -9,6 +9,10 @@ WalkScene::WalkScene(
         engine->config->get("tileset-slot"),
         map->get()->getTileset()->get()->getTexture()->get()
     );
+    this->sprites = engine->getRatPackRepository()->get(
+        engine->config->get("spritesheet")
+    );
+    this->background.setTexture(*(this->sprites->get()->getTexture()));
 }
 
 WalkScene::~WalkScene() {
@@ -33,5 +37,6 @@ void WalkScene::render(
     sf::RenderTarget *target,
     sf::RenderStates states
 ) const {
-    target->clear(sf::Color::Black);
+    target->clear(sf::Color::Cyan);
+    target->draw(this->background);
 }

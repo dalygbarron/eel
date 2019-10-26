@@ -5,7 +5,11 @@ RatPack::RatPack(sf::Texture *texture) {
     this->texture = texture;
 }
 
-sf::Texture *RatPack::getTexture() {
+sf::Texture const *RatPack::getTexture() const {
+    return this->texture;
+}
+
+sf::Texture *RatPack::getTextureMutable() {
     return this->texture;
 }
 

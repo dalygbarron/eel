@@ -21,12 +21,19 @@ class RatPack {
         RatPack(sf::Texture *texture);
 
         /**
+         * Gives you immutable access to the rat pack's texture so you can draw
+         * with it in normal use cases.
+         * @return the texture it uses.
+         */
+        sf::Texture const *getTexture() const;
+
+        /**
          * Gives you access to the rat pack's texture. As you will notice, the
          * texture is mutable but that is fine because not just anybody will
          * have non const access to this here rat pack.
          * @return the texture used in a mutable form.
          */
-        sf::Texture *getTexture();
+        sf::Texture *getTextureMutable();
 
         /**
          * Creates the right rat sprite thingy.

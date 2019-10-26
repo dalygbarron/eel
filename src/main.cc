@@ -108,8 +108,11 @@ int main(int argc, char **argv) {
         int status = game.run();
         spdlog::info("Exiting Normally");
         return status;
-    } catch(int e) {
-        spdlog::warn("Aborting {}", e);
+    } catch (std::exception e) {
+        spdlog::warn("Aborting with uncaught exception '{}'", e.what());
         return -1;
+    } catch (int e) {
+        spdlog::warn("Aborting with uncaught exception#{}", e);
+        return e;
     }
 }

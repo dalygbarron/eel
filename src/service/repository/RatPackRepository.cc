@@ -1,4 +1,5 @@
 #include "service/repository/RatPackRepository.hh"
+#include "static/Utils.hh"
 
 RatPackRepository::RatPackRepository(
     char const *root,
@@ -11,7 +12,14 @@ RatPackRepository::RatPackRepository(
 
 RatPack *RatPackRepository::create(char const *name, char const *key) const {
     spdlog::info("Creating rat pack: '{}'", name);
-    pugi::xml_node node = this->textRepo->getXml(key, "pack");
+    pugi::xml_document doc;
+    pugi::xml_node node;
+    Utils::openXml(
+        &doc,
+        &node,
+        "pack",
+        this->textRepo->get(key)->get()
+    );
     spdlog::debug(
         "pack image '{}' version '{}'",
         node.attribute("image").as_string("NO"),

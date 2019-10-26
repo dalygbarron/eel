@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "static/xml/pugixml.hpp"
 #include <SFML/Graphics.hpp>
 
 /**

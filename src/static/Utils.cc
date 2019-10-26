@@ -1,8 +1,9 @@
 #include "static/Utils.hh"
 #include "static/Constant.hh"
 #include "static/spdlog/spdlog.h"
-#include <cstdlib>
 #include <SFML/Graphics.hpp>
+#include <cstdlib>
+#include <exception>
 
 float Utils::min(float a, float b) {
     if (a < b) return a;
@@ -174,9 +175,10 @@ int Utils::parseBase64String(char const *src, unsigned char *dst, int max) {
         unsigned int d = Utils::parseBase64(src[i + 3]);
         unsigned int value = a << 18 | b << 12 | c << 6 | d;
         int stop = write + 3 - pads;
-        for (write; write < stop && write < max; write++) {
+        while (write < stop && write < max) {
             dst[write] = (value & 0xff0000) >> 16;
             value <<= 8;
+            write++;
         }
     }
     dst[write] = 0;
@@ -189,26 +191,16 @@ void Utils::openXml(
     char const *tag,
     char const *string
 ) {
-    pugi::xml_parse_result result = doc->loadString(string);
-    // TODO: all this shit.
-    //
-    //
-    // 
-    // pugi::xml_document doc;
-    // pugi::xml_parse_result result = doc.load_string(this->get(name)->get());
-    // if (!result) {
-    //     spdlog::error(
-    //         "xml file '{}' is not valid: '{}'",
-    //         name,
-    //         result.description()
-    //     );
-    // }
-    // pugi::xml_node node = doc.child(tag);
-    // if (!node) {
-    //     spdlog::error("xml file '{}' lacks top level node '{}'", name, tag);
-    // }
-    // return node;
-
+    pugi::xml_parse_result result = doc->load_string(string);
+    if (!result) {
+        spdlog::error("xml is not valid: {}", result.description());
+        throw std::invalid_argument("invalid xml");
+    }
+    *node = doc->child(tag);
+    if (!node) {
+        spdlog::error("xml lacks top level node '{}'", tag);
+        throw std::invalid_argument("xml lacks required tag");
+    }
 }
 
 void Utils::fitQuad(sf::Vertex *vertices, sf::FloatRect rect) {
