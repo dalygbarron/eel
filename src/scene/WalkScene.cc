@@ -41,3 +41,14 @@ void WalkScene::render(
     target->clear(sf::Color::Cyan);
     target->draw(this->background);
 }
+
+void WalkStage::refocus(sf::Vector2f newFocus) {
+    this->focus = newFocus;
+    if (!this->focusChunk->contains(newFocus)) {
+        this->focusChunk = this->chunks.at(
+            newFocus / this->map->getTileSize() / this->focusChunk->getSize()
+        );
+        // TODO: this is where new chunk tiles get added to override the old.
+    }
+}
+

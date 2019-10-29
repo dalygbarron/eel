@@ -69,7 +69,6 @@ int main(int argc, char **argv) {
         Config config(gameFile);
         ControlBuilder controlBuilder(&textureRepo, &config);
         Radio radio(&soundRepo);
-        sf::Texture *sprites = textureRepo.snatch(config.get("spritesheet"));
         Engine engine(
             &config,
             &textRepo,
