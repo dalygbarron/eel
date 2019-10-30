@@ -34,5 +34,4 @@ void TiledPopulable::tiledPopulate(
     this->tiledTileset(tileset);
     // Load Layers and chunks.
     // TODO: this.
-    return true;
 }

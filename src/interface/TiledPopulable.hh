@@ -15,10 +15,8 @@ class TiledPopulable {
          * been loaded in as a string.
          * @param tilesetRepo is used for loading the map's tileset.
          * @param data        is the xml data as a string.
-         * @return true if it was populated without issues, and false if it
-         *         fucked up.
          */
-        int tiledPopulate(
+        void tiledPopulate(
             Repository<Tileset> const *tilesetRepo,
             char const *data
         );
