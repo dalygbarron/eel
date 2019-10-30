@@ -15,6 +15,12 @@
  */
 class WalkScene: public Scene {
     public:
+        constexpr static int MAX_MOBS = 4096;
+        constexpr static int MAX_TILES = 2048;
+        constexpr static int MAX_BULLETS = 1536;
+        constexpr static int MAX_PLACEMENTS = 256;
+        constexpr static int MAX_ACTORS = 256;
+
         /**
          * Creates the scene.
          * @param engine is the engine stuff that the scene uses.
