@@ -43,6 +43,6 @@ class TiledPopulable {
         virtual void tiledLayer();
 
         virtual void tiledChunk();
-}
+};
 
 #endif

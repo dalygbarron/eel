@@ -2,11 +2,11 @@ CC = g++
 CFLAGS = -std=c++14 -I src/ -O2
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
-MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset TileMap Path Chunk RatPack)
+MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset Path Chunk RatPack WalkStage)
 SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene WalkScene)
 CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
 SERVICE = $(addprefix service/, Config Game Radio Status Engine)
-REPOSITORY = $(addprefix service/repository/, TextRepository TextureRepository TilesetRepository TileMapRepository SoundRepository RatPackRepository)
+REPOSITORY = $(addprefix service/repository/, TextRepository TextureRepository TilesetRepository WalkStageRepository SoundRepository RatPackRepository)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils xml/pugixml)
 TEST = testGeneral testBullet testMob testUtils testTextRepository testPugi testPath helpers catch

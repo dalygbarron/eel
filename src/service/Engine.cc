@@ -3,12 +3,12 @@
 
 Engine::Engine(
     Config const *config,
-    TextRepository *textRepo,
-    TextureRepository *textureRepo,
-    TilesetRepository *tilesetRepo,
-    TileMapRepository *tileMapRepo,
-    SoundRepository *soundRepo,
-    RatPackRepository *ratPackRepo,
+    Repository<char> *textRepo,
+    Repository<sf::Texture> *textureRepo,
+    Repository<Tileset> *tilesetRepo,
+    Repository<sf::Sound> *soundRepo,
+    Repository<RatPack> *ratPackRepo,
+    Repository<WalkStage> *walkStageRepo,
     Radio *radio,
     Status *status,
     ControlBuilder const *controlBuilder
@@ -17,36 +17,36 @@ Engine::Engine(
     this->textRepo = textRepo;
     this->textureRepo = textureRepo;
     this->tilesetRepo = tilesetRepo;
-    this->tileMapRepo = tileMapRepo;
     this->soundRepo = soundRepo;
     this->ratPackRepo = ratPackRepo;
+    this->walkStageRepo = walkStageRepo;
     this->radio = radio;
     this->status = status;
     this->controlBuilder = controlBuilder;
 }
 
-TextRepository const *Engine::getTextRepository() const {
+Repository<char> const *Engine::getTextRepository() const {
     return this->textRepo;
 }
 
-TextureRepository const *Engine::getTextureRepository() const {
+Repository<sf::Texture> const *Engine::getTextureRepository() const {
     return this->textureRepo;
 }
 
-TilesetRepository const *Engine::getTilesetRepository() const {
+Repository<Tileset> const *Engine::getTilesetRepository() const {
     return this->tilesetRepo;
 }
 
-TileMapRepository const *Engine::getTileMapRepository() const {
-    return this->tileMapRepo;
-}
-
-SoundRepository const *Engine::getSoundRepository() const {
+Repository<sf::Sound> const *Engine::getSoundRepository() const {
     return this->soundRepo;
 }
 
-RatPackRepository const *Engine::getRatPackRepository() const {
+Repository<RatPack> const *Engine::getRatPackRepository() const {
     return this->ratPackRepo;
+}
+
+Repository<WalkStage> const *Engine::getWalkStageRepository() const {
+    return this->walkStage;
 }
 
 void Engine::joinRatPack(

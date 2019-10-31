@@ -20,8 +20,8 @@ PlainScene::~PlainScene() {
     delete this->file;
     delete this->script;
 }
-void PlainScene::render(
-    sf::RenderTarget *target,
+void PlainScene::draw(
+    sf::RenderTarget &target,
     sf::RenderStates states
 ) const {
     // nothing atm.

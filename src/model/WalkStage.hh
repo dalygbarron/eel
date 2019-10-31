@@ -7,7 +7,7 @@
 /**
  * Contains the goings on in a walk scene.
  */
-class WalkStage: public TiledPopulable {
+class WalkStage: public TiledPopulable, public sf::Drawable {
     public:
         constexpr static int MAX_MOBS = 4096;
         constexpr static int MAX_TILES = 2944;
@@ -28,10 +28,11 @@ class WalkStage: public TiledPopulable {
         WalkStage(WalkStage const *parent);
 
         /**
-         * Draws the stage consisting of all these mobs and shit.
-         * @param target is the thing to render to.
+         * Gives you the walkstage's tileset if it has got one set.
+         * @return the tileset as an asset pointer if there is one or null if
+         *         it doesn't have a tileset yet.
          */
-        void render(sf::RenderTarget *target);
+        Asset<Tileset> const *getTileset() const;
 
     private:
         sf::Color bg;
@@ -48,6 +49,11 @@ class WalkStage: public TiledPopulable {
         virtual void tiledLayer() override;
 
         virtual void tiledChunk() override;
+
+        virtual void draw(
+            sf::RenderTarget &target,
+            sf::RenderStates states
+        ) const override;
 
 };
 

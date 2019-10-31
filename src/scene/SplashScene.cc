@@ -1,4 +1,5 @@
 #include "scene/SplashScene.hh"
+#include "static/Utils.hh"
 #include <cstring>
 
 SplashScene::SplashScene(Engine const *engine): Scene(engine) {
@@ -15,11 +16,11 @@ SplashScene::~SplashScene() {
     // TODO: delete the splash picture.
 }
 
-void SplashScene::render(
-    sf::RenderTarget *target,
+void SplashScene::draw(
+    sf::RenderTarget &target,
     sf::RenderStates states
 ) const {
-    target->draw(this->shape);
+    target.draw(this->shape);
 }
 
 void SplashScene::logic(float delta) {

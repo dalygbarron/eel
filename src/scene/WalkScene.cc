@@ -2,22 +2,17 @@
 
 WalkScene::WalkScene(
     Engine const *engine,
-    Asset<TileMap> const *map
-): Scene(engine) {
+    WalkStage const *prototype
+): Scene(engine), stage(prototype) {
     engine->joinRatPack(
         engine->config->get("spritesheet"),
         engine->config->get("tileset-slot"),
-        map->get()->getTileset()->get()->getTexture()->get()
+        this->stage.getTileset()->get()->getTexture()->get()
     );
-    this->sprites = engine->getRatPackRepository()->get(
-        engine->config->get("spritesheet")
-    );
-    this->background.setTexture(*this->sprites->get()->getTexture());
-    this->background.setTextureRect(this->sprites->get()->getRat("tileset"));
 }
 
 WalkScene::~WalkScene() {
-    // TODO: delete junk.
+    // does nothing atm.
 }
 
 sf::Vector2i WalkScene::sortMobs() {
@@ -34,21 +29,9 @@ void WalkScene::logic(float delta) {
     // TODO: update walkstage.
 }
 
-void WalkScene::render(
-    sf::RenderTarget *target,
+void WalkScene::draw(
+    sf::RenderTarget &target,
     sf::RenderStates states
 ) const {
-    target->clear(sf::Color::Cyan);
-    target->draw(this->background);
+    target.draw(this->stage, states);
 }
-
-void WalkStage::refocus(sf::Vector2f newFocus) {
-    this->focus = newFocus;
-    if (!this->focusChunk->contains(newFocus)) {
-        this->focusChunk = this->chunks.at(
-            newFocus / this->map->getTileSize() / this->focusChunk->getSize()
-        );
-        // TODO: this is where new chunk tiles get added to override the old.
-    }
-}
-

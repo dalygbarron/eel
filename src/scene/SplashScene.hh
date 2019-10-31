@@ -29,8 +29,8 @@ class SplashScene: public Scene {
         char const *startScript;
         float timer;
 
-        virtual void render(
-            sf::RenderTarget *target,
+        virtual void draw(
+            sf::RenderTarget &target,
             sf::RenderStates states
         ) const override;
 

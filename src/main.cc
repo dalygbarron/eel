@@ -66,6 +66,7 @@ int main(int argc, char **argv) {
         TileMapRepository tileMapRepo(gameFile, &textRepo, &tilesetRepo);
         SoundRepository soundRepo(gameFile);
         RatPackRepository ratPackRepo(gameFile, &textRepo, &textureRepo);
+        WalkStageRepository walkStageRepo(gameFile, &textRepo, &tilesetRepo);
         Config config(gameFile);
         ControlBuilder controlBuilder(&textureRepo, &config);
         Radio radio(&soundRepo);
@@ -74,9 +75,9 @@ int main(int argc, char **argv) {
             &textRepo,
             &textureRepo,
             &tilesetRepo,
-            &tileMapRepo,
             &soundRepo,
             &ratPackRepo,
+            &walkStageRepo,
             &radio,
             0,
             &controlBuilder

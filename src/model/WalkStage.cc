@@ -8,22 +8,34 @@ WalkStage::WalkStage(WalkStage const *walkStage) {
     // Will also do stuff one day I imagine.
 }
 
-void WalkStage::render(sf::RenderTarget const *target) {
-
-}
-
-void tiledMap(sf::Vector2u size, sf::Vector2u tileSize, sf::Color bg) {
+void WalkStage::tiledMap(
+    sf::Vector2u size,
+    sf::Vector2u tileSize,
+    sf::Color bg
+) {
     this->bg = bg;
 }
 
-void tiledTileset(Asset<Tileset> const *tileset) {
+void WalkStage::tiledTileset(Asset<Tileset> const *tileset) {
     this->tileset = tileset;
 }
 
-void tiledLayer() {
+Asset<Tileset> const *WalkStage::getTileset() const {
+    return this->tileset;
+}
+
+void WalkStage::tiledLayer() {
 
 }
 
-void tiledChunk() {
+void WalkStage::tiledChunk() {
+
+}
+
+void WalkStage::draw(
+    sf::RenderTarget &target,
+    sf::RenderStates states
+) const {
+    target.clear(this->bg);
 
 }

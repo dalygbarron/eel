@@ -25,8 +25,8 @@ class PlainScene: public Scene {
         Script *script;
         char *file;
 
-        virtual void render(
-            sf::RenderTarget *target,
+        virtual void draw(
+            sf::RenderTarget &target,
             sf::RenderStates states
         ) const override;
 

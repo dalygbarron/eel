@@ -47,7 +47,7 @@ class Scene: public sf::Drawable {
          * Gives you the result of the last gui box.
          * @return the result number which is 0 or greater.
          */
-        int getResult();
+        int getResult() const;
 
     private:
         Control *gui = 0;
@@ -63,16 +63,6 @@ class Scene: public sf::Drawable {
          * @param delta is the time since the last tick.
          */
         virtual void logic(float delta) = 0;
-
-        /**
-         * Draws the actual content in the scene.
-         * @param target is the render target that we are rendering onto.
-         * @param states are the renderer states to set up as needed.
-         */
-        virtual void render(
-            sf::RenderTarget *target,
-            sf::RenderStates states
-        ) const = 0;
 };
 
 #endif
