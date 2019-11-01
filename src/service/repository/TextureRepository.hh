@@ -13,12 +13,12 @@ class TextureRepository: public Repository<sf::Texture> {
          * Creates the repo.
          * @param root is the root directory assets are loaded from.
          */
-        TextureRepository(char const *root);
+        TextureRepository(char const &root);
 
     private:
-        virtual sf::Texture *create(
-            char const *name,
-            char const *key
+        virtual sf::Texture &create(
+            char const &name,
+            char const &key
         ) const override;
 };
 

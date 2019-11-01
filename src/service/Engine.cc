@@ -2,59 +2,61 @@
 #include "static/Constant.hh"
 
 Engine::Engine(
-    Config const *config,
-    Repository<char> *textRepo,
-    Repository<sf::Texture> *textureRepo,
-    Repository<Tileset> *tilesetRepo,
-    Repository<sf::SoundBuffer> *soundRepo,
-    Repository<RatPack> *ratPackRepo,
-    Repository<WalkStage> *walkStageRepo,
-    Radio *radio,
-    Status *status,
-    ControlBuilder const *controlBuilder
-) {
-    this->config = config;
-    this->textRepo = textRepo;
-    this->textureRepo = textureRepo;
-    this->tilesetRepo = tilesetRepo;
-    this->soundRepo = soundRepo;
-    this->ratPackRepo = ratPackRepo;
-    this->walkStageRepo = walkStageRepo;
-    this->radio = radio;
-    this->status = status;
-    this->controlBuilder = controlBuilder;
+    Config const &config,
+    Repository<char> &textRepo,
+    Repository<sf::Texture> &textureRepo,
+    Repository<Tileset> &tilesetRepo,
+    Repository<sf::SoundBuffer> &soundRepo,
+    Repository<RatPack> &ratPackRepo,
+    Repository<WalkStage> &walkStageRepo,
+    Radio &radio,
+    Status &status,
+    ControlBuilder const &controlBuilder
+):
+    config(config),
+    textRepo(textRepo),
+    textureRepo(textureRepo),
+    tilesetRepo(tilesetRepo),
+    soundRepo(soundRepo),
+    ratPackRepo(ratPackRepo),
+    walkStageRepo(walkStageRepo),
+    radio(radio),
+    status(status),
+    controlBuilder(controlBuilder)
+{
+    // does nothing else atm.
 }
 
-Repository<char> const *Engine::getTextRepository() const {
+Repository<char> const &Engine::getTextRepository() const {
     return this->textRepo;
 }
 
-Repository<sf::Texture> const *Engine::getTextureRepository() const {
+Repository<sf::Texture> const &Engine::getTextureRepository() const {
     return this->textureRepo;
 }
 
-Repository<Tileset> const *Engine::getTilesetRepository() const {
+Repository<Tileset> const &Engine::getTilesetRepository() const {
     return this->tilesetRepo;
 }
 
-Repository<sf::SoundBuffer> const *Engine::getSoundRepository() const {
+Repository<sf::SoundBuffer> const &Engine::getSoundRepository() const {
     return this->soundRepo;
 }
 
-Repository<RatPack> const *Engine::getRatPackRepository() const {
+Repository<RatPack> const &Engine::getRatPackRepository() const {
     return this->ratPackRepo;
 }
 
-Repository<WalkStage> const *Engine::getWalkStageRepository() const {
+Repository<WalkStage> const &Engine::getWalkStageRepository() const {
     return this->walkStageRepo;
 }
 
 void Engine::joinRatPack(
-    char const *pack,
-    char const *name,
-    sf::Texture const *rat
+    char const &pack,
+    char const &name,
+    sf::Texture const &rat
 ) const {
-    RatPack *ratPack = this->ratPackRepo->snatch(pack);
+    RatPack &ratPack = this->ratPackRepo->snatch(pack);
     sf::IntRect size = ratPack->getRat(name);
     sf::Vector2u givenSize = rat->getSize();
     ratPack->getTextureMutable()->update(*rat, size.left, size.top);

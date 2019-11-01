@@ -12,7 +12,7 @@
  */
 class Scene: public sf::Drawable {
     public:
-        Engine const *engine;
+        Engine const &engine;
         char transition[Constant::TRANSITION_BUFFER_SIZE];
         sf::Color bg = sf::Color(0);
 
@@ -21,7 +21,7 @@ class Scene: public sf::Drawable {
          * @param engine are the game engine services for the scene to make use
          *               of.
          */
-        Scene(Engine const *engine);
+        Scene(Engine const &engine);
 
         /**
          * Deletes the scene and it's shit.
@@ -41,7 +41,7 @@ class Scene: public sf::Drawable {
          * @param widget is the widget added. NOTE: after use it will be
          *               deleted by the scene.
          */
-        void addControl(Control *widget);
+        void addControl(Control &widget);
 
         /**
          * Gives you the result of the last gui box.

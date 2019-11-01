@@ -2,16 +2,15 @@
 #include <cstring>
 
 PlainScene::PlainScene(
-    Engine const *engine,
-    char const *filename
-): Scene(engine) {
+    Engine const &engine,
+    char const &filename
+):
+    Scene(engine),
+    script(this, engine.getTextRepository().get(filename).get())
+{
     spdlog::info("Creating plain scene with script '{}'", filename);
     // TODO: maybe script object itself should be cached.
     //       dunno if that is possible / worthwhile tbh.
-    this->script = new Script(
-        this,
-        engine->getTextRepository()->get(filename)->get()
-    );
     this->file = new char[strlen(filename) + 1];
     strcpy(this->file, filename);
 }

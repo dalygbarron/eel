@@ -10,20 +10,20 @@
  * file itself from wherever it is, and from that point be referred to in order
  * to find the root directory from which other files are referred to.
  */
-class Config: public Store<char const *> {
+class Config: public Store<char const &> {
     public:
-        constexpr static char const * const NAME = "name";
-        constexpr static char const * const VERSION = "version";
-        constexpr static char const * const ENGINE = "engine";
-        constexpr static char const * const WIDTH = "width";
-        constexpr static char const * const HEIGHT = "height";
+        constexpr static char const *NAME = "name";
+        constexpr static char const *VERSION = "version";
+        constexpr static char const *ENGINE = "engine";
+        constexpr static char const *WIDTH = "width";
+        constexpr static char const *HEIGHT = "height";
 
         /**
          * Creates the config object and loads in it's shit.
          * @param filename is the file that the config data should be read
          *                 from.
          */
-        Config(char const *filename);
+        Config(char const &filename);
 
         /**
          * Clears out all the junk hell yeah.
@@ -34,7 +34,7 @@ class Config: public Store<char const *> {
          * Gives you the root directory of the game.
          * @return the root directory as a constant string.
          */
-        char const *getRoot() const;
+        char const &getRoot() const;
 
         /**
          * Writes a filename into the root directory.
@@ -44,19 +44,19 @@ class Config: public Store<char const *> {
          * @return the number of characters written not including null
          *         terminator, or negative number on error.
          */
-        int inRoot(char *buffer, char const *file) const;
+        int inRoot(char &buffer, char const &file) const;
 
         /**
          * Gives you the name of the game.
          * @return the name of the game.
          */
-        char const *getName() const;
+        char const &getName() const;
 
         /**
          * Gives you the game's version.
          * @return the version which is a piece of text.
          */
-        char const *getVersion() const;
+        char const &getVersion() const;
 
         /**
          * Gives the major engine version that the game needs.
@@ -77,9 +77,9 @@ class Config: public Store<char const *> {
         sf::Vector2i getDimensions() const;
 
     private:
-        char *root;
-        char *name;
-        char *version;
+        char &root;
+        char &name;
+        char &version;
         int engineMajor;
         int engineMinor;
         sf::Vector2i dimensions;

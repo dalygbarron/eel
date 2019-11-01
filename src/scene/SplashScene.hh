@@ -15,7 +15,7 @@ class SplashScene: public Scene {
          * Does setting up.
          * @param engine is the game services.
          */
-        SplashScene(Engine const *engine);
+        SplashScene(Engine const &engine);
 
         virtual ~SplashScene();
 
@@ -26,7 +26,7 @@ class SplashScene: public Scene {
         sf::RectangleShape shape;
         int width;
         int height;
-        char const *startScript;
+        char const &startScript;
         float timer;
 
         virtual void draw(

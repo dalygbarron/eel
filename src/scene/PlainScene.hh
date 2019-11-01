@@ -14,7 +14,7 @@ class PlainScene: public Scene {
          * @param engine   contains the game services.
          * @param filename is the name of the script file to run.
          */
-        PlainScene(Engine const *engine, char const *filename);
+        PlainScene(Engine const &engine, char const &filename);
 
         /**
          * Deletes the plain scene.
@@ -22,8 +22,7 @@ class PlainScene: public Scene {
         virtual ~PlainScene();
 
     private:
-        Script *script;
-        char *file;
+        Script script;
 
         virtual void draw(
             sf::RenderTarget &target,

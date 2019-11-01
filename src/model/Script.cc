@@ -34,8 +34,15 @@ int Script::luaSay(lua_State *luaState) {
     char const *name = lua_tostring(luaState, 1);
     char const *text = lua_tostring(luaState, 2);
     Script *script = (Script *)Script::getLuaPointer(luaState, 3);
-    Control *panel = script->scene->engine->controlBuilder->speechBox(name, text);
-    script->scene->addControl(panel);
+    if (!(name && text && script)) {
+        spdlog::error("Lua Error: Incorrect usage of luaSay");
+        return 1;
+    }
+    Control &panel = script->scene.engine.controlBuilder.speechBox(
+        *name,
+        *text
+    );
+    script->scene.addControl(panel);
     return 0;
 }
 
@@ -43,8 +50,12 @@ int Script::luaDeclare(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
     char const *text = lua_tostring(luaState, 1);
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    Control *panel = script->scene->engine->controlBuilder->declarationBox(text);
-    script->scene->addControl(panel);
+    if (!(text && script)) {
+        spdlog::error("Lua Error: Incorrect usage of luaDeclare");
+        return 1;
+    }
+    Control &panel = script->scene.engine.controlBuilder.declarationBox(*text);
+    script->scene.addControl(panel);
     return 0;
 }
 
@@ -52,12 +63,16 @@ int Script::luaTransition(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
     char const *text = lua_tostring(luaState, 1);
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
+    if (!(text && script)) {
+        spdlog::error("Lua Error: Incorrect usage of luaTransition");
+        return 1;
+    }
     int length = strlen(text);
     if (length > Constant::TRANSITION_BUFFER_SIZE - 2) {
         spdlog::error("Lua Error: transition message too long");
         return 0;
     }
-    strcpy(script->scene->transition, text);
+    strcpy(script->scene.transition, text);
     return 0;
 }
 
@@ -65,7 +80,11 @@ int Script::luaPlaySound(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
     char const *name = lua_tostring(luaState, 1);
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    float length = script->scene->engine->radio->playSound(name);
+    if (!(name && script)) {
+        spdlog::error("Lua Error: Incorrect usage of luaPlaySound");
+        return 1;
+    }
+    float length = script->scene.engine.radio.playSound(name);
     lua_pushnumber(luaState, length);
     return 1;
 }
@@ -74,13 +93,16 @@ int Script::luaSetRefresh(lua_State *luaState) {
     Script::validateLuaArgs(luaState, 2);
     unsigned int colour = floor(lua_tonumber(luaState, 1));
     Script *script = (Script *)Script::getLuaPointer(luaState, 2);
-    script->scene->bg = sf::Color(colour);
+    if (!script) {
+        spdlog::error("Lua Error: Incorrect usage of luaSetRefresh");
+        return 1;
+    }
+    script->scene.bg = sf::Color(colour);
     spdlog::debug("Setting refresh to {:x}", colour);
     return 0;
 }
 
-Script::Script(Scene *scene, char const *file) {
-    this->scene = scene;
+Script::Script(Scene &scene, char const &file): scene(scene) {
     this->state = luaL_newstate();
     // declare my stuff in the lua context.
     luaL_openlibs(this->state);
@@ -92,13 +114,13 @@ Script::Script(Scene *scene, char const *file) {
     // Fix the path to go to the right joint.
     // TODO: do this more tidily.
     char filename[Constant::FILENAME_BUFFER_SIZE];
-    sprintf(filename, "./%s/?.lua", scene->engine->config->getRoot());
+    sprintf(filename, "./%s/?.lua", &scene.engine.config.getRoot());
     lua_getglobal(this->state, "package");
     lua_pushstring(this->state, filename);
     lua_setfield(this->state, -2, "path");
     lua_pop(this->state, 1);
     // load the file.
-    int result = luaL_loadstring(this->state, file);
+    int result = luaL_loadstring(this->state, &file);
     if (result != LUA_OK) {
         showError(this->state);
         throw -1;

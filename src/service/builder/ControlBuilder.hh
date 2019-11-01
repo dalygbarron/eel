@@ -22,8 +22,8 @@ class ControlBuilder {
          * @param config      is the game's base configuration.
          */
         ControlBuilder(
-            Repository<sf::Texture> *textureRepo,
-            Config const *config
+            Repository<sf::Texture> &textureRepo,
+            Config const &config
         );
 
         /**
@@ -32,18 +32,18 @@ class ControlBuilder {
          * @param text is what they are saying.
          * @return the new box.
          */
-        Control *speechBox(char const *name, char const *text) const;
+        Control &speechBox(char const &name, char const &text) const;
 
         /**
          * Makes a box containing unattributed text.
          * @param text is the text in the box.
          * @return the new box.
          */
-        Control *declarationBox(char const *text) const;
+        Control &declarationBox(char const &text) const;
 
     private:
-        Asset<sf::Texture> const *bg;
-        Asset<sf::Texture> const *fg;
+        Asset<sf::Texture> const &bg;
+        Asset<sf::Texture> const &fg;
         int border;
         int fontSizeNormal;
         int fontSizeBig;

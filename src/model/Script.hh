@@ -16,7 +16,7 @@ class Script {
          * @param scene  is the scene that the script is operating in.
          * @param text is the text of the script.
          */
-        Script(Scene *scene, char const *text);
+        Script(Scene &scene, char const &text);
 
         /**
          * Deletes the script and it's junk.
@@ -39,7 +39,7 @@ class Script {
     private:
         lua_State *state = 0;
         lua_State *thread = 0;
-        Scene *scene = 0;
+        Scene &scene;
         int alive = true;
         int virgin = true;
 

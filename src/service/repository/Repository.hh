@@ -13,7 +13,7 @@
  */
 template <class T> class Repository {
     public:
-        Repository(char const *path) {
+        Repository(char const &path) {
             this->root = path;
         }
 
@@ -35,7 +35,7 @@ template <class T> class Repository {
          * @param name is the name of the asset we seek.
          * @return the asset.
          */
-        Asset<T> const *get(char const *name) const {
+        Asset<T> const &get(char const &name) const {
             this->find(name);
             return this->items[name];
         }
@@ -46,7 +46,7 @@ template <class T> class Repository {
          * @param name is the name of the thing to load / get.
          * @return the thing.
          */
-        T *snatch(char const *name) {
+        T *snatch(char const &name) {
             this->find(name);
             return this->items[name]->getMutable();
         }
@@ -56,7 +56,7 @@ template <class T> class Repository {
          * assets.
          */
         void zap() {
-            for(auto const &name: this->items) {
+            for (auto const &name: this->items) {
                 delete this->items[name];
                 Path path(this->root, name);
                 this->items[name] = this->create(path.get(), name);
@@ -64,16 +64,16 @@ template <class T> class Repository {
         }
 
     private:
-        mutable std::unordered_map<std::string, Asset<T> *> items;
-        char const *root;
+        mutable std::unordered_map<std::string, Asset<T> &> items;
+        char const &root;
 
         /**
          * Looks for a given key in the cache and creates it if it's not there.
          */
-        void find(char const *name) const {
+        void find(char const &name) const {
             if (this->items.count(name) == 0) {
                 Path filename(this->root, name);
-                Asset<T> *asset = new Asset<T>(this->create(
+                Asset<T> &asset = new Asset<T>(this->create(
                     filename.get(),
                     name
                 ));
@@ -90,7 +90,7 @@ template <class T> class Repository {
          *                 to other repos and stuff like that.
          * @return a non const pointer to the new object.
          */
-        virtual T *create(char const *filename, char const *key) const = 0;
+        virtual T &create(char const &filename, char const &key) const = 0;
 };
 
 #endif

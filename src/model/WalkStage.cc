@@ -37,5 +37,4 @@ void WalkStage::draw(
     sf::RenderStates states
 ) const {
     target.clear(this->bg);
-
 }

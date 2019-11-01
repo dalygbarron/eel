@@ -2,13 +2,15 @@
 #include "static/Utils.hh"
 #include <cstring>
 
-SplashScene::SplashScene(Engine const *engine): Scene(engine) {
+SplashScene::SplashScene(Engine const &engine):
+    Scene(engine),
+    startScript(engine.config.get("start"))
+{
     this->texture.loadFromMemory(SplashScene::LOGO, SplashScene::LOGO_SIZE);
-    this->shape.setTexture(&(this->texture));
-    this->width = engine->config->getDimensions().x;
-    this->height = engine->config->getDimensions().y;
+    this->shape.setTexture(&this->texture);
+    this->width = engine.config.getDimensions().x;
+    this->height = engine.config.getDimensions().y;
     this->shape.setSize(sf::Vector2f(this->width, this->height));
-    this->startScript = engine->config->get("start");
     this->timer = 0;
 }
 
@@ -37,6 +39,6 @@ void SplashScene::logic(float delta) {
     if (this->timer > SplashScene::WAIT) {
         this->transition[0] = 'r';
         this->transition[1] = 'p';
-        strcpy(transition + 2, this->startScript);
+        strcpy(transition + 2, &this->startScript);
     }
 }

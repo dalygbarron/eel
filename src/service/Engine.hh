@@ -17,10 +17,10 @@
  */
 class Engine {
     public:
-        Config const *config;
-        ControlBuilder const *controlBuilder;
-        Radio *radio;
-        Status *status;
+        Config const &config;
+        ControlBuilder const &controlBuilder;
+        Radio &radio;
+        Status &status;
 
         /**
          * Builds the engine and puts in all of it's dependencies in one swoop.
@@ -36,53 +36,53 @@ class Engine {
          * @param controlBuilder is the control builder.
          */
         Engine(
-            Config const *config,
-            Repository<char> *textRepo,
-            Repository<sf::Texture> *textureRepo,
-            Repository<Tileset> *tilesetRepo,
-            Repository<sf::SoundBuffer> *soundRepo,
-            Repository<RatPack> *ratPackRepo,
-            Repository<WalkStage> *walkStageRepo,
-            Radio *radio,
-            Status *status,
-            ControlBuilder const *controlBuilder
+            Config const &config,
+            Repository<char> &textRepo,
+            Repository<sf::Texture> &textureRepo,
+            Repository<Tileset> &tilesetRepo,
+            Repository<sf::SoundBuffer> &soundRepo,
+            Repository<RatPack> &ratPackRepo,
+            Repository<WalkStage> &walkStageRepo,
+            Radio &radio,
+            Status &status,
+            ControlBuilder const &controlBuilder
         );
 
         /**
          * Gets the engine's text repository instance.
          * @return the text repository.
          */
-        Repository<char> const *getTextRepository() const;
+        Repository<char> const &getTextRepository() const;
 
         /**
          * Gets the engine's texture repository instance.
          * @return the texture repository.
          */
-        Repository<sf::Texture> const *getTextureRepository() const;
+        Repository<sf::Texture> const &getTextureRepository() const;
 
         /**
          * Gets the engine's tileset repo instance.
          * @return the tileset repo.
          */
-        Repository<Tileset> const *getTilesetRepository() const;
+        Repository<Tileset> const &getTilesetRepository() const;
 
         /**
          * Gets the engine's sound repo instance.
          * @return the sound repo.
          */
-        Repository<sf::SoundBuffer> const *getSoundRepository() const;
+        Repository<sf::SoundBuffer> const &getSoundRepository() const;
 
         /**
          * Gets the engine's rat pack repo instance.
          * @return the ratpack repo.
          */
-        Repository<RatPack> const *getRatPackRepository() const;
+        Repository<RatPack> const &getRatPackRepository() const;
 
         /**
          * Gets the engine's walk stage repo instance.
          * @return the walk stage repo.
          */
-        Repository<WalkStage> const *getWalkStageRepository() const;
+        Repository<WalkStage> const &getWalkStageRepository() const;
 
         /**
          * Draws a texture onto a given ratpack object.
@@ -91,18 +91,18 @@ class Engine {
          * @param texture is the texture to draw over it with.
          */
         void joinRatPack(
-            char const *pack,
-            char const *name,
-            sf::Texture const *rat
+            char const &pack,
+            char const &name,
+            sf::Texture const &rat
         ) const;
 
     private:
-        Repository<char> *textRepo;
-        Repository<sf::Texture> *textureRepo;
-        Repository<Tileset> *tilesetRepo;
-        Repository<sf::SoundBuffer> *soundRepo;
-        Repository<RatPack> *ratPackRepo;
-        Repository<WalkStage> *walkStageRepo;
+        Repository<char> &textRepo;
+        Repository<sf::Texture> &textureRepo;
+        Repository<Tileset> &tilesetRepo;
+        Repository<sf::SoundBuffer> &soundRepo;
+        Repository<RatPack> &ratPackRepo;
+        Repository<WalkStage> &walkStageRepo;
 };
 
 #endif

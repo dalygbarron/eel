@@ -1,8 +1,7 @@
 #include "scene/Scene.hh"
 #include "static/spdlog/spdlog.h"
 
-Scene::Scene(Engine const *engine) {
-    this->engine = engine;
+Scene::Scene(Engine const &engine): engine(engine) {
     this->transition[0] = 0;
 }
 
@@ -22,8 +21,8 @@ void Scene::update(float delta, unsigned char mouse) {
     }
 }
 
-void Scene::addControl(Control *control) {
-    this->gui = control;
+void Scene::addControl(Control &control) {
+    this->gui = &control;
 }
 
 int Scene::getResult() const {
