@@ -17,8 +17,8 @@ template <class T> class Asset {
          * Creates the asset thingy and populates it's content.
          * @param content is the content to put in it.
          */
-        Asset(T *content) {
-            this->content = content;
+        Asset(T &content) {
+            this->content = &content;
         }
 
         /**
@@ -34,16 +34,16 @@ template <class T> class Asset {
          * possible so that the asset you are holding can be reloaded live.
          * @return a const pointer to your nice asset.
          */
-        T const *get() const {
-            return this->content;
+        T const &get() const {
+            return *this->content;
         }
 
         /**
          * If you have non const access to the asset you can get non const
          * access to it's contents too.
          */
-        T *getMutable() {
-            return this->content;
+        T &getMutable() {
+            return *this->content;
         }
 
     private:

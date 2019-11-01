@@ -2,7 +2,7 @@
 #include "static/Utils.hh"
 #include <string.h>
 
-Path::Path(char const *base, char const *file) {
+Path::Path(char const &base, char const &file) {
     // Apply base text.
     int baseEnd = strlen(base);
     while (base[baseEnd] != '/' && baseEnd > 0) baseEnd--;
@@ -25,11 +25,11 @@ Path::Path(char const *base, char const *file) {
     }
 }
 
-char const *Path::get() {
+char const &Path::get() {
     return this->buffer;
 }
 
-void Path::applyToken(char const *start, int length) {
+void Path::applyToken(char const &start, int length) {
     // don't add initial slashes on added path.
     while (this->n != 0 && this->buffer[this->n - 1] == '/' &&
         length > 0 && start[0] == '/') {

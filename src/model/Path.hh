@@ -17,13 +17,13 @@ class Path {
          *             path. It is parsed for going back to parent directories
          *             and stuff like that.
          */
-        Path(char const *base, char const *file);
+        Path(char const &base, char const &file);
 
         /**
          * Accesses the rendered path.
          * @return a pointer to the combined path.
          */
-        char const *get();
+        char const &get();
 
     private:
         int n;
@@ -34,7 +34,7 @@ class Path {
          * @param start is the start of the token to apply.
          * @param n     is the length of the token to apply.
          */
-        void applyToken(char const *start, int length);
+        void applyToken(char const &start, int length);
 };
 
 #endif

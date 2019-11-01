@@ -2,19 +2,14 @@
 #include "static/Utils.hh"
 
 void TiledPopulable::tiledPopulate(
-    Repository<Tileset> const *tilesetRepo,
-    char const *key,
-    const char *data
+    Repository<Tileset> const &tilesetRepo,
+    char const &key,
+    const char &data
 ) {
     // Set up.
     pugi::xml_document doc;
     pugi::xml_node node;
-    Utils::openXml(
-        &doc,
-        &node,
-        "map",
-        data
-    );
+    Utils::openXml(&doc, &node, "map", data);
     // Load main map properties.
     sf::Vector2u size;
     sf::Vector2u tileSize;
@@ -28,7 +23,7 @@ void TiledPopulable::tiledPopulate(
     pugi::xml_node tilesetNode = node.child("tileset");
     if (!tilesetNode) spdlog::error("Tilemap lacked tileset object");
     Path tilesetFile(key, tilesetNode.attribute("source").value());
-    Asset<Tileset> const *tileset = tilesetRepo->get(tilesetFile.get());
+    Asset<Tileset> const &tileset = tilesetRepo.get(tilesetFile.get());
     this->tiledTileset(tileset);
     // Load Layers and chunks.
     // TODO: this.

@@ -18,9 +18,9 @@ class TiledPopulable {
          * @param data        is the xml data as a string.
          */
         void tiledPopulate(
-            Repository<Tileset> const *tilesetRepo,
-            char const *key,
-            char const *data
+            Repository<Tileset> const &tilesetRepo,
+            char const &key,
+            char const &data
         );
 
     private:
@@ -40,7 +40,7 @@ class TiledPopulable {
          * Passes the tileset used in a given tile map.
          * @param tileset is the tileset in the currently loaded tile map.
          */
-        virtual void tiledTileset(Asset<Tileset> const *tileset) = 0;
+        virtual void tiledTileset(Asset<Tileset> const &tileset) = 0;
 
         virtual void tiledLayer() = 0;
 

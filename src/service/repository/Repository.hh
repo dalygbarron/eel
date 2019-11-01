@@ -13,6 +13,10 @@
  */
 template <class T> class Repository {
     public:
+        /**
+         * Creates the repo.
+         * @param path is the root directory from which files are found.
+         */
         Repository(char const &path) {
             this->root = path;
         }
@@ -37,7 +41,7 @@ template <class T> class Repository {
          */
         Asset<T> const &get(char const &name) const {
             this->find(name);
-            return this->items[name];
+            return this->items[&name];
         }
 
         /**
@@ -46,9 +50,9 @@ template <class T> class Repository {
          * @param name is the name of the thing to load / get.
          * @return the thing.
          */
-        T *snatch(char const &name) {
+        T &snatch(char const &name) {
             this->find(name);
-            return this->items[name]->getMutable();
+            return this->items[&name]->getMutable();
         }
 
         /**
@@ -57,9 +61,9 @@ template <class T> class Repository {
          */
         void zap() {
             for (auto const &name: this->items) {
-                delete this->items[name];
+                delete this->items[&name];
                 Path path(this->root, name);
-                this->items[name] = this->create(path.get(), name);
+                this->items[&name] = this->create(path.get(), name);
             }
         }
 
@@ -73,10 +77,10 @@ template <class T> class Repository {
         void find(char const &name) const {
             if (this->items.count(name) == 0) {
                 Path filename(this->root, name);
-                Asset<T> &asset = new Asset<T>(this->create(
+                Asset<T> &asset = *(new Asset<T>(this->create(
                     filename.get(),
                     name
-                ));
+                )));
                 this->items[name] = asset;
             }
         }

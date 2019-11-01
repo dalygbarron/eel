@@ -13,12 +13,12 @@ class SoundRepository: public Repository<sf::SoundBuffer> {
          * Creates the repo.
          * @param root is the root dir to load files from.
          */
-        SoundRepository(char const *root);
+        SoundRepository(char const &root);
 
     private:
-        virtual sf::SoundBuffer *create(
-            char const *filename,
-            char const *key
+        virtual sf::SoundBuffer &create(
+            char const &filename,
+            char const &key
         ) const override;
 };
 
