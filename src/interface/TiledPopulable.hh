@@ -14,10 +14,12 @@ class TiledPopulable {
          * Populate the class with the data from a given tiled map which has
          * been loaded in as a string.
          * @param tilesetRepo is used for loading the map's tileset.
+         * @param key         is the key of the tiled map file.
          * @param data        is the xml data as a string.
          */
         void tiledPopulate(
             Repository<Tileset> const *tilesetRepo,
+            char const *key,
             char const *data
         );
 
@@ -32,17 +34,17 @@ class TiledPopulable {
             sf::Vector2u size,
             sf::Vector2u tileSize,
             sf::Color bg
-        );
+        ) = 0;
 
         /**
          * Passes the tileset used in a given tile map.
          * @param tileset is the tileset in the currently loaded tile map.
          */
-        virtual void tiledTileset(Asset<Tileset> const *tileset);
+        virtual void tiledTileset(Asset<Tileset> const *tileset) = 0;
 
-        virtual void tiledLayer();
+        virtual void tiledLayer() = 0;
 
-        virtual void tiledChunk();
+        virtual void tiledChunk() = 0;
 };
 
 #endif

@@ -40,7 +40,7 @@ class Engine {
             Repository<char> *textRepo,
             Repository<sf::Texture> *textureRepo,
             Repository<Tileset> *tilesetRepo,
-            Repository<sf::Sound> *soundRepo,
+            Repository<sf::SoundBuffer> *soundRepo,
             Repository<RatPack> *ratPackRepo,
             Repository<WalkStage> *walkStageRepo,
             Radio *radio,
@@ -70,7 +70,7 @@ class Engine {
          * Gets the engine's sound repo instance.
          * @return the sound repo.
          */
-        Repository<sf::Sound> const *getSoundRepository() const;
+        Repository<sf::SoundBuffer> const *getSoundRepository() const;
 
         /**
          * Gets the engine's rat pack repo instance.
@@ -100,7 +100,7 @@ class Engine {
         Repository<char> *textRepo;
         Repository<sf::Texture> *textureRepo;
         Repository<Tileset> *tilesetRepo;
-        Repository<sf::Sound> *soundRepo;
+        Repository<sf::SoundBuffer> *soundRepo;
         Repository<RatPack> *ratPackRepo;
         Repository<WalkStage> *walkStageRepo;
 };

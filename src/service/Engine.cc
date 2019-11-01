@@ -6,7 +6,7 @@ Engine::Engine(
     Repository<char> *textRepo,
     Repository<sf::Texture> *textureRepo,
     Repository<Tileset> *tilesetRepo,
-    Repository<sf::Sound> *soundRepo,
+    Repository<sf::SoundBuffer> *soundRepo,
     Repository<RatPack> *ratPackRepo,
     Repository<WalkStage> *walkStageRepo,
     Radio *radio,
@@ -37,7 +37,7 @@ Repository<Tileset> const *Engine::getTilesetRepository() const {
     return this->tilesetRepo;
 }
 
-Repository<sf::Sound> const *Engine::getSoundRepository() const {
+Repository<sf::SoundBuffer> const *Engine::getSoundRepository() const {
     return this->soundRepo;
 }
 
@@ -46,7 +46,7 @@ Repository<RatPack> const *Engine::getRatPackRepository() const {
 }
 
 Repository<WalkStage> const *Engine::getWalkStageRepository() const {
-    return this->walkStage;
+    return this->walkStageRepo;
 }
 
 void Engine::joinRatPack(

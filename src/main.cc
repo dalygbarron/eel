@@ -10,9 +10,9 @@
 #include "service/repository/TextRepository.hh"
 #include "service/repository/TextureRepository.hh"
 #include "service/repository/TilesetRepository.hh"
-#include "service/repository/TileMapRepository.hh"
 #include "service/repository/SoundRepository.hh"
 #include "service/repository/RatPackRepository.hh"
+#include "service/repository/WalkStageRepository.hh"
 #include "service/Radio.hh"
 #include "service/Engine.hh"
 #include <SFML/Graphics.hpp>
@@ -63,7 +63,6 @@ int main(int argc, char **argv) {
         TextRepository textRepo(gameFile);
         TextureRepository textureRepo(gameFile);
         TilesetRepository tilesetRepo(gameFile, &textRepo, &textureRepo);
-        TileMapRepository tileMapRepo(gameFile, &textRepo, &tilesetRepo);
         SoundRepository soundRepo(gameFile);
         RatPackRepository ratPackRepo(gameFile, &textRepo, &textureRepo);
         WalkStageRepository walkStageRepo(gameFile, &textRepo, &tilesetRepo);

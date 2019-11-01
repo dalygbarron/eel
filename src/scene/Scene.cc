@@ -29,3 +29,9 @@ void Scene::addControl(Control *control) {
 int Scene::getResult() const {
     return this->result;
 }
+
+void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    if (this->bg.a > 0) target.clear(this->bg);
+    //this->render(&target, states);
+    if (this->gui) this->gui->render(&target, states);
+}

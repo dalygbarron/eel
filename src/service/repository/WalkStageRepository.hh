@@ -2,6 +2,7 @@
 #define WALK_STAGE_REPOSITORY_H
 
 #include "service/repository/Repository.hh"
+#include "model/WalkStage.hh"
 
 /**
  * Repository for walk stages.
@@ -16,7 +17,7 @@ class WalkStageRepository: public Repository<WalkStage> {
          */
         WalkStageRepository(
             char const *root,
-            Repository<char> *textRepo,
+            Repository<char> const *textRepo,
             Repository<Tileset> const *tilesetRepo
         );
 
