@@ -20,9 +20,9 @@ class Tileset {
          *                 the tileset.
          */
         Tileset(
-            char const *name,
+            char const &name,
             sf::Vector2u tileSize,
-            Asset<sf::Texture> const *texture
+            Asset<sf::Texture> const &texture
         );
 
         /**
@@ -34,7 +34,7 @@ class Tileset {
          * Gives the name of the tileset.
          * @return the name.
          */
-        char const *getName() const;
+        char const &getName() const;
 
         /**
          * Gives the size of a tile in the tileset.
@@ -46,19 +46,19 @@ class Tileset {
          * Gives you the tileset's rendering texture.
          * @return the texture.
          */
-        Asset<sf::Texture> const *getTexture() const;
+        Asset<sf::Texture> const &getTexture() const;
 
         /**
          * Takes four vertices and makes them into a quad for the given tile.
          * @param vertices is a pointer to the first vertex.
          * @param id       is the id of the tile to make.
          */
-        void buildQuad(sf::Vertex *vertices, unsigned char id) const;
+        void buildQuad(sf::Vertex &vertices, unsigned char id) const;
 
     private:
-        char const *name;
+        char const &name;
         sf::Vector2u tileSize;
-        Asset<sf::Texture> const *texture;
+        Asset<sf::Texture> const &texture;
 };
 
 #endif

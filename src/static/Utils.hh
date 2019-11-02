@@ -38,14 +38,14 @@ namespace Utils {
      * @param string is the string to check.
      * @return the point at which the given word ends.
      */
-    int endOfWord(char const *string);
+    int endOfWord(char const &string);
 
     /**
      * Tells you the number of characters from the start of the string to the
      * start of the next string.
      * @param is the string to check on.
      */
-    int startOfNextWord(char const *string);
+    int startOfNextWord(char const &string);
 
     /**
      * Takes in the start point of a token in a string and then returns how
@@ -53,7 +53,7 @@ namespace Utils {
      * @param start is the start of the token.
      * @return the number of characters until it ends.
      */
-    int pathToken(char const *start);
+    int pathToken(char const &start);
 
     /**
      * fits some text into a given space.
@@ -61,14 +61,14 @@ namespace Utils {
      * @param bounds are the boundaries that the text must fit within.
      * @param text   is the text object to write it to.
      */
-    void fitText(char const *string, sf::FloatRect bounds, sf::Text *text);
+    void fitText(char const &string, sf::FloatRect bounds, sf::Text &text);
 
     /**
      * Reads in a whole file and returns it as a string.
      * @param file is the file to read in.
      * @return the whole file contents as text.
      */
-    char *readFile(char const *file);
+    char &readFile(char const &file);
 
     /**
      * Moves a string into a new piece of memory that fits it. Useful if the
@@ -76,7 +76,7 @@ namespace Utils {
      * @param string is the string to make a copy of.
      * @return a pointer to the new string.
      */
-    char *moveString(char const *string);
+    char &moveString(char const &string);
 
     /**
      * Wraps a vector around inside a rect.
@@ -106,7 +106,7 @@ namespace Utils {
      * @return the converted int.
      * @throws an exception and logs if the string is not an int.
      */
-    int parseInt(char const *text);
+    int parseInt(char const &text);
 
     /**
      * Gives the base64 representation of a character.
@@ -122,23 +122,21 @@ namespace Utils {
      * @param max is the maximum number of bytes to write.
      * @return the number of bytes written.
      */
-    int parseBase64String(char const *src, unsigned char *dst, int max);
+    int parseBase64String(char const &src, unsigned char &dst, int max);
 
     /**
      * Goes through the motions of opening up an xml file so I don't have to do
      * it every time, and if anything goes wrong it automatically logs it and
      * throws an exception.
      * @param doc    is the xml document object to set up.
-     * @param node   is the xml node object that should contain the top node we
-     *               wanted.
      * @param tag    is the top level node that we want to find.
      * @param string is the xml file to parse in a string.
+     * @return the top level node you wanted.
      */
-    void openXml(
-        pugi::xml_document *doc,
-        pugi::xml_node *node,
-        char const *tag,
-        char const *string
+    pugi::xml_node openXml(
+        pugi::xml_document &doc,
+        char const &tag,
+        char const &string
     );
 
     /**
@@ -147,14 +145,14 @@ namespace Utils {
      * @param vertices is a pointer to the four vertices to arrange.
      * @param rect     is the rectangle to make the vertices reflect.
      */
-    void fitQuad(sf::Vertex *vertices, sf::FloatRect rect);
+    void fitQuad(sf::Vertex &vertices, sf::FloatRect rect);
 
     /**
      * Takes a set of vertices and sets their colour to all the same colour.
      * @param vertices is a pointer to the four vertices to colour.
      * @param colour   is the colour to colour the quad.
      */
-    void colourQuad(sf::Vertex *vertices, sf::Color colour);
+    void colourQuad(sf::Vertex &vertices, sf::Color colour);
 
     /**
      * Functor to hash sf::Vector2i thingies.

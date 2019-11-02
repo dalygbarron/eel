@@ -16,7 +16,7 @@ class SoundRepository: public Repository<sf::SoundBuffer> {
         SoundRepository(char const &root);
 
     private:
-        virtual sf::SoundBuffer &create(
+        virtual sf::SoundBuffer *create(
             char const &filename,
             char const &key
         ) const override;

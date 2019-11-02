@@ -10,7 +10,7 @@
  * file itself from wherever it is, and from that point be referred to in order
  * to find the root directory from which other files are referred to.
  */
-class Config: public Store<char const &> {
+class Config {
     public:
         constexpr static char const *NAME = "name";
         constexpr static char const *VERSION = "version";

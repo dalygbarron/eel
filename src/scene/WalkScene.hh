@@ -8,7 +8,6 @@
 #include "model/Bullet.hh"
 #include "model/Placement.hh"
 #include "model/Tile.hh"
-#include "model/TileMap.hh"
 
 /**
  * The main scene of the game where you walk around and shoot bullets and shit.
@@ -20,7 +19,7 @@ class WalkScene: public Scene {
          * @param engine    is the engine stuff that the scene uses.
          * @param prototype is the map that should be put into the scene.
          */
-        WalkScene(Engine const *engine, WalkStage const *prototype);
+        WalkScene(Engine const &engine, WalkStage const &prototype);
 
         /**
          * Deletes all of this junk.

@@ -3,12 +3,12 @@
 #include "model/control/Bopper.hh"
 #include "static/Utils.hh"
 
-Panel::Panel(int vertical, float border, sf::Texture const *texture) {
+Panel::Panel(int vertical, float border, sf::Texture const &texture) {
     this->vertical = vertical;
     this->border = border;
     this->box.setOutlineThickness(border);
     this->box.setOutlineColor(sf::Color::White);
-    this->box.setTexture(texture);
+    this->box.setTexture(&texture);
 }
 
 int Panel::update(unsigned char mouse) {
@@ -19,13 +19,8 @@ int Panel::update(unsigned char mouse) {
     return -1;
 }
 
-void Panel::render(sf::RenderTarget *target, sf::RenderStates states) const {
-    target->draw(this->box);
-    for (Control *child: this->children) child->render(target, states);
-}
-
-char const *Panel::getDescription() const {
-    return "Panel";
+char const &Panel::getDescription() const {
+    return *"Panel";
 }
 
 sf::Vector2f Panel::getDesiredSize(sf::Vector2f bounds) const {
@@ -58,6 +53,12 @@ sf::FloatRect Panel::resize(sf::FloatRect bounds) {
     return this->dimensions;
 }
 
-void Panel::addChild(Control *child) {
-    this->children.push_back(child);
+void Panel::addChild(Control &child) {
+    this->children.push_back(&child);
 }
+
+void Panel::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(this->box);
+    for (Control *child: this->children) target.draw(*child);
+}
+

@@ -34,7 +34,7 @@ class Path {
          * @param start is the start of the token to apply.
          * @param n     is the length of the token to apply.
          */
-        void applyToken(char const &start, int length);
+        void applyToken(char const *start, int length);
 };
 
 #endif

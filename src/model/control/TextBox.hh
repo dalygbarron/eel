@@ -15,14 +15,10 @@ class TextBox: public Control {
          * @param content is the text to show.
          * @param size    is the size to make the text be.
          */
-        TextBox(char const *content, float size);
+        TextBox(char const &content, float size);
 
-        virtual void render(
-            sf::RenderTarget *target,
-            sf::RenderStates states
-        ) const override;
 
-        virtual char const *getDescription() const override;
+        virtual char const &getDescription() const override;
 
         virtual sf::Vector2f getDesiredSize(
             sf::Vector2f bounds
@@ -31,10 +27,15 @@ class TextBox: public Control {
         virtual sf::FloatRect resize(sf::FloatRect bounds) override;
 
     private:
-        char const *content;
+        char const &content;
         sf::RectangleShape box;
         sf::Text text;
         sf::Font font;
+
+        virtual void draw(
+            sf::RenderTarget &target,
+            sf::RenderStates states
+        ) const override;
 };
 
 #endif

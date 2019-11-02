@@ -4,7 +4,7 @@
 #include "model/control/Control.hh"
 #include "service/Config.hh"
 #include <SFML/Graphics.hpp>
-#include <list>
+#include <vector>
 
 /**
  * A widget which is a visibly rendered box which contains other widgets.
@@ -18,22 +18,17 @@ class Panel: public Control {
          * @param border   is how thinck the panel's border should be.
          * @param texture  is the texture to draw in the box.
          */
-        Panel(int vertical, float border, sf::Texture const *texture);
+        Panel(int vertical, float border, sf::Texture const &texture);
 
         /**
          * Adds a control onto this panel.
          * @param child is the child to add.
          */
-        void addChild(Control *child);
+        void addChild(Control &child);
 
         virtual int update(unsigned char mouse) override;
 
-        virtual void render(
-            sf::RenderTarget *target,
-            sf::RenderStates states
-        ) const override;
-
-        virtual char const *getDescription() const override;
+        virtual char const &getDescription() const override;
 
         virtual sf::Vector2f getDesiredSize(
             sf::Vector2f bounds
@@ -43,11 +38,16 @@ class Panel: public Control {
 
     private:
         sf::RectangleShape box;
-        std::list<Control *> children;
+        std::vector<Control *> children;
         int vertical;
         float border;
         sf::Color fg;
         sf::Color bg;
+
+        virtual void draw(
+            sf::RenderTarget &target,
+            sf::RenderStates states
+        ) const override;
 };
 
 #endif

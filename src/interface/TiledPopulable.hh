@@ -1,5 +1,5 @@
-#ifndef TILED_CONSTRUCTIBLE_H
-#define TILED_CONSTRUCTIBLE_H
+#ifndef TILED_POPULABLE_H
+#define TILED_POPULABLE_H
 
 #include "service/repository/Repository.hh"
 #include "model/Tileset.hh"

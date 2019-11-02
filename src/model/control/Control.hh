@@ -6,7 +6,7 @@
 /**
  * General superclass for gui widgets.
  */
-class Control {
+class Control: public sf::Drawable {
     public:
         /**
          * Virtual destructor so that controls can delete their children and
@@ -22,20 +22,10 @@ class Control {
         virtual int update(unsigned char mouse);
 
         /**
-         * Render the control on it's position on the screen.
-         * @param target is the screen to draw on.
-         * @param states is the rendering configuration stuff.
-         */
-        virtual void render(
-            sf::RenderTarget *target,
-            sf::RenderStates states
-        ) const = 0;
-
-        /**
          * Describes the given widget in text.
          * @return the textual description which you do not need to free.
          */
-        virtual char const *getDescription() const = 0;
+        virtual char const &getDescription() const = 0;
 
         /**
          * Gives you the size that a gui element would like to have, so that
@@ -61,6 +51,12 @@ class Control {
 
     protected:
         sf::FloatRect dimensions;
+
+    private:
+        virtual void draw(
+            sf::RenderTarget &target,
+            sf::RenderStates states
+        ) const override = 0;
 };
 
 #endif

@@ -3,11 +3,13 @@
 #include <string.h>
 
 Path::Path(char const &base, char const &file) {
+    char const *baseChars = &base;
+    char const *fileChars = &file;
     // Apply base text.
-    int baseEnd = strlen(base);
-    while (base[baseEnd] != '/' && baseEnd > 0) baseEnd--;
+    int baseEnd = strlen(baseChars);
+    while (baseChars[baseEnd] != '/' && baseEnd > 0) baseEnd--;
     if (baseEnd > 0) baseEnd++;
-    memcpy(this->buffer, base, baseEnd);
+    memcpy(this->buffer, baseChars, baseEnd);
     this->n = baseEnd;
     if (this->n > 0 && this->buffer[this->n - 1] != '/') {
         this->buffer[this->n] = '/';
@@ -17,19 +19,19 @@ Path::Path(char const &base, char const &file) {
     // Apply tokens of extra text one by one.
     int token = 0;
     int tokenStart = 0;
-    int fileLength = strlen(file);
+    int fileLength = strlen(fileChars);
     while (tokenStart < fileLength) {
-        token = Utils::pathToken(file + tokenStart);
-        this->applyToken(file + tokenStart, token);
+        token = Utils::pathToken(*(fileChars + tokenStart));
+        this->applyToken(fileChars + tokenStart, token);
         tokenStart += token;
     }
 }
 
 char const &Path::get() {
-    return this->buffer;
+    return *this->buffer;
 }
 
-void Path::applyToken(char const &start, int length) {
+void Path::applyToken(char const *start, int length) {
     // don't add initial slashes on added path.
     while (this->n != 0 && this->buffer[this->n - 1] == '/' &&
         length > 0 && start[0] == '/') {

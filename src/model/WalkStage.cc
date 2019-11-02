@@ -16,12 +16,12 @@ void WalkStage::tiledMap(
     this->bg = bg;
 }
 
-void WalkStage::tiledTileset(Asset<Tileset> const *tileset) {
-    this->tileset = tileset;
-}
-
 Asset<Tileset> const *WalkStage::getTileset() const {
     return this->tileset;
+}
+
+void WalkStage::tiledTileset(Asset<Tileset> const &tileset) {
+    this->tileset = &tileset;
 }
 
 void WalkStage::tiledLayer() {

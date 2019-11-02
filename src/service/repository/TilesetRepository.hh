@@ -19,18 +19,18 @@ class TilesetRepository: public Repository<Tileset> {
          * @param textureRepo gives access to textures.
          */
         TilesetRepository(
-            char const *root,
-            TextRepository *textRepo,
-            TextureRepository *textureRepo
+            char const &root,
+            TextRepository &textRepo,
+            TextureRepository &textureRepo
         );
 
     private:
-        TextRepository *textRepo;
-        TextureRepository *textureRepo;
+        TextRepository &textRepo;
+        TextureRepository &textureRepo;
 
         virtual Tileset *create(
-            char const *name,
-            char const *key
+            char const &name,
+            char const &key
         ) const override;
 };
 

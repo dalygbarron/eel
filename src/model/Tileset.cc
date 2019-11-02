@@ -5,20 +5,23 @@
 #include <climits>
 
 Tileset::Tileset(
-    char const *name,
+    char const &name,
     sf::Vector2u tileSize,
-    Asset<sf::Texture> const *texture
-) {
-    this->name = name;
+    Asset<sf::Texture> const &texture
+):
+    name(name),
+    texture(texture)
+{
     this->tileSize = tileSize;
-    this->texture = texture;
 }
 
 Tileset::~Tileset() {
-    delete this->name;
+    // TODO: weird and dumb how name is passed in but must be deleted here
+    //       pass in the temp version and copy here or do something I dunno.
+    delete &this->name;
 }
 
-char const *Tileset::getName() const {
+char const &Tileset::getName() const {
     return this->name;
 }
 
@@ -26,10 +29,10 @@ sf::Vector2u Tileset::getTileSize() const {
     return this->tileSize;
 }
 
-Asset<sf::Texture> const *Tileset::getTexture() const {
+Asset<sf::Texture> const &Tileset::getTexture() const {
     return this->texture;
 }
 
-void Tileset::buildQuad(sf::Vertex *vertices, unsigned char id) const {
+void Tileset::buildQuad(sf::Vertex &vertices, unsigned char id) const {
 
 }

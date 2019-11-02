@@ -44,7 +44,7 @@ class WalkStage: public TiledPopulable, public sf::Drawable {
             sf::Color bg
         ) override;
 
-        virtual void tiledTileset(Asset<Tileset> const *tileset) override;
+        virtual void tiledTileset(Asset<Tileset> const &tileset) override;
 
         virtual void tiledLayer() override;
 

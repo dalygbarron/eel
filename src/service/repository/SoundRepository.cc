@@ -6,7 +6,7 @@ SoundRepository::SoundRepository(char const &root): Repository(root) {
     // Does nothing.
 }
 
-sf::SoundBuffer &SoundRepository::create(
+sf::SoundBuffer *SoundRepository::create(
     char const &filename,
     char const &key
 ) const {
@@ -16,5 +16,5 @@ sf::SoundBuffer &SoundRepository::create(
         return sound;
     }
     spdlog::error("Cannot load sound at '{}'", filename);
-    throw new std::domain_error("couldn't load sound");
+    return 0;
 }

@@ -5,12 +5,8 @@ int Bopper::update(unsigned char mouse) {
     return -1;
 }
 
-void Bopper::render(sf::RenderTarget *target, sf::RenderStates states) const {
-    // doesn't do anything.
-}
-
-char const *Bopper::getDescription() const {
-    return "bopperingobongo";
+char const &Bopper::getDescription() const {
+    return *"bopperingobongo";
 }
 
 sf::Vector2f Bopper::getDesiredSize(sf::Vector2f bounds) const {
@@ -19,4 +15,8 @@ sf::Vector2f Bopper::getDesiredSize(sf::Vector2f bounds) const {
 
 sf::FloatRect Bopper::resize(sf::FloatRect bounds) {
     return sf::FloatRect(0, 0, 0, 0);
+}
+
+void Bopper::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    // doesn't do anything.
 }

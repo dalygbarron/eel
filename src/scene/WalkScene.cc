@@ -1,14 +1,20 @@
 #include "scene/WalkScene.hh"
 
 WalkScene::WalkScene(
-    Engine const *engine,
-    WalkStage const *prototype
-): Scene(engine), stage(prototype) {
-    engine->joinRatPack(
-        engine->config->get("spritesheet"),
-        engine->config->get("tileset-slot"),
-        this->stage.getTileset()->get()->getTexture()->get()
-    );
+    Engine const &engine,
+    WalkStage const &prototype
+):
+    Scene(engine),
+    stage(prototype)
+{
+    Asset<Tileset> const *tileset = this->stage.getTileset();
+    if (tileset) {
+        engine.joinRatPack(
+            engine.config.get("spritesheet"),
+            engine.config.get("tileset-slot"),
+            tileset->get().getTexture().get()
+        );
+    }
 }
 
 WalkScene::~WalkScene() {

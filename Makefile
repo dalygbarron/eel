@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++14 -I src/ -O2
+CFLAGS = -std=c++14 -I src/
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
 INTERFACE = $(addprefix interface/, TiledPopulable)

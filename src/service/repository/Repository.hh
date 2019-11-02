@@ -41,7 +41,7 @@ template <class T> class Repository {
          */
         Asset<T> const &get(char const &name) const {
             this->find(name);
-            return this->items[&name];
+            return this->items.at(&name);
         }
 
         /**
@@ -52,7 +52,7 @@ template <class T> class Repository {
          */
         T &snatch(char const &name) {
             this->find(name);
-            return this->items[&name]->getMutable();
+            return this->items.at(name).getMutable();
         }
 
         /**
@@ -61,27 +61,27 @@ template <class T> class Repository {
          */
         void zap() {
             for (auto const &name: this->items) {
-                delete this->items[&name];
+                delete this->items[name];
                 Path path(this->root, name);
                 this->items[&name] = this->create(path.get(), name);
             }
         }
 
     private:
-        mutable std::unordered_map<std::string, Asset<T> &> items;
+        mutable std::unordered_map<std::string, Asset<T>> items;
         char const &root;
 
         /**
          * Looks for a given key in the cache and creates it if it's not there.
          */
         void find(char const &name) const {
-            if (this->items.count(name) == 0) {
+            if (this->items.count(&name) == 0) {
                 Path filename(this->root, name);
-                Asset<T> &asset = *(new Asset<T>(this->create(
-                    filename.get(),
-                    name
-                )));
-                this->items[name] = asset;
+                T *item = this->create(filename.get(), name);
+                if (!item) {
+                    throw new std::domain_error("couldn't create item");
+                }
+                this->items.emplace(&name, *item);
             }
         }
 
@@ -92,9 +92,10 @@ template <class T> class Repository {
          *                 it.
          * @param key      is the key the file is named after. Useful for
          *                 to other repos and stuff like that.
-         * @return a non const pointer to the new object.
+         * @return a non const pointer to the new object which is null if it
+         *         could not be created.
          */
-        virtual T &create(char const &filename, char const &key) const = 0;
+        virtual T *create(char const &filename, char const &key) const = 0;
 };
 
 #endif

@@ -19,7 +19,7 @@ int Utils::isWhitespace(char c) {
     return (c == ' ' || c == '\n' || c == '\t');
 }
 
-int Utils::endOfWord(char const *string) {
+int Utils::endOfWord(char const &string) {
     if (!string[0]) return 0;
     int i;
     for (i = 1; string[i]; i++) {
@@ -28,7 +28,7 @@ int Utils::endOfWord(char const *string) {
     return i;
 }
 
-int Utils::startOfNextWord(char const *string) {
+int Utils::startOfNextWord(char const &string) {
     if (!string[0]) return 0;
     for (int i = 1; string[i]; i++) {
         if (!Utils::isWhitespace(string[i] &&
@@ -39,13 +39,13 @@ int Utils::startOfNextWord(char const *string) {
     return 0;
 }
 
-int Utils::pathToken(char const *start) {
+int Utils::pathToken(char const &start) {
     int i = 1;
     while (start[i] && start[i] != '/') i++;
     return i;
 }
 
-void Utils::fitText(char const *string, sf::FloatRect bounds, sf::Text *text) {
+void Utils::fitText(char const &string, sf::FloatRect bounds, sf::Text &text) {
     char fittedContent[Constant::SMALL_TEXT_BUFFER_SIZE];
     int readHead = 0;
     int writeHead = 0;
@@ -86,7 +86,7 @@ void Utils::fitText(char const *string, sf::FloatRect bounds, sf::Text *text) {
     text->setString(fittedContent);
 }
 
-char *Utils::readFile(char const *file) {
+char &Utils::readFile(char const &file) {
     sf::FileInputStream input;
     if (!input.open(file)) {
         spdlog::error("Can't open file '{}' for reading", file);
@@ -95,15 +95,15 @@ char *Utils::readFile(char const *file) {
         return empty;
     }
     int length = input.getSize();
-    char *string = new char[length + 1];
+    char &string = new char[length + 1];
     input.read(string, length);
     string[length] = 0;
     return string;
 }
 
-char *Utils::moveString(char const *string) {
-    char *moved = new char[strlen(string) + 1];
-    strcpy(moved, string);
+char &Utils::moveString(char const &string) {
+    char &moved = new char[strlen(string) + 1];
+    strcpy(&moved, &string);
     return moved;
 }
 
@@ -139,8 +139,8 @@ sf::View Utils::getLetterboxView(sf::View view, sf::Vector2i dimensions) {
     return view;
 }
 
-int Utils::parseInt(char const *text) {
-    return strtol(text, 0, 0);
+int Utils::parseInt(char const &text) {
+    return strtol(&text, 0, 0);
 }
 
 unsigned int Utils::parseBase64(char c) {
@@ -154,8 +154,8 @@ unsigned int Utils::parseBase64(char c) {
     return 0;
 }
 
-int Utils::parseBase64String(char const *src, unsigned char *dst, int max) {
-    int length = strlen(src);
+int Utils::parseBase64String(char const &src, unsigned char &dst, int max) {
+    int length = strlen(&src);
     if (length % 4 != 0) {
         spdlog::error(
             "Base64 encoded string '{}' should be multiple of 4 in length",
@@ -185,25 +185,25 @@ int Utils::parseBase64String(char const *src, unsigned char *dst, int max) {
     return write;
 }
 
-void Utils::openXml(
-    pugi::xml_document *doc,
-    pugi::xml_node *node,
-    char const *tag,
-    char const *string
+pugi::xml_node Utils::openXml(
+    pugi::xml_document &doc,
+    char const &tag,
+    char const &string
 ) {
-    pugi::xml_parse_result result = doc->load_string(string);
+    pugi::xml_parse_result result = doc.load_string(string);
     if (!result) {
         spdlog::error("xml is not valid: {}", result.description());
         throw std::invalid_argument("invalid xml");
     }
-    *node = doc->child(tag);
+    pugi::xml_node node = doc->child(tag);
     if (!node) {
         spdlog::error("xml lacks top level node '{}'", tag);
         throw std::invalid_argument("xml lacks required tag");
     }
+    return node;
 }
 
-void Utils::fitQuad(sf::Vertex *vertices, sf::FloatRect rect) {
+void Utils::fitQuad(sf::Vertex &vertices, sf::FloatRect rect) {
     vertices[0].position = sf::Vector2f(rect.left, rect.top);
     vertices[1].position = sf::Vector2f(rect.left + rect.width, rect.top);
     vertices[2].position = sf::Vector2f(
@@ -213,7 +213,7 @@ void Utils::fitQuad(sf::Vertex *vertices, sf::FloatRect rect) {
     vertices[3].position = sf::Vector2f(rect.left, rect.top + rect.height);
 }
 
-void Utils::colourQuad(sf::Vertex *vertices, sf::Color colour) {
+void Utils::colourQuad(sf::Vertex &vertices, sf::Color colour) {
     vertices[0].color = colour;
     vertices[1].color = colour;
     vertices[2].color = colour;
