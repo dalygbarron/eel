@@ -8,43 +8,41 @@ ControlBuilder::ControlBuilder(
     Repository<sf::Texture> &textureRepo,
     Config const &config
 ):
-    textureRepo(textureRepo),
-    config(config),
-    fg(textureRepo.get(config.get("fg")),
-    bg(textureRepo.get(config.get("bg"))
+    fg(textureRepo.get(config.getOption(*"fg"))),
+    bg(textureRepo.get(config.getOption(*"bg")))
 {
-    this->border = Utils::parseInt(config->get("border"));
-    this->fontSizeNormal = Utils::parseInt(config->get("fontNormal"));
-    this->fontSizeBig = Utils::parseInt(config->get("fontBig"));
-    this->screen = config->getDimensions();
+    this->border = Utils::parseInt(config.getOption(*"border"));
+    this->fontSizeNormal = Utils::parseInt(config.getOption(*"fontNormal"));
+    this->fontSizeBig = Utils::parseInt(config.getOption(*"fontBig"));
+    this->screen = config.dimensions;
 }
 
 Control &ControlBuilder::speechBox(char const &name, char const &text) const {
-    Panel &panel = new Panel(true, this->border, this->bg.get());
-    TextBox &nameBox = new TextBox(name, this->fontSizeBig);
-    TextBox &textBox = new TextBox(text, this->fontSizeNormal);
-    panel.addChild(nameBox);
-    panel.addChild(textBox);
-    panel.addChild(new Bopper());
-    panel.resize(sf::FloatRect(
+    Panel *panel = new Panel(true, this->border, this->bg.get());
+    TextBox *nameBox = new TextBox(name, this->fontSizeBig);
+    TextBox *textBox = new TextBox(text, this->fontSizeNormal);
+    panel->addChild(*nameBox);
+    panel->addChild(*textBox);
+    panel->addChild(*(new Bopper()));
+    panel->resize(sf::FloatRect(
         this->screen.x / 4,
         this->screen.y / 4 * 3,
         this->screen.x / 2,
         this->screen.y / 4
     ));
-    return panel;
+    return *panel;
 }
 
 Control &ControlBuilder::declarationBox(char const &text) const {
-    Panel &panel = new Panel(true, this->border, this->bg.get());
-    TextBox &textBox = new TextBox(text, this->fontSizeNormal);
-    panel.addChild(textBox);
-    panel.addChild(new Bopper());
-    panel.resize(sf::FloatRect(
+    Panel *panel = new Panel(true, this->border, this->bg.get());
+    TextBox *textBox = new TextBox(text, this->fontSizeNormal);
+    panel->addChild(*textBox);
+    panel->addChild(*(new Bopper()));
+    panel->resize(sf::FloatRect(
         this->screen.x / 4,
         this->screen.y / 4 * 3,
         this->screen.x / 2,
         this->screen.y / 4
     ));
-    return panel;
+    return *panel;
 }

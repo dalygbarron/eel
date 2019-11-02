@@ -2,36 +2,32 @@
 #include "static/Utils.hh"
 
 RatPackRepository::RatPackRepository(
-    char const *root,
-    TextRepository const *textRepo,
-    Repository<sf::Texture> *textureRepo
-): Repository(root) {
-    this->textRepo = textRepo;
-    this->textureRepo = textureRepo;
+    char const &root,
+    TextRepository const &textRepo,
+    Repository<sf::Texture> &textureRepo
+):
+    Repository(root),
+    textRepo(textRepo),
+    textureRepo(textureRepo)
+{
+    // doesn't anything now.
 }
 
-RatPack *RatPackRepository::create(char const *name, char const *key) const {
-    spdlog::info("Creating rat pack: '{}'", name);
+RatPack *RatPackRepository::create(char const &name, char const &key) const {
+    spdlog::info("Creating rat pack: '{}'", &name);
     pugi::xml_document doc;
-    pugi::xml_node node;
-    Utils::openXml(
-        &doc,
-        &node,
-        "pack",
-        this->textRepo->get(key)->get()
+    pugi::xml_node node = Utils::openXml(
+        doc,
+        *"pack",
+        this->textRepo.get(key).get()
     );
-    spdlog::debug(
-        "pack image '{}' version '{}'",
-        node.attribute("image").as_string("NO"),
-        node.attribute("version").as_string("NO")
-    );
-    Path imagePath(key, node.attribute("image").value());
-    sf::Texture *texture = this->textureRepo->snatch(imagePath.get());
+    Path imagePath(key, *node.attribute("image").value());
+    sf::Texture &texture = this->textureRepo.snatch(imagePath.get());
     RatPack *ratPack = new RatPack(texture);
     for (pugi::xml_node rat = node.child("rat"); rat;
         rat = rat.next_sibling("rat")
     ) {
-        ratPack->addRat(rat.attribute("name").value(), sf::IntRect(
+        ratPack->addRat(*rat.attribute("name").value(), sf::IntRect(
             rat.attribute("x").as_int(),
             rat.attribute("y").as_int(),
             rat.attribute("w").as_int(),

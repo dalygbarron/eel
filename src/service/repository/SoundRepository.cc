@@ -10,9 +10,9 @@ sf::SoundBuffer *SoundRepository::create(
     char const &filename,
     char const &key
 ) const {
-    spdlog::info("creating sound: '{}'", filename);
-    sf::SoundBuffer &sound = new sf::SoundBuffer();
-    if (sound.loadFromFile(filename)) {
+    spdlog::info("creating sound: '{}'", &filename);
+    sf::SoundBuffer *sound = new sf::SoundBuffer();
+    if (sound->loadFromFile(&filename)) {
         return sound;
     }
     spdlog::error("Cannot load sound at '{}'", filename);

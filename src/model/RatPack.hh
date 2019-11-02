@@ -18,14 +18,14 @@ class RatPack {
          * @param texture is the pack's texture which is not const because it
          *                needs to be editable.
          */
-        RatPack(sf::Texture *texture);
+        RatPack(sf::Texture &texture);
 
         /**
          * Gives you immutable access to the rat pack's texture so you can draw
          * with it in normal use cases.
          * @return the texture it uses.
          */
-        sf::Texture const *getTexture() const;
+        sf::Texture const &getTexture() const;
 
         /**
          * Gives you access to the rat pack's texture. As you will notice, the
@@ -33,20 +33,20 @@ class RatPack {
          * have non const access to this here rat pack.
          * @return the texture used in a mutable form.
          */
-        sf::Texture *getTextureMutable();
+        sf::Texture &getTextureMutable();
 
         /**
          * Creates the right rat sprite thingy.
          * @param name     is the name of the sprite to make.
          * @param vertices is a pointer to the first of four vertices.
          */
-        void makeRat(char const *name, sf::Vertex *vertices) const;
+        void makeRat(char const &name, sf::Vertex &vertices) const;
 
         /**
          * Gives you the dimensions of the given rat.
          * @return a rectangle that covers it.
          */
-        sf::IntRect getRat(char const *name) const;
+        sf::IntRect getRat(char const &name) const;
 
         /**
          * Adds another rat to the rat pack.
@@ -54,11 +54,11 @@ class RatPack {
          * @param shape is the position and size of the rat within the overall
          *        texture.
          */
-        void addRat(char const *name, sf::IntRect shape);
+        void addRat(char const &name, sf::IntRect shape);
 
     private:
         std::unordered_map<std::string, sf::IntRect> rats;
-        sf::Texture *texture;
+        sf::Texture &texture;
 };
 
 #endif

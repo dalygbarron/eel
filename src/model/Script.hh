@@ -14,9 +14,9 @@ class Script {
         /**
          * Creates the script from a source file.
          * @param scene  is the scene that the script is operating in.
-         * @param text is the text of the script.
+         * @param data is the text of the script.
          */
-        Script(Scene &scene, char const &text);
+        Script(Scene &scene, char const &data);
 
         /**
          * Deletes the script and it's junk.

@@ -23,17 +23,17 @@ Tileset *TilesetRepository::create(
     pugi::xml_node node = Utils::openXml(
         doc,
         *"tileset",
-        this->textRepo->get(key)->get()
+        this->textRepo.get(key).get()
     );
-    char const &name = Utils::moveString(*node.attribute("name").value());
+    char const *name = node.attribute("name").value();
     sf::Vector2u tileSize;
     tileSize.x = node.attribute("tileWidth").as_int();
     tileSize.y = node.attribute("tileHeight").as_int();
     pugi::xml_node imageNode = node.child("image");
     Path imagePath(key, *imageNode.attribute("source").value());
     return new Tileset(
-        name,
+        *name,
         tileSize,
-        this->textureRepo->get(imagePath.get())
+        this->textureRepo.get(imagePath.get())
     );
 }

@@ -2,18 +2,17 @@
 #include "static/spdlog/spdlog.h"
 #include <cstring>
 
-Radio::Radio(SoundRepository *soundRepo) {
-    this->soundRepo = soundRepo;
+Radio::Radio(SoundRepository &soundRepo): soundRepo(soundRepo) {
     this->songName[0] = 0;
 }
 
-void Radio::playSong(char const *song) {
-    if (strcmp(this->songName, song) == 0) {
+void Radio::playSong(char const &song) {
+    if (strcmp(this->songName, &song) == 0) {
         spdlog::debug("Not changing song as it's same");
         return;
     }
-    if (this->music.openFromFile(song)) {
-        strncpy(this->songName, song, Constant::FILENAME_BUFFER_SIZE);
+    if (this->music.openFromFile(&song)) {
+        strncpy(this->songName, &song, Constant::FILENAME_BUFFER_SIZE);
         this->music.play();
     } else {
         this->songName[0] = 0;
@@ -26,7 +25,7 @@ void Radio::stopSong() {
     this->songName[0] = 0;
 }
 
-float Radio::playSound(char const *sound) {
+float Radio::playSound(char const &sound) {
     // TODO: this is a pretty inefficient way of doing this. Maybe I should use
     //       one of those dead lists or sometihng. also, should try to find a
     //       way of stopping the same sound from playing twice in the same
@@ -35,14 +34,14 @@ float Radio::playSound(char const *sound) {
     //       update every frame though.
     for (int i = 0; i < Radio::SOUND_LIMIT; i++) {
         if (this->sounds[i].getStatus() == sf::Music::Status::Stopped) {
-            sf::SoundBuffer const *soundBuffer = this->soundRepo->get(sound)->get();
-            this->sounds[i].setBuffer(*(soundBuffer));
+            sf::SoundBuffer const &soundBuffer = this->soundRepo.get(sound).get();
+            this->sounds[i].setBuffer(soundBuffer);
             this->sounds[i].play();
-            float length = soundBuffer->getDuration().asSeconds();
+            float length = soundBuffer.getDuration().asSeconds();
             spdlog::debug("Playing sound '{}' for {} seconds", sound, length);
             return length;
         }
     }
-    spdlog::warn("Could not find free sound player for sound '{}'", sound);
+    spdlog::warn("Could not find free sound player for sound '{}'", &sound);
     return 0;
 }

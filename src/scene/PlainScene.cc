@@ -8,19 +8,13 @@ PlainScene::PlainScene(
     Scene(engine),
     script(*this, engine.getTextRepository().get(filename).get())
 {
-    spdlog::info("Creating plain scene with script '{}'", filename);
+    spdlog::info("Creating plain scene with script '{}'", &filename);
     // TODO: maybe script object itself should be cached.
     //       dunno if that is possible / worthwhile tbh.
 }
 
 PlainScene::~PlainScene() {
     // does nothing atm.
-}
-void PlainScene::draw(
-    sf::RenderTarget &target,
-    sf::RenderStates states
-) const {
-    // nothing atm.
 }
 
 void PlainScene::logic(float delta) {
@@ -31,5 +25,3 @@ void PlainScene::logic(float delta) {
         this->transition[1] = 0;
     }
 }
-
-

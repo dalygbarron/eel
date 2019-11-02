@@ -11,12 +11,14 @@
 #include "service/builder/ControlBuilder.hh"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <string>
 
 /**
  * Encapsulates gamewide services as needed by scenes.
  */
 class Engine {
     public:
+        std::string const root;
         Config const &config;
         ControlBuilder const &controlBuilder;
         Radio &radio;
@@ -24,6 +26,7 @@ class Engine {
 
         /**
          * Builds the engine and puts in all of it's dependencies in one swoop.
+         * @param root           is the root directory of the game.
          * @param config         is the configuration.
          * @param textRepo       is the repo for text files.
          * @param textureRepo    is the repo for textures.
@@ -36,6 +39,7 @@ class Engine {
          * @param controlBuilder is the control builder.
          */
         Engine(
+            char const &root,
             Config const &config,
             Repository<char> &textRepo,
             Repository<sf::Texture> &textureRepo,

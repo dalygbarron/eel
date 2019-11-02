@@ -8,6 +8,8 @@
  */
 class SplashScene: public Scene {
     public:
+        std::string const startScript;
+
         // TODO: make this short in debug mode and long in main mode.
         constexpr static float const WAIT = 2.32;
 
@@ -24,9 +26,6 @@ class SplashScene: public Scene {
         static unsigned int const LOGO_SIZE;
         sf::Texture texture;
         sf::RectangleShape shape;
-        int width;
-        int height;
-        char const &startScript;
         float timer;
 
         virtual void draw(

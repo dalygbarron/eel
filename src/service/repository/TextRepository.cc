@@ -7,6 +7,6 @@ TextRepository::TextRepository(char const &root): Repository(root) {
 }
 
 char *TextRepository::create(char const &filename, char const &key) const {
-    spdlog::info("creating text: '{}'", filename);
-    return Utils::readFile(filename);
+    spdlog::info("creating text: '{}'", &filename);
+    return &Utils::readFile(filename);
 }

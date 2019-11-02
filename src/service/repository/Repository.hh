@@ -17,8 +17,8 @@ template <class T> class Repository {
          * Creates the repo.
          * @param path is the root directory from which files are found.
          */
-        Repository(char const &path) {
-            this->root = path;
+        Repository(char const &path): root(&path) {
+            // does nothing else.
         }
 
         /**
@@ -52,7 +52,7 @@ template <class T> class Repository {
          */
         T &snatch(char const &name) {
             this->find(name);
-            return this->items.at(name).getMutable();
+            return this->items.at(&name).getMutable();
         }
 
         /**
@@ -62,21 +62,21 @@ template <class T> class Repository {
         void zap() {
             for (auto const &name: this->items) {
                 delete this->items[name];
-                Path path(this->root, name);
+                Path path(*this->root.c_str(), name);
                 this->items[&name] = this->create(path.get(), name);
             }
         }
 
     private:
         mutable std::unordered_map<std::string, Asset<T>> items;
-        char const &root;
+        std::string const root;
 
         /**
          * Looks for a given key in the cache and creates it if it's not there.
          */
         void find(char const &name) const {
             if (this->items.count(&name) == 0) {
-                Path filename(this->root, name);
+                Path filename(*this->root.c_str(), name);
                 T *item = this->create(filename.get(), name);
                 if (!item) {
                     throw new std::domain_error("couldn't create item");

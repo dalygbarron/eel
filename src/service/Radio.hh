@@ -16,14 +16,14 @@ class Radio {
          * Builds the radio.
          * @param soundRepo is name of the sound repo.
          */
-        Radio(SoundRepository *soundRepo);
+        Radio(SoundRepository &soundRepo);
 
         /**
          * Starts a nice song playing, unless it is already playing in which
          * case it does nothing.
          * @param song is the name of the song to play.
          */
-        void playSong(char const *song);
+        void playSong(char const &song);
 
         /**
          * Stops the music that is playing.
@@ -37,10 +37,10 @@ class Radio {
          * @param sound is the name of the sound file.
          * @return length of the sound in seconds.
          */
-        float playSound(char const *sound);
+        float playSound(char const &sound);
     
     private:
-        SoundRepository *soundRepo;
+        SoundRepository &soundRepo;
         sf::Music music;
         char songName[Constant::FILENAME_BUFFER_SIZE];
         sf::Sound sounds[Radio::SOUND_LIMIT];

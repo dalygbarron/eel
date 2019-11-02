@@ -37,6 +37,7 @@ class WalkStage: public TiledPopulable, public sf::Drawable {
     private:
         sf::Color bg;
         Asset<Tileset> const *tileset;
+        sf::RectangleShape shape;
 
         virtual void tiledMap(
             sf::Vector2u size,

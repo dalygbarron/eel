@@ -14,7 +14,7 @@ class Game {
          * Builds the thing and gets it's dependencies injected.
          * @param engine contains the game services.
          */
-        Game(Engine const *engine);
+        Game(Engine const &engine);
 
         /**
          * Runs the game.
@@ -24,7 +24,7 @@ class Game {
         int run();
 
     private:
-        Engine const *engine;
+        Engine const &engine;
         Scene *scene;
         sf::RenderWindow window;
         sf::View view;
@@ -51,7 +51,7 @@ class Game {
          * @param transitioning is the scene that may or may not be
          *        transitioned out of.
          */
-        void transition(Scene *transitioning);
+        void transition(Scene &transitioning);
 };
 
 #endif

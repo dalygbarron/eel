@@ -4,18 +4,16 @@
 
 SplashScene::SplashScene(Engine const &engine):
     Scene(engine),
-    startScript(engine.config.get("start"))
+    startScript(&engine.config.getOption(*"start"))
 {
     this->texture.loadFromMemory(SplashScene::LOGO, SplashScene::LOGO_SIZE);
     this->shape.setTexture(&this->texture);
-    this->width = engine.config.getDimensions().x;
-    this->height = engine.config.getDimensions().y;
-    this->shape.setSize(sf::Vector2f(this->width, this->height));
+    this->shape.setSize(this->engine.config.dimensions);
     this->timer = 0;
 }
 
 SplashScene::~SplashScene() {
-    // TODO: delete the splash picture.
+    // nothing.
 }
 
 void SplashScene::draw(
@@ -32,13 +30,13 @@ void SplashScene::logic(float delta) {
     this->shape.setFillColor(
         sf::Color(rand() % 255, rand() % 255, rand() % 255, rand() % 7)
     );
-    float x = Utils::random() * this->width;
-    float y = Utils::random() * this->height;
+    float x = Utils::random() * this->engine.config.dimensions.x;
+    float y = Utils::random() * this->engine.config.dimensions.y;
     this->shape.setOrigin(x, y);
     this->shape.setPosition(x, y);
     if (this->timer > SplashScene::WAIT) {
         this->transition[0] = 'r';
         this->transition[1] = 'p';
-        strcpy(transition + 2, &this->startScript);
+        strcpy(transition + 2, this->startScript.c_str());
     }
 }

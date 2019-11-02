@@ -16,18 +16,18 @@ class WalkStageRepository: public Repository<WalkStage> {
          * @param tilesetRepo is used to get tilesets for the stages.
          */
         WalkStageRepository(
-            char const *root,
-            Repository<char> const *textRepo,
-            Repository<Tileset> const *tilesetRepo
+            char const &root,
+            Repository<char> const &textRepo,
+            Repository<Tileset> const &tilesetRepo
         );
 
     private:
-        Repository<char> const *textRepo;
-        Repository<Tileset> const *tilesetRepo;
+        Repository<char> const &textRepo;
+        Repository<Tileset> const &tilesetRepo;
 
         virtual WalkStage *create(
-            char const *filename,
-            char const *key
+            char const &filename,
+            char const &key
         ) const override;
 };
 

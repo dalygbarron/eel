@@ -16,7 +16,11 @@ void TiledPopulable::tiledPopulate(
     size.y = node.attribute("height").as_int();
     tileSize.x = node.attribute("tileWidth").as_int();
     tileSize.y = node.attribute("tileHeight").as_int();
-    sf::Color bg((node.attribute("backgroundcolor").as_int() << 8) | 0xff);
+    sf::Color bg(strtol(node.attribute("backgroundcolor").value() + 1, 0, 16));
+    spdlog::info(
+        "colour {}",
+        strtol(node.attribute("backgroundcolor").value() + 1, 0, 16)
+    );
     this->tiledMap(size, tileSize, bg);
     // Load tileset.
     pugi::xml_node tilesetNode = node.child("tileset");

@@ -24,11 +24,6 @@ class PlainScene: public Scene {
     private:
         Script script;
 
-        virtual void draw(
-            sf::RenderTarget &target,
-            sf::RenderStates states
-        ) const override;
-
         virtual void logic(float delta) override;
 };
 

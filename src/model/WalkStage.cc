@@ -1,11 +1,11 @@
 #include "model/WalkStage.hh"
 
 WalkStage::WalkStage() {
-    // will do stuff one day I assume.
+    // Doesn't do a whole lot.
 }
 
 WalkStage::WalkStage(WalkStage const *walkStage) {
-    // Will also do stuff one day I imagine.
+    this->bg = walkStage->bg;
 }
 
 void WalkStage::tiledMap(

@@ -71,14 +71,6 @@ namespace Utils {
     char &readFile(char const &file);
 
     /**
-     * Moves a string into a new piece of memory that fits it. Useful if the
-     * passed string is going to be deleted by some other code.
-     * @param string is the string to make a copy of.
-     * @return a pointer to the new string.
-     */
-    char &moveString(char const &string);
-
-    /**
      * Wraps a vector around inside a rect.
      * @param pos    is a position to be fitted inside the rectangle.
      * @param bounds is the bounds within which the position is wrapped around.
@@ -138,21 +130,6 @@ namespace Utils {
         char const &tag,
         char const &string
     );
-
-    /**
-     * Takes a set of vertices and a rectangle and sets the vertices positions
-     * to that of the rectangle.
-     * @param vertices is a pointer to the four vertices to arrange.
-     * @param rect     is the rectangle to make the vertices reflect.
-     */
-    void fitQuad(sf::Vertex &vertices, sf::FloatRect rect);
-
-    /**
-     * Takes a set of vertices and sets their colour to all the same colour.
-     * @param vertices is a pointer to the four vertices to colour.
-     * @param colour   is the colour to colour the quad.
-     */
-    void colourQuad(sf::Vertex &vertices, sf::Color colour);
 
     /**
      * Functor to hash sf::Vector2i thingies.

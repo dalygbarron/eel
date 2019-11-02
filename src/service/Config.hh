@@ -1,8 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "interface/Store.hh"
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 /**
  * Contains the game's base configuration values. This is the in engine
@@ -12,84 +12,53 @@
  */
 class Config {
     public:
-        constexpr static char const *NAME = "name";
-        constexpr static char const *VERSION = "version";
-        constexpr static char const *ENGINE = "engine";
-        constexpr static char const *WIDTH = "width";
-        constexpr static char const *HEIGHT = "height";
+        constexpr static char const *OPTION_SPRITESHEET = "spritesheet";
+        constexpr static char const *OPTION_TILESET_SLOT = "tileset-slot";
+
+        std::string const name;
+        std::string const version;
+        int const engineMajor;
+        int const engineMinor;
+        sf::Vector2f const dimensions;
 
         /**
          * Creates the config object and loads in it's shit.
          * @param filename is the file that the config data should be read
          *                 from.
          */
-        Config(char const &filename);
+        Config(
+            char const &name,
+            char const &version,
+            int engineMajor,
+            int engineMinor,
+            int width,
+            int height
+        );
 
         /**
-         * Clears out all the junk hell yeah.
+         * Deletes all the option strings and stuff like that.
          */
         ~Config();
 
         /**
-         * Gives you the root directory of the game.
-         * @return the root directory as a constant string.
+         * Gives you the value of a game option.
+         * @param name is the name of the option to get.
+         * @return the name which should last as long as the config object
+         *         which should be basically the whole length of the game so
+         *         you will be fine.
+         * @throws domain_error if there is no option with that name.
          */
-        char const &getRoot() const;
+        char const &getOption(char const &name) const;
 
         /**
-         * Writes a filename into the root directory.
-         * @param buffer is where to write the string to. it is not length
-         *               checked so deal with that yourself.
-         * @param file   is the file to put in the root directory.
-         * @return the number of characters written not including null
-         *         terminator, or negative number on error.
+         * adds an option to the configuration.
+         * @param name  is the name to put the option under.
+         * @param value is the value the option should have.
          */
-        int inRoot(char &buffer, char const &file) const;
-
-        /**
-         * Gives you the name of the game.
-         * @return the name of the game.
-         */
-        char const &getName() const;
-
-        /**
-         * Gives you the game's version.
-         * @return the version which is a piece of text.
-         */
-        char const &getVersion() const;
-
-        /**
-         * Gives the major engine version that the game needs.
-         * @return the version number.
-         */
-        int getEngineMajor() const;
-
-        /**
-         * Gives the minor engine version that the game needs.
-         * @return version number.
-         */
-        int getEngineMinor() const;
-
-        /**
-         * Gives the desired virtual screen dimensions.
-         * @return the dimensions as a vector.
-         */
-        sf::Vector2i getDimensions() const;
+        void addOption(char const &name, char const &value);
 
     private:
-        char &root;
-        char &name;
-        char &version;
-        int engineMajor;
-        int engineMinor;
-        sf::Vector2i dimensions;
-
-        /**
-         * Loads the game config data in from a file and sets everything using
-         * it.
-         * @param filename is the name of the file to load from.
-         */
-        void parseXml(char const *filename);
+        std::unordered_map<std::string, std::string> options;
 };
 
 #endif

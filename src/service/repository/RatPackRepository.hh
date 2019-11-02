@@ -20,18 +20,18 @@ class RatPackRepository: public Repository<RatPack> {
          *                    because rat packs need to have editable textures.
          */
         RatPackRepository(
-            char const *root,
-            TextRepository const *textRepo,
-            Repository<sf::Texture> *textureRepo
+            char const &root,
+            TextRepository const &textRepo,
+            Repository<sf::Texture> &textureRepo
         );
 
     private:
-        TextRepository const *textRepo;
-        Repository<sf::Texture> *textureRepo;
+        TextRepository const &textRepo;
+        Repository<sf::Texture> &textureRepo;
 
         virtual RatPack *create(
-            char const *name,
-            char const *key
+            char const &name,
+            char const &key
         ) const override;
 };
 

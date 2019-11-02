@@ -47,7 +47,7 @@ class ControlBuilder {
         int border;
         int fontSizeNormal;
         int fontSizeBig;
-        sf::Vector2i screen;
+        sf::Vector2f screen;
 };
 
 #endif
