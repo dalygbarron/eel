@@ -25,6 +25,17 @@ WalkStage *WalkStageRepository::create(
         *"map",
         this->textRepo.get(key).get()
     );
-
+    sf::Color bg(strtol(node.attribute("backgroundcolor").value() + 1, 0 ,16));
+    sf::Vector2i tileSize;
+    sf::Vector2u chunkSize(0, 0);
+    tileSize.x = node.attribute("tilewidth").as_int();
+    tileSize.y = node.attribute("tileheight").as_int();
+    pugi::xml_node tilesetNode = node.child("tileset");
+    if (tilesetNode) {
+        spdlog::error("Couldn't find tileset node in map file '{}'", filename);
+        return 0;
+    }
+    Path tilesetPath(key, tilesetNode.attribute("source"));
+    Asset<Tileset> const &tileset = this->tilesetRepo.get(tilesetPath.get());
     return walkStage;
 }

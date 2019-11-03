@@ -19,19 +19,24 @@ class WalkStage: public sf::Drawable {
         constexpr static int MAX_ACTORS = 64;
 
         Asset<Tileset> const &tileset;
-        int const layers;
-        sf::Vector2u const chunkDimensions;
+        sf::Vector2i const tileSize;
 
         /**
          * Default constructor which creates an empty stage.
-         * @param layers          is the number of layers in each chunk.
-         * @param chunkDimensions is the width and breadth of each chunk.
+         * @param bg        is the colour to draw behind the map.
+         * @param tileset   is the tileset to draw the map with.
+         * @param layers    is the number of layers in each chunk.
+         * @param chunkSize is the width and breadth of each chunk.
+         * @param tileSize  is the width and height of each tile as they
+         *                  are spaced in the map (the pictures can be bigger
+         *                  than this).
          */
         WalkStage(
             sf::Color bg,
             Asset<Tileset> const &tileset,
             int layers,
-            sf::Vector2u chunkDimensions
+            sf::Vector2u chunkSize,
+            sf::Vector2i tileSize
         );
 
         /**
