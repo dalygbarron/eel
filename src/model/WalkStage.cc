@@ -23,13 +23,20 @@ WalkStage::WalkStage(WalkStage const &walkStage):
     chunkSize(walkStage.chunkSize),
     tileSize(walkStage.tileSize)
 {
-    for (std::pair<sf::Vector2i, unsigned char &> item: walkStage.chunks) {
-        this->addChunk(item.first, item.second);
+    for (sf::Vector2i const &pos: walkStage.chunks) {
+        this->chunks.emplace(pos, walkStage.chunkSize);
+        std::vector slices = walkStage.chunks(pos).getSlices();
+        for (auto const &slice: slices) {
+            this->addSlice(pos, slice);
+        }
     }
 }
 
-void WalkStage::addChunk(sf::Vector2i pos, unsigned char &tiles) {
-    this->chunks.emplace(pos, tiles);
+void WalkStage::addSlice(sf::Vector2i pos, Slice &slice) {
+    if (this->chunks.count(pos) == 0) {
+        this->chunks.emplace(pos, this->chunkSize);
+    }
+    this->chunks[pos].addSlice(slice);
 }
 
 void WalkStage::draw(

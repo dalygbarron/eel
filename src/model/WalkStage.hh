@@ -47,20 +47,18 @@ class WalkStage: public sf::Drawable {
         WalkStage(WalkStage const &parent);
 
         /**
-         * Adds a chunk to the walk stage. It must be the same size as all
-         * other chunks. Even if it does not have data for some layers it still
-         * must include them just as blank.
-         * @param pos   is the position that the chunk is at top down.
-         * @param tiles is a pointer to the start of the chunk data.
+         * Add a slice to the stage.
+         * @param pos   is the 2d top down location of the slice.
+         * @param slice is the slice to add.
          */
-        void addChunk(sf::Vector2i pos, unsigned char &tiles);
+        void addSlice(sf::Vector2i pos, Slice const &slice);
 
     private:
         sf::Color bg;
         sf::RectangleShape shape;
         std::unordered_map<
             sf::Vector2i,
-            unsigned char &,
+            Chunk,
             Utils::VectHash
         > chunks;
 
