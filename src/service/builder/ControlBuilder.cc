@@ -8,12 +8,12 @@ ControlBuilder::ControlBuilder(
     Repository<sf::Texture> &textureRepo,
     Config const &config
 ):
-    fg(textureRepo.get(config.getOption(*"fg"))),
-    bg(textureRepo.get(config.getOption(*"bg")))
+    fg(textureRepo.get(config.getOption(*Config::OPTION_FG))),
+    bg(textureRepo.get(config.getOption(*Config::OPTION_BG)))
 {
-    this->border = Utils::parseInt(config.getOption(*"border"));
-    this->fontSizeNormal = Utils::parseInt(config.getOption(*"fontNormal"));
-    this->fontSizeBig = Utils::parseInt(config.getOption(*"fontBig"));
+    this->border = config.getOptionInt(*Config::OPTION_BORDER);
+    this->fontSizeNormal = config.getOptionInt(*Config::OPTION_FONT_NORMAL);
+    this->fontSizeBig = config.getOptionInt(*Config::OPTION_FONT_BIG);
     this->screen = config.dimensions;
 }
 

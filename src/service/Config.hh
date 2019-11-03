@@ -14,6 +14,11 @@ class Config {
     public:
         constexpr static char const *OPTION_SPRITESHEET = "spritesheet";
         constexpr static char const *OPTION_TILESET_SLOT = "tileset-slot";
+        constexpr static char const *OPTION_FG = "fg";
+        constexpr static char const *OPTION_BG = "bg";
+        constexpr static char const *OPTION_BORDER = "border";
+        constexpr static char const *OPTION_FONT_NORMAL = "font-normal";
+        constexpr static char const *OPTION_FONT_BIG = "font-big";
 
         std::string const name;
         std::string const version;
@@ -49,6 +54,14 @@ class Config {
          * @throws domain_error if there is no option with that name.
          */
         char const &getOption(char const &name) const;
+
+        /**
+         * Gives you the value of a game option as an int parsed from the text.
+         * @param name is the name of the option.
+         * @return the value as an int.
+         * @throws domain_error if the name does not exist.
+         */
+        int getOptionInt(char const &name) const;
 
         /**
          * adds an option to the configuration.

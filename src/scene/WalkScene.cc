@@ -7,14 +7,11 @@ WalkScene::WalkScene(
     Scene(engine),
     stage(prototype)
 {
-    Asset<Tileset> const *tileset = this->stage.getTileset();
-    if (tileset) {
-        engine.joinRatPack(
-            engine.config.getOption(*Config::OPTION_SPRITESHEET),
-            engine.config.getOption(*Config::OPTION_TILESET_SLOT),
-            tileset->get().texture.get()
-        );
-    }
+    engine.joinRatPack(
+        engine.config.getOption(*Config::OPTION_SPRITESHEET),
+        engine.config.getOption(*Config::OPTION_TILESET_SLOT),
+        prototype.tileset.get().texture.get()
+    );
 }
 
 WalkScene::~WalkScene() {

@@ -2,7 +2,6 @@ CC = g++
 CFLAGS = -std=c++14 -I src/
 LFLAGS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -ldl -llua5.3 -lpthread
 
-INTERFACE = $(addprefix interface/, TiledPopulable)
 MODEL = $(addprefix model/, Actor Bullet Mob Script SubStream Tileset Path Chunk RatPack WalkStage)
 SCENE = $(addprefix scene/, Scene SplashScene SplashSceneLogo PlainScene WalkScene)
 CONTROL = $(addprefix model/control/, Control Panel TextBox Bopper)
@@ -12,7 +11,7 @@ BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils xml/pugixml)
 TEST = testGeneral testBullet testMob testUtils testTextRepository testPugi testPath helpers catch
 
-OBJS = $(addprefix src/, $(addsuffix .o, $(INTERFACE) $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) $(REPOSITORY)))
+OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) $(REPOSITORY)))
 TEST_OBJS = $(addprefix src/test/,$(addsuffix .o, $(TEST)))
 MAIN_OBJ = src/main.o
 OUT = main

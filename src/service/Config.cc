@@ -3,6 +3,7 @@
 #include "static/Utils.hh"
 #include "static/xml/pugixml.hpp"
 #include <string>
+#include <stdlib.h>
 
 Config::Config(
     char const &name,
@@ -30,6 +31,10 @@ char const &Config::getOption(char const &name) const {
         throw new std::domain_error("No such option");
     }
     return *this->options.at(&name).c_str();
+}
+
+int Config::getOptionInt(char const &name) const {
+    return atoi(&name);
 }
 
 void Config::addOption(char const &name, char const &value) {

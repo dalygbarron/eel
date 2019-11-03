@@ -93,14 +93,6 @@ namespace Utils {
     sf::View getLetterboxView(sf::View view, sf::Vector2i dimensions);
 
     /**
-     * Reads a string containing a number and turns it into an int.
-     * @param text is the text to read from.
-     * @return the converted int.
-     * @throws an exception and logs if the string is not an int.
-     */
-    int parseInt(char const &text);
-
-    /**
      * Gives the base64 representation of a character.
      * @param c is the character to parse.
      * @return the number that character represents in base 64.

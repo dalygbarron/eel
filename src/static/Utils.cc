@@ -140,10 +140,6 @@ sf::View Utils::getLetterboxView(sf::View view, sf::Vector2i dimensions) {
     return view;
 }
 
-int Utils::parseInt(char const &text) {
-    return strtol(&text, 0, 0);
-}
-
 unsigned int Utils::parseBase64(char c) {
     if (c >= 64 && c < 91) return c - 65;
     else if (c >= 97 && c < 123) return c - 71;

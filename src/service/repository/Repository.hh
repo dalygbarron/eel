@@ -31,11 +31,7 @@ template <class T> class Repository {
         /**
          * Gets you something from the repository. If it is cached it returns
          * it from there, and if not it loads it and then stores it in the
-         * cache for next time. If it is possible for the thing to not be
-         * created then you will need to consult the implementation for details
-         * but you will probably get a null pointer if it's a pointer type.
-         * Null pointers are cached too so that we don't need to fail
-         * repeatedly.
+         * cache for next time.
          * @param name is the name of the asset we seek.
          * @return the asset.
          */

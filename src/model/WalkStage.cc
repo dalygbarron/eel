@@ -1,35 +1,30 @@
 #include "model/WalkStage.hh"
 
-WalkStage::WalkStage() {
+WalkStage::WalkStage(
+    sf::Color bg,
+    Asset<Tileset> const &tileset,
+    int layers,
+    sf::Vector2u chunkDimensions
+):
+    bg(bg),
+    tileset(tileset),
+    layers(layers),
+    chunkDimensions(chunkDimensions)
+{
     // Doesn't do a whole lot.
 }
 
-WalkStage::WalkStage(WalkStage const *walkStage) {
-    this->bg = walkStage->bg;
+WalkStage::WalkStage(WalkStage const &walkStage):
+    bg(walkStage.bg),
+    tileset(walkStage.tileset),
+    layers(walkStage.layers),
+    chunkDimensions(walkStage.chunkDimensions)
+{
+    // nothing else rn.
 }
 
-void WalkStage::tiledMap(
-    sf::Vector2u size,
-    sf::Vector2u tileSize,
-    sf::Color bg
-) {
-    this->bg = bg;
-}
-
-Asset<Tileset> const *WalkStage::getTileset() const {
-    return this->tileset;
-}
-
-void WalkStage::tiledTileset(Asset<Tileset> const &tileset) {
-    this->tileset = &tileset;
-}
-
-void WalkStage::tiledLayer() {
-
-}
-
-void WalkStage::tiledChunk() {
-
+void WalkStage::addChunk(sf::Vector2i pos, unsigned char &tiles) {
+    this->chunks.emplace(pos, tiles);
 }
 
 void WalkStage::draw(
