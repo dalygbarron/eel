@@ -19,8 +19,12 @@ WalkStage *WalkStageRepository::create(
     char const &key
 ) const {
     spdlog::info("creating walkstage: '{}'", &filename);
-    WalkStage *walkStage = new WalkStage();
-    char const &data = this->textRepo.get(key).get();
-    walkStage->tiledPopulate(this->tilesetRepo, key, data);
+    pugi::xml_document doc;
+    pugi::xml_node node = Utils::openXml(
+        doc,
+        *"map",
+        this->textRepo.get(key).get()
+    );
+
     return walkStage;
 }
