@@ -3,6 +3,7 @@
 
 #include "interface/TiledPopulable.hh"
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 /**
  * Contains the goings on in a walk scene.
@@ -38,18 +39,7 @@ class WalkStage: public TiledPopulable, public sf::Drawable {
         sf::Color bg;
         Asset<Tileset> const *tileset;
         sf::RectangleShape shape;
-
-        virtual void tiledMap(
-            sf::Vector2u size,
-            sf::Vector2u tileSize,
-            sf::Color bg
-        ) override;
-
-        virtual void tiledTileset(Asset<Tileset> const &tileset) override;
-
-        virtual void tiledLayer() override;
-
-        virtual void tiledChunk() override;
+        std::unordered_map<sf::Vector2i, unsigned char *> chunks;
 
         virtual void draw(
             sf::RenderTarget &target,
