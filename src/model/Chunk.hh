@@ -26,7 +26,7 @@ class Chunk {
          * are set I reckon. Stop whinging.
          * @return the vector of slices.
          */
-        std::vector<Slice const *> const &getSlices();
+        std::vector<Slice const *> const &getSlices() const;
 
         /**
          * Add a slice onto the top of all this chunk's slices.

@@ -3,6 +3,8 @@
 
 #include "model/Asset.hh"
 #include "model/Tileset.hh"
+#include "model/Chunk.hh"
+#include "model/Slice.hh"
 #include "static/Utils.hh"
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
@@ -19,13 +21,13 @@ class WalkStage: public sf::Drawable {
         constexpr static int MAX_ACTORS = 64;
 
         Asset<Tileset> const &tileset;
-        sf::Vector2i const tileSize;
+        sf::Vector2u const chunkSize;
+        sf::Vector2u const tileSize;
 
         /**
          * Default constructor which creates an empty stage.
          * @param bg        is the colour to draw behind the map.
          * @param tileset   is the tileset to draw the map with.
-         * @param layers    is the number of layers in each chunk.
          * @param chunkSize is the width and breadth of each chunk.
          * @param tileSize  is the width and height of each tile as they
          *                  are spaced in the map (the pictures can be bigger
@@ -34,9 +36,8 @@ class WalkStage: public sf::Drawable {
         WalkStage(
             sf::Color bg,
             Asset<Tileset> const &tileset,
-            int layers,
             sf::Vector2u chunkSize,
-            sf::Vector2i tileSize
+            sf::Vector2u tileSize
         );
 
         /**
