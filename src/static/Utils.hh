@@ -41,7 +41,7 @@ namespace Utils {
      * @param max    is the size of the buffer.
      * @return int the length of the trimmed version.
      */
-    int trimToBuffer(char const &string, char &buffer, int max)
+    int trimToBuffer(char const &string, char &buffer, int max);
 
     /**
      * Finds the end of the word that is occurring at the given offset.

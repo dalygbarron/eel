@@ -65,24 +65,6 @@ TEST_CASE("random", "[utils][maths]") {
     }
 }
 
-TEST_CASE("parseInt", "[utils]") {
-    // Test normal numbers.
-    REQUIRE(Utils::parseInt("12") == 12);
-    REQUIRE(Utils::parseInt("1") == 1);
-    REQUIRE(Utils::parseInt("-123") == -123);
-    REQUIRE(Utils::parseInt("100!!!!! hell yeah!") == 100);
-    // Test hexadecimal and octal forms.
-    REQUIRE(Utils::parseInt("0x14") == 20);
-    REQUIRE(Utils::parseInt("0xBEEF") == 48879);
-    REQUIRE(Utils::parseInt("-0xBEEF") == -48879);
-    REQUIRE(Utils::parseInt("012") == 10);
-    REQUIRE(Utils::parseInt("-0101") == -65);
-    // Test invalids.
-    REQUIRE(Utils::parseInt("09") == 0);
-    REQUIRE(Utils::parseInt("Bongo") == 0);
-    REQUIRE(Utils::parseInt("") == 0);
-}
-
 TEST_CASE("parse base 64", "[utils]") {
     REQUIRE(Utils::parseBase64('A') == 0);
     REQUIRE(Utils::parseBase64('E') == 4);
@@ -99,7 +81,7 @@ TEST_CASE("parse base 64", "[utils]") {
 TEST_CASE("parse base64 empty string", "[utils]") {
     char const *input = "";
     unsigned char output[5];
-    int written = Utils::parseBase64String(input, output, 5);
+    int written = Utils::parseBase64String(*input, *output, 5);
     REQUIRE(written == 0);
     REQUIRE(output[0] == 0);
 }
@@ -110,7 +92,16 @@ TEST_CASE("parse base64 string", "[utils]") {
     char const *expected = "Tango is an idiot";
     int written = Utils::parseBase64String(input, output, 18);
     REQUIRE(written == 17);
-    for (int i = 0; i < 18; i++) REQUIRE(output[i] == expected[i]);
+    compareStrings(expected, output);
+}
+
+TEST_CASE("parse base 64 string has whitespace around it", "[utils]") {
+    char const *input = "    \nVGFuZ28gaXMgYW4gaWRpb3Q=\n   \n  \n";
+    unsigned char output[18];
+    char const *expected = "Tango is an idiot";
+    int written = Utils::parseBase64String(*input, *output, 18);
+    REQUIRE(written == 17);
+    compareStrings(expected, output);
 }
 
 TEST_CASE("parse base64 string max length is long", "[utils]") { 
@@ -120,7 +111,7 @@ TEST_CASE("parse base64 string max length is long", "[utils]") {
     char const *expected = "char const *input = \"VGFuZ28gaXYWg4gaWRpb3Q=\";";
     int written = Utils::parseBase64String(input, output, 200);
     REQUIRE(written == 46);
-    for (int i = 0; i < 47; i++) REQUIRE(output[i] == expected[i]);
+    compareStrings(expected, output);
 }
 
 TEST_CASE("parse base64 string max length is short", "[utils]") {
@@ -129,7 +120,7 @@ TEST_CASE("parse base64 string max length is short", "[utils]") {
     char const *expected = "Tango";
     int written = Utils::parseBase64String(input, output, 5);
     REQUIRE(written == 5);
-    for (int i = 0; i < 6; i++) REQUIRE(output[i] == expected[i]);
+    compareStrings(expected, output);
 }
 
 TEST_CASE("path token", "[utils][path]") {
@@ -168,30 +159,4 @@ TEST_CASE("getLetterboxView", "[utils][graphics][maths]") {
         sf::FloatRect(0.33333, 0, 0.33333, 1)
     );
 
-}
-
-TEST_CASE("fitQuad", "[utils][graphics]") {
-    sf::VertexArray vertices(sf::Quads, 10);
-    Utils::fitQuad(&vertices[0], sf::FloatRect());
-    // make sure the vertices are in the right places.
-    // TODO: this.
-    REQUIRE(false);
-}
-
-TEST_CASE("colourQuad", "[utils][graphics]") {
-    sf::VertexArray vertices(sf::Quads, 6);
-    Utils::colourQuad(&vertices[0], sf::Color::Red);
-    Utils::colourQuad(&vertices[2], sf::Color::Green);
-    // make sure the vertices have the right colours
-    REQUIRE(vertices[0].color == sf::Color::Red);
-    REQUIRE(vertices[1].color == sf::Color::Red);
-    REQUIRE(vertices[2].color == sf::Color::Green);
-    REQUIRE(vertices[3].color == sf::Color::Green);
-    REQUIRE(vertices[4].color == sf::Color::Green);
-    REQUIRE(vertices[5].color == sf::Color::Green);
-}
-
-TEST_CASE("makeBox") {
-    // TODO: this.
-    REQUIRE(false);
 }

@@ -27,7 +27,7 @@ int Utils::trimToBuffer(char const &string, char &buffer, int max) {
     while (Utils::isWhitespace(stringPointer[start + length])) length--;
     if (length > max - 1) length = max - 1;
     memcpy(&buffer, stringPointer + start, length);
-    stringPointer[start + length] = 0;
+    (&buffer)[length] = 0;
     return length;
 }
 
