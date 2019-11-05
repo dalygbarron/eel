@@ -19,6 +19,18 @@ int Utils::isWhitespace(char c) {
     return (c == ' ' || c == '\n' || c == '\t');
 }
 
+int Utils::trimToBuffer(char const &string, char &buffer, int max) {
+    char const *stringPointer = &string;
+    int start = 0;
+    while (Utils::isWhitespace(stringPointer[start])) start++;
+    int length = strlen(stringPointer + start) - 1;
+    while (Utils::isWhitespace(stringPointer[start + length])) length--;
+    if (length > max - 1) length = max - 1;
+    memcpy(&buffer, stringPointer + start, length);
+    stringPointer[start + length] = 0;
+    return length;
+}
+
 int Utils::endOfWord(char const &string) {
     char const *pointer = &string;
     if (!pointer[0]) return 0;
@@ -97,6 +109,7 @@ char &Utils::readFile(char const &file) {
     sf::FileInputStream input;
     if (!input.open(&file)) {
         spdlog::error("Can't open file '{}' for reading", &file);
+        // TODO: this is autistic and asking for a (small) leak.
         char *empty = new char[1];
         empty[0] = 0;
         return empty[0];

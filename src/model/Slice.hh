@@ -2,6 +2,7 @@
 #define SLICE_H
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 /**
  * Represents a two dimensional slice of tile map which also has an offset in
@@ -11,7 +12,7 @@ class Slice {
     public:
         int const height;
         sf::Vector2u const size;
-        unsigned char &data;
+        std::unique_ptr<unsigned char> data;
 
         /**
          * Creates the slice with all it's data pre set.

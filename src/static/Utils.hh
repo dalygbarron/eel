@@ -34,6 +34,16 @@ namespace Utils {
     int isWhitespace(char c);
 
     /**
+     * Makes a version of a string in a buffer that has no whitespace at the
+     * start and end.
+     * @param string is the string to move to the buffer.
+     * @param buffer is the place to write the trimmed version.
+     * @param max    is the size of the buffer.
+     * @return int the length of the trimmed version.
+     */
+    int trimToBuffer(char const &string, char &buffer, int max)
+
+    /**
      * Finds the end of the word that is occurring at the given offset.
      * @param string is the string to check.
      * @return the point at which the given word ends.
