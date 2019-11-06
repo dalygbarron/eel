@@ -42,18 +42,6 @@ void WalkStage::addSlice(sf::Vector2i pos, Slice const &slice) {
         slice.size.x,
         slice.size.y
     );
-    for (int i = 0; i < slice.size.y; i++) {
-        int offset = 0;
-        for (int x = 0; x < slice.size.x; x++) {
-            offset += sprintf(
-                lineBuffer + offset,
-                "%02x",
-                slice.data.get()[i * slice.size.x + x] & 0xff
-            );
-        }
-        lineBuffer[offset] = 0;
-        spdlog::debug(lineBuffer);
-    }
     if (this->chunks.count(pos) == 0) {
         this->chunks.emplace(pos, this->chunkSize);
     }

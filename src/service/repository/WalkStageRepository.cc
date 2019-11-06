@@ -67,12 +67,16 @@ WalkStage *WalkStageRepository::create(
                 spdlog::warn("Chunk has size but not content");
                 continue;
             }
-            Slice *slice = new Slice(height, size);
+            unsigned char buffer[size.x * size.y * 4];
             Utils::parseBase64String(
                 *text.get(),
-                *slice->data,
-                size.x * size.y
+                buffer[0],
+                size.x * size.y * 4
             );
+            Slice *slice = new Slice(height, size);
+            for (int i = 0; i < size.x * size.y; i++) {
+                slice->data[i] = buffer[i * 4];
+            }
             walkStage->addSlice(pos, *slice);
         }
     }

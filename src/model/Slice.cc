@@ -7,3 +7,7 @@ Slice::Slice(int height, sf::Vector2u size):
 {
     // bingo bongo.
 }
+
+Slice::~Slice() {
+    delete[] this->data;
+}
