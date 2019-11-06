@@ -32,6 +32,12 @@ TEST_CASE("real life bug when overwriting whole root", "[path]") {
 }
 
 TEST_CASE("path cannot overrun it's buffer", "[path]") {
-    // TODO: this.
-    REQUIRE(false);
+    char const *root = "sueufgygeewufgywefugaewhfuiefuiefihewuhfwefewfe/"
+        "haehiruiu/aerfhieahui/aerfihuref/bingo.txt";
+    char const *file = "bongobingo/image/ewfefefefefefwefewfewfes/sprites.png";
+    char const *expected = "sueufgygeewufgywefugaewhfuiefuiefihewuhfwefewfe/"
+        "haehiruiu/aerfhieahui/aerfihuref/bongobingo/image/"
+        "ewfefefefefefwefewfewfes/spri";
+    Path path(*root, *file);
+    compareStrings(expected, &path.get());
 }

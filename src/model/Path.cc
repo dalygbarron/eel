@@ -45,7 +45,7 @@ void Path::applyToken(char const *start, int length) {
     } else {
         // Shorten if it will overrun buffer.
         if (this->n + length >= Path::TEXT_BUFFER_SIZE) {
-            length -= this->n + length - Path::TEXT_BUFFER_SIZE;
+            length -= this->n + length - Path::TEXT_BUFFER_SIZE + 1;
         }
         // add token
         memcpy(this->buffer + this->n, start, length);
