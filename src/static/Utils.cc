@@ -25,7 +25,8 @@ int Utils::trimToBuffer(char const &string, char &buffer, int max) {
     while (Utils::isWhitespace(stringPointer[start])) start++;
     int length = strlen(stringPointer + start) - 1;
     while (Utils::isWhitespace(stringPointer[start + length])) length--;
-    if (length > max - 1) length = max - 1;
+    length++;
+    if (length > max) length = max;
     memcpy(&buffer, stringPointer + start, length);
     (&buffer)[length] = 0;
     return length;
@@ -165,13 +166,15 @@ unsigned int Utils::parseBase64(char c) {
 }
 
 int Utils::parseBase64String(char const &src, unsigned char &dst, int max) {
-    char const *srcPointer = &src;
+    int bufferSize = (int)ceil(max * 1.5);
+    char buffer[bufferSize];
+    int length = Utils::trimToBuffer(src, *buffer, bufferSize);
     unsigned char *dstPointer = &dst;
-    int length = strlen(srcPointer);
     if (length % 4 != 0) {
         spdlog::error(
-            "Base64 encoded string '{}' should be multiple of 4 in length",
-            srcPointer
+            "Base64 string '{}' should be multiple of 4 in length but is {}",
+            &src,
+            length
         );
         return 0;
     }
@@ -179,12 +182,12 @@ int Utils::parseBase64String(char const &src, unsigned char &dst, int max) {
     for (int i = 0; i < length; i += 4) {
         int pads = 0;
         for (int j = i; j < i + 4; j++) {
-            if (srcPointer[j] == '=') pads++;
+            if (buffer[j] == '=') pads++;
         }
-        unsigned int a = Utils::parseBase64(srcPointer[i]);
-        unsigned int b = Utils::parseBase64(srcPointer[i + 1]);
-        unsigned int c = Utils::parseBase64(srcPointer[i + 2]);
-        unsigned int d = Utils::parseBase64(srcPointer[i + 3]);
+        unsigned int a = Utils::parseBase64(buffer[i]);
+        unsigned int b = Utils::parseBase64(buffer[i + 1]);
+        unsigned int c = Utils::parseBase64(buffer[i + 2]);
+        unsigned int d = Utils::parseBase64(buffer[i + 3]);
         unsigned int value = a << 18 | b << 12 | c << 6 | d;
         int stop = write + 3 - pads;
         while (write < stop && write < max) {

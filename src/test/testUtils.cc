@@ -65,6 +65,33 @@ TEST_CASE("random", "[utils][maths]") {
     }
 }
 
+TEST_CASE("trim to buffer", "[utils]") {
+    char buffer[50];
+    char const *input = "   \n  \nhello you idiots :)\n    ";
+    char const *expected = "hello you idiots :)";
+    int length = Utils::trimToBuffer(*input, *buffer, 50);
+    REQUIRE(length == 19);
+    compareStrings(buffer, expected);
+}
+
+TEST_CASE("trim to buffer no whitespace", "[utils]") {
+    char buffer[50];
+    char const *input = "tango is   a cuck";
+    char const *expected = "tango is   a cuck";
+    int length = Utils::trimToBuffer(*input, *buffer, 50);
+    REQUIRE(length == 17);
+    compareStrings(buffer, expected);
+}
+
+TEST_CASE("trim to buffer not big enough", "[utils]") {
+    char buffer[25];
+    char const *input = "     123456789012345678901234567890     ";
+    char const *expected = "1234567890123456789012345";
+    int length = Utils::trimToBuffer(*input, *buffer, 25);
+    REQUIRE(length == 25);
+    compareStrings(buffer, expected);
+}
+
 TEST_CASE("parse base 64", "[utils]") {
     REQUIRE(Utils::parseBase64('A') == 0);
     REQUIRE(Utils::parseBase64('E') == 4);
@@ -87,12 +114,12 @@ TEST_CASE("parse base64 empty string", "[utils]") {
 }
 
 TEST_CASE("parse base64 string", "[utils]") {
-    char const *input = "VGFuZ28gaXMgYW4gaWRpb3Q=";
+    char const *input = " VGFuZ28gaXMgYW4gaWRpb3Q=   ";
     unsigned char output[18];
     char const *expected = "Tango is an idiot";
-    int written = Utils::parseBase64String(input, output, 18);
+    int written = Utils::parseBase64String(*input, *output, 18);
     REQUIRE(written == 17);
-    compareStrings(expected, output);
+    compareStringToUnsigned(expected, output, written);
 }
 
 TEST_CASE("parse base 64 string has whitespace around it", "[utils]") {
@@ -101,35 +128,36 @@ TEST_CASE("parse base 64 string has whitespace around it", "[utils]") {
     char const *expected = "Tango is an idiot";
     int written = Utils::parseBase64String(*input, *output, 18);
     REQUIRE(written == 17);
-    compareStrings(expected, output);
+    compareStringToUnsigned(expected, output, written);
 }
 
 TEST_CASE("parse base64 string max length is long", "[utils]") { 
     char const *input = "Y2hhciBjb25zdCAqaW5wdXQgPSAiVkdGdVoyOGdhWFlXZzRnYVdS"
         "cGIzUT0iOw==";
     unsigned char output[200];
-    char const *expected = "char const *input = \"VGFuZ28gaXYWg4gaWRpb3Q=\";";
-    int written = Utils::parseBase64String(input, output, 200);
+    char const *expected = "char const *input = \"VGFuZ28gaXYWg4gaWR"
+        "pb3Q=\";";
+    int written = Utils::parseBase64String(*input, *output, 200);
     REQUIRE(written == 46);
-    compareStrings(expected, output);
+    compareStringToUnsigned(expected, output, written);
 }
 
 TEST_CASE("parse base64 string max length is short", "[utils]") {
     char const *input = "VGFuZ28gaXMgYW4gaWRpb3Q=";
     unsigned char output[6];
     char const *expected = "Tango";
-    int written = Utils::parseBase64String(input, output, 5);
+    int written = Utils::parseBase64String(*input, *output, 5);
     REQUIRE(written == 5);
-    compareStrings(expected, output);
+    compareStringToUnsigned(expected, output, written);
 }
 
 TEST_CASE("path token", "[utils][path]") {
     char const *test = "~/Documents/github/eel/README.md";
-    REQUIRE(Utils::pathToken(test) == 1);
-    REQUIRE(Utils::pathToken(test + 1) == 10);
-    REQUIRE(Utils::pathToken(test + 11) == 7);
-    REQUIRE(Utils::pathToken(test + 18) == 4);
-    REQUIRE(Utils::pathToken(test + 22) == 10);
+    REQUIRE(Utils::pathToken(test[0]) == 1);
+    REQUIRE(Utils::pathToken(test[1]) == 10);
+    REQUIRE(Utils::pathToken(test[11]) == 7);
+    REQUIRE(Utils::pathToken(test[18]) == 4);
+    REQUIRE(Utils::pathToken(test[22]) == 10);
 }
 
 TEST_CASE("getLetterboxView", "[utils][graphics][maths]") {

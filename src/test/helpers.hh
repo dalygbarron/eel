@@ -27,4 +27,16 @@ void compareRects(sf::FloatRect a, sf::FloatRect b);
  */
 void compareStrings(char const *expected, char const *received);
 
+/**
+ * Compares a string to an array of unsigned bytes.
+ * @param expected is the expected string.
+ * @param received is the array of bytes that should contain the same string.
+ * @param length   is the length of the received array.
+ */
+void compareStringToUnsigned(
+    char const *expected,
+    unsigned char const *received,
+    int length
+);
+
 #endif

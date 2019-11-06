@@ -9,7 +9,7 @@ SERVICE = $(addprefix service/, Config Game Radio Status Engine)
 REPOSITORY = $(addprefix service/repository/, TextRepository TextureRepository TilesetRepository WalkStageRepository SoundRepository RatPackRepository)
 BUILDER = $(addprefix service/builder/, ControlBuilder)
 STATIC = $(addprefix static/, Utils xml/pugixml)
-TEST = testGeneral testBullet testMob testUtils testTextRepository testPugi testPath helpers catch
+TEST = testGeneral testBullet testMob testUtils testPugi testPath helpers catch
 
 OBJS = $(addprefix src/, $(addsuffix .o, $(CONTROL) $(MODEL) $(SCENE) $(SERVICE) $(STATIC) $(BUILDER) $(REPOSITORY)))
 TEST_OBJS = $(addprefix src/test/,$(addsuffix .o, $(TEST)))
