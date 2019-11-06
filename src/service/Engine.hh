@@ -23,6 +23,7 @@ class Engine {
         ControlBuilder const &controlBuilder;
         Radio &radio;
         Status &status;
+        PaneBuffer &paneBuffer;
 
         /**
          * Builds the engine and puts in all of it's dependencies in one swoop.
