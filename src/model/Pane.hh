@@ -30,6 +30,7 @@ class Pane {
         sf::Vertex *bottomRight;
         sf::Vertex *bottomLeft;
         sf::Vector2i position;
+        int dirty;
 }
 
 #endif
