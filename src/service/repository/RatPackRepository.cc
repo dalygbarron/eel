@@ -27,7 +27,7 @@ RatPack *RatPackRepository::create(char const &name, char const &key) const {
     for (pugi::xml_node rat = node.child("rat"); rat;
         rat = rat.next_sibling("rat")
     ) {
-        ratPack->addRat(*rat.attribute("name").value(), sf::IntRect(
+        ratPack->addRat(*rat.attribute("name").value(), sf::FloatRect(
             rat.attribute("x").as_int(),
             rat.attribute("y").as_int(),
             rat.attribute("w").as_int(),

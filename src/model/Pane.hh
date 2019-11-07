@@ -1,15 +1,45 @@
 #ifndef PANE_H
 #define PANE_H
 
+#include "model/RatPack.hh"
 #include <SFML/Graphics.hpp>
 
 /**
- * Represents four vertices and their transformation and shiet.
- * One day we could add scaling and rotating but it's not relevant to this
- * game so far so who cares.
+ * Represents four vertices and their transformation and shiet. It assumes the
+ * vertices are set whenever it is used so that is why the default constructor
+ * is private for friends only.
  */
 class Pane {
     public:
+        /**
+         * make a whole sprite hell yeah man. Also it makes it centred.
+         * TODO: I know this is not entirely relevant but you may be frightened
+         *       by the fact that all of these form methods take a string. well
+         *       don't be because what we are going to do is we are going to
+         *       have an animation object which gets the size from the rat pack
+         *       but then it does all the animationy shit straight on the
+         *       vertices in the pane hell yeah man.
+         * @param ratPack is the ratpack with which we will find the rat.
+         * @param rat     is the name of the rat in the pack we want.
+         */
+        void form(RatPack const &ratPack, char const &rat);
+
+        /**
+         * Builds a tile out of a tileset. sets the origin in the top left
+         * corner instead of the centre because the centre is dependant on the
+         * parameters of the map and so must be set there.
+         * @param ratPack    is the pack in which to find the tileset sprite.
+         * @param rat        is the name of the tileset inside the rat pack.
+         * @param dimensions is the dimensions of each tile in tileset terms.
+         * @param tile       is the number of the tile to create it to.
+         */
+        void formTile(
+            RatPack const &ratPack,
+            char const &rat,
+            sf::Vector2u dimensions,
+            int tile
+        );
+
         /**
          * Sets the pane's position. Each vertex will be positioned relatively
          * around the new pos as it was originally around the (0, 0) point.
@@ -24,6 +54,12 @@ class Pane {
         void addPosition(sf::Vector2f delta);
 
         /**
+         * Moves the pane's content without moving it's origin.
+         * @param delta is the amount in each axis to move the content.
+         */
+        void shift(sf::Vector2f delta);
+
+        /**
          * Get rid of this rubbish.
          */
         void hide();
@@ -31,6 +67,13 @@ class Pane {
     private:
         friend class PaneBuffer;
         friend class RatPack;
+
+        /**
+         * Default constructor is private because pane should always have
+         * vertices so it can only be created without vertices when we can
+         * trust that the creator will give them vertices.
+         */
+        Pane();
 
         sf::Vertex *vertices;
         sf::Vector2f position;
