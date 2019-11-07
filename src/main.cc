@@ -8,6 +8,7 @@
 #include "static/spdlog/rotating_file_sink.h"
 #include "service/Game.hh"
 #include "service/Config.hh"
+#include "service/PaneBuffer.hh"
 #include "service/repository/TextRepository.hh"
 #include "service/repository/TextureRepository.hh"
 #include "service/repository/TilesetRepository.hh"
@@ -98,6 +99,7 @@ int main(int argc, char **argv) {
         // Make services
         ControlBuilder controlBuilder(textureRepo, config);
         Radio radio(soundRepo);
+        PaneBuffer paneBuffer(Constant::MAX_PANES);
         Status status;
         // Create the engine and game objects.
         Engine engine(
@@ -111,7 +113,8 @@ int main(int argc, char **argv) {
             walkStageRepo,
             radio,
             status,
-            controlBuilder
+            controlBuilder,
+            paneBuffer
         );
         Game game(engine);
         // Make sure the engine version is compatible with the game.

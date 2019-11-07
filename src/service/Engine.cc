@@ -12,7 +12,8 @@ Engine::Engine(
     Repository<WalkStage> &walkStageRepo,
     Radio &radio,
     Status &status,
-    ControlBuilder const &controlBuilder
+    ControlBuilder const &controlBuilder,
+    PaneBuffer &paneBuffer
 ):
     root(&root),
     config(config),
@@ -24,7 +25,8 @@ Engine::Engine(
     walkStageRepo(walkStageRepo),
     radio(radio),
     status(status),
-    controlBuilder(controlBuilder)
+    controlBuilder(controlBuilder),
+    paneBuffer(paneBuffer)
 {
     // does nothing else atm.
 }

@@ -1,6 +1,9 @@
 #ifndef PANE_BUFFER_H
 #define PANE_BUFFER_H
 
+#include "model/Pane.hh"
+#include <SFML/Graphics.hpp>
+
 /**
  * Takes care of panes and renders them all with a big vertex buffer.
  */
@@ -32,18 +35,31 @@ class PaneBuffer {
         Pane *claim();
 
         /**
-         * Sorts the panes in the buffer so that they are rendered in order of
-         * being down the page (according to their origin point).
-         * Obviously that is a bit of a specific way to sort but that is the
-         * way I need, I can make it more general if and when needed (never).
+         * Render all of the panes with the given texture.
+         * @param target  is the render target to render to.
+         * @param texture is the texture to render with.
          */
-        void sort();
+        void render(
+            sf::RenderTarget &target,
+            sf::Texture const &texture
+        ) const;
 
     private:
         int top;
         sf::Vertex *vertices;
+        sf::VertexBuffer vertexBuffer;
         Pane *panes;
 
+        /**
+         * Sorts the panes in the buffer so that they are rendered in order of
+         * being down the page (according to their origin point).
+         * Obviously that is a bit of a specific way to sort but that is the
+         * way I need, I can make it more general if and when needed (never).
+         * @return the start and end of the dirty part of the data, with
+         *         x being the start and y being the end, unless they are equal
+         *         in which case there is nothing dirty and no need for update.
+         */
+        sf::Vector2u sort();
 };
 
 #endif

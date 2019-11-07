@@ -1,15 +1,19 @@
 #include "service/PaneBuffer.hh"
 
-PaneBuffer::PaneBuffer(int n): n(n) {
+PaneBuffer::PaneBuffer(int n):
+    n(n),
+    vertexBuffer(sf::PrimitiveType::Quads, sf::VertexBuffer::Usage::Dynamic)
+{
     this->top = 0;
     this->vertices = new sf::Vertex[n * 4];
     this->panes = new Pane[n];
     for (int i = 0; i < n; i++) {
-        this->panes[i].topLeft = this->vertices[i * 4];
-        this->panes[i].topRight = this->vertices[i * 4 + 1];
-        this->panes[i].bottomRight = this->vertices[i * 4 + 2];
-        this->panes[i].bottomLeft = this->vertices[i * 4 + 3];
+        for (int u = 0; u < 4; u++) {
+            this->vertices[i + u].color = sf::Color::White;
+        }
+        this->panes[i].vertices = this->vertices + i * 4;
     }
+    this->vertexBuffer.update(this->vertices);
 }
 
 PaneBuffer::~PaneBuffer() {
@@ -30,7 +34,15 @@ Pane *PaneBuffer::claim() {
     return 0;
 }
 
-void PaneBuffer::sort() {
-    // TODO: sort this shit.
+void PaneBuffer::render(
+    sf::RenderTarget &target,
+    sf::Texture const &texture
+) const {
+    sf::Texture::bind(&texture, sf::Texture::CoordinateType::Pixels);
+    target.draw(this->vertexBuffer);
+}
 
+sf::Vector2u PaneBuffer::sort() {
+    // TODO: sort this shit.
+    return sf::Vector2u(0, 0);
 }

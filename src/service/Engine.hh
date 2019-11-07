@@ -8,6 +8,7 @@
 #include "service/Config.hh"
 #include "service/Radio.hh"
 #include "service/Status.hh"
+#include "service/PaneBuffer.hh"
 #include "service/builder/ControlBuilder.hh"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -38,6 +39,7 @@ class Engine {
          * @param radio          is the audio controller.
          * @param status         is the game status.
          * @param controlBuilder is the control builder.
+         * @param paneBuffer     is the pane buffer for drawing quads.
          */
         Engine(
             char const &root,
@@ -50,7 +52,8 @@ class Engine {
             Repository<WalkStage> &walkStageRepo,
             Radio &radio,
             Status &status,
-            ControlBuilder const &controlBuilder
+            ControlBuilder const &controlBuilder,
+            PaneBuffer &paneBuffer
         );
 
         /**
