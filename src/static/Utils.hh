@@ -34,6 +34,13 @@ namespace Utils {
     int isWhitespace(char c);
 
     /**
+     * Tells if you if a given character is a file seperator.
+     * @param c is the character to check.
+     * @return true if the character is a file seperator and otherwise false.
+     */
+    int isSeperator(char c);
+
+    /**
      * Makes a version of a string in a buffer that has no whitespace at the
      * start and end.
      * @param string is the string to move to the buffer.

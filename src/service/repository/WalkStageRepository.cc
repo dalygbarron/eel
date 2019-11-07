@@ -75,7 +75,7 @@ WalkStage *WalkStageRepository::create(
             );
             Slice *slice = new Slice(height, size);
             for (int i = 0; i < size.x * size.y; i++) {
-                slice->data[i] = buffer[i * 4];
+                slice->data[i] = buffer[i * 4] - 1;
             }
             walkStage->addSlice(pos, *slice);
         }

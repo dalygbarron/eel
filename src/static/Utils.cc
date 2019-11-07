@@ -19,6 +19,10 @@ int Utils::isWhitespace(char c) {
     return (c == ' ' || c == '\n' || c == '\t');
 }
 
+int Utils::isSeperator(char c) {
+    return (c == '\\' || c == '/');
+}
+
 int Utils::trimToBuffer(char const &string, char &buffer, int max) {
     char const *stringPointer = &string;
     int start = 0;
@@ -57,7 +61,7 @@ int Utils::startOfNextWord(char const &string) {
 int Utils::pathToken(char const &start) {
     char const *pointer = &start;
     int i = 1;
-    while (pointer[i] && pointer[i] != '/') i++;
+    while (pointer[i] && !Utils::isSeperator(pointer[i])) i++;
     return i;
 }
 
