@@ -54,6 +54,15 @@ class WalkStage: public sf::Drawable {
          */
         void addSlice(sf::Vector2i pos, Slice const &slice);
 
+        /**
+         * Gives you all the slices in the given chunk.
+         * @param pos is the location of the chunk.
+         * @return a list of pointers to const slices. I know they are pointers
+         *         but you have a personal promise from me that they will not
+         *         be null.
+         */
+        std::vector<Slice const *> const &getSlices(sf::Vector2i pos) const;
+
     private:
         sf::Color bg;
         sf::RectangleShape shape;

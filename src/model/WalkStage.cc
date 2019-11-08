@@ -48,6 +48,10 @@ void WalkStage::addSlice(sf::Vector2i pos, Slice const &slice) {
     this->chunks.at(pos).addSlice(slice);
 }
 
+void WalkStage::attach(PaneBuffer &paneBuffer) const {
+
+}
+
 void WalkStage::draw(
     sf::RenderTarget &target,
     sf::RenderStates states

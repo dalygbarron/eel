@@ -9,6 +9,11 @@
  */
 class PaneBuffer {
     public:
+        static enum SortMode {
+            SORT_NONE,
+            SORT_Y
+        };
+        SortMode sortMode = SORT_NONE;
         int const n;
 
         /**
@@ -33,6 +38,12 @@ class PaneBuffer {
          *         case you get null.
          */
         Pane *claim();
+
+        /**
+         * Sorts the panes by whatever is the currently configured method. If
+         * you want it to sort less often then call this method less often.
+         */
+        void update();
 
         /**
          * Render all of the panes with the given texture.

@@ -61,7 +61,7 @@ void Engine::joinRatPack(
     sf::Texture const &rat
 ) const {
     RatPack &ratPack = this->ratPackRepo.snatch(pack);
-    sf::IntRect size = ratPack.getRat(name);
+    sf::FloatRect size = ratPack.getRat(name);
     sf::Vector2u givenSize = rat.getSize();
     ratPack.getTextureMutable().update(rat, size.left, size.top);
     if (givenSize.x != size.left || givenSize.y != size.top) {

@@ -19,19 +19,19 @@ void Pane::form(RatPack const &ratPack, char const &rat) {
         0 - shape.width / 2,
         shape.height / 2
     );
-    this->vertices[0].texCoord = sf::Vector2f(
+    this->vertices[0].texCoords = sf::Vector2f(
         shape.left,
         shape.top
     );
-    this->vertices[1].texCoord = sf::Vector2f(
+    this->vertices[1].texCoords = sf::Vector2f(
         shape.left + shape.width,
         shape.top
     );
-    this->vertices[2].texCoord = sf::Vector2f(
+    this->vertices[2].texCoords = sf::Vector2f(
         shape.left + shape.width,
         shape.top + shape.height
     );
-    this->vertices[3].texCoord = sf::Vector2f(
+    this->vertices[3].texCoords = sf::Vector2f(
         shape.left,
         shape.top + shape.height
     );
@@ -44,8 +44,7 @@ void Pane::formTile(
     int tile
 ) {
     this->position = sf::Vector2f(0, 0);
-    sf::IntRect shape = ratPack.getRat(rat);
-    sf::Vector2f half((float)shape.width / 2, (float)shape.height / 2);
+    sf::FloatRect shape = ratPack.getRat(rat);
     this->vertices[0].position = sf::Vector2f(
         0 - shape.width / 2,
         0 - shape.height / 2
@@ -62,19 +61,19 @@ void Pane::formTile(
         0 - shape.width / 2,
         shape.height / 2
     );
-    this->vertices[0].texCoord = sf::Vector2f(
+    this->vertices[0].texCoords = sf::Vector2f(
         shape.left,
         shape.top
     );
-    this->vertices[1].texCoord = sf::Vector2f(
+    this->vertices[1].texCoords = sf::Vector2f(
         shape.left + shape.width,
         shape.top
     );
-    this->vertices[2].texCoord = sf::Vector2f(
+    this->vertices[2].texCoords = sf::Vector2f(
         shape.left + shape.width,
         shape.top + shape.height
     );
-    this->vertices[3].texCoord = sf::Vector2f(
+    this->vertices[3].texCoords = sf::Vector2f(
         shape.left,
         shape.top + shape.height
     );

@@ -12,6 +12,9 @@ WalkScene::WalkScene(
         engine.config.getOption(*Config::OPTION_TILESET_SLOT),
         prototype.tileset.get().texture.get()
     );
+    engine.paneBuffer.sortMode = SORT_Y;
+    engine.paneBuffer.clear();
+    std::vector<Slice const *> &slices = this->stage.getSlices(sf::Vector2i(0, 0));
 }
 
 WalkScene::~WalkScene() {
