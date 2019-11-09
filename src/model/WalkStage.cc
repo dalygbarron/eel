@@ -50,6 +50,7 @@ void WalkStage::addSlice(sf::Vector2i pos, Slice const &slice) {
 
 void WalkStage::attach(PaneBuffer &paneBuffer) const {
 
+
 }
 
 void WalkStage::draw(

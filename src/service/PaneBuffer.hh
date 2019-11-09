@@ -9,7 +9,7 @@
  */
 class PaneBuffer {
     public:
-        static enum SortMode {
+        enum SortMode {
             SORT_NONE,
             SORT_Y
         };

@@ -63,6 +63,13 @@ class WalkStage: public sf::Drawable {
          */
         std::vector<Slice const *> const &getSlices(sf::Vector2i pos) const;
 
+        /**
+         * Makes this stage claim all the panes it needs in the pane buffer and
+         * link them to the mobs in the level.
+         * @param paneBuffer is the pane buffer that it is going to be using.
+         */
+        void attach(PaneBuffer &paneBuffer) const;
+
     private:
         sf::Color bg;
         sf::RectangleShape shape;
