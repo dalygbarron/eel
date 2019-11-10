@@ -14,11 +14,14 @@
  */
 class WalkStage: public sf::Drawable {
     public:
-        constexpr static int MAX_MOBS = 4096;
         constexpr static int MAX_TILES = 2944;
         constexpr static int MAX_BULLETS = 1024;
         constexpr static int MAX_PLACEMENTS = 64;
         constexpr static int MAX_ACTORS = 64;
+        static_assert(
+            MAX_TILES + MAX_BULLETS + MAX_PLACEMENTS + MAX_ACTORS <=
+                Constant::MAX_PANES
+        );
 
         Asset<Tileset> const &tileset;
         sf::Vector2u const chunkSize;
@@ -70,8 +73,39 @@ class WalkStage: public sf::Drawable {
          */
         void attach(PaneBuffer &paneBuffer) const;
 
+        /**
+         * Adds a tile to the stage.
+         * @param id is the id of the tile to add.
+         * @return the actual tile object or null if it couldn't be done.
+         */
+        Tile *addTile(unsigned char id);
+
+        /**
+         * Adds a bullet to the stage.
+         * @param proto is the prototype of the bullet.
+         * @return the bullet or null if it could not be done.
+         */
+        Bullet *addBullet(Cartridge const &proto);
+
+        /**
+         * Adds an actor to the stage.
+         * @param proto is the prototype of the bullet.
+         * @return the actor or null if it could not be done.
+         */
+        Actor *addActor(Persona const &proto);
+
+        /**
+         * Adds a placement to the stage.
+         * @param proto is the prototype of the placement.
+         * @return the placement or null if it could not be done.
+         */
+        Placement *addPlacement(Item const &proto);
+
     private:
-        
+        Tile tiles[WalkStage::MAX_TILES];
+        Bullet bullets[WalkStage::MAX_BULLETS];
+        Actor actors[WalkStage::MAX_ACTORS];
+        Placement placements[WalkStage::MAX_PLACEMENTS];
         sf::Color bg;
         sf::RectangleShape shape;
         std::unordered_map<

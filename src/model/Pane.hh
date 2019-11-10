@@ -25,22 +25,6 @@ class Pane {
         void form(RatPack const &ratPack, char const &rat);
 
         /**
-         * Builds a tile out of a tileset. sets the origin in the top left
-         * corner instead of the centre because the centre is dependant on the
-         * parameters of the map and so must be set there.
-         * @param ratPack    is the pack in which to find the tileset sprite.
-         * @param rat        is the name of the tileset inside the rat pack.
-         * @param dimensions is the dimensions of each tile in tileset terms.
-         * @param tile       is the number of the tile to create it to.
-         */
-        void formTile(
-            RatPack const &ratPack,
-            char const &rat,
-            sf::Vector2u dimensions,
-            int tile
-        );
-
-        /**
          * Sets the pane's position. Each vertex will be positioned relatively
          * around the new pos as it was originally around the (0, 0) point.
          * @param pos is the new position.
@@ -58,6 +42,14 @@ class Pane {
          * @param delta is the amount in each axis to move the content.
          */
         void shift(sf::Vector2f delta);
+
+        /**
+         * Sets the pane's vertices to the given rectangle without changing
+         * it's current position.
+         * @param shape is the shape it's vertices should now have.
+         * @param image is the texture mapping it should now have.
+         */
+        void set(sf::FloatRect shape, sf::FloatRect image);
 
         /**
          * Get rid of this rubbish.

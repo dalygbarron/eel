@@ -12,9 +12,8 @@ class Mob {
         int dirty = false;
         int alive = false;
         sf::Vector3f position;
-        int index = 0;
-
-    private:
+        float index = 0;
+        Pane *pane;
 };
 
 #endif

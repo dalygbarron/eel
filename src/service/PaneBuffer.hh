@@ -9,11 +9,6 @@
  */
 class PaneBuffer {
     public:
-        enum SortMode {
-            SORT_NONE,
-            SORT_Y
-        };
-        SortMode sortMode = SORT_NONE;
         int const n;
 
         /**

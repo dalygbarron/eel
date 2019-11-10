@@ -93,6 +93,25 @@ void Pane::shift(sf::Vector2f delta) {
     for (int i = 0; i < 4; i++) this->vertices[i].position += delta;
 }
 
+void Pane::set(sf::FloatRect shape, sf::FloatRect image) {
+    this->vertices[0].position = sf::Vector2f(
+        shape.left,
+        shape.top
+    );
+    this->vertices[1].position = sf::Vector2f(
+        shape.left + shape.width,
+        shape.top
+    );
+    this->vertices[2].position = sf::Vector2f(
+        shape.left + shape.width,
+        shape.top + shape.height
+    );
+    this->vertices[3].position = sf::Vector2f(
+        shape.left,
+        shape.top + shape.height
+    );
+}
+
 void Pane::hide() {
     for (int i = 0; i < 4; i++) {
         this->vertices[i].position = sf::Vector2f(-1, -1);

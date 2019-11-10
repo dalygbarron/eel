@@ -49,7 +49,38 @@ void WalkStage::addSlice(sf::Vector2i pos, Slice const &slice) {
 }
 
 void WalkStage::attach(PaneBuffer &paneBuffer) const {
+    for (int i = 0; i < WalkStage::MAX_TILES; i++) {
+        this->tiles[i].attach(paneBuffer.claim());
+    }
+    for (int i = 0; i < WalkStage::MAX_BULLETS; i++) {
+        this->bullets[i].attach(paneBuffer.claim());
+    }
+    for (int i = 0; i < WalkStage::MAX_ACTORS; i++) {
+        this->actors[i].attach(paneBuffer.claim());
+    }
+    for (int i = 0; i < WalkStage::MAX_PLACEMENTS; i++) {
+        this->placements[i].attach(paneBuffer.claim());
+    }
+}
 
+Tile *WalkStage::addTile(unsigned char id) {
+    // TODO: this implementation is shit, I just can't be bothered right now.
+    for (int i = 0; i < WalkStage::MAX_TILES; i++) {
+        if (!this->tiles[i].alive) {
+
+        }
+    }
+}
+
+Bullet *WalkStage::addBullet(Cartridge const &proto) {
+
+}
+
+Actor *WalkStage::addActor(Persona const &proto) {
+
+}
+
+Placement *WalkStage::addPlacement(Item const &proto) {
 
 }
 
