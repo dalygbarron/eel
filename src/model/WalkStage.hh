@@ -71,6 +71,7 @@ class WalkStage: public sf::Drawable {
         void attach(PaneBuffer &paneBuffer) const;
 
     private:
+        
         sf::Color bg;
         sf::RectangleShape shape;
         std::unordered_map<

@@ -10,9 +10,9 @@
  * a different scene.
  */
 class Tile: public Mob {
-public:
-    unsigned char value;
-    char const *effect;
+    public:
+        unsigned char value;
+        char const *effect;
 };
 
 #endif
