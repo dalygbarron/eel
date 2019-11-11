@@ -97,8 +97,9 @@ class Engine {
          * @param pack    is the key to the ratpack to edit.
          * @param name    is the name of the rat in the pack to draw over.
          * @param texture is the texture to draw over it with.
+         * @return the rat that was filled if there is one.
          */
-        void joinRatPack(
+        sf::FloatRect joinRatPack(
             char const &pack,
             char const &name,
             sf::Texture const &rat

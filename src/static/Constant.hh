@@ -11,6 +11,7 @@ namespace Constant {
     constexpr static int const VERSION_MINOR = 1;
     constexpr static int const VERSION_REVISION = 0;
     // Engine constant values.
+    constexpr static float const VIEW_RATIO = 1 / 2;
     constexpr static float const FPS_WARN = 55;
     constexpr static float const PI = 3.14159;
     constexpr static int const FILENAME_BUFFER_SIZE = 128;

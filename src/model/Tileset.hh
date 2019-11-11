@@ -28,6 +28,12 @@ class Tileset {
             sf::Vector2u tileSize,
             Asset<sf::Texture> const &texture
         );
+
+        /**
+         * Fits a pane to have a tile placed on it right.
+         * @param id          is the id of the tile to fit.
+         */
+        void fitPane(int id)
 };
 
 #endif

@@ -55,13 +55,17 @@ Repository<WalkStage> const &Engine::getWalkStageRepository() const {
     return this->walkStageRepo;
 }
 
-void Engine::joinRatPack(
+sf::FloatRect Engine::joinRatPack(
     char const &pack,
     char const &name,
     sf::Texture const &rat
 ) const {
     RatPack &ratPack = this->ratPackRepo.snatch(pack);
     sf::FloatRect size = ratPack.getRat(name);
+    if (size.width == 0 || size.height == 0) {
+        spdlog::error("Invalid rat name '{}' aborting join", &name);
+        return size;
+    }
     sf::Vector2u givenSize = rat.getSize();
     ratPack.getTextureMutable().update(rat, size.left, size.top);
     if (givenSize.x != size.left || givenSize.y != size.top) {
@@ -71,4 +75,5 @@ void Engine::joinRatPack(
             &name
         );
     }
+    return size;
 }

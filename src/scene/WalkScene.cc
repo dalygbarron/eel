@@ -7,11 +7,14 @@ WalkScene::WalkScene(
     Scene(engine),
     stage(prototype)
 {
-    engine.joinRatPack(
+    sf::FloatRect offset = engine.joinRatPack(
         engine.config.getOption(*Config::OPTION_SPRITESHEET),
         engine.config.getOption(*Config::OPTION_TILESET_SLOT),
         prototype.tileset.get().texture.get()
     );
+    if (offset.left > 0 || offset.top > 0) {
+        spdlog::warn("Offset of tileset in spritesheet not zero");
+    }
     engine.paneBuffer.sortMode = SORT_Y;
     engine.paneBuffer.clear();
     std::vector<Slice const *> &slices = this->stage.getSlices(sf::Vector2i(0, 0));

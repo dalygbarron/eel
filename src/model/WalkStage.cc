@@ -68,6 +68,7 @@ Tile *WalkStage::addTile(unsigned char id) {
     for (int i = 0; i < WalkStage::MAX_TILES; i++) {
         if (!this->tiles[i].alive) {
 
+            
         }
     }
 }
