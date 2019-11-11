@@ -17,7 +17,9 @@ WalkScene::WalkScene(
     }
     engine.paneBuffer.sortMode = SORT_Y;
     engine.paneBuffer.clear();
-    std::vector<Slice const *> &slices = this->stage.getSlices(sf::Vector2i(0, 0));
+    std::vector<Slice const *> &slices = this->stage.getSlices(
+        sf::Vector2i(0, 0)
+    );
 }
 
 WalkScene::~WalkScene() {

@@ -11,6 +11,8 @@
  */
 class Pane {
     public:
+        float order;
+
         /**
          * make a whole sprite hell yeah man. Also it makes it centred.
          * TODO: I know this is not entirely relevant but you may be frightened

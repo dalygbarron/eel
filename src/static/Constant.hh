@@ -14,6 +14,8 @@ namespace Constant {
     constexpr static float const VIEW_RATIO = 1 / 2;
     constexpr static float const FPS_WARN = 55;
     constexpr static float const PI = 3.14159;
+    constexpr static float const SQUARE_ROOT_OF_TWO = 1.414213;
+    constexpr static float const SQUARE_ROOT_OF_SIX = 2.449489;
     constexpr static int const FILENAME_BUFFER_SIZE = 128;
     constexpr static int const SMALL_TEXT_BUFFER_SIZE = 256;
     constexpr static int const TRANSITION_BUFFER_SIZE = 1024;

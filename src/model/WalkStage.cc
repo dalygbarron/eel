@@ -63,12 +63,12 @@ void WalkStage::attach(PaneBuffer &paneBuffer) const {
     }
 }
 
-Tile *WalkStage::addTile(unsigned char id) {
+Tile *WalkStage::addTile(unsigned char id, sf::Vector3f pos) {
     // TODO: this implementation is shit, I just can't be bothered right now.
     for (int i = 0; i < WalkStage::MAX_TILES; i++) {
         if (!this->tiles[i].alive) {
-
-            
+            this->tiles[i].restore(this->tileset, id);
+            this->tiles[i].place(pos);
         }
     }
 }

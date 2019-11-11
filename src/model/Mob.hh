@@ -14,6 +14,13 @@ class Mob {
         sf::Vector3f position;
         float index = 0;
         Pane *pane;
+
+        /**
+         * Places the mob in 3d space and updates the z index on it's pane and
+         * it's location on the screen accordingly.
+         * @param pos is the new position.
+         */
+        void place(sf::Vector3f pos);
 };
 
 #endif
