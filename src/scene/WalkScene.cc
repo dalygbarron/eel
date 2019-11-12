@@ -20,6 +20,16 @@ WalkScene::WalkScene(
     std::vector<Slice const *> &slices = this->stage.getSlices(
         sf::Vector2i(0, 0)
     );
+    for (Slice const *slice: slices) {
+        int n = slice->size.x * slice->size.y;
+        for (int i = 0; i < n; i++) {
+            this->walkStage.addTile(slice->data[i], sf::Vector3f(
+                i % slice->size.x,
+                i / slice->size.x,
+                slice->height
+            ));
+        }
+    }
 }
 
 WalkScene::~WalkScene() {

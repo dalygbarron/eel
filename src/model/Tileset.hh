@@ -31,9 +31,9 @@ class Tileset {
 
         /**
          * Fits a pane to have a tile placed on it right.
-         * @param id          is the id of the tile to fit.
+         * @param id is the id of the tile to fit.
          */
-        void fitPane(int id)
+        void fitPane(int id);
 };
 
 #endif

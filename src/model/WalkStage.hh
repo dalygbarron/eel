@@ -5,7 +5,17 @@
 #include "model/Tileset.hh"
 #include "model/Chunk.hh"
 #include "model/Slice.hh"
+#include "model/Tile.hh"
+#include "model/Cartridge.hh"
+#include "model/Bullet.hh"
+#include "model/Persona.hh"
+#include "model/Actor.hh"
+#include "model/Item.hh"
+#include "model/Placement.hh"
+#include "model/Slice.hh"
+#include "service/PaneBuffer.hh"
 #include "static/Utils.hh"
+#include "static/Constant.hh"
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 
@@ -19,8 +29,8 @@ class WalkStage: public sf::Drawable {
         constexpr static int MAX_PLACEMENTS = 64;
         constexpr static int MAX_ACTORS = 64;
         static_assert(
-            MAX_TILES + MAX_BULLETS + MAX_PLACEMENTS + MAX_ACTORS <=
-                Constant::MAX_PANES
+            MAX_TILES + MAX_BULLETS + MAX_PLACEMENTS + MAX_ACTORS <= Constant::MAX_PANES,
+            "each mob needs a pane"
         );
 
         Asset<Tileset> const &tileset;
@@ -71,35 +81,39 @@ class WalkStage: public sf::Drawable {
          * link them to the mobs in the level.
          * @param paneBuffer is the pane buffer that it is going to be using.
          */
-        void attach(PaneBuffer &paneBuffer) const;
+        void attach(PaneBuffer &paneBuffer);
 
         /**
          * Adds a tile to the stage.
-         * @param id is the id of the tile to add.
+         * @param id  is the id of the tile to add.
+         * @param pos is the position to add them at.
          * @return the actual tile object or null if it couldn't be done.
          */
-        Tile *addTile(unsigned char id);
+        Tile *addTile(unsigned char id, sf::Vector3f pos);
 
         /**
          * Adds a bullet to the stage.
          * @param proto is the prototype of the bullet.
+         * @param pos is the position to add them at.
          * @return the bullet or null if it could not be done.
          */
-        Bullet *addBullet(Cartridge const &proto);
+        Bullet *addBullet(Cartridge const &proto, sf::Vector3f pos);
 
         /**
          * Adds an actor to the stage.
          * @param proto is the prototype of the bullet.
+         * @param pos   is the position to add them at.
          * @return the actor or null if it could not be done.
          */
-        Actor *addActor(Persona const &proto);
+        Actor *addActor(Persona const &proto, sf::Vector3f pos);
 
         /**
          * Adds a placement to the stage.
          * @param proto is the prototype of the placement.
+         * @param pos   is the position to add them at.
          * @return the placement or null if it could not be done.
          */
-        Placement *addPlacement(Item const &proto);
+        Placement *addPlacement(Item const &proto, sf::Vector3f pos);
 
     private:
         Tile tiles[WalkStage::MAX_TILES];

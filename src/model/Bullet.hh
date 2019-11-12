@@ -1,13 +1,14 @@
 #ifndef BULLET_H
 #define BULLET_H
 
+#include "model/Mob.hh"
 #include <SFML/System.hpp>
 
 
 /**
  * A bullet that flies around and shoots people.
  */
-class Bullet {
+class Bullet: public Mob {
 public:
     int alive;
     sf::Vector2f pos;

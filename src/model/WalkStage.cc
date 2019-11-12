@@ -48,7 +48,7 @@ void WalkStage::addSlice(sf::Vector2i pos, Slice const &slice) {
     this->chunks.at(pos).addSlice(slice);
 }
 
-void WalkStage::attach(PaneBuffer &paneBuffer) const {
+void WalkStage::attach(PaneBuffer &paneBuffer) {
     for (int i = 0; i < WalkStage::MAX_TILES; i++) {
         this->tiles[i].attach(paneBuffer.claim());
     }

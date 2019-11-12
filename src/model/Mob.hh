@@ -1,6 +1,7 @@
 #ifndef MOB_H
 #define MOB_H
 
+#include "model/Pane.hh"
 #include <SFML/Graphics.hpp>
 
 /**
@@ -14,6 +15,12 @@ class Mob {
         sf::Vector3f position;
         float index = 0;
         Pane *pane;
+
+        /**
+         * Sets the mob's pane to use.
+         * @param pane is the pane to use.
+         */
+        void attach(Pane *pane);
 
         /**
          * Places the mob in 3d space and updates the z index on it's pane and

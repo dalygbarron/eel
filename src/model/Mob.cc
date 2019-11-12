@@ -1,5 +1,9 @@
 #include "model/Mob.hh"
 
+void Mob::attach(Pane *pane) {
+    this->pane = pane;
+}
+
 void Mob::place(sf::Vector3f pos) {
     this->position = pos;
     if (pane) {
