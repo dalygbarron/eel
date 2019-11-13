@@ -15,15 +15,14 @@ WalkScene::WalkScene(
     if (offset.left > 0 || offset.top > 0) {
         spdlog::warn("Offset of tileset in spritesheet not zero");
     }
-    engine.paneBuffer.sortMode = SORT_Y;
     engine.paneBuffer.clear();
-    std::vector<Slice const *> &slices = this->stage.getSlices(
+    std::vector<Slice const *> const &slices = this->stage.getSlices(
         sf::Vector2i(0, 0)
     );
     for (Slice const *slice: slices) {
         int n = slice->size.x * slice->size.y;
         for (int i = 0; i < n; i++) {
-            this->walkStage.addTile(slice->data[i], sf::Vector3f(
+            this->stage.addTile(slice->data[i], sf::Vector3f(
                 i % slice->size.x,
                 i / slice->size.x,
                 slice->height

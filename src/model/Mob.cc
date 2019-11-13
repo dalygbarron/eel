@@ -1,4 +1,5 @@
 #include "model/Mob.hh"
+#include "static/Constant.hh"
 
 void Mob::attach(Pane *pane) {
     this->pane = pane;
@@ -7,11 +8,11 @@ void Mob::attach(Pane *pane) {
 void Mob::place(sf::Vector3f pos) {
     this->position = pos;
     if (pane) {
-        order = pos.y;
-        Vector2f move(
+        this->index = pos.y;
+        sf::Vector2f move(
             (pos.x - pos.z) / Constant::SQUARE_ROOT_OF_TWO,
-            (pos.x + 2 * pos.y + pos.z) / SQUARE_ROOT_OF_SIX
+            (pos.x + 2 * pos.y + pos.z) / Constant::SQUARE_ROOT_OF_SIX
         );
-        this->pane->move(move);
+        this->pane->setPosition(move);
     }
 }

@@ -16,7 +16,7 @@ Tileset::Tileset(
     // hell yeah brother.
 }
 
-void Tileset::fitPane(int id) {
+void Tileset::fitPane(int id) const {
     // TODO: do this, use view ratio to get the offset and assume tileset is
     // always at origin.
 }

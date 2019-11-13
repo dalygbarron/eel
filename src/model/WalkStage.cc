@@ -48,6 +48,12 @@ void WalkStage::addSlice(sf::Vector2i pos, Slice const &slice) {
     this->chunks.at(pos).addSlice(slice);
 }
 
+std::vector<Slice const *> const &WalkStage::getSlices(
+    sf::Vector2i pos
+) const {
+    return this->chunks.at(pos).getSlices();
+}
+
 void WalkStage::attach(PaneBuffer &paneBuffer) {
     for (int i = 0; i < WalkStage::MAX_TILES; i++) {
         this->tiles[i].attach(paneBuffer.claim());
@@ -67,21 +73,21 @@ Tile *WalkStage::addTile(unsigned char id, sf::Vector3f pos) {
     // TODO: this implementation is shit, I just can't be bothered right now.
     for (int i = 0; i < WalkStage::MAX_TILES; i++) {
         if (!this->tiles[i].alive) {
-            this->tiles[i].restore(this->tileset, id);
+            this->tiles[i].restore(this->tileset.get(), id);
             this->tiles[i].place(pos);
         }
     }
 }
 
-Bullet *WalkStage::addBullet(Cartridge const &proto) {
+Bullet *WalkStage::addBullet(Cartridge const &proto, sf::Vector3f pos) {
 
 }
 
-Actor *WalkStage::addActor(Persona const &proto) {
+Actor *WalkStage::addActor(Persona const &proto, sf::Vector3f pos) {
 
 }
 
-Placement *WalkStage::addPlacement(Item const &proto) {
+Placement *WalkStage::addPlacement(Item const &proto, sf::Vector3f pos) {
 
 }
 
