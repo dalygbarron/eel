@@ -1,7 +1,7 @@
 #ifndef TILESET_H
 #define TILESET_H
 
-#include "service/repository/TextureRepository.hh"
+#include "model/Pane.hh"
 #include "static/xml/pugixml.hpp"
 #include <SFML/Graphics.hpp>
 
@@ -11,7 +11,7 @@
 class Tileset {
     public:
         std::string const name;
-        sf::Vector2u const tileSize;
+        sf::Vector2f const tileSize;
         Asset<sf::Texture> const &texture;
 
         /**
@@ -31,9 +31,10 @@ class Tileset {
 
         /**
          * Fits a pane to have a tile placed on it right.
-         * @param id is the id of the tile to fit.
+         * @param pane is the pane to fit.
+         * @param id   is the id of the tile to fit.
          */
-        void fitPane(int id) const;
+        void fitPane(Pane &pane, int id) const;
 };
 
 #endif

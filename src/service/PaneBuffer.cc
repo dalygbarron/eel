@@ -9,11 +9,11 @@ PaneBuffer::PaneBuffer(int n):
     this->panes = new Pane[n];
     for (int i = 0; i < n; i++) {
         for (int u = 0; u < 4; u++) {
-            this->vertices[i + u].color = sf::Color::White;
+            this->vertices[i * 4 + u].color = sf::Color::White;
         }
         this->panes[i].vertices = this->vertices + i * 4;
     }
-    this->vertexBuffer.update(this->vertices);
+    this->vertexBuffer.create(n * 4);
 }
 
 PaneBuffer::~PaneBuffer() {
@@ -37,8 +37,9 @@ Pane *PaneBuffer::claim() {
 void PaneBuffer::render(
     sf::RenderTarget &target,
     sf::Texture const &texture
-) const {
+) {
     sf::Texture::bind(&texture, sf::Texture::CoordinateType::Pixels);
+    this->vertexBuffer.update(this->vertices);
     target.draw(this->vertexBuffer);
 }
 

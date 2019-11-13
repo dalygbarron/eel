@@ -5,6 +5,6 @@ void Tile::restore(Tileset const &tileset, int id) {
     // TODO: obviously tileset should know what the tile's height is.
     this->height = 1;
     if (this->pane) {
-        tileset.fitPane(id);
+        tileset.fitPane(*this->pane, id);
     }
 }

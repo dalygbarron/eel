@@ -16,17 +16,21 @@ WalkScene::WalkScene(
         spdlog::warn("Offset of tileset in spritesheet not zero");
     }
     engine.paneBuffer.clear();
+    this->stage.attach(engine.paneBuffer);
     std::vector<Slice const *> const &slices = this->stage.getSlices(
         sf::Vector2i(0, 0)
     );
     for (Slice const *slice: slices) {
+        spdlog::info("adding slice {} {} {}", slice->size.x, slice->size.y, slice->height);
         int n = slice->size.x * slice->size.y;
         for (int i = 0; i < n; i++) {
-            this->stage.addTile(slice->data[i], sf::Vector3f(
-                i % slice->size.x,
-                i / slice->size.x,
-                slice->height
-            ));
+            if (slice->data[i]) {
+                this->stage.addTile(slice->data[i], sf::Vector3f(
+                    i % slice->size.x,
+                    i / slice->size.x,
+                    slice->height
+                ));
+            }
         }
     }
 }
@@ -54,4 +58,8 @@ void WalkScene::draw(
     sf::RenderStates states
 ) const {
     target.draw(this->stage, states);
+    this->engine.paneBuffer.render(
+        target, 
+        this->engine.getRatPackRepository().get(this->engine.config.getOption(*Config::OPTION_SPRITESHEET)).get().getTexture()
+    );
 }

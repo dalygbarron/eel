@@ -48,7 +48,7 @@ class PaneBuffer {
         void render(
             sf::RenderTarget &target,
             sf::Texture const &texture
-        ) const;
+        );
 
     private:
         int top;

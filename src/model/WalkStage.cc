@@ -75,8 +75,10 @@ Tile *WalkStage::addTile(unsigned char id, sf::Vector3f pos) {
         if (!this->tiles[i].alive) {
             this->tiles[i].restore(this->tileset.get(), id);
             this->tiles[i].place(pos);
+            return this->tiles + i;
         }
     }
+    return 0;
 }
 
 Bullet *WalkStage::addBullet(Cartridge const &proto, sf::Vector3f pos) {

@@ -27,8 +27,8 @@ Tileset *TilesetRepository::create(
     );
     char const *name = node.attribute("name").value();
     sf::Vector2u tileSize;
-    tileSize.x = node.attribute("tileWidth").as_int();
-    tileSize.y = node.attribute("tileHeight").as_int();
+    tileSize.x = node.attribute("tilewidth").as_int();
+    tileSize.y = node.attribute("tileheight").as_int();
     pugi::xml_node imageNode = node.child("image");
     Path imagePath(key, *imageNode.attribute("source").value());
     return new Tileset(

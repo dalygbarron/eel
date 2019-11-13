@@ -61,6 +61,7 @@ class Pane {
     private:
         friend class PaneBuffer;
         friend class RatPack;
+        friend class Tileset;
 
         /**
          * Default constructor is private because pane should always have
