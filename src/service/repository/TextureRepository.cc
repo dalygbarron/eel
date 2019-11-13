@@ -12,7 +12,7 @@ sf::Texture *TextureRepository::create(
     spdlog::info("create texture: '{}'", &filename);
     sf::Texture *texture = new sf::Texture();
     if (texture->loadFromFile(&filename)) {
-        texture->setSmooth(true);
+        texture->setSmooth(false);
         texture->setRepeated(true);
         return texture;
     }

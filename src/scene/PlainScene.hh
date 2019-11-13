@@ -24,7 +24,7 @@ class PlainScene: public Scene {
     private:
         Script script;
 
-        virtual void logic(float delta) override;
+        virtual void logic(float delta, sf::View &view) override;
 };
 
 #endif

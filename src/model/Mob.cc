@@ -9,9 +9,10 @@ void Mob::place(sf::Vector3f pos) {
     this->position = pos;
     if (pane) {
         this->index = pos.y;
+        // TODO: 32 will simply have to be a constant :/
         sf::Vector2f move(
-            ((pos.x - pos.z) * 64) / Constant::SQUARE_ROOT_OF_TWO,
-            ((pos.x + 2 * pos.y + pos.z) * 32) / Constant::SQUARE_ROOT_OF_SIX
+            pos.x * 32 - pos.y * 32,
+            (pos.x * 32 + pos.y * 32) / 2 - pos.z * 32
         );
         this->pane->setPosition(move);
     }

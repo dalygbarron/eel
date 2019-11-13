@@ -57,7 +57,11 @@ unsigned char Game::handleEvents() {
 
 void Game::update() {
     unsigned char mouse = this->handleEvents();
-    this->scene->update(this->clock.getElapsedTime().asSeconds(), mouse);
+    this->scene->update(
+        this->clock.getElapsedTime().asSeconds(),
+        mouse,
+        this->view
+    );
     this->transition(*this->scene);
 }
 

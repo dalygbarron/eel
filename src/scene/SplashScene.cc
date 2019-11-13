@@ -23,7 +23,7 @@ void SplashScene::draw(
     target.draw(this->shape);
 }
 
-void SplashScene::logic(float delta) {
+void SplashScene::logic(float delta, sf::View &view) {
     this->timer += delta;
     float scale = Utils::random() / 20 + 1;
     this->shape.setScale(scale, scale);

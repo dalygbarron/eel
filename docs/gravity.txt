@@ -1,0 +1,18 @@
+GRAVITY
+===============================================================================
+
+There is no gravity because it makes collision detection more complicated. The
+way collision detection works is that it just checks where you are gonna hit
+into, and from time to time if you are flying it says stop flying.
+
+The implication of this is that we need a structure from which to query for
+collision detection information. This is fine as we need to build some such
+thing anyway, and we can store it in the walkstage or wherever to save having
+to recalculate it at a later date. I guess we will have to store it in the
+slice.
+
+That means in order to calculate collisions for each character we will need to
+find what chunk they are in, then for that chunk we will have to iterate over
+each slice and check the specific tile they may collide with. I do not think
+that is too heavy tbh. I think this is quite a good system. Also I will make it
+so that you can not walk off ledges.

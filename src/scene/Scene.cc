@@ -9,7 +9,7 @@ Scene::~Scene() {
     // Does nothing I think.
 }
 
-void Scene::update(float delta, unsigned char mouse) {
+void Scene::update(float delta, unsigned char mouse, sf::View &view) {
     if (this->gui) {
         this->result = this->gui->update(mouse);
         if (this->result >= 0) {
@@ -17,7 +17,7 @@ void Scene::update(float delta, unsigned char mouse) {
             this->gui = 0;
         }
     } else {
-        this->logic(delta);
+        this->logic(delta, view);
     }
 }
 
@@ -31,6 +31,5 @@ int Scene::getResult() const {
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     if (this->bg.a > 0) target.clear(this->bg);
-    //this->render(&target, states);
     if (this->gui) target.draw(*this->gui);
 }

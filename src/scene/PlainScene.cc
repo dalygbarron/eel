@@ -17,7 +17,7 @@ PlainScene::~PlainScene() {
     // does nothing atm.
 }
 
-void PlainScene::logic(float delta) {
+void PlainScene::logic(float delta, sf::View &view) {
     if (this->script.isAlive()) {
         this->script.tick(delta);
     } else if (!this->transition[0]) {

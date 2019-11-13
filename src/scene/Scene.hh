@@ -33,8 +33,10 @@ class Scene: public sf::Drawable {
          * @param delta is the time since the last frame.
          * @param mouse is a bunch of bits representing what mouse buttons were
          *              clicked last frame.
+         * @param view  is a reference to the game view which is used to move
+         *              the camera around and all that.
          */
-        void update(float delta, unsigned char mouse);
+        void update(float delta, unsigned char mouse, sf::View &view);
 
         /**
          * Adds a gui widget to this scene.
@@ -61,8 +63,9 @@ class Scene: public sf::Drawable {
         /**
          * This scene's actual logic implementation.
          * @param delta is the time since the last tick.
+         * @param view  is a reference to the letterboxed game view.
          */
-        virtual void logic(float delta) = 0;
+        virtual void logic(float delta, sf::View &view) = 0;
 };
 
 #endif

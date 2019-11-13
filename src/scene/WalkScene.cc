@@ -1,11 +1,13 @@
 #include "scene/WalkScene.hh"
+#include <SFML/Window.hpp>
 
 WalkScene::WalkScene(
     Engine const &engine,
     WalkStage const &prototype
 ):
     Scene(engine),
-    stage(prototype)
+    stage(prototype),
+    camera(0, 0)
 {
     sf::FloatRect offset = engine.joinRatPack(
         engine.config.getOption(*Config::OPTION_SPRITESHEET),
@@ -49,8 +51,21 @@ sf::Vector2i WalkScene::sortMobs() {
     return dirty;
 }
 
-void WalkScene::logic(float delta) {
+void WalkScene::logic(float delta, sf::View &view) {
     // TODO: update walkstage.
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+        this->camera.x -= delta * 400;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+        this->camera.x += delta * 400;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+        this->camera.y -= delta * 400;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+        this->camera.y += delta * 400;
+    }
+    view.setCenter(this->camera);
 }
 
 void WalkScene::draw(

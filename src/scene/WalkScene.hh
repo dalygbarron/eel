@@ -27,6 +27,7 @@ class WalkScene: public Scene {
         virtual ~WalkScene();
 
     private:
+        sf::Vector2f camera;
         WalkStage stage;
 
         /**
@@ -36,7 +37,7 @@ class WalkScene: public Scene {
          */
         sf::Vector2i sortMobs();
 
-        virtual void logic(float delta) override;
+        virtual void logic(float delta, sf::View &view) override;
 
         virtual void draw(
             sf::RenderTarget &target,

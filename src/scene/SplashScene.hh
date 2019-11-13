@@ -33,7 +33,7 @@ class SplashScene: public Scene {
             sf::RenderStates states
         ) const override;
 
-        virtual void logic(float delta) override;
+        virtual void logic(float delta, sf::View &view) override;
 };
 
 #endif
