@@ -22,7 +22,6 @@ void Tileset::fitPane(Pane &pane, int id) const {
         sf::Vector2u textureSize = actualTexture.getSize();
         int x = id % (int)(textureSize.x / this->tileSize.x);
         int y = id / (int)(textureSize.x / this->tileSize.x);
-        spdlog::info("Creating tile {} {} {}", id, x, y);
         pane.vertices[0].position = sf::Vector2f(0 - this->tileSize.x / 2, 0 - this->tileSize.y / 2);
         pane.vertices[1].position = sf::Vector2f(this->tileSize.x / 2, 0 - this->tileSize.y / 2);
         pane.vertices[2].position = sf::Vector2f(this->tileSize.x / 2, this->tileSize.y / 2);

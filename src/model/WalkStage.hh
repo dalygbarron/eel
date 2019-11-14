@@ -74,7 +74,7 @@ class WalkStage: public sf::Drawable {
          *         but you have a personal promise from me that they will not
          *         be null.
          */
-        std::vector<Slice const *> const &getSlices(sf::Vector2i pos) const;
+        std::vector<Slice const *> const *getSlices(sf::Vector2i pos) const;
 
         /**
          * Makes this stage claim all the panes it needs in the pane buffer and

@@ -48,10 +48,11 @@ void WalkStage::addSlice(sf::Vector2i pos, Slice const &slice) {
     this->chunks.at(pos).addSlice(slice);
 }
 
-std::vector<Slice const *> const &WalkStage::getSlices(
+std::vector<Slice const *> const *WalkStage::getSlices(
     sf::Vector2i pos
 ) const {
-    return this->chunks.at(pos).getSlices();
+    if (this->chunks.count(pos) == 0) return 0;
+    return &this->chunks.at(pos).getSlices();
 }
 
 void WalkStage::attach(PaneBuffer &paneBuffer) {

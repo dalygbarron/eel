@@ -19,19 +19,31 @@ WalkScene::WalkScene(
     }
     engine.paneBuffer.clear();
     this->stage.attach(engine.paneBuffer);
-    std::vector<Slice const *> const &slices = this->stage.getSlices(
-        sf::Vector2i(0, 0)
-    );
-    for (Slice const *slice: slices) {
-        spdlog::info("adding slice {} {} {}", slice->size.x, slice->size.y, slice->height);
-        int n = slice->size.x * slice->size.y;
-        for (int i = 0; i < n; i++) {
-            if (slice->data[i]) {
-                this->stage.addTile(slice->data[i], sf::Vector3f(
-                    i % slice->size.x,
-                    i / slice->size.x,
-                    slice->height
-                ));
+    for (int x = -10; x < 20; x++) {
+        for (int y = -10; y < 20; y++) {
+            std::vector<Slice const *> const *slices = this->stage.getSlices(
+                sf::Vector2i(x, y)
+            );
+            if (!slices) continue;
+            for (Slice const *slice: *slices) {
+                spdlog::info(
+                    "adding slice {} {} {} {} {}",
+                    slice->size.x,
+                    slice->size.y,
+                    slice->height,
+                    x,
+                    y
+                );
+                int n = slice->size.x * slice->size.y;
+                for (int i = 0; i < n; i++) {
+                    if (slice->data[i]) {
+                        this->stage.addTile(slice->data[i], sf::Vector3f(
+                            i % slice->size.x + x,
+                            i / slice->size.x + y,
+                            slice->height
+                        ));
+                    }
+                }
             }
         }
     }
