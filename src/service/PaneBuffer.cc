@@ -38,12 +38,13 @@ void PaneBuffer::render(
     sf::RenderTarget &target,
     sf::Texture const &texture
 ) {
+    sf::Vector2u dirty = this->sort();
+    this->vertexBuffer.update(this->vertices, dirty.y * 4 - dirty.x * 4, dirty.x * 4);
     sf::Texture::bind(&texture, sf::Texture::CoordinateType::Pixels);
-    this->vertexBuffer.update(this->vertices);
     target.draw(this->vertexBuffer);
 }
 
 sf::Vector2u PaneBuffer::sort() {
     // TODO: sort this shit.
-    return sf::Vector2u(0, 0);
+    return sf::Vector2u(0, this->n);
 }

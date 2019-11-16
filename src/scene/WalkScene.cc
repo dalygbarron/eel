@@ -19,6 +19,7 @@ WalkScene::WalkScene(
     }
     engine.paneBuffer.clear();
     this->stage.attach(engine.paneBuffer);
+    // Add some tiles.
     for (int x = -10; x < 20; x++) {
         for (int y = -10; y < 20; y++) {
             std::vector<Slice const *> const *slices = this->stage.getSlices(
@@ -47,37 +48,20 @@ WalkScene::WalkScene(
             }
         }
     }
+    // Add the player.
+    Persona proto;
+    this->player = this->stage.addActor(proto, sf::Vector3f(0, 0, 0));
 }
 
 WalkScene::~WalkScene() {
     // does nothing atm.
 }
 
-sf::Vector2i WalkScene::sortMobs() {
-    sf::Vector2i dirty(0, 0);
-    // TODO: implement a nice adaptive sort. Timsort sounds easy.
-    //       in the process of doing this sort we also need to check which mobs
-    //       have got their dirty flag set and set the dirty region to reflect
-    //       that too. Also, so we don't need to iterate over this shit twice,
-    //       we can also set their dirty flag back to false again.
-    return dirty;
-}
-
 void WalkScene::logic(float delta, sf::View &view) {
-    // TODO: update walkstage.
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        this->camera.x -= delta * 400;
+    this->stage.update(delta);
+    if (this->player) {
+        view.setCenter(Utils::screenPosition(this->player->position));
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-        this->camera.x += delta * 400;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        this->camera.y -= delta * 400;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-        this->camera.y += delta * 400;
-    }
-    view.setCenter(this->camera);
 }
 
 void WalkScene::draw(

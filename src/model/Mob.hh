@@ -13,7 +13,7 @@ class Mob {
         int dirty = false;
         int alive = false;
         sf::Vector3f position;
-        float index = 0;
+        sf::Vector3f velocity;
         Pane *pane;
 
         /**
@@ -28,6 +28,14 @@ class Mob {
          * @param pos is the new position.
          */
         void place(sf::Vector3f pos);
+
+        /**
+         * Uses the mob's current velocity to move it.
+         * @param delta is the time since last frame in seconds.
+         */
+        void update(float delta);
+
+
 };
 
 #endif

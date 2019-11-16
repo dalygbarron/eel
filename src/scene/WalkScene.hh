@@ -29,13 +29,7 @@ class WalkScene: public Scene {
     private:
         sf::Vector2f camera;
         WalkStage stage;
-
-        /**
-         * Sorts all the scene's mobs and gives the range that changed.
-         * @return a vector where x is the lowest index of a mob that changed,
-         *         and y is the highest index.
-         */
-        sf::Vector2i sortMobs();
+        Actor *player;
 
         virtual void logic(float delta, sf::View &view) override;
 

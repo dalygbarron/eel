@@ -11,7 +11,7 @@
  */
 class Pane {
     public:
-        float order;
+        float index;
 
         /**
          * make a whole sprite hell yeah man. Also it makes it centred.
@@ -62,6 +62,8 @@ class Pane {
         friend class PaneBuffer;
         friend class RatPack;
         friend class Tileset;
+        // TODO: this should not be here, just testing.
+        friend class Actor;
 
         /**
          * Default constructor is private because pane should always have

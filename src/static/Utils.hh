@@ -27,6 +27,14 @@ namespace Utils {
     float max(float a, float b);
 
     /**
+     * Converts a 3D position into a 2D screen position by the game's
+     * projection.
+     * @param pos is a 3D position to convert.
+     * @return an x and y position based on the given x y z position.
+     */
+    sf::Vector2f screenPosition(sf::Vector3f pos);
+
+    /**
      * Tells you if a given character is whitespace.
      * @param c is the character to check.
      * @return true if the character is whitespace and otherwise false.

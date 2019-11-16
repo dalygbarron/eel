@@ -15,6 +15,13 @@ float Utils::max(float a, float b) {
     else return b;
 }
 
+sf::Vector2f Utils::screenPosition(sf::Vector3f pos) {
+    return sf::Vector2f(
+        pos.x * Constant::TILE_SIZE - pos.y * Constant::TILE_SIZE,
+        (pos.x + pos.y) * Constant::TILE_SIZE / 2 - pos.z * Constant::TILE_SIZE
+    );
+}
+
 int Utils::isWhitespace(char c) {
     return (c == ' ' || c == '\n' || c == '\t');
 }

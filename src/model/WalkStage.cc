@@ -70,6 +70,18 @@ void WalkStage::attach(PaneBuffer &paneBuffer) {
     }
 }
 
+void WalkStage::update(float delta) {
+    for (int i = 0; i < WalkStage::MAX_ACTORS; i++) {
+        if (this->actors[i].alive) {
+            this->actors[i].update(delta);
+            this->actors[i].logic(delta);
+        }
+    }
+    for (int i = 0; i < WalkStage::MAX_BULLETS; i++) {
+        if (this->bullets[i].alive) this->bullets[i].update(delta);
+    }
+}
+
 Tile *WalkStage::addTile(unsigned char id, sf::Vector3f pos) {
     // TODO: this implementation is shit, I just can't be bothered right now.
     for (int i = 0; i < WalkStage::MAX_TILES; i++) {
@@ -87,7 +99,16 @@ Bullet *WalkStage::addBullet(Cartridge const &proto, sf::Vector3f pos) {
 }
 
 Actor *WalkStage::addActor(Persona const &proto, sf::Vector3f pos) {
-
+    // TODO: this implementation is shit, I just can't be bothered right now.
+    for (int i = 0; i < WalkStage::MAX_ACTORS; i++) {
+        if (!this->actors[i].alive) {
+            Persona p;
+            this->actors[i].restore(p);
+            this->actors[i].place(pos);
+            return this->actors + i;
+        }
+    }
+    return 0;
 }
 
 Placement *WalkStage::addPlacement(Item const &proto, sf::Vector3f pos) {

@@ -12,6 +12,7 @@ namespace Constant {
     constexpr static int const VERSION_REVISION = 0;
     // Engine constant values.
     constexpr static float const VIEW_RATIO = 1 / 2;
+    constexpr static int const TILE_SIZE = 32;
     constexpr static float const FPS_WARN = 55;
     constexpr static float const PI = 3.14159;
     constexpr static float const SQUARE_ROOT_OF_TWO = 1.414213;

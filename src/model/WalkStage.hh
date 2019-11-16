@@ -84,6 +84,12 @@ class WalkStage: public sf::Drawable {
         void attach(PaneBuffer &paneBuffer);
 
         /**
+         * Updates the stage.
+         * @param delta is the passage of time.
+         */
+        void update(float delta);
+
+        /**
          * Adds a tile to the stage.
          * @param id  is the id of the tile to add.
          * @param pos is the position to add them at.
