@@ -6,8 +6,7 @@
 
 /**
  * Contains the main loop of the game, handles events, and creates and manages
- * the game's scenes. Also keeps track of time.
- */
+ * the game's scenes. Also keeps track of time.  */
 class Game {
     public:
         /**
@@ -29,6 +28,8 @@ class Game {
         sf::RenderWindow window;
         sf::View view;
         sf::Clock clock;
+        sf::Clock fps;
+        int i;
 
         /**
          * Gets the game to handle events.

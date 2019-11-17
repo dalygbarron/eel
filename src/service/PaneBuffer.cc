@@ -1,4 +1,5 @@
 #include "service/PaneBuffer.hh"
+#include "static/spdlog/spdlog.h"
 
 PaneBuffer::PaneBuffer(int n):
     n(n),
@@ -6,18 +7,21 @@ PaneBuffer::PaneBuffer(int n):
 {
     this->top = 0;
     this->vertices = new sf::Vertex[n * 4];
-    this->panes = new Pane[n];
+    this->panes = new Pane*[n];
     for (int i = 0; i < n; i++) {
+        Pane *pane = new Pane();
         for (int u = 0; u < 4; u++) {
             this->vertices[i * 4 + u].color = sf::Color::White;
         }
-        this->panes[i].vertices = this->vertices + i * 4;
+        pane->vertices = this->vertices + i * 4;
+        this->panes[i] = pane;
     }
     this->vertexBuffer.create(n * 4);
 }
 
 PaneBuffer::~PaneBuffer() {
     delete[] this->vertices;
+    for (int i = 0; i < this->n; i++) delete this->panes[i];
     delete[] this->panes;
 }
 
@@ -27,9 +31,8 @@ void PaneBuffer::clear() {
 
 Pane *PaneBuffer::claim() {
     if (this->top < this->n) {
-        Pane *pane = this->panes + this->top;
         this->top++;
-        return pane;
+        return this->panes[this->top - 1];
     }
     return 0;
 }
@@ -45,6 +48,30 @@ void PaneBuffer::render(
 }
 
 sf::Vector2u PaneBuffer::sort() {
-    // TODO: sort this shit.
-    return sf::Vector2u(0, this->n);
+    int min = this->n;
+    int max = 0;
+    for (int i = 1; i < this->n; i++) {
+        if (this->panes[i]->dirty) {
+            if (i < min) min = i;
+            if (i > max) max = i;
+        }
+        for (int j = i; j > 0; j--) {
+            if (this->panes[j - 1]->index <= this->panes[j]->index) break;
+            sf::Vertex *tVP = this->panes[j]->vertices;
+            this->panes[j]->vertices = this->panes[j - 1]->vertices;
+            this->panes[j - 1]->vertices = tVP;
+            for (int v = 0; v < 4; v++) {
+                sf::Vertex tV = this->panes[j]->vertices[v];
+                this->panes[j]->vertices[v] = this->panes[j - 1]->vertices[v];
+                this->panes[j - 1]->vertices[v] = tV;
+            }
+            Pane *tP = this->panes[j];
+            this->panes[j] = this->panes[j - 1];
+            this->panes[j - 1] = tP;
+            if (j > max) max = j;
+            if ((j - 1) < min) min = j - 1;
+        }
+    }
+    if (max < min) max = min;
+    return sf::Vector2u(min, max - min);
 }

@@ -1,0 +1,14 @@
+PARALLELLISM
+===============================================================================
+
+If the game is a bit slow after I have done the rendering stuff pretty much
+optimally, then I have got a few ideas for making it faster with parallelism.
+
+First of all, we can make the panes be sorted and placed and rendered in
+parallel by having a message queue which receives all desires to edit panes and
+shit like that, and then the pane buffer thread goes:
+ - process all messages in queue
+ - sort
+ - render
+
+and it just does that over and over and over.

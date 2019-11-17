@@ -54,7 +54,7 @@ class PaneBuffer {
         int top;
         sf::Vertex *vertices;
         sf::VertexBuffer vertexBuffer;
-        Pane *panes;
+        Pane **panes;
 
         /**
          * Sorts the panes in the buffer so that they are rendered in order of

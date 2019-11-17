@@ -24,6 +24,8 @@ Game::Game(Engine const &engine):
         engine.config.dimensions.y
     ));
     this->scene = new SplashScene(engine);
+    this->fps.restart();
+    this->i = 0;
 }
 
 int Game::run() {
@@ -33,6 +35,12 @@ int Game::run() {
         this->clock.restart();
         if (!this->scene) break;
         this->render();
+        this->i++;
+        if (this->fps.getElapsedTime().asSeconds() > 4) {
+            spdlog::info("FPS: {}", this->i / 4);
+            this->fps.restart();
+            this->i = 0;
+        }
     }
     return 0;
 }
