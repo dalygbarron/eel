@@ -6,6 +6,7 @@ PaneBuffer::PaneBuffer(int n):
     vertexBuffer(sf::PrimitiveType::Quads, sf::VertexBuffer::Usage::Dynamic)
 {
     this->top = 0;
+    this->cycle = 0;
     this->vertices = new sf::Vertex[n * 4];
     this->panes = new Pane*[n];
     for (int i = 0; i < n; i++) {
@@ -41,8 +42,13 @@ void PaneBuffer::render(
     sf::RenderTarget &target,
     sf::Texture const &texture
 ) {
-    sf::Vector2u dirty = this->sort();
-    this->vertexBuffer.update(this->vertices, dirty.y * 4 - dirty.x * 4, dirty.x * 4);
+    if (!this->cycle) {
+        sf::Vector2u dirty = this->sort();
+        this->vertexBuffer.update(this->vertices, dirty.y * 4 - dirty.x * 4, dirty.x * 4);
+        this->cycle = 1;
+    } else {
+        this->cycle = 0;
+    }
     sf::Texture::bind(&texture, sf::Texture::CoordinateType::Pixels);
     target.draw(this->vertexBuffer);
 }

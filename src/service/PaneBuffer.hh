@@ -51,6 +51,7 @@ class PaneBuffer {
         );
 
     private:
+        int cycle;
         int top;
         sf::Vertex *vertices;
         sf::VertexBuffer vertexBuffer;
