@@ -9,7 +9,7 @@ void Mob::place(sf::Vector3f pos) {
     this->position = pos;
     if (pane) {
         sf::Vector2f screenPos = Utils::screenPosition(pos);
-        this->pane->index = screenPos.y;
+        this->pane->index = screenPos.y + pos.z;
         this->pane->setPosition(screenPos);
     }
 }
@@ -22,7 +22,7 @@ void Mob::update(float delta) {
     );
     if (pane) {
         sf::Vector2f screenPos = Utils::screenPosition(this->position);
-        this->pane->index = screenPos.y;
+        this->pane->index = screenPos.y + this->position.z;
         this->pane->setPosition(screenPos);
     }
 }

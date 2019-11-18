@@ -50,7 +50,7 @@ WalkScene::WalkScene(
     }
     // Add the player.
     Persona proto;
-    this->player = this->stage.addActor(proto, sf::Vector3f(0, 0, 0));
+    this->player = this->stage.addActor(proto, sf::Vector3f(0, 0, 3));
 }
 
 WalkScene::~WalkScene() {
