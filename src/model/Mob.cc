@@ -8,8 +8,9 @@ void Mob::attach(Pane *pane) {
 void Mob::place(sf::Vector3f pos) {
     this->position = pos;
     if (pane) {
-        this->pane->index = pos.y;
-        this->pane->setPosition(Utils::screenPosition(pos));
+        sf::Vector2f screenPos = Utils::screenPosition(pos);
+        this->pane->index = screenPos.y;
+        this->pane->setPosition(screenPos);
     }
 }
 
@@ -20,7 +21,8 @@ void Mob::update(float delta) {
         velocity.z * delta
     );
     if (pane) {
-        this->pane->index = this->position.y;
-        this->pane->setPosition(Utils::screenPosition(this->position));
+        sf::Vector2f screenPos = Utils::screenPosition(this->position);
+        this->pane->index = screenPos.y;
+        this->pane->setPosition(screenPos);
     }
 }

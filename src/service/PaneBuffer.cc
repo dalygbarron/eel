@@ -42,13 +42,8 @@ void PaneBuffer::render(
     sf::RenderTarget &target,
     sf::Texture const &texture
 ) {
-    if (!this->cycle) {
-        sf::Vector2u dirty = this->sort();
-        this->vertexBuffer.update(this->vertices, dirty.y * 4 - dirty.x * 4, dirty.x * 4);
-        this->cycle = 1;
-    } else {
-        this->cycle = 0;
-    }
+    sf::Vector2u dirty = this->sort();
+    this->vertexBuffer.update(this->vertices + dirty.x * 4, dirty.y * 4, dirty.x * 4);
     sf::Texture::bind(&texture, sf::Texture::CoordinateType::Pixels);
     target.draw(this->vertexBuffer);
 }
@@ -56,10 +51,15 @@ void PaneBuffer::render(
 sf::Vector2u PaneBuffer::sort() {
     int min = this->n;
     int max = 0;
+    if (this->panes[0]->dirty) {
+        min = 0;
+        this->panes[0]->dirty = false;
+    }
     for (int i = 1; i < this->n; i++) {
         if (this->panes[i]->dirty) {
             if (i < min) min = i;
             if (i > max) max = i;
+            this->panes[i]->dirty = 0;
         }
         for (int j = i; j > 0; j--) {
             if (this->panes[j - 1]->index <= this->panes[j]->index) break;
@@ -79,5 +79,6 @@ sf::Vector2u PaneBuffer::sort() {
         }
     }
     if (max < min) max = min;
-    return sf::Vector2u(min, max - min);
+    else if (max != min) spdlog::info("dirty {} {}", min, max - min);
+    return sf::Vector2u(min, max - min + 1);
 }

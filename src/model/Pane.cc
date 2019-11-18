@@ -35,6 +35,7 @@ void Pane::form(RatPack const &ratPack, char const &rat) {
         shape.left,
         shape.top + shape.height
     );
+    this->dirty = true;
 }
 
 void Pane::setPosition(sf::Vector2f pos) {
@@ -49,6 +50,7 @@ void Pane::addPosition(sf::Vector2f delta) {
 
 void Pane::shift(sf::Vector2f delta) {
     for (int i = 0; i < 4; i++) this->vertices[i].position += delta;
+    this->dirty = true;
 }
 
 void Pane::set(sf::FloatRect shape, sf::FloatRect image) {
@@ -68,6 +70,7 @@ void Pane::set(sf::FloatRect shape, sf::FloatRect image) {
         shape.left,
         shape.top + shape.height
     );
+    this->dirty = true;
 }
 
 void Pane::hide() {
